@@ -8,7 +8,7 @@ import Services from './services';
 
 // Custom style
 const container = {
-    padding: '110px 0 0 0',
+    padding: '90px 0 0 0',
     overflowY: 'scroll',
     width: '100%',
     height: '100%',

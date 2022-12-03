@@ -21,9 +21,7 @@ const Index = () => {
         <AppBar position= "fixed" sx= { appbar }>
             <Container maxWidth= "lg">
                 <Stack direction= "row" justifyContent= "space-between" alignItems= "center" spacing= { 1 }>
-                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } component= { Link } to= "/">
-                        <Avatar alt= "QCACAC" src= { Logo } sx= {{ width: 45, height: 45 }} />
-                    </Stack>
+                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } component= { Link } to= "/"><Avatar alt= "QCACAC" src= { Logo } sx= {{ width: 40, height: 40 }} /></Stack>
                     <Stack direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 4 }>
                         <Stack direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 } sx= { activeLink } component= { Link } to= "/">
                             <Typography sx= {{ display: { xs: 'block', sm: 'none' } }}><FontAwesomeIcon icon= { solid('house') } /></Typography>
