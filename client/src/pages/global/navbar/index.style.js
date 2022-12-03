@@ -1,6 +1,6 @@
 export const appbar = {
     backgroundFilter: 'blur(2px)',
-    backgroundColor: '#fffbf6eb',
+    backgroundColor: '#ffffffeb',
     boxShadow: 'none',
     padding: '10px 0',
     maxHeight: '120px',
