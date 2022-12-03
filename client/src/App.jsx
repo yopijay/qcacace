@@ -4,21 +4,20 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Layout
-// import SignIn from './pages/main/signin';
-// import Main from './pages/main';
+import Main from './pages';
 
 // Context Provider
 import { GlobalPrvdr } from 'core/context/GlobalCntxt.func';
-import { ProfilePrvdr } from 'core/context/ProfileCntxt.func';
+// import { ProfilePrvdr } from 'core/context/ProfileCntxt.func';
 
 const App = () => {
     const client = new QueryClient();
-    localStorage.setItem('nav', window.location.pathname === '/' ? 'home' : localStorage.getItem('nav'));
+    // localStorage.setItem('nav', window.location.pathname === '/' ? 'home' : localStorage.getItem('nav'));
     
     return (
         <Router>
             <QueryClientProvider client= { client }>
-                {/* <GlobalPrvdr><Routes><Route path= "*" element= { localStorage.getItem('token') ? <ProfilePrvdr><Main /></ProfilePrvdr> : <SignIn /> } /></Routes></GlobalPrvdr> */}
+                <GlobalPrvdr><Routes><Route path= "*" element= { <Main /> } /></Routes></GlobalPrvdr>
                 <ReactQueryDevtools initialIsOpen= { false } position= "bottom-right" />
             </QueryClientProvider>
         </Router>
