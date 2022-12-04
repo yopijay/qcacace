@@ -18,9 +18,8 @@ const subtitle = {
 
 const title = {
     color: '#d0915c',
-    fontFamily: 'Antry',
+    fontFamily: 'Tommy Bolder',
     lineHeight: 1,
-    letterSpacing: 1,
     transition: 'all 0.2s ease-in-out',
     fontSize: {
         xs: '300%',
@@ -44,14 +43,14 @@ const link = {
 const Index = () => {
     return (
         <Grid container direction= "row" justifyContent= "space-evenly" alignItems= "stretch" spacing= { 2 }>
-            <Grid item xs= { 12 } sm= { 4 }>
+            <Grid item xs= { 12 } sm= { 5 } md= { 4 }>
                 <Stack direction= "column" justifyContent= "center" alignItems= "stretch" sx= {{ height: '100%' }}>
                     <Typography sx= { subtitle }>Animals are our Friends</Typography>
                     <Typography sx= { title }>Give our Pets a Better Home</Typography>
                     <Box display= "flex" flexDirection= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ marginTop: '30px' }}><Typography component= { Link } to= "/pets" sx= { link }>Find your Pets</Typography></Box>
                 </Stack>
             </Grid>
-            <Grid item xs= { 12 } sm= { 8 }><img src= { Banner } alt= "banner" width= "100%" height= "auto" style= {{ width: '100%', height: 'auto', borderRadius: '10px' }} /></Grid>
+            <Grid item xs= { 12 } sm= { 7 } md= { 8 }><img src= { Banner } alt= "banner" style= {{ width: '100%', height: 'auto', borderRadius: '10px' }} /></Grid>
         </Grid>
     );
 }

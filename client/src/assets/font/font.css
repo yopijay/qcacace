@@ -44,3 +44,24 @@
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: 'Tommy';
+    src: url('Tommy.otf') format('opentype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tommy Bold';
+    src: url('Tommy-Bold.otf') format('opentype');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tommy Bolder';
+    src: url('Tommy-Bolder.otf') format('opentype');
+    font-style: normal;
+    font-display: swap;
+}
