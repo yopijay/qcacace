@@ -1,5 +1,5 @@
 // Libraries
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 
 // Layouts
 import Intro from './intro';
@@ -22,6 +22,7 @@ const Index = () => {
             <Intro />
             <About />
             <Pets />
+            <Services />
         </Stack>
     );
 }
