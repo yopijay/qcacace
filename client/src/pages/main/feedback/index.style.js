@@ -1,0 +1,60 @@
+export const subtitle = {
+    fontWeight: 'bold',
+    fontSize: {
+        xs: '120%',
+        md: '150%'
+    },
+    color: '#d0915c'
+}
+
+export const title = {
+    fontFamily: 'Tommy Bolder',
+    fontSize: {
+        xs: '170%',
+        md: '190%'
+    },
+    color: '#371615',
+}
+
+export const caption = {
+    textAlign: 'center',
+    fontSize: {
+        md: '100%'
+    },
+    color: '#b9b9b9'
+}
+
+export const cardquote = {
+    color: '#f2b036',
+    fontSize: {
+        xs: '180%',
+        sm: '200%',
+        md: '250%',
+    }
+}
+
+export const cardtitle = {
+    fontFamily: 'Tommy',
+    color: '#435278',
+    fontSize: {
+        xs: '115%',
+        sm: '120%',
+        md: '150%'
+    }
+}
+
+export const cardaddress = {
+    fontWeight: 'bold',
+    color: '#777d9c',
+    fontSize: {
+        xs: '85%',
+        sm: '90%',
+        md: '100%'
+    }
+}
+
+export const cardmessage = {
+    marginTop: '20px',
+    color: '#b9b9b9',
+    fontSize: '95%'
+}

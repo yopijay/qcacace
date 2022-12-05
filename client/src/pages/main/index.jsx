@@ -6,6 +6,7 @@ import Intro from './intro';
 import About from './about';
 import Pets from './pets';
 import Services from './services';
+import Feedback from './feedback';
 
 // Custom style
 const container = {
@@ -23,6 +24,7 @@ const Index = () => {
             <About />
             <Pets />
             <Services />
+            <Feedback />
         </Stack>
     );
 }
