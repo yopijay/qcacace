@@ -29,11 +29,15 @@ const Index = () => {
                         </Stack>
                         <Stack direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 } sx= { link } component= { Link } to= "/pets">
                             <Typography sx= {{ display: { xs: 'block', sm: 'none' } }}><FontAwesomeIcon icon= { solid('paw') } /></Typography>
-                            <Typography variant= "body2" sx= {{ display: { xs: 'none', sm: 'block' } }}>Pets</Typography>
+                            <Typography variant= "body2" sx= {{ display: { xs: 'none', sm: 'block' } }}>Pet Gallery</Typography>
                         </Stack>
                         <Stack direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 } sx= { link } component= { Link } to= "/services">
                             <Typography sx= {{ display: { xs: 'block', sm: 'none' } }}><FontAwesomeIcon icon= { solid('gear') } /></Typography>
                             <Typography variant= "body2" sx= {{ display: { xs: 'none', sm: 'block' } }}>Services</Typography>
+                        </Stack>
+                        <Stack direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 } sx= { link } component= { Link } to= "/services">
+                            <Typography sx= {{ display: { xs: 'block', sm: 'none' } }}><FontAwesomeIcon icon= { solid('gear') } /></Typography>
+                            <Typography variant= "body2" sx= {{ display: { xs: 'none', sm: 'block' } }}>FAQs</Typography>
                         </Stack>
                     </Stack>
                 </Stack>

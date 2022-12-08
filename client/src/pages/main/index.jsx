@@ -7,6 +7,7 @@ import About from './about';
 import Pets from './pets';
 import Services from './services';
 import Feedback from './feedback';
+import Footer from '../global/footer';
 
 // Custom style
 const container = {
@@ -25,6 +26,7 @@ const Index = () => {
             <Pets />
             <Services />
             <Feedback />
+            <Footer />
         </Stack>
     );
 }

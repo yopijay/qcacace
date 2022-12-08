@@ -1,5 +1,5 @@
 // Libraries
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 // Assets
@@ -42,16 +42,18 @@ const link = {
 
 const Index = () => {
     return (
-        <Grid container direction= "row" justifyContent= "space-evenly" alignItems= "stretch" spacing= { 2 }>
-            <Grid item xs= { 12 } sm= { 5 } md= { 4 }>
-                <Stack direction= "column" justifyContent= "center" alignItems= "stretch" sx= {{ height: '100%' }}>
-                    <Typography sx= { subtitle }>Animals are our Friends</Typography>
-                    <Typography sx= { title }>Give our Pets a Better Home</Typography>
-                    <Box display= "flex" flexDirection= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ marginTop: '30px' }}><Typography component= { Link } to= "/pets" sx= { link }>Find your Pets</Typography></Box>
-                </Stack>
+        <Container maxWidth= "lg">
+            <Grid container direction= "row" justifyContent= "space-evenly" alignItems= "stretch" spacing= { 2 }>
+                <Grid item xs= { 12 } sm= { 5 } md= { 4 }>
+                    <Stack direction= "column" justifyContent= "center" alignItems= "stretch" sx= {{ height: '100%' }}>
+                        <Typography sx= { subtitle }>Animals are our Friends</Typography>
+                        <Typography sx= { title }>Give our Pets a Better Home</Typography>
+                        <Box display= "flex" flexDirection= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ marginTop: '30px' }}><Typography component= { Link } to= "/pets" sx= { link }>Find your Pets</Typography></Box>
+                    </Stack>
+                </Grid>
+                <Grid item xs= { 12 } sm= { 7 } md= { 8 }><img src= { Banner } alt= "banner" style= {{ width: '100%', height: 'auto', borderRadius: '10px' }} /></Grid>
             </Grid>
-            <Grid item xs= { 12 } sm= { 7 } md= { 8 }><img src= { Banner } alt= "banner" style= {{ width: '100%', height: 'auto', borderRadius: '10px' }} /></Grid>
-        </Grid>
+        </Container>
     );
 }
 
