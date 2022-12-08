@@ -5,7 +5,7 @@ export const GlobalCntxt = createContext();
 
 export const GlobalPrvdr = (props) => {
     const { children, window } = props;
-    const [ open, setOpen ] = useState({ right: false });
+    const [ open, setOpen ] = useState({ left: false });
     const [ dark, setDark ] = useState(false);
     const [ isActive, setIsActive ] = useState(localStorage.getItem('nav'));
     
@@ -14,7 +14,7 @@ export const GlobalPrvdr = (props) => {
             return;
         }
         
-        setOpen({ right: open });
+        setOpen({ left: open });
     }
     
     const container = window !== undefined ? () => window().document.body : undefined;

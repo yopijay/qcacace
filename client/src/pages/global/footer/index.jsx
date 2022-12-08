@@ -2,6 +2,11 @@
 import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Box, Container, Grid, Stack, TextField, Typography } from "@mui/material";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+
+// Core
+import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
 
 // Assets
 import Logo from 'assets/images/logo.png';
@@ -10,6 +15,7 @@ import Logo from 'assets/images/logo.png';
 import { brand, brandinfo, brandlinks, title, links, info, newsletter } from "./index.style"; // Styles
 
 const Index = () => {
+    const { setIsActive } = useContext(GlobalCntxt);
     return (
         <Box sx= {{ backgroundColor: '#371313', padding: '70px 0' }}>
             <Container maxWidth= "lg">
@@ -29,10 +35,10 @@ const Index = () => {
                     </Grid>
                     <Grid item xs= { 12 } md= { 3 } sx= {{ padding: { xs: '15px 0', md: '0 20px'} }}>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
-                            <Typography sx= { links }>Home</Typography>
-                            <Typography sx= { links }>Pet Gallery</Typography>
-                            <Typography sx= { links }>Services</Typography>
-                            <Typography sx= { links }>FAQs</Typography>
+                            <Typography sx= { links } component= { Link } to= "/" onClick= { () => { localStorage.setItem('nav', 'home'); setIsActive('home'); } }>Home</Typography>
+                            <Typography sx= { links } component= { Link } to= "/pets" onClick= { () => { localStorage.setItem('nav', 'pets'); setIsActive('pets'); } }>Pet Gallery</Typography>
+                            <Typography sx= { links } component= { Link } to= "/services" onClick= { () => { localStorage.setItem('nav', 'services'); setIsActive('services'); } }>Services</Typography>
+                            <Typography sx= { links } component= { Link } to= "/faqs" onClick= { () => { localStorage.setItem('nav', 'faqs'); setIsActive('faqs'); } }>FAQs</Typography>
                         </Stack>
                     </Grid>
                     <Grid item xs= { 12 } md= { 3 } sx= {{ padding: { xs: '15px 0', md: '0 20px'} }}>

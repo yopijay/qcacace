@@ -2,8 +2,12 @@
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
+// Core
+import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
+
 // Assets
 import Banner from 'assets/images/banner.png';
+import { useContext } from "react";
 
 // Custom styles
 const subtitle = {
@@ -41,6 +45,8 @@ const link = {
 }
 
 const Index = () => {
+    const { setIsActive } = useContext(GlobalCntxt);
+
     return (
         <Container maxWidth= "lg">
             <Grid container direction= "row" justifyContent= "space-evenly" alignItems= "stretch" spacing= { 2 }>
@@ -48,7 +54,7 @@ const Index = () => {
                     <Stack direction= "column" justifyContent= "center" alignItems= "stretch" sx= {{ height: '100%' }}>
                         <Typography sx= { subtitle }>Animals are our Friends</Typography>
                         <Typography sx= { title }>Give our Pets a Better Home</Typography>
-                        <Box display= "flex" flexDirection= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ marginTop: '30px' }}><Typography component= { Link } to= "/pets" sx= { link }>Find your Pets</Typography></Box>
+                        <Box display= "flex" flexDirection= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ marginTop: '30px' }}><Typography component= { Link } to= "/pets" sx= { link } onClick= { () => { localStorage.setItem('nav', 'pets'); setIsActive('pets'); } }>Find your Pets</Typography></Box>
                     </Stack>
                 </Grid>
                 <Grid item xs= { 12 } sm= { 7 } md= { 8 }><img src= { Banner } alt= "banner" style= {{ width: '100%', height: 'auto', borderRadius: '10px' }} /></Grid>

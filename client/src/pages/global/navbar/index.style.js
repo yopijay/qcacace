@@ -21,19 +21,40 @@ export const mainLink = {
 }
 
 export const link = {
+    fontFamily: 'Tommy',
     textDecoration: 'none',
     color: '#212b36',
     transition: 'transform .2s',
     cursor: 'pointer',
-    textTransform: 'uppercase',
-    '&:hover': { transform: 'scale(1.1)' }
+    display: { xs: 'none', sm: 'block' },
+    '&:hover': { 
+        color: '#d0915c',
+        transform: 'scale(1.1)'
+    }
 }
 
 export const activeLink = {
+    fontFamily: 'Tommy',
     textDecoration: 'none',
-    color: '#212b36',
+    color: '#d0915c',
     transition: 'transform .2s',
     cursor: 'pointer',
-    textTransform: 'uppercase',
     transform: 'scale(1.1)'
+}
+
+export const burger = {
+    display: {
+        xs: 'flex',
+        md: 'none'
+    },
+    color: '#212b36',
+    border: 'solid 1px #212b36',
+    padding: '7px',
+    borderRadius: '6px',
+    transition: 'transform 0.2s',
+    '&:hover': {
+        color: '#d0915c',
+        backgroundColor: '#d0915c40',
+        border: 'solid 1px #d0915c'
+    }
 }

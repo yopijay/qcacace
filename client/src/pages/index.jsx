@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 
 // Layouts
 import Navbar from './global/navbar';
+import Sidebar from './global/sidebar';
 import Main from './main';
 
 // Custom styles
@@ -21,11 +22,13 @@ const Index = () => {
     return (
         <Box display= "flex">
             <Navbar />
-            <Box sx= { content }>
+            <Sidebar />
+            <Box sx= { content }> 
                 <Routes>
                     <Route exact path= "/*" element= { <Main /> } />
                     <Route exact path= "/pets/*" element= { "PETS" } />
                     <Route exact path= "/services/*" element= { "SERVICES" } />
+                    <Route exact path= "/faqs/*" element= { "FAQs" } />
                 </Routes>
             </Box>
         </Box>

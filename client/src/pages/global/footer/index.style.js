@@ -21,6 +21,7 @@ export const brandlinks = {
 }
 
 export const links = {
+    textDecoration: 'none',
     color: '#ececec',
     fontSize: '110%'
 }

@@ -5,7 +5,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Link } from "react-router-dom";
 
 // Constants
-import { petdesc, petfemale, petmale, petname, subtitle, title } from "./index.style"; // Styles
+import { petdesc, petfemale, petmale, subtitle, title } from "./index.style"; // Styles
 
 // Assets
 import Pet1 from 'assets/images/pets/pet1.png';
@@ -30,10 +30,9 @@ const Index = () => {
                                 <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { Pet1 } alt= "pet" width= "60%" height= "auto" /></Box>
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '0 20px' }}>
                                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                        <Typography sx= { petname }>Pet 1</Typography>
+                                        <Typography sx= { petdesc }>1 Year Old, 15KG</Typography>
                                         <Typography sx= { petmale }><FontAwesomeIcon icon= { solid('mars') } /></Typography>
                                     </Stack>
-                                    <Typography sx= { petdesc }>1 Year Old, 15KG</Typography>
                                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ margin: '10px 0 20px 0' }}>
                                         <Typography sx= {{ color: '#ffde88', fontWeight: 'bold', backgroundColor: '#ffde883b', padding: '2px 10px', borderRadius: '10px' }}># friendly</Typography>
                                         <Typography sx= {{ color: '#1aa6d1', fontWeight: 'bold', backgroundColor: '#1aa6d13b', padding: '2px 10px', borderRadius: '10px'  }}># smart</Typography>
@@ -48,10 +47,9 @@ const Index = () => {
                                 <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { Pet2 } alt= "pet" width= "60%" height= "auto" /></Box>
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '0 20px' }}>
                                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                        <Typography sx= { petname }>Pet 2</Typography>
+                                        <Typography sx= { petdesc }>10 Months, 10KG</Typography>
                                         <Typography sx= { petmale }><FontAwesomeIcon icon= { solid('mars') } /></Typography>
                                     </Stack>
-                                    <Typography sx= { petdesc }>10 Months, 10KG</Typography>
                                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ margin: '10px 0 20px 0' }}>
                                         <Typography sx= {{ color: '#ffde88', fontWeight: 'bold', backgroundColor: '#ffde883b', padding: '2px 10px', borderRadius: '10px' }}># kind</Typography>
                                         <Typography sx= {{ color: '#1aa6d1', fontWeight: 'bold', backgroundColor: '#1aa6d13b', padding: '2px 10px', borderRadius: '10px'  }}># smart</Typography>
@@ -66,10 +64,9 @@ const Index = () => {
                                 <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { Pet3 } alt= "pet" width= "60%" height= "auto" /></Box>
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '0 20px' }}>
                                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                        <Typography sx= { petname }>Pet 3</Typography>
+                                        <Typography sx= { petdesc }>7 Months, 6KG</Typography>
                                         <Typography sx= { petfemale }><FontAwesomeIcon icon= { solid('venus') } /></Typography>
                                     </Stack>
-                                    <Typography sx= { petdesc }>7 Months, 6KG</Typography>
                                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ margin: '10px 0 20px 0' }}>
                                         <Typography sx= {{ color: '#ffde88', fontWeight: 'bold', backgroundColor: '#ffde883b', padding: '2px 10px', borderRadius: '10px' }}># kind</Typography>
                                     </Stack>
