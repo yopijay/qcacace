@@ -36,7 +36,7 @@ const Index = () => {
                             <Typography variant= "body2" sx= {{ display: { xs: 'none', sm: 'block' } }}>Services</Typography>
                         </Stack>
                         <Stack direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 } sx= { link } component= { Link } to= "/services">
-                            <Typography sx= {{ display: { xs: 'block', sm: 'none' } }}><FontAwesomeIcon icon= { solid('gear') } /></Typography>
+                            <Typography sx= {{ display: { xs: 'block', sm: 'none' } }}><FontAwesomeIcon icon= { solid('circle-question') } /></Typography>
                             <Typography variant= "body2" sx= {{ display: { xs: 'none', sm: 'block' } }}>FAQs</Typography>
                         </Stack>
                     </Stack>
