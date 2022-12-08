@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
 
 // Assets
-import Banner from 'assets/images/banner.png';
+import Banner from 'assets/images/qcacace-banner.jpg';
 import { useContext } from "react";
 
 // Custom styles

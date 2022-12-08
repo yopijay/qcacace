@@ -7,7 +7,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { caption, cardaddress, cardmessage, cardquote, cardtitle, subtitle, title } from "./index.style"; // Styles
 
 // Assets
-import Feedback1 from 'assets/images/feedback/feedback1.png';
+import Feedback1 from 'assets/images/feedback/feedback1.jpg';
 
 const Index = () => {
     return (

@@ -1,9 +1,9 @@
 // Assets
-import Vet from 'assets/images/hygiene.png';
-import Care from 'assets/images/care.png';
-import Pound from 'assets/images/pound.png';
-import Hygiene from 'assets/images/hygiene.png';
-import Adopt from 'assets/images/care.png';
+import Vet from 'assets/images/partners/vet.jpg';
+import Care from 'assets/images/partners/care.jpg';
+import Pound from 'assets/images/partners/pound.jpg';
+import Hygiene from 'assets/images/partners/hygiene.jpg';
+import Adopt from 'assets/images/partners/adoption.jpg';
 
 export const About = () => (
     [
