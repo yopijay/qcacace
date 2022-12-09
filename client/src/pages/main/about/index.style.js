@@ -4,7 +4,7 @@ export const subtitle = {
         xs: '120%',
         md: '150%'
     },
-    color: '#d0915c'
+    color: '#728ca1'
 }
 
 export const title = {
@@ -13,7 +13,7 @@ export const title = {
         xs: '170%',
         md: '190%'
     },
-    color: '#371615',
+    color: '#204c6f',
 }
 
 export const itemTitle = {
@@ -22,7 +22,7 @@ export const itemTitle = {
         xs: '105%',
         md: '120%'
     },
-    color: '#7e7b44'
+    color: '#64a93e'
 }
 
 export const itemText = {
@@ -36,7 +36,7 @@ export const itemText = {
 export const itemLink = {
     marginTop: '20px',
     textDecoration: 'none',
-    backgroundColor: '#371615',
+    backgroundColor: '#204c6f',
     color: '#f5f6fa',
     padding: {
         xs: '6px 10px',

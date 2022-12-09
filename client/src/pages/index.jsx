@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Navbar from './global/navbar';
 import Sidebar from './global/sidebar';
 import Main from './main';
+import Pets from './pets';
 
 // Custom styles
 const content = {
@@ -19,8 +20,7 @@ const content = {
 }
 
 const Index = () => {
-    localStorage.setItem('nav', 'home');
-    
+
     return (
         <Box display= "flex">
             <Navbar />
@@ -28,7 +28,7 @@ const Index = () => {
             <Box sx= { content }> 
                 <Routes>
                     <Route exact path= "/*" element= { <Main /> } />
-                    <Route exact path= "/pets/*" element= { "PETS" } />
+                    <Route exact path= "/pets/*" element= { <Pets /> } />
                     <Route exact path= "/services/*" element= { "SERVICES" } />
                     <Route exact path= "/faqs/*" element= { "FAQs" } />
                 </Routes>

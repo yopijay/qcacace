@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../.."
+		},
+		{
+			"path": "../../../qcacace-admin"
 		}
 	],
 	"settings": {}

@@ -4,7 +4,7 @@ export const subtitle = {
         xs: '120%',
         md: '150%'
     },
-    color: '#d0915c'
+    color: '#728ca1'
 }
 
 export const title = {
@@ -13,7 +13,7 @@ export const title = {
         xs: '170%',
         md: '190%'
     },
-    color: '#371615',
+    color: '#204c6f',
 }
 
 export const caption = {
@@ -25,7 +25,7 @@ export const caption = {
 }
 
 export const cardquote = {
-    color: '#f2b036',
+    color: '#728ca1',
     fontSize: {
         xs: '180%',
         sm: '200%',

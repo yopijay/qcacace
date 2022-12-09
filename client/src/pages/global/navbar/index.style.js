@@ -28,7 +28,7 @@ export const link = {
     cursor: 'pointer',
     display: { xs: 'none', sm: 'block' },
     '&:hover': { 
-        color: '#d0915c',
+        color: '#728ca1',
         transform: 'scale(1.1)'
     }
 }
@@ -36,7 +36,7 @@ export const link = {
 export const activeLink = {
     fontFamily: 'Tommy',
     textDecoration: 'none',
-    color: '#d0915c',
+    color: '#728ca1',
     transition: 'transform .2s',
     cursor: 'pointer',
     transform: 'scale(1.1)'

@@ -11,7 +11,7 @@ import { useContext } from "react";
 
 // Custom styles
 const subtitle = {
-    color: '#7e7b44',
+    color: '#64a93e',
     transition: 'all 0.2s ease-in-out',
     fontSize: {
         xs: '135%',
@@ -21,7 +21,7 @@ const subtitle = {
 }
 
 const title = {
-    color: '#d0915c',
+    color: '#728ca1',
     fontFamily: 'Tommy Bolder',
     lineHeight: 1,
     transition: 'all 0.2s ease-in-out',
@@ -33,7 +33,7 @@ const title = {
 
 const link = {
     textDecoration: 'none',
-    backgroundColor: '#371313',
+    backgroundColor: '#204c6f',
     color: '#f5f6fa',
     padding: {
         xs: '6px 17px',

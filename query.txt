@@ -1,0 +1,162 @@
+CREATE TABLE tbl_users(
+    id SERIAL PRIMARY KEY,
+    series_no VARCHAR(50),
+    email VARCHAR(100),
+    password VARCHAR(250),
+    email_verification_code VARCHAR(10),
+    email_verified INT,
+    user_level VARCHAR(15),
+    status INT,
+    created_by INT,
+    updated_by INt,
+    deleted_by INT,
+    date_created TIMESTAMPTZ,
+    date_updated TIMESTAMPTZ,
+    date_deleted TIMESTAMPTZ,
+
+    FOREIGN KEY (created_by) REFERENCES tbl_users(id),
+    FOREIGN KEY (updated_by) REFERENCES tbl_users(id),
+    FOREIGN KEY (deleted_by) REFERENCES tbl_users(id)
+);
+
+CREATE TABLE tbl_users_info(
+    id SERIAL PRIMARY KEY,
+    user_id INT,
+    fname VARCHAR(50),
+    mname VARCHAR(50),
+    lname VARCHAR(50),
+    suffix VARCHAR(10),
+    gender VARCHAR(10),
+    address VARCHAR(1000),
+
+    FOREIGN KEY (user_id) REFERENCES tbl_users(id)
+);
+
+CREATE TABLE tbl_guest(
+    id SERIAL PRIMARY KEY,
+    series_no VARCHAR(20),
+    email VARCHAR(100),
+    contact_no VARCHAR(15),
+    email_verification_code VARCHAR(10),
+    email_verified INT,
+    contact_no_verification_code VARCHAR(10),
+    contact_no_verified INT,
+    date_email_verified TIMESTAMPTZ,
+    date_contact_no_verified TIMESTAMPTZ,
+    date_created TIMESTAMPTZ
+);
+
+CREATE TABLE tbl_guest_info(
+    id SERIAL PRIMARY KEY,
+    guest_id INT,
+    fname VARCHAR(50),
+    mname VARCHAR(50),
+    lname VARCHAR(50),
+    suffix VARCHAR(10),
+    gender VARCHAR(10),
+    address VARCHAR(1000),
+
+    FOREIGN KEY (guest_id) REFERENCES tbl_guest(id)
+);
+
+CREATE TABLE tbl_pet_category(
+    id SERIAL PRIMARY KEY,
+    series_no VARCHAR(50),
+    name VARCHAR(50),
+    status INT,
+    created_by INT,
+    updated_by INT,
+    deleted_by INT,
+    date_created TIMESTAMPTZ,
+    date_updated TIMESTAMPTZ,
+    date_deleted TIMESTAMPTZ,
+
+    FOREIGN KEY (created_by) REFERENCES tbl_users(id),
+    FOREIGN KEY (updated_by) REFERENCES tbl_users(id),
+    FOREIGN KEY (deleted_by) REFERENCES tbl_users(id)
+);
+
+CREATE TABLE tbl_breed(
+    id SERIAL PRIMARY KEY,
+    series_no VARCHAR(50),
+    name VARCHAR(50),
+    status INT,
+    created_by INT,
+    updated_by INT,
+    deleted_by INT,
+    date_created TIMESTAMPTZ,
+    date_updated TIMESTAMPTZ,
+    date_deleted TIMESTAMPTZ,
+
+    FOREIGN KEY (created_by) REFERENCES tbl_users(id),
+    FOREIGN KEY (updated_by) REFERENCES tbl_users(id),
+    FOREIGN KEY (deleted_by) REFERENCES tbl_users(id)
+);
+
+CREATE TABLE tbl_guest_prefer(
+    id SERIAL PRIMARY KEY,
+    guest_id INT,
+    pet_category_id INT,
+    breed_id INT,
+    gender VARCHAR(10),
+
+    FOREIGN KEY (guest_id) REFERENCES tbl_guest(id),
+    FOREIGN KEY (pet_category_id) REFERENCES tbl_pet_category(id),
+    FOREIGN KEY (breed_id) REFERENCES tbl_breed(id)
+);
+
+CREATE TABLE tbl_pets(
+    id SERIAL PRIMARY KEY,
+    series_no VARCHAR(50),
+    category_id INT,
+    breed_id INT,
+    gender VARCHAR(10),
+    age VARCHAR(20),
+    size VARCHAR(20),
+    tags VARCHAR(50),
+    description VARCHAR(100),
+    photo VARCHAR(1000),
+    status VARCHAR(20),
+    created_by INT,
+    updated_by INT,
+    deleted_by INT,
+    date_created TIMESTAMPTZ,
+    date_updated TIMESTAMPTZ,
+    date_deleted TIMESTAMPTZ,
+
+    FOREIGN KEY (category_id) REFERENCES tbl_pet_category(id),
+    FOREIGN KEY (breed_id) REFERENCES tbl_breed(id),
+    FOREIGN KEY (created_by) REFERENCES tbl_users(id),
+    FOREIGN KEY (updated_by) REFERENCES tbl_users(id),
+    FOREIGN KEY (deleted_by) REFERENCES tbl_users(id)
+);
+
+CREATE TABLE tbl_adopt_documents(
+    id SERIAL PRIMARY KEY,
+    series_no VARCHAR(50),
+    registration_from_sec BYTEA,
+    mayors_permit BYTEA,
+    registration_from_shelter BYTEA,
+    location_of_shelter BYTEA,
+    submitted_by INT,
+    date_submitted TIMESTAMPTZ,
+
+    FOREIGN KEY (submitted_by) REFERENCES tbl_guest(id)
+);
+
+CREATE TABLE tbl_adopt(
+    id SERIAL PRIMARY KEY,
+    series_no VARCHAR(50),
+    documents_id INT,
+    requested_by INT,
+    pet_id INT,
+    approved_by INT,
+    status VARCHAR(20),
+    date_requested TIMESTAMPTZ,
+    date_approved TIMESTAMPTZ,
+
+    FOREIGN KEY (documents_id) REFERENCES tbl_adopt_documents(id),
+    FOREIGN KEY (requested_by) REFERENCES tbl_guest(id),
+    FOREIGN KEY (pet_id) REFERENCES tbl_pets(id),
+    FOREIGN KEY (approved_by) REFERENCES tbl_users(id)
+);

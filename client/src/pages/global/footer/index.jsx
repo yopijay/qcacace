@@ -17,7 +17,7 @@ import { brand, brandinfo, brandlinks, title, links, info, newsletter } from "./
 const Index = () => {
     const { setIsActive } = useContext(GlobalCntxt);
     return (
-        <Box sx= {{ backgroundColor: '#371313', padding: '70px 0' }}>
+        <Box sx= {{ backgroundColor: '#728ca1', padding: '70px 0' }}>
             <Container maxWidth= "lg">
                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start">
                     <Grid item xs= { 12 } md= { 3 } sx= {{ padding: { xs: '15px 0', md: '0 20px'} }}>
