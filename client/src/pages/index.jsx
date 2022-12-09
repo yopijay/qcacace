@@ -19,6 +19,8 @@ const content = {
 }
 
 const Index = () => {
+    localStorage.setItem('nav', 'home');
+    
     return (
         <Box display= "flex">
             <Navbar />

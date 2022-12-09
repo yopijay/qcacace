@@ -43,18 +43,8 @@ export const activeLink = {
 }
 
 export const burger = {
-    display: {
-        xs: 'flex',
-        md: 'none'
-    },
+    display: { xs: 'flex', md: 'none' },
     color: '#212b36',
-    border: 'solid 1px #212b36',
-    padding: '7px',
-    borderRadius: '6px',
     transition: 'transform 0.2s',
-    '&:hover': {
-        color: '#d0915c',
-        backgroundColor: '#d0915c40',
-        border: 'solid 1px #d0915c'
-    }
+    '&:hover': { color: '#d0915c' }
 }
