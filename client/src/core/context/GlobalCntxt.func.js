@@ -7,6 +7,7 @@ export const GlobalPrvdr = (props) => {
     const { children, window } = props;
     const [ open, setOpen ] = useState({ left: false });
     const [ dark, setDark ] = useState(false);
+    const [ category, setCategory ] = useState('dog');
     const [ isActive, setIsActive ] = useState(localStorage.getItem('nav'));
     
     const drawerToggle = (open) => (event) => {
@@ -19,5 +20,5 @@ export const GlobalPrvdr = (props) => {
     
     const container = window !== undefined ? () => window().document.body : undefined;
 
-    return <GlobalCntxt.Provider value= {{ open, drawerToggle, container, dark, setDark, isActive, setIsActive, setOpen }}>{ children }</GlobalCntxt.Provider>
+    return <GlobalCntxt.Provider value= {{ open, drawerToggle, container, dark, setDark, isActive, setIsActive, setOpen, category, setCategory }}>{ children }</GlobalCntxt.Provider>
 }

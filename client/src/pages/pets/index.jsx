@@ -1,32 +1,29 @@
 // Libraries
-import { Dialog, Grid, Stack } from "@mui/material";
+import { Dialog, Stack, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 
 // Layouts
 import Recommended from './recommended';
 import List from './list';
+import Footer from '../global/footer';
+import PreferForm from './dialog';
 
-// Custom style
-const container = {
-    padding: '90px 0 0 0',
-    overflowY: 'scroll',
-    width: '100%',
-    height: '100%',
-    '&::-webkit-scrollbar': { display: 'none' }
-}
+// Constants
+import { container } from "./index.style"; // Styles
 
 const Index = () => {
     localStorage.setItem('nav', 'pets');
     const [ open, setOpen ] = useState(true);
+    const theme = useTheme();
+    const fullscreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>
             <Recommended />
             <List />
-            <Dialog open= { open } keepMounted onClose= { () => setOpen(false) } maxWidth= "sm" fullWidth= { true } disableEscapeKeyDown= { true }>
-                <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" sx= {{ backgroundColor: '#204c6f' }}>
-                    asd
-                </Grid>
+            <Footer />
+            <Dialog fullScreen= { fullscreen } open= { open } keepMounted onClose= { () => setOpen(false) } maxWidth= "sm" fullWidth= { true } disableEscapeKeyDown= { true }>
+                <PreferForm setOpen= { setOpen } />
             </Dialog>
         </Stack>
     );

@@ -22,7 +22,7 @@ const Index = () => {
         <AppBar position= "fixed" sx= { appbar }>
             <Container maxWidth= "lg">
                 <Stack direction= "row" justifyContent= "space-between" alignItems= "center" spacing= { 1 }>
-                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } component= { Link } to= "/"><Avatar alt= "QCACAC" src= { Logo } sx= {{ width: 40, height: 40 }} /></Stack>
+                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } component= { Link } to= "/" onClick= { () => { localStorage.setItem('nav', 'home'); setIsActive('home'); } }><Avatar alt= "QCACAC" src= { Logo } sx= {{ width: 40, height: 40 }} /></Stack>
                     <Box sx= { burger } onClick= { drawerToggle(!open.left) }><FontAwesomeIcon icon= { solid('bars') } /></Box>
                     <Stack direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 4 } sx= {{ display: { xs: 'none', md: 'flex' } }}>
                         <Typography variant= "body2" sx= { isActive === 'home' ? activeLink : link } component= { Link } to= "/" onClick= { () => { localStorage.setItem('nav', 'home'); setIsActive('home'); } }>Home</Typography>

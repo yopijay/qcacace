@@ -41,7 +41,7 @@ const link = {
     },
     borderRadius: '7px',
     transition: 'all 0.2s ease-in-out',
-    '&:hover': { backgroundColor: '#311717' }
+    '&:hover': { backgroundColor: '#1b405d' }
 }
 
 const Index = () => {

@@ -42,5 +42,6 @@ export const itemLink = {
         xs: '6px 10px',
         md: '7px 15px'
     },
-    borderRadius: '7px'
+    borderRadius: '7px',
+    '&:hover': { backgroundColor: '#1b405d' }
 }
