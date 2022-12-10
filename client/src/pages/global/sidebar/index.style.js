@@ -11,13 +11,13 @@ export const swipe = {
 export const greeting = {
     fontFamily: 'Tommy',
     fontSize: '115%',
-    color: '#7e7b44',
+    color: '#64a93e',
 }
 
 export const brand = {
     fontFamily: 'Tommy Bold',
     fontSize: '160%',
-    color: '#371615'
+    color: '#204c6f'
 }
 
 export const link = {
@@ -28,7 +28,7 @@ export const link = {
     cursor: 'pointer',
     padding: '3px 0',
     '&:hover': { 
-        color: '#d0915c',
+        color: '#204c6f',
         transform: 'scale(1.1)'
     }
 }
@@ -36,7 +36,7 @@ export const link = {
 export const activeLink = {
     fontFamily: 'Tommy',
     textDecoration: 'none',
-    color: '#d0915c',
+    color: '#204c6f',
     transition: 'transform .2s',
     cursor: 'pointer',
     transform: 'scale(1.1)'
