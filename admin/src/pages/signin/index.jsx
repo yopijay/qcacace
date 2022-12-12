@@ -3,12 +3,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Container, Grid, Stack, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 
+// Core
+import { authentication } from "core/api/index.func"; // API
+import { usePost } from "core/global/function/index.func"; // Custom react query
+import { SnakeLoader } from "core/global/layout/loader/Loader"; // Loader
+
 // Constants
 import { brand, btnTxt, error, input, title } from "./index.style"; // Style
 import { Validation } from "./index.validation"; // Validation
 
 const Index = () => {
-    const { register, formState: { errors } } = useForm({ resolver: yupResolver(Validation()) });
+    const { register, formState: { errors }, handleSubmit, setError } = useForm({ resolver: yupResolver(Validation()) });
+    const { mutate: signin, isLoading } = usePost(authentication, (data) => {
+        if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
+        else { localStorage.setItem('token', data.message.id); window.location.href= '/'; }
+    });
 
     return (
         <Container maxWidth= "xs">
@@ -40,9 +49,8 @@ const Index = () => {
                     <Typography sx= {{ width: '100%', textAlign: 'right', margin: '10px 0', fontWeight: 'bold', cursor: 'pointer' }} color= "#204c6f">Forgot Password?</Typography>
                     <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ margin: '10px 0' }}>
                         <Grid item>
-                        <Box sx= { btnTxt }>Login</Box>
-                            {/* { !isLoading ? <Box sx= { btnTxt } onClick= { handleSubmit(data => signin({data: data, type: 'login'})) }>Login</Box> :
-                               <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}><SnakeLoader bg= "#b2bec3" size= "7px" distance= "7px" /></Stack> } */}
+                        { !isLoading ? <Box sx= { btnTxt } onClick= { handleSubmit(data => signin({ data: data, type: 'login' })) }>Login</Box> : 
+                            <Stack direction= "row" justifyContent= "center" alignItems= "center" spacing= { 2 }><SnakeLoader bg= "b2bec3" size= "7px" distance= "7px" /></Stack> }
                         </Grid>
                     </Grid>
                 </Box>

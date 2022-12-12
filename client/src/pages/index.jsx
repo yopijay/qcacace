@@ -25,7 +25,7 @@ const Index = () => {
         <Box display= "flex">
             <Navbar />
             <Sidebar />
-            <Box sx= { content }> 
+            <Box sx= { content }>
                 <Routes>
                     <Route exact path= "/*" element= { <Main /> } />
                     <Route exact path= "/pets/*" element= { <Pets /> } />
