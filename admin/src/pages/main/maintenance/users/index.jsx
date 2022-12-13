@@ -27,13 +27,11 @@ const container = {
 const Index = () => {
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" sx= { container }>
-            <ThemeProvider theme= { input }>
-                <Routes>
-                    <Route exact path= "/" element= { <ListPrvdr><List /></ListPrvdr> } />
-                    <Route exact path= "/form/:type" element= { <FormPrvdr><Form /></FormPrvdr> } />
-                    <Route exact path= "/form/:type/:id" element= { <FormPrvdr><Form /></FormPrvdr> } />
-                </Routes>
-            </ThemeProvider>
+            <Routes>
+                <Route exact path= "/" element= { <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } />
+                <Route exact path= "/form/:type" element= { <FormPrvdr><Form /></FormPrvdr> } />
+                <Route exact path= "/form/:type/:id" element= { <FormPrvdr><Form /></FormPrvdr> } />
+            </Routes>
         </Stack>
     );
 }

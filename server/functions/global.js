@@ -1,3 +1,6 @@
+// Global
+const Builder = require("./builder");
+
 const checkifsame = (value1, value2) => { return ((value1 !== null && value1 !== '' && value1 !== undefined ? value1 : null) !== (value2 !== null && value2 !== '' && value2 !== undefined ? value2 : null)); }
 const series = (label, count, limit = 7) => { return `${label}${('0000000' + count).substr(('0000000' + count).length - limit)}`; }
 
@@ -14,8 +17,8 @@ const form = (oc = [], uoc = []) => {
                 cols += `${count === 0 ? '' : ', '}${oc[count]}`;
                 vals += `${count === 0 ? '' : ', '}${uoc[oc[count]] === '' || uoc[oc[count]] === undefined ? null : 
                                 isNaN(uoc[oc[count]]) ? 
-                                    oc[count] !== 'user_level' && oc[count] !== 'employment_status' && oc[count] !== 'civil_status' && oc[count] !== 'branch' && oc[count] !== 'status' && oc[count] !== 'username' ?
-                                        oc[count] !== 'password' ? `'${uoc[oc[count]].toUpperCase()}'` : `'${btoa(uoc[oc[count]])}'` : `'${uoc[oc[count]]}'`
+                                    oc[count] !== 'user_level' && oc[count] !== 'employment_status' && oc[count] !== 'civil_status' && oc[count] !== 'branch' && oc[count] !== 'status' && oc[count] !== 'username' && oc[count] !== 'gender' ?
+                                        oc[count] !== 'password' ? `'${uoc[oc[count]].toUpperCase()}'` : `'${uoc[oc[count]]}'` : `'${uoc[oc[count]]}'`
                                 : oc[count] === 'employee_no' || oc[count] === 'rfid' || oc[count] === 'serial_no' ? `'${(uoc[oc[count]]).toUpperCase()}'` : uoc[oc[count]]}`;
             }
         }
@@ -35,9 +38,33 @@ const date = (date) => {
     return `${year}-${month}-${day}T${hr}:${min}:${sec}`
 }
 
+const audit = async (data) => {
+    let cols = '';
+    let vals = '';
+
+    for(let count = 0; count < (Object.entries(data)).length; count++) {
+        let _keys = Object.entries(data)[count][0];
+        let _vals = Object.entries(data)[count][1];
+
+        cols += `${ count === 0 ? '' : ', ' }${ _keys }`;
+        vals += `${ count === 0 ? '' : ', ' }${ _keys === 'item_id' || _keys === 'user_id' ? _vals : _vals !== null ? `'${_vals}'` : null}`;
+    }
+    
+    await new Builder(`tbl_audit_trail`).insert(cols, vals).build();
+}
+
+const randomizer = (length) => {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    for(let i = 0; i < length; i++) { result += characters.charAt(Math.floor(Math.random() * characters.length)); }
+    return (result).toUpperCase();
+}
+
 module.exports = {
     form,
     series,
     date,
-    checkifsame
+    checkifsame,
+    randomizer,
+    audit
 }

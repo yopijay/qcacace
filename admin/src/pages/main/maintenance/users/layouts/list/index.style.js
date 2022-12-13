@@ -53,3 +53,22 @@ export const btntxt = {
     transition: 'all 0.2s ease-in-out',
     '&:hover': { backgroundColor: '#1b405d' }
 }
+
+export const item = {
+    backgroundColor: '#ffffff',
+    overflow: 'hidden',
+    border: 'solid 1px #919eab40',
+    padding: '20px 16px',
+    borderRadius: '8px'
+}
+
+export const icons = {
+    color: 'rgb(99, 115, 129)', 
+    padding: '3px', 
+    lineHeight: 0, 
+    transition: 'transform .2s', 
+    '&:hover': { 
+        transform: 'scale(1.1)', 
+        transition: 'transform .2s' 
+    }
+}
