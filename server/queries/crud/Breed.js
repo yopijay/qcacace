@@ -7,6 +7,7 @@ class Breed {
     specific = async () => { return (await new Builder(`tbl_breed`).select().condition(`WHERE id= ${this.query}`).build()).rows; }
     list = async () => { return (await new Builder(`tbl_breed`).select().condition(this.query).build()).rows; }
     dropdown = async () => { return (await new Builder('tbl_breed').select(`id, name`).condition(this.query).build()).rows; } // For dropdowns
+    dropdown_by = async () => { return (await new Builder('tbl_breed').select(`id, name`).condition(`WHERE pet_category_id= ${this.data.query} ORDER BY date_created DESC`).build()).rows; }
 
     save = async () => {
         let breed = await new Builder(`tbl_breed`).select().condition(`WHERE pet_category_id= ${(this.data).pet_category_id} AND name= '${((this.data).name).toUpperCase()}'`).build();
