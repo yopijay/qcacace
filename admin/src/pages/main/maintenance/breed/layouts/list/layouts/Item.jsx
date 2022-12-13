@@ -25,8 +25,8 @@ const Item = () => {
                             <Typography variant= "caption" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ getDate(new Date(data.date_created)).formatted }</Typography>
                         </Stack>
                         <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 2 }>
-                            <Typography sx= { icons } component= { Link } to= { `/maintenance/category/form/update/${data.id}` }><FontAwesomeIcon icon= { solid('pencil') } size= "lg" /></Typography>
-                            <Typography sx= { icons } component= { Link } to= { `/maintenance/category/form/view/${data.id}` }><FontAwesomeIcon icon= { solid('eye') } size= "lg" /></Typography>
+                            <Typography sx= { icons } component= { Link } to= { `/maintenance/breed/form/update/${data.id}` }><FontAwesomeIcon icon= { solid('pencil') } size= "lg" /></Typography>
+                            <Typography sx= { icons } component= { Link } to= { `/maintenance/breed/form/view/${data.id}` }><FontAwesomeIcon icon= { solid('eye') } size= "lg" /></Typography>
                         </Stack>
                     </Stack>
                 )) : <Typography variant= "caption" sx= {{ textAlign: 'center' }}>No record/s found!</Typography>}

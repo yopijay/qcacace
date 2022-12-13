@@ -19,7 +19,7 @@ const Index = () => {
     const { type, id } = useParams();
     const navigate = useNavigate();
     const { setValidation, handleSubmit, setValue, setError, register, errors } = useContext(FormCntxt);
-    const { refetch } = useGet(['usr_specific'], get({ table: 'tbl_pet_category', type: 'specific', query: id ?? null }), { enabled: type !== 'new', refetchOnWindowFocus: false }, 
+    const { refetch } = useGet(['ctg_specific'], get({ table: 'tbl_pet_category', type: 'specific', query: id ?? null }), { enabled: type !== 'new', refetchOnWindowFocus: false }, 
         (data) => { if(Array.isArray(data)) { for(let count = 0; count < Object.keys(data[0]).length; count++) { let _name = Object.keys(data[0])[count]; setValue(_name, data[0][_name] !== null ? data[0][_name] : ''); } } });
 
     const { mutate: saving } = usePost(save,
