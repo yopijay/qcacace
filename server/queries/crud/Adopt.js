@@ -28,20 +28,19 @@ class Adopt {
         
         let pet = await new Builder(`tbl_pets`).select().condition(`WHERE series_no= '${(this.data).pet.series_no}'`).build();
 
-        await new Builder(`tbl_adopt`).insert(`series_no, documents_id, requested_by, pet_id, status, date_requested`, `'${(this.data).series_no}', ${docs.rows[0].id}, ${guest.rows[0].id}, ${pet.rows[0].id}, 'evaluation', CURRENT_TIMESTAMP`).build();
-        return { result: 'success', message: 'Successfully saved!' }
+        let adopt = await new Builder(`tbl_adopt`).insert(`series_no, documents_id, requested_by, pet_id, status, date_requested`, `'${(this.data).series_no}', ${docs.rows[0].id}, ${guest.rows[0].id}, ${pet.rows[0].id}, 'evaluation', CURRENT_TIMESTAMP`).condition(`RETURNING id`).build();
+        return { result: 'success', message: 'Successfully saved!', id: adopt.rows[0].id }
     }
 
     update = async () => {
-        // let ctg = await new Builder(`tbl_pet_category`).select().condition(`WHERE id= ${(this.data).id}`).build();
+        switch((this.data).status) {
+            case 'evaluation': await new Builder(`tbl_adopt`).update(`approved_by= ${(this.data).updated_by}, status= 'interview', date_approved= CURRENT_TIMESTAMP`).condition(`WHERE id= ${(this.data).id}`).build(); break
+            case 'interview': await new Builder(`tbl_adopt`).update(`approved_by= ${(this.data).updated_by}, status= 'payment', date_approved= CURRENT_TIMESTAMP`).condition(`WHERE id= ${(this.data).id}`).build(); break
+            case 'payment': await new Builder(`tbl_adopt`).update(`approved_by= ${(this.data).updated_by}, status= 'paid', date_approved= CURRENT_TIMESTAMP`).condition(`WHERE id= ${(this.data).id}`).build(); break
+            case 'paid': await new Builder(`tbl_adopt`).update(`approved_by= ${(this.data).updated_by}, status= 'done', date_approved= CURRENT_TIMESTAMP`).condition(`WHERE id= ${(this.data).id}`).build(); break
+        }
 
-        // if(global.checkifsame((ctg.rows[0].name).toUpperCase(), ((this.data).name).toUpperCase())) {
-        //     if(!((await new Builder(`tbl_pet_category`).select().condition(`WHERE name= '${((this.data).name).toUpperCase()}'`).build()).rowCount > 0)) { await new Builder(`tbl_pet_category`).update(`name= '${((this.data).name).toUpperCase()}'`).condition(`WHERE id= ${ctg.rows[0].id}`).build(); }
-        //     else { return { result: 'error', error: [{ name: 'name', message: 'Pet category is already used!' }] } }
-        // }
-
-        // await new Builder(`tbl_pet_category`).update(`updated_by= ${(this.data).updated_by}, date_updated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${ctg.rows[0].id}`).build();
-        // return { result: 'success', message: 'Successfully updated!' }
+        return { result: 'success', message: 'Successfully updated!' }
     }
 }
 

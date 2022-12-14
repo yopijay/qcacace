@@ -31,7 +31,7 @@ const Item = () => {
                             <Typography sx= { icons } component= { Link } to= { `/maintenance/pets/form/view/${data.id}` }><FontAwesomeIcon icon= { solid('eye') } size= "lg" /></Typography>
                         </Stack>
                     </Stack>
-                )) : <Typography variant= "caption" sx= {{ textAlign: 'center' }}>No record/s found!</Typography>}
+                )) : <Typography variant= "caption" sx= {{ textAlign: 'center' }}>No record/s found!</Typography> }
         </Stack>
     );
 }

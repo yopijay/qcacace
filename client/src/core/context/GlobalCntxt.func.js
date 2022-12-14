@@ -7,7 +7,7 @@ export const GlobalPrvdr = (props) => {
     const { children, window } = props;
     const [ open, setOpen ] = useState({ left: false });
     const [ dark, setDark ] = useState(false);
-    const [ category, setCategory ] = useState('dog');
+    const [ category, setCategory ] = useState();
     const [ isActive, setIsActive ] = useState(localStorage.getItem('nav'));
     
     const drawerToggle = (open) => (event) => {

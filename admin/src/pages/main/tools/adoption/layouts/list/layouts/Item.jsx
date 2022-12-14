@@ -26,7 +26,7 @@ const Item = () => {
                             <Typography variant= "caption" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ getDate(new Date(data.date_requested)).formatted }</Typography>
                         </Stack>
                         <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 2 }>
-                            <Chip label= { data.status } size= "small" color= { data.status === 'evaluation' ? 'primary' : data.status === 'interview' ? 'secondary' : data.status === 'payment' ? 'info' : data.status === 'approve' ? 'success' : 'error' } sx= {{ color: '#ffffff' }} />
+                            <Chip label= { data.status } size= "small" color= { data.status === 'evaluation' ? 'primary' : data.status === 'interview' ? 'secondary' : data.status === 'payment' ? 'info' : data.status === 'paid' ? 'success' : data.status === 'done' ? 'success' : 'error' } sx= {{ color: '#ffffff' }} />
                             <Typography sx= { icons } component= { Link } to= { `/tools/adoption/form/evaluate/${data.id}` }><FontAwesomeIcon icon= { solid('gavel') } size= "lg" /></Typography>
                             <Typography sx= { icons } component= { Link } to= { `/tools/adoption/form/view/${data.id}` }><FontAwesomeIcon icon= { solid('eye') } size= "lg" /></Typography>
                         </Stack>

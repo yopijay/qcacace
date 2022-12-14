@@ -19,6 +19,7 @@ export const okbtn = {
         xs: '10px 70px',
         md: '8px 70px'
     },
+    cursor: 'pointer',
     borderRadius: '7px',
     transition: 'all 0.2s ease-in-out',
     '&:hover': { backgroundColor: '#1b405d' }

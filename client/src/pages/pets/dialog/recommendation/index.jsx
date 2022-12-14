@@ -6,9 +6,10 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // Core
 import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
+import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 
 // Constants
-import { breedtitle, closebtn, okbtn, title } from "./index.style"; // Style
+import { closebtn, okbtn, title } from "./index.style"; // Style
 
 // Assets
 import Preferbg from 'assets/images/prefer-bg.jpg';
@@ -23,6 +24,7 @@ import Gender from "./layouts/Gender";
 const Index = (props) => {
     const { setOpen } = props;
     const { category } = useContext(GlobalCntxt);
+    const { handleSubmit } = useContext(FormCntxt);
     
     return (
         <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ backgroundImage: `url(${Preferbg})`, padding: { xs: '20px' }, height: '100%' }}>
@@ -38,10 +40,9 @@ const Index = (props) => {
                             <Typography sx= { title }>Tell us what you prefer...</Typography>
                             <Category />
                             <Gender />
-                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start">
-                                <Typography sx= { breedtitle }>Breed</Typography>
-                            </Stack>
-                            <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '50px' }}><Typography sx= { okbtn }>Done</Typography></Box>
+                            <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '50px' }}>
+                                <Typography sx= { okbtn } onClick= { handleSubmit(data => { localStorage.setItem('recommend', JSON.stringify(data)); setOpen(false) } ) }>Done</Typography>
+                            </Box>
                         </Stack>
                     </Grid>
                     <Grid item xs= { 5 } sm= { 4 } md= { 5 } sx= {{ padding: { xs: 0, md: '0 40px', sm: '0 30px' }, marginTop: { xs: '40px' } }}><img src= { category === 'dog' ? Dog : category === 'cat' ? Cat : Both } alt= "category" width= "100%" height= "auto" /></Grid>
