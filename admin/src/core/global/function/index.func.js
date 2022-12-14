@@ -93,13 +93,19 @@ export const errorToast = (message, duration = 3000, navigate) => {
     });
 } 
 
-export const base64 = (img) => {
-    let canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    let ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0);
-    
-    let dataURL = canvas.toDataURL('image/png');
-    return dataURL.replace(/^data::image\/?[A-z]*;base64,/);  
+export const base64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const filereader = new FileReader();
+        filereader.readAsDataURL(file);
+
+        filereader.onload = () => { resolve(filereader.result); }
+        filereader.onerror = (error) => { reject(error); }
+    });
+}
+
+export const randomizer = (length) => {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    for(let i = 0; i < length; i++) { result += characters.charAt(Math.floor(Math.random() * characters.length)); }
+    return (result).toUpperCase();
 }

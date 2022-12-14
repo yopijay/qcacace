@@ -6,6 +6,7 @@ class Pets {
     constructor(query, data = null) { this.query = query; this.data = data; }
     specific = async () => { return (await new Builder(`tbl_pets`).select().condition(`WHERE id= ${this.query}`).build()).rows; }
     list = async () => { return (await new Builder(`tbl_pets`).select().condition(this.query).build()).rows; }
+    scan = async() => { return (await new Builder(`tbl_pets`).select().condition(`WHERE series_no= '${(this.data).series_no}'`).build()).rows[0]; }
     dropdown = async () => { return (await new Builder('tbl_pets').select(`id, series_no AS name`).condition(this.query).build()).rows; } // For dropdowns
     dropdown_by = async () => { return (await new Builder('tbl_pets').select(`id, name`).condition(`WHERE pet_category_id= ${this.data.query} ORDER BY date_created DESC`).build()).rows; }
 
