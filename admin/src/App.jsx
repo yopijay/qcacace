@@ -8,7 +8,7 @@ import { GlobalPrvdr } from 'core/context/GlobalCntxt.func';  // Provider
 import { ProfilePrvdr } from 'core/context/ProfileCntxt.func'; // Provider
 
 // Layouts
-import Signin from './pages/signin';
+import Account from './pages/account';
 import Main from './pages/main';
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
     return (
         <Router>
             <QueryClientProvider client= { client }>
-                <GlobalPrvdr><Routes><Route path= "*" element= { localStorage.getItem('token') ? <ProfilePrvdr><Main /></ProfilePrvdr> : <Signin /> } /></Routes></GlobalPrvdr>
+                <GlobalPrvdr><Routes><Route path= "*" element= { localStorage.getItem('token') ? <ProfilePrvdr><Main /></ProfilePrvdr> : <Account /> } /></Routes></GlobalPrvdr>
                 <ReactQueryDevtools initialIsOpen= { false } position= "bottom-right" />
             </QueryClientProvider>
         </Router>

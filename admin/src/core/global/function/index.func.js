@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
 import * as XLSX from 'xlsx';
 
-export const api = (url, method, data = null) => {
+export const api = ({ url, method, data = null }) => {
     const config= {
         method: method,
         url: url,
@@ -19,6 +19,9 @@ export const api = (url, method, data = null) => {
 
     return axios(config);
 }
+
+export const usePost = ({ fetch, onSuccess, onError }) => { return useMutation(fetch, { onSuccess, onError}); }
+export const useGet = ({ key, fetch, options, onSuccess, onError }) => { return useQuery(key, () => fetch, { onSuccess, onError, ...options }); }
 
 export const getDate = (date) => {
     const year = date.getFullYear();
@@ -60,10 +63,6 @@ export const pad = (num, size) => {
     var s = "0000000" + num;
     return s.substr(s.length-size);
 }
-
-export const useGet = (key, func, options, onSuccess, onError) => { return useQuery(key, () => func, { onSuccess, onError, ...options }); }
-
-export const usePost = (func, onSuccess, onError) => { return useMutation(func, { onSuccess, onError }); }
 
 export const successToast = (message, duration = 3000, navigate) => {
     return toast.success(message, {
