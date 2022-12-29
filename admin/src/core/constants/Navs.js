@@ -1,6 +1,9 @@
 // Libraries
 import React from 'react';
 
+// Maintenance
+const Users = React.lazy(() => import('pages/main/maintenance/users'));
+
 export const Navs = () => ([
     {
         title: 'Main', nav: [
@@ -19,7 +22,7 @@ export const Navs = () => ([
             { path: '/maintenance/category', label: 'Category', name: 'category', component: 'CATEGORY' },
             { path: '/maintenance/breed', label: 'Breed', name: 'breed', component: 'BREED' },
             { path: '/maintenance/pet', label: 'Pets', name: 'pets', component: 'PETS' },
-            { path: '/maintenance/users', label: 'Users', name: 'Users', component: 'USERS' }
+            { path: '/maintenance/users', label: 'Users', name: 'Users', component: <Users /> }
         ]
     }
 ])

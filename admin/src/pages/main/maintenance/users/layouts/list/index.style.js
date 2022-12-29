@@ -10,12 +10,13 @@ export const title = {
 }
 
 export const search = {
+    backgroundColor: '#FFFFFF',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    border: 'solid 1px #dfe4ea',
-    borderRadius: '8px',
+    border: 'solid 1px #F3F3F3',
+    borderRadius: '50px',
     padding: '6px 10px',
     width: {
         xs: '200px',

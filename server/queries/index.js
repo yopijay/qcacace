@@ -7,6 +7,22 @@ const Users = require('./tables/Users');
 const login = (data) => { return new Users().login(data); }
 const logout = (data) => { return new Users().logout(data); }
 const profile = (id) => { return new Users().profile(id); }
+
+const dashboard = (table) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_users': resolve(await new Users().dashboard()); break;
+        }
+    });
+}
+
+const list = (table, data) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_users': resolve(await new Users().list(data));  break;
+        }
+    });
+}
 // const Authentication = require('./crud/Authentication');
 // const Users = require('./crud/Users');
 // const Category = require('./crud/Category');
@@ -94,5 +110,7 @@ const profile = (id) => { return new Users().profile(id); }
 module.exports = {
     login,
     logout,
-    profile
+    profile,
+    dashboard,
+    list
 }

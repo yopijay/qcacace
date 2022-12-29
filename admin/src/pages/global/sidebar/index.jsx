@@ -25,7 +25,7 @@ export const Index = () => {
     const id = pop ? 'simple-popover' : undefined;
     
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: { md : 280 }, flexShrink: { xs: 0 } }}>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: { lg : 280 }, flexShrink: { xs: 0 } }}>
             <SwipeableDrawer anchor= "left" variant= "temporary" sx= { swipe } ModalProps= {{ keepMounted: true }} container= { container } onOpen= { drawerToggle(true) } open= { open.left } onClose= { drawerToggle(false) }>
                 <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" sx= {{ height: '100vh' }} spacing= { 2 }>
                     <Navs />

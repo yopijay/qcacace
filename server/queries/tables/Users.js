@@ -30,9 +30,28 @@ class Users {
 
     profile = async (id) => {
         return (await new Builder(`tbl_users AS usr`)
-                                        .select(`usr.*, info.fname, info.mname, info.lname, info.suffix, info.gender, info.address`)
-                                        .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' })
+                                        .select(`usr.*, info.fname, info.mname, info.lname, info.suffix, info.gender, info.address, info.avatar`)
+                                        .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: `LEFT` })
                                         .condition(`WHERE usr.id= ${id}`)
+                                        .build()).rows;
+    }
+
+    dashboard = async () => {
+        return {
+            total: (await new Builder(`tbl_users`).select(`COUNT(*)`).build()).rows[0].count,
+            active: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 1`).build()).rows[0].count,
+            inactive: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 0`). build()).rows[0].count
+        }
+    }
+
+    list = async (query) => {
+        let _query = JSON.parse(query.condition);
+
+        return (await new Builder(`tbl_users AS usr`)
+                                        .select(`usr.id, usr.email, usr.user_level, usr.status, usr.date_created, info.fname, info.mname, info.lname, info.suffix, info.avatar`)
+                                        .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: `LEFT` })
+                                        .condition(`${_query.condition} EXCEPT SELECT usr.id, usr.email, usr.user_level, usr.status, usr.date_created, info.fname, info.mname, info.lname, info.suffix, info.avatar FROM tbl_users AS usr
+                                                            LEFT JOIN tbl_users_info AS info ON info.user_id = usr.id WHERE usr.id= ${atob(_query.except)} ORDER BY 5 DESC`)
                                         .build()).rows;
     }
     // constructor(query, data = null) { this.query = query; this.data = data; }
