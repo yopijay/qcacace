@@ -1,5 +1,5 @@
 // Libraries
-import QRCode from 'qrcode';
+// import QRCode from 'qrcode';
 
 // Core
 import { api } from '../global/function/index.func'; // Function

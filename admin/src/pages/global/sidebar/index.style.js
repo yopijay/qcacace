@@ -2,7 +2,7 @@ export const swipe = {
     '& .MuiDrawer-paper': {
         boxSizing: 'border-box',
         width: 280,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#FAFAFA',
         backdropFilter: 'blur(10px)',
         height: '100vh',
         '&::-webkit-scrollbar': { display: 'none' }

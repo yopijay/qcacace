@@ -11,7 +11,7 @@ const Account = ({ setElem }) => {
     const { data } = useContext(ProfileCntxt);
 
     return (
-        <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
+        <Stack direction= "row" justifyContent= "space-between" alignItems= "center" sx= {{ padding: { xs: '20px', lg: '0' } }}>
             <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                 <Avatar />
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
