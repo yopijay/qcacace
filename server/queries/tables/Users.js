@@ -1,5 +1,4 @@
 // Custom functions
-const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Users {
@@ -22,6 +21,19 @@ class Users {
             else { return { result: 'error', error: [{ name: 'email', message: 'Email is not yet verified!' }] } }
         }
         else { return { result: 'error', error: [{ name: 'email', message: 'Email doesn`t exist!' }] } }
+    }
+
+    logout = async (data) => {
+        await new Builder(`tbl_users`).update(`is_logged= 0`).condition(`WHERE id= ${atob(data.id)}`).build();
+        return { result: 'success', message: 'Successfully logged out!' }
+    }
+
+    profile = async (id) => {
+        return (await new Builder(`tbl_users AS usr`)
+                                        .select(`usr.*, info.fname, info.mname, info.lname, info.suffix, info.gender, info.address`)
+                                        .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' })
+                                        .condition(`WHERE usr.id= ${id}`)
+                                        .build()).rows;
     }
     // constructor(query, data = null) { this.query = query; this.data = data; }
     // specific = async () => { return (await new Builder(`tbl_users AS usr`).select().join(`tbl_users_info AS usrnfo`, `usrnfo.user_id = usr.id`).condition(`WHERE usr.id= ${this.query}`).build()).rows; }

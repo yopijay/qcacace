@@ -31,7 +31,7 @@ const Index = () => {
                         <Avatar alt= "QCACAC" src= { Logo } sx= {{ width: 35, height: 35 }} />
                         <Typography variant= "h5" sx= {{ fontFamily: 'Gilroy Bold', color: '#204c6f' }}>QCACAC - E</Typography>
                     </Stack>
-                    <Typography sx= {{ transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.1)' }, display: { xs: 'block', md: 'none' } }} onClick= { drawerToggle(!open.left) }><FontAwesomeIcon icon= { solid('bars-staggered') } /></Typography>
+                    <Typography sx= {{ transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.1)' }, display: { xs: 'block', lg: 'none' } }} onClick= { drawerToggle(!open.left) }><FontAwesomeIcon icon= { solid('bars-staggered') } /></Typography>
                 </Stack>
             </Container>
         </AppBar>

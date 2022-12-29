@@ -5,6 +5,8 @@ const db = require('../connection');
 const Users = require('./tables/Users');
 
 const login = (data) => { return new Users().login(data); }
+const logout = (data) => { return new Users().logout(data); }
+const profile = (id) => { return new Users().profile(id); }
 // const Authentication = require('./crud/Authentication');
 // const Users = require('./crud/Users');
 // const Category = require('./crud/Category');
@@ -90,5 +92,7 @@ const login = (data) => { return new Users().login(data); }
 // }
 
 module.exports = {
-    login
+    login,
+    logout,
+    profile
 }
