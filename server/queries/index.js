@@ -23,6 +23,30 @@ const list = (table, data) => {
         }
     });
 }
+
+const specific = (table, id) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_users': resolve(await new Users().specific(id)); break;
+        }
+    });
+}
+
+const save = (table, data) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_users': resolve(await new Users().save(data)); break;
+        }
+    });
+}
+
+const update = (table, data) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_users': resolve(await new Users().update(data)); break;
+        }
+    });
+}
 // const Authentication = require('./crud/Authentication');
 // const Users = require('./crud/Users');
 // const Category = require('./crud/Category');
@@ -112,5 +136,8 @@ module.exports = {
     logout,
     profile,
     dashboard,
-    list
+    list,
+    specific,
+    save,
+    update
 }

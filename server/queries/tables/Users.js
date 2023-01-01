@@ -1,4 +1,5 @@
 // Custom functions
+const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Users {
@@ -48,11 +49,41 @@ class Users {
         let _query = JSON.parse(query.condition);
 
         return (await new Builder(`tbl_users AS usr`)
-                                        .select(`usr.id, usr.email, usr.user_level, usr.status, usr.date_created, info.fname, info.mname, info.lname, info.suffix, info.avatar`)
+                                        .select(`usr.id, usr.series_no, usr.email, usr.user_level, usr.status, usr.date_created, info.fname, info.mname, info.lname, info.suffix, info.avatar`)
                                         .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: `LEFT` })
-                                        .condition(`${_query.condition} EXCEPT SELECT usr.id, usr.email, usr.user_level, usr.status, usr.date_created, info.fname, info.mname, info.lname, info.suffix, info.avatar FROM tbl_users AS usr
-                                                            LEFT JOIN tbl_users_info AS info ON info.user_id = usr.id WHERE usr.id= ${atob(_query.except)} ORDER BY 5 DESC`)
+                                        .condition(`${_query.condition} EXCEPT SELECT usr.id, usr.series_no, usr.email, usr.user_level, usr.status, usr.date_created, info.fname, info.mname, info.lname, info.suffix, info.avatar FROM tbl_users AS usr
+                                                            LEFT JOIN tbl_users_info AS info ON info.user_id = usr.id WHERE usr.id= ${atob(_query.except)} ORDER BY 6 DESC`)
                                         .build()).rows;
+    }
+
+    specific = async (id) => {
+        // console.log(id);
+    }
+
+    save = async (data) => {
+        if(!((await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0)) {
+            if(!((await new Builder(`tbl_users_info`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0)) {
+                let usr = await new Builder(` tbl_users`)
+                                                    .insert({ columns: `series_no, email, password, user_level, is_logged, status, created_by, date_created`,
+                                                                values: `'${global.randomizer(7)}', '${data.email}', '${data.password}', '${data.user_level}', 0, 1, ${data.created_by}, CURRENT_TIMESTAMP` })
+                                                    .condition(`RETURNING id`)
+                                                    .build();
+                await new Builder(`tbl_users_info`)
+                                    .insert({ columns: `user_id, fname, mname, lname, suffix, gender, address, avatar`, 
+                                                values: `${usr.rows[0].id}, '${(data.fname).toUpperCase()}', ${data.mname !== undefined && data.mname !== null ? `'${(data.mname).toUpperCase()}'` : null},
+                                                            '${(data.lname).toUpperCase()}', ${data.suffix !== undefined && data.suffix !== null ? `'${(data.suffix).toUpperCase()}'` : null}, '${data.gender}',
+                                                            ${data.address !== undefined && data.address !== null ? `'${(data.address).toUpperCase()}'` : null}, '${data.avatar}'` })
+                                    .build();
+
+                return { result: 'success', message: 'Successfully saved!' }
+            }
+            else { return { result: 'error', error: [{ name: 'lname', message: 'Name already exist! Change your first name or last name to proceed!' }] } }
+        }
+        else { return { result: 'error', error: [{ name: 'email', message: 'Email already used!' }] } }
+    }
+
+    update = async (data) => {
+        console.log(data);
     }
     // constructor(query, data = null) { this.query = query; this.data = data; }
     // specific = async () => { return (await new Builder(`tbl_users AS usr`).select().join(`tbl_users_info AS usrnfo`, `usrnfo.user_id = usr.id`).condition(`WHERE usr.id= ${this.query}`).build()).rows; }
@@ -76,24 +107,6 @@ class Users {
     // }
 
     // save = async () => {
-    //     let ordered_usr = [ 'password', 'user_level' ];
-    //     let ordered_info = [ 'fname', 'mname', 'lname', 'gender', 'address' ];
-    //     let email = (await new Builder(`tbl_users`).select().condition(`WHERE email= '${(this.data).email}'`).build()).rowCount > 0;
-        
-    //     if(!email) {
-    //         if(!((await new Builder(`tbl_users_info`).select().condition(`WHERE fname= '${((this.data).fname).toUpperCase()}' AND lname= '${((this.data).lname).toUpperCase()}'`).build()).rowCount > 0)) {
-    //             let usr = global.form(ordered_usr, this.data);
-    //             let info = global.form(ordered_info, this.data);
-
-    //             let _usr = await new Builder(`tbl_users`).insert(`series_no, email, ${usr.cols}, status, created_by, date_created`, `'${global.randomizer(7)}', '${(this.data).email}', ${usr.vals}, 1, ${(this.data).created_by}, CURRENT_TIMESTAMP`).condition(`RETURNING id`).build();
-    //             await new Builder(`tbl_users`).update(`email_verification_code= '${global.randomizer(6)}', email_verified= 1`).condition(`WHERE id= ${_usr.rows[0].id}`).build();
-    //             await new Builder(`tbl_users_info`).insert(`user_id, ${info.cols}`, `${_usr.rows[0].id}, ${info.vals}`).build();
-
-    //             return { result: 'success', message: 'Successfully saved!' }
-    //         }
-    //         else { return { result: 'error', error: [{ name: 'lname', message: 'Name already exist! Change your first name or last name to proceed!' }] } }
-    //     }
-    //     else { return { result: 'error', error: [{ name: 'email', message: 'Email already used!' }] } }
     // }
 
     // update = async () => {

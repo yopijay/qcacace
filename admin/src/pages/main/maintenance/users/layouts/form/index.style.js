@@ -22,7 +22,7 @@ export const title = {
 }
 
 export const card = {
-    padding: '10px 0',
+    padding: '30px 15px',
     flexGrow: 1,
     backgroundColor: '#ffffff',
     borderRadius: '8px',

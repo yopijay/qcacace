@@ -16,10 +16,11 @@ import { btnicon, btntxt, search } from "./index.style"; // Styles
 
 // Layouts
 import Dashboard from "./layouts/Dashboard";
+import Item from "./layouts/Item";
 
 const Index = () => {
     const { setList } = useContext(ListCntxt);
-    useGet({ key: ['usr_list'], fetch: records({ table: 'tbl_users', data: { condition: JSON.stringify({ condition: '', except: localStorage.getItem('token') }) } }), options: { refetchOnWindowFocus: false}, onSuccess: (data) => setList(data) });
+    const { isFetching } = useGet({ key: ['usr_list'], fetch: records({ table: 'tbl_users', data: { condition: JSON.stringify({ condition: '', except: localStorage.getItem('token') }) } }), options: { refetchOnWindowFocus: false}, onSuccess: (data) => setList(data) });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 3 }>
@@ -39,11 +40,7 @@ const Index = () => {
                     </Box>
                 </Stack>
             </Stack>
-            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx= {{ padding: '0 0 40px 0', overflowY: 'scroll', '&::-webkit-scrollbar': { display: 'none' } }}>
-                <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ backgroundColor: '#FFFFFF', padding: '10px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }}>
-                    <Typography>No record/s found!</Typography>
-                </Stack>
-            </Stack>
+            <Item />
         </Stack>
     );
 }
