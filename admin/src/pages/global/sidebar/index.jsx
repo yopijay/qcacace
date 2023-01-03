@@ -29,7 +29,7 @@ export const Index = () => {
             <SwipeableDrawer anchor= "left" variant= "temporary" sx= { swipe } ModalProps= {{ keepMounted: true }} container= { container } onOpen= { drawerToggle(true) } open= { open.left } onClose= { drawerToggle(false) }>
                 <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" sx= {{ height: '100vh' }} spacing= { 2 }>
                     <Navs />
-                    <Account />
+                    <Account setElem= { setElem } />
                 </Stack>
             </SwipeableDrawer>
             <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" sx= {{ height: '100vh', padding: '0 10px 20px 0', display: { xs: 'none', lg: 'flex' } }} spacing= { 2 }>
