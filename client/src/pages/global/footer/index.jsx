@@ -24,7 +24,7 @@ const Index = () => {
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                             <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 2 }>
                                 <Avatar src= { Logo } alt= "logo" sx= {{ width: 40, height: 40 }} />
-                                <Typography sx= { brand }>QCACAC</Typography>
+                                <Typography sx= { brand }>QCACAC E - Services</Typography>
                             </Stack>
                             <Typography sx= { brandinfo }>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis, lectus id viverra fermentum, eros libero aliquam nisl, ac lacinia ex turpis eu arcu. </Typography>
                             <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>

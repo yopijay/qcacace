@@ -6,8 +6,8 @@ import { api } from '../global/function/index.func'; // Function
 import Env from '../constants/json/Env.json'; // Constants
 
 
-let env = 'lan';
-let _dropdown= [{ id: 0, name: '-- SELECT AN ITEM BELOW --' }];
+let env = 'local';
+let _dropdown= [{ id: 0, name: '-- SELECT AN ITEM BELOW --' }]; // 
 
 export const authentication = async ({ data, type }) => { return await api(`${Env[env].url}/authentication/${type}`, 'post', data).then(res => res.data); }
 export const profile = async ({ table, query }) => { return await api(`${Env[env].url}/profile/${table}/${query}`, 'get').then(res => res.data); }
