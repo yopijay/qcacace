@@ -1,6 +1,6 @@
 export const appbar = {
     backgroundFilter: 'blur(2px)',
-    backgroundColor: '#ffffffeb',
+    backgroundColor: '#1B4168',
     boxShadow: 'none',
     padding: '10px 0',
     maxHeight: '120px',
@@ -23,12 +23,12 @@ export const mainLink = {
 export const link = {
     fontFamily: 'Tommy',
     textDecoration: 'none',
-    color: '#212b36',
+    color: '#ffffff',
     transition: 'transform .2s',
     cursor: 'pointer',
     display: { xs: 'none', sm: 'block' },
     '&:hover': { 
-        color: '#728ca1',
+        color: '#07bc0c',
         transform: 'scale(1.1)'
     }
 }
@@ -36,7 +36,7 @@ export const link = {
 export const activeLink = {
     fontFamily: 'Tommy',
     textDecoration: 'none',
-    color: '#728ca1',
+    color: '#07bc0c',
     transition: 'transform .2s',
     cursor: 'pointer',
     transform: 'scale(1.1)'

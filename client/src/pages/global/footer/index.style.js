@@ -17,7 +17,7 @@ export const brandinfo = {
 
 export const brandlinks = {
     fontSize: '150%',
-    color: '#204c6f'
+    color: '#ffffff'
 }
 
 export const links = {
@@ -29,7 +29,7 @@ export const links = {
 export const title = {
     fontSize: '150%',
     fontWeight: 'bold',
-    color: '#204c6f'
+    color: '#ffffff'
 }
 
 export const info = {

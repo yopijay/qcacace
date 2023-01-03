@@ -21,7 +21,7 @@ export const caption = {
     fontSize: {
         md: '100%'
     },
-    color: '#b9b9b9'
+    color: '#371313'
 }
 
 export const cardquote = {
@@ -55,6 +55,6 @@ export const cardaddress = {
 
 export const cardmessage = {
     marginTop: '20px',
-    color: '#b9b9b9',
+    color: '#371313',
     fontSize: '95%'
 }
