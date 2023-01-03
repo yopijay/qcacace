@@ -41,7 +41,7 @@ class Users {
         return {
             total: (await new Builder(`tbl_users`).select(`COUNT(*)`).build()).rows[0].count,
             active: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 1`).build()).rows[0].count,
-            inactive: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 0`). build()).rows[0].count
+            inactive: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 0`).build()).rows[0].count
         }
     }
 
