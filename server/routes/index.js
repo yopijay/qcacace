@@ -5,7 +5,7 @@ const query = require('../queries');
 // Variables
 const router = Router();
 
-router.post('/authentication/:type', (req, res) => { query.authentication(req.body, req.params.type).then(response => { res.status(200).send(response);  }).catch(error => res.status(200).send(error)); });
+router.post('/authentication/:type', (req, res) => { query.authentication(req.body, req.params.type).then(response => { res.status(200).send(response); }).catch(error => res.status(200).send(error)); });
 router.get('/profile/:table/:query', (req, res) => { query.profile(req.params.table, req.params.query).then(response => { res.status(200).send(response); }).catch(error => res.status(200).send(error)); });
 router.post('/scan/:table', (req, res) => { query.scan(req.params.table, req.body).then(response => { res.status(200).send(response); }).catch(error => res.status(200).send(error)); });
 router.post('/dropdown/:table', (req, res) => { query.dropdown(req.params.table, req.body).then(response => { res.status(200).send(response); }).catch(error => res.status(200).send(error)); });

@@ -21,7 +21,7 @@ const subtitle = {
 }
 
 const title = {
-    color: '#728ca1',
+    color: '#1B4168',
     fontFamily: 'Tommy Bolder',
     lineHeight: 1,
     transition: 'all 0.2s ease-in-out',
