@@ -1,15 +1,15 @@
 // Libraries
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Stack, TextField, Typography } from "@mui/material";
+import { Skeleton, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
-import { useGet } from "core/global/function/index.func"; // Function
-import { records } from "core/api/index.func"; // API
+import { useGet, usePost } from "core/global/function/index.func"; // Function
+import { look, records } from "core/api/index.func"; // API
 
 // Constants
 import { btnicon, btntxt, search } from "./index.style"; // Styles
@@ -20,7 +20,8 @@ import Item from "./layouts/Item";
 
 const Index = () => {
     const { setList } = useContext(ListCntxt);
-    const { isFetching } = useGet({ key: ['usr_list'], fetch: records({ table: 'tbl_users', data: { condition: JSON.stringify({ condition: '', except: localStorage.getItem('token') }) } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
+    const { mutate: find, isLoading: finding } = usePost({ fetch: look, onSuccess: (data) => setList(data) });
+    const { isFetching: fetching } = useGet({ key: ['usr_list'], fetch: records({ table: 'tbl_users', data: { condition: JSON.stringify({ condition: '', except: localStorage.getItem('token') }) } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 3 }>
@@ -31,7 +32,8 @@ const Index = () => {
                     <form autoComplete= "off">
                         <Box sx= { search }>
                             <FontAwesomeIcon icon= { solid('magnifying-glass') } size= "sm" style= {{ margin: '8px' }} />
-                            <TextField variant= "standard" size= "small" fullWidth InputProps= {{ disableUnderline: true }} placeholder= "Search..." sx= {{ padding: '5px 0 0 0'}} />
+                            <TextField variant= "standard" size= "small" fullWidth InputProps= {{ disableUnderline: true }} placeholder= "Search..." sx= {{ padding: '5px 0 0 0'}}
+                                onChange= { e => { find({ table: 'tbl_users', data: { condition: e.target.value !== '' ? (e.target.value).toUpperCase() : e.target.value, id: atob(localStorage.getItem('token')) } }); } }  />
                         </Box>
                     </form>
                     <Box>
@@ -40,7 +42,21 @@ const Index = () => {
                     </Box>
                 </Stack>
             </Stack>
-            <Item />
+            { !fetching && !finding ? <Item /> :  
+                <Stack direction= "row" justifyContent= "space-between" alignItems= "center" sx= {{ backgroundColor: '#FFFFFF', padding: '10px 20px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }} spacing= { 2 }>
+                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ flexGrow: 1 }} spacing= { 1 }>
+                        <Skeleton variant= "circular" sx= {{ width: 55, height: 55 }} />
+                        <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ flexGrow: 1 }}>
+                            <Skeleton variant= "rounded" sx= {{ width: '50%', height: '10px' }} />
+                            <Skeleton variant= "rounded" sx= {{ width: '25%', height: '10px' }} />
+                            <Skeleton variant= "rounded" sx= {{ width: '27%', height: '10px' }} />
+                        </Stack>
+                    </Stack>
+                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
+                        <Skeleton variant= "rounded" sx= {{ padding: '15px' }} />
+                        <Skeleton variant= "rounded" sx= {{ padding: '15px' }} />
+                    </Stack>
+                </Stack> }
         </Stack>
     );
 }

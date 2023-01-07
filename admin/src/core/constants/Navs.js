@@ -2,6 +2,7 @@
 import React from 'react';
 
 // Maintenance
+const Pets = React.lazy(() => import('pages/main/maintenance/pets'));
 const Users = React.lazy(() => import('pages/main/maintenance/users'));
 
 export const Navs = () => ([
@@ -21,7 +22,7 @@ export const Navs = () => ([
         title: 'Maintenance', nav: [
             { path: '/maintenance/category', label: 'Category', name: 'category', component: 'CATEGORY' },
             { path: '/maintenance/breed', label: 'Breed', name: 'breed', component: 'BREED' },
-            { path: '/maintenance/pet', label: 'Pets', name: 'pets', component: 'PETS' },
+            { path: '/maintenance/pet', label: 'Pets', name: 'pets', component: <Pets /> },
             { path: '/maintenance/users', label: 'Users', name: 'Users', component: <Users /> }
         ]
     }

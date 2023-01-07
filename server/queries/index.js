@@ -16,6 +16,14 @@ const dashboard = (table) => {
     });
 }
 
+const search = (table, data) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_users': resolve(await new Users().search(data)); break;
+        }
+    })
+}
+
 const list = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
@@ -139,5 +147,6 @@ module.exports = {
     list,
     specific,
     save,
-    update
+    update,
+    search
 }
