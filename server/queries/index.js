@@ -2,6 +2,7 @@
 const db = require('../connection');
 
 // Tables
+const Category = require('./tables/Category');
 const Users = require('./tables/Users');
 
 const login = (data) => { return new Users().login(data); }
@@ -20,6 +21,7 @@ const search = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
             case 'tbl_users': resolve(await new Users().search(data)); break;
+            case 'tbl_pet_category': resolve(await new Category().search(data)); break;
         }
     })
 }
@@ -28,6 +30,7 @@ const list = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
             case 'tbl_users': resolve(await new Users().list(data));  break;
+            case 'tbl_pet_category': resolve(await new Category().list()); break;
         }
     });
 }
