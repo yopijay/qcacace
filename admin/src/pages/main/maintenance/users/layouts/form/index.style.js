@@ -41,9 +41,7 @@ export const input = {
     borderRadius: '5px'
 }
 
-export const error = {
-    color: '#e84118'
-}
+export const error = { color: '#e84118' }
 
 export const select = {
     border: 'solid 1px #dfe4ea',

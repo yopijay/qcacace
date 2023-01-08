@@ -20,8 +20,8 @@ const dashboard = (table) => {
 const search = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
-            case 'tbl_users': resolve(await new Users().search(data)); break;
             case 'tbl_pet_category': resolve(await new Category().search(data)); break;
+            case 'tbl_users': resolve(await new Users().search(data)); break;
         }
     })
 }
@@ -29,8 +29,8 @@ const search = (table, data) => {
 const list = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
-            case 'tbl_users': resolve(await new Users().list(data));  break;
             case 'tbl_pet_category': resolve(await new Category().list()); break;
+            case 'tbl_users': resolve(await new Users().list(data));  break;
         }
     });
 }
@@ -38,6 +38,7 @@ const list = (table, data) => {
 const specific = (table, id) => {
     return new Promise(async resolve => {
         switch(table) {
+            case 'tbl_pet_category': resolve(await new Category().specific(id)); break;
             case 'tbl_users': resolve(await new Users().specific(id)); break;
         }
     });
@@ -46,6 +47,7 @@ const specific = (table, id) => {
 const save = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
+            case 'tbl_pet_category': resolve(await new Category().save(data)); break;
             case 'tbl_users': resolve(await new Users().save(data)); break;
         }
     });
@@ -54,6 +56,7 @@ const save = (table, data) => {
 const update = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
+            case 'tbl_pet_category': resolve(await new Category().update(data)); break;
             case 'tbl_users': resolve(await new Users().update(data)); break;
         }
     });
