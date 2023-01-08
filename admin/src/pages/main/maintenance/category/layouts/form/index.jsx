@@ -7,7 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
-import { get, save, specific, update } from "core/api/index.func"; // APIs
+import { save, specific, update } from "core/api/index.func"; // APIs
 import { randomizer, successToast, useGet, usePost } from "core/global/function/index.func"; // Custom react query
 import { input as theme } from "core/global/theme/index.style"; // Theme
 

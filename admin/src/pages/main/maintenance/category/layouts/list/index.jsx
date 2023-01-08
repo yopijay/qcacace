@@ -9,9 +9,9 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
 
 // Constants
-import { btnicon, btntxt, search, title } from "./index.style"; // Styles
+import { btnicon, btntxt, search } from "./index.style"; // Styles
 import { useGet, usePost } from "core/global/function/index.func";
-import { look, record, records } from "core/api/index.func";
+import { look, records } from "core/api/index.func";
 
 // Layouts
 import Item from "./layouts/Item";

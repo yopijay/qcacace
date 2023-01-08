@@ -3,6 +3,8 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Users {
+    specific = async (id) => { return (await new Builder(`tbl_users AS usr`).select().join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' }).condition(`WHERE usr.id= ${id}`).build()).rows; }
+
     login = async (data) => {
         let email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();
         let  verified = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}' AND is_email_verified= 1`).build();
@@ -66,8 +68,6 @@ class Users {
                                         .build()).rows;
     }
 
-    specific = async (id) => { return (await new Builder(`tbl_users AS usr`).select().join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' }).condition(`WHERE usr.id= ${id}`).build()).rows; }
-
     save = async (data) => {
         if(!((await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0)) {
             if(!((await new Builder(`tbl_users_info`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0)) {
@@ -120,32 +120,6 @@ class Users {
         await new Builder(`tbl_users`).update(`updated_by= ${data.updated_by}, date_updated= '${date}'`).condition(`WHERE id= ${usr.id}`).build();
         return { result: 'success', message: 'Successfully updated!' }
     }
-    // constructor(query, data = null) { this.query = query; this.data = data; }
-    // specific = async () => { return (await new Builder(`tbl_users AS usr`).select().join(`tbl_users_info AS usrnfo`, `usrnfo.user_id = usr.id`).condition(`WHERE usr.id= ${this.query}`).build()).rows; }
-    // series = async () => { return (await new Builder('tbl_users').select('COUNT(*)').build()).rows; }
-
-    // profile = async () => {
-    //     return (await new Builder(`tbl_users AS usr`)
-    //                         .select(`usr.series_no, usr.email, usr.user_level, usrnfo.fname, usrnfo.mname, usrnfo.lname, usrnfo.suffix, usrnfo.gender, usrnfo.address`)
-    //                         .join(`tbl_users_info AS usrnfo`, `usrnfo.user_id = usr.id`)
-    //                         .condition(`WHERE usr.id= ${this.query}`)
-    //                         .build()).rows;
-    // }
-
-    // list = async () => {
-    //     return (await new Builder(`tbl_users AS usr`)
-    //                                     .select(`usr.id, usr.series_no, usr.email, usr.user_level, usr.date_created, usrnfo.fname, usrnfo.mname, usrnfo.lname, usrnfo.suffix, usrnfo.gender, usrnfo.address`)
-    //                                     .join(`tbl_users_info AS usrnfo`, `usrnfo.user_id = usr.id`)
-    //                                     .condition(`${JSON.parse(this.query).condition} EXCEPT SELECT usr.id, usr.series_no, usr.email, usr.user_level, usr.date_created, usrnfo.fname, usrnfo.mname, usrnfo.lname, usrnfo.suffix, usrnfo.gender, usrnfo.address FROM tbl_users AS usr
-    //                                                         LEFT JOIN tbl_users_info AS usrnfo ON usrnfo.user_id = usr.id WHERE usr.id= ${JSON.parse(this.query).except} ORDER BY 5 DESC`)
-    //                                     .build()).rows;
-    // }
-
-    // save = async () => {
-    // }
-
-    // update = async () => {
-    // }
 }
 
 module.exports = Users;

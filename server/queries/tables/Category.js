@@ -4,8 +4,9 @@ const Builder = require('../../functions/builder');
 
 class Category {
     list = async () => { return (await new Builder(`tbl_pet_category`).select().condition(`ORDER BY date_created DESC`).build()).rows; }
-    search = async (data) => { return (await new Builder(`tbl_pet_category`).select().condition(`WHERE name LIKE '%${data.condition}%' OR series_no LIKE '%${data.condition}%'`).build()).rows; }
+    search = async (data) => { return (await new Builder(`tbl_pet_category`).select().condition(`WHERE name LIKE '%${data.condition}%' OR series_no LIKE '%${data.condition}%' ORDER BY date_created DESC`).build()).rows; }
     specific = async (id) => { return (await new Builder(`tbl_pet_category`).select().condition(`WHERE id= ${id}`).build()).rows; }
+    dropdown = async () => { return (await new Builder(`tbl_pet_category`).select(`id, name`).condition(`WHERE status= 1 ORDER BY name ASC`).build()).rows; }
 
     save = async (data) => {
         if(!(await new Builder(`tbl_pet_category`).select().condition(`WHERE name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {

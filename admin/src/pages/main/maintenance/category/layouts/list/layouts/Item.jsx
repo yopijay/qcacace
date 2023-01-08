@@ -7,10 +7,9 @@ import { Link } from "react-router-dom";
 
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
-import { getDate } from "core/global/function/index.func"; // Function
 
 // Constants
-import { icons, item } from "../index.style"; // Styles
+import { icons } from "../index.style"; // Styles
 
 const Item = () => {
     const { list } = useContext(ListCntxt);

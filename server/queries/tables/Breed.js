@@ -3,31 +3,60 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Breed {
-    constructor(query, data = null) { this.query = query; this.data = data; }
-    specific = async () => { return (await new Builder(`tbl_breed`).select().condition(`WHERE id= ${this.query}`).build()).rows; }
-    list = async () => { return (await new Builder(`tbl_breed`).select().condition(this.query).build()).rows; }
-    dropdown = async () => { return (await new Builder('tbl_breed').select(`id, name`).condition(this.query).build()).rows; } // For dropdowns
-    dropdown_by = async () => { return (await new Builder('tbl_breed').select(`id, name`).condition(`WHERE pet_category_id= ${this.data.query} ORDER BY date_created DESC`).build()).rows; }
+    list = async () => { return (await new Builder(`tbl_breed AS brd`).select(`brd.id, brd.series_no, ctg.name AS pet_category, brd.name, brd.date_created`).join({ table: `tbl_pet_category AS ctg`, condition: `brd.pet_category_id = ctg.id`, type: 'LEFT' }).condition(`ORDER BY brd.date_created DESC`).build()).rows; }
+    specific = async (id) => { return (await new Builder(`tbl_breed`).select().condition(`WHERE id= ${id}`).build()).rows; }
 
-    save = async () => {
-        let breed = await new Builder(`tbl_breed`).select().condition(`WHERE pet_category_id= ${(this.data).pet_category_id} AND name= '${((this.data).name).toUpperCase()}'`).build();
+    dashboard = async() => {
+        let dog = (await new Builder(`tbl_pet_category`).select().condition(`WHERE name= 'DOG' AND status= 1`).build()).rows[0];
+        let cat = (await new Builder(`tbl_pet_category`).select().condition(`WHERE name= 'CAT' AND status= 1`).build()).rows[0];
 
-        if(!(breed.rowCount > 0)) {
-            await new Builder(`tbl_breed`).insert(`series_no, pet_category_id, name, status, created_by, date_created`, `'${global.randomizer(7)}', ${(this.data).pet_category_id}, '${((this.data).name).toUpperCase()}', 1, ${(this.data).created_by}, CURRENT_TIMESTAMP`).build();
-            return { result: 'success', message: 'Successfully saved!' }
+        return {
+            others: (await new Builder(`tbl_breed`).select(`COUNT(*)`).build()).rows[0].count,
+            dogs: (await new Builder(`tbl_breed AS brd`).select(`COUNT(brd.*)`).condition(`WHERE brd.pet_category_id= ${dog.id}`).build()).rows[0].count,
+            cats: (await new Builder(`tbl_breed AS brd`).select(`COUNT(brd.*)`).condition(`WHERE brd.pet_category_id= ${cat.id}`).build()).rows[0].count
         }
-        else { return { result: 'error', error: [{ name: 'name', message: 'Breed already used!' }] } }
     }
 
-    update = async () => {
-        let brd = await new Builder(`tbl_breed`).select().condition(`WHERE id= ${(this.data).id}`).build();
+    search = async (data) => { 
+        return (await new Builder(`tbl_breed AS brd`)
+                                        .select(`brd.id, brd.series_no, ctg.name AS pet_category, brd.name, brd.date_created`).
+                                        join({ table: `tbl_pet_category AS ctg`, condition: `brd.pet_category_id = ctg.id`, type: 'LEFT' })
+                                        .condition(`WHERE brd.series_no LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%' OR ctg.name LIKE '%${data.condition}%' ORDER BY brd.date_created DESC`)
+                                        .build()).rows;
+    }
 
-        if(global.checkifsame((brd.rows[0].name).toUpperCase(), ((this.data).name).toUpperCase())) {
-            if(!((await new Builder(`tbl_breed`).select().condition(`WHERE pet_category_id= ${(this.data).pet_category_id} AND name= '${((this.data).name).toUpperCase()}'`).build()).rowCount > 0)) { await new Builder(`tbl_breed`).update(`name= '${((this.data).name).toUpperCase()}'`).condition(`WHERE id= ${brd.rows[0].id}`).build(); }
-            else { return { result: 'error', error: [{ name: 'name', message: 'Pet category is already used!' }] } }
+    save = async (data) => {
+        if(!(await new Builder(`tbl_breed`).select().condition(`WHERE pet_category_id= ${data.pet_category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {
+            await new Builder(`tbl_breed`)
+                                .insert({ columns: `series_no, pet_category_id, name, status, created_by, date_created`,
+                                                values: `'${(data.series_no).toUpperCase()}', ${data.pet_category_id}, '${(data.name).toUpperCase()}',  ${data.status ? 1 : 0}, ${data.created_by}, CURRENT_TIMESTAMP` })
+                                .build();
+            return { result: 'success', message: 'Successfully saved!' }
+        }
+        else { return { result: 'error', error: [{ name: 'name', message: 'Breed already exist! Change your breed name or choose another pet category!' }] } }
+    }
+
+    update = async (data) => {
+        let brd = (await new Builder(`tbl_breed`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
+        let date = global.date(new Date());
+
+        if(global.compare(brd.pet_category_id, data.pet_category_id)) {
+            if(!(await new Builder(`tbl_breed`).select().condition(`WHERE pet_category_id= ${data.pet_category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {
+                await new Builder(`tbl_breed`).update(`pet_category_id= ${data.pet_category_id}`).condition(`WHERE id= ${brd.id}`).build();
+            }
+            else { return { result: 'error', error: [{ name: 'pet_category_id', message: 'Breed already exist in this pet category!' }] } }
         }
 
-        await new Builder(`tbl_breed`).update(`updated_by= ${(this.data).updated_by}, date_updated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${brd.rows[0].id}`).build();
+        if(global.compare(brd.name, data.name)) {
+            if(!(await new Builder(`tbl_breed`).select().condition(`WHERE pet_category_id= ${data.pet_category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {
+                await new Builder(`tbl_breed`).update(`name= '${(data.name).toUpperCase()}'`).condition(`WHERE id= ${brd.id}`).build();
+            }
+            else { return { result: 'error', error: [{ name: 'name', message: 'Breed already exist in this pet category! Please change your breed name or choose another pet category' }] } }
+        }
+
+        if(global.compare(brd.status, data.status ? 1 : 0)) { await new Builder(`tbl_breed`).update(`status= ${data.status === true || data.status === 'true' ? 1 : 0}`).condition(`WHERE id= ${brd.id}`).build(); }
+
+        await new Builder(`tbl_breed`).update(`updated_by= ${data.updated_by}, date_created= '${date}'`).condition(`WHERE id= ${brd.id}`).build();
         return { result: 'success', message: 'Successfully updated!' }
     }
 }
