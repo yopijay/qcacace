@@ -3,40 +3,51 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Pets {
-    constructor(query, data = null) { this.query = query; this.data = data; }
-    specific = async () => { return (await new Builder(`tbl_pets`).select().condition(`WHERE id= ${this.query}`).build()).rows; }
-    list = async () => { return (await new Builder(`tbl_pets AS pet`).select(`pet.id, pet.series_no, pet.gender, pet.age, pet.size, ctg.name AS category, brd.name AS breed, pet.date_created`).join(`tbl_pet_category AS ctg`, `pet.category_id = ctg.id`).join(`tbl_breed AS brd`, `pet.breed_id = brd.id`).condition(this.query).build()).rows; }
-    scan = async() => { return (await new Builder(`tbl_pets`).select().condition(`WHERE series_no= '${(this.data).series_no}'`).build()).rows[0]; }
-    dropdown = async () => { return (await new Builder('tbl_pets').select(`id, series_no AS name`).condition(this.query).build()).rows; } // For dropdowns
-    dropdown_by = async () => { return (await new Builder('tbl_pets').select(`id, name`).condition(`WHERE pet_category_id= ${this.data.query} ORDER BY date_created DESC`).build()).rows; }
+    specific = async (id) => { return (await new Builder(`tbl_pets`).select().condition(`WHERE id= ${id}`).build()).rows; }
 
-    save = async () => {
-        let ordered_cols = [ 'category_id', 'breed_id', 'name', 'gender', 'age', 'size', 'color', 'tags', 'description' ];
-        let cols = global.form(ordered_cols, this.data).cols;
-        let  vals = global.form(ordered_cols, this.data).vals;
-        
-        await new Builder(`tbl_pets`).insert(`series_no, ${cols}, status, created_by, date_created`, `'${global.randomizer(7)}', ${vals}, 1, ${(this.data).created_by}, CURRENT_TIMESTAMP`).build();
+    search = async (data) => {
+        return (await new Builder(`tbl_pets AS pet`)
+                                        .select(`pet.id, pet.series_no, ctg.name AS company, brd.name AS breed, pet.photo, pet.status, pet.date_created`)
+                                        .join({ table: `tbl_pet_category AS ctg`, condition: `pet.pet_category_id = ctg.id`, type: 'LEFT' })
+                                        .join({ table: `tbl_breed AS brd`, condition: `pet.breed_id = brd.id`, type: 'LEFT' })
+                                        .condition(`WHERE pet.series_no LIKE '%${data.condition}%' OR ctg.name LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%' ORDER BY pet.date_created DESC`)
+                                        .build()).rows;
+    }
+
+    list = async () => { 
+        return (await new Builder(`tbl_pets AS pts`)
+                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, pts.photo, pts.status, pts.date_created`)
+                                        .join({ table: `tbl_pet_category AS ctg`, condition: `pts.pet_category_id = ctg.id`, type: 'LEFT' })
+                                        .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
+                                        .condition(`ORDER BY pts.date_created DESC`)
+                                        .build()).rows;
+    }
+    
+    save = async (data) => {
+        await new Builder(`tbl_pets`)
+                            .insert({ columns: `series_no, pet_category_id, breed_id, gender, age, color, size, tags, description, photo, status, created_by, date_created`,
+                                            values: `'${(data.series_no).toUpperCase()}', ${data.pet_category_id}, ${data.breed_id}, '${data.gender}', '${(data.age).toUpperCase()}', '${(data.color).toUpperCase()}', '${(data.size).toUpperCase()}',
+                                                            '${(data.tags).toUpperCase()}', '${(data.description).toUpperCase()}', '${data.photo}', ${data.status ? 1 : 0}, ${data.created_by}, CURRENT_TIMESTAMP` })
+                            .build();
         return { result: 'success', message: 'Successfully saved!' }
     }
 
-    update = async () => {
-        let pet = (await new Builder(`tbl_pets`).select().condition(`WHERE id= ${(this.data).id}`).build()).rows[0];
-        
-        if(global.checkifsame(pet.breed_id, (this.data).breed_id)) { await new Builder(`tbl_pets`).update(`breed_id= ${(this.data).breed_id}`).condition(`WHERE id= ${pet.id}`).build(); }
-        
-        if(global.checkifsame(pet.name !== null && pet.name !== '' ? (pet.name).toUpperCase() : null, (this.data).name !== null && (this.data).name !== '' ? ((this.data).name).toUpperCase() : null)) {
-            await new Builder(`tbl_pets`).update(`name= ${(this.data).name !== null && (this.data).name !== '' ? `'${((this.data).name).toUpperCase()}'` : null}`).condition(`WHERE id= ${pet.id}`).build();
-        }
-        
-        if(global.checkifsame(pet.gender, (this.data).gender)) { await new Builder(`tbl_pets`).update(`gender= '${(this.data).gender}'`).condition(`WHERE id= ${pet.id}`).build(); }
-        if(global.checkifsame((pet.age).toUpperCase(), ((this.data).age).toUpperCase())) { await new Builder(`tbl_pets`).update(`age= '${(this.data).age}'`).condition(`WHERE id= ${pet.id}`).build(); }
-        if(global.checkifsame((pet.size).toUpperCase(), ((this.data).size).toUpperCase())) { await new Builder(`tbl_pets`).update(`size= '${(this.data).size}'`).condition(`WHERE id= ${pet.id}`).build(); }
-        if(global.checkifsame((pet.color).toUpperCase(), ((this.data).color).toUpperCase())) { await new Builder(`tbl_pets`).update(`color= '${(this.data).color}'`).condition(`WHERE id= ${pet.id}`).build(); }
-        if(global.checkifsame((pet.tags).toUpperCase(), ((this.data).tags).toUpperCase())) { await new Builder(`tbl_pets`).update(`tags= '${(this.data).tags}'`).condition(`WHERE id= ${pet.id}`).build(); }
-        if(global.checkifsame((pet.description).toUpperCase(), ((this.data).description).toUpperCase())) { await new Builder(`tbl_pets`).update(`description= '${(this.data).description}'`).condition(`WHERE id= ${pet.id}`).build(); }
+    update = async (data) => {
+        let pet = (await new Builder(`tbl_pets`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
+        let date = global.date(new Date());
 
+        if(global.compare(pet.pet_category_id, data.pet_category_id)) { await new Builder(`tbl_pets`).update(`pet_category_id= ${data.pet_category_id}`).condition(`WHERE id= ${pet.id}`).build(); }
+        if(global.compare(pet.breed_id, data.breed_id)) { await new Builder(`tbl_pets`).update(`breed_id= ${data.breed_id}`).condition(`WHERE id= ${pet.id}`).build(); }
+        if(global.compare(pet.gender, data.gender)) { await new Builder(`tbl_pets`).update(`gender= '${data.gender}'`).condition(`WHERE id= ${pet.id}`).build(); }
+        if(global.compare(pet.age, data.age)) { await new Builder(`tbl_pets`).update(`age= '${(data.age).toUpperCase()}'`).condition(`WHERE id= ${pet.id}`).build(); }
+        if(global.compare(pet.color, data.color)) { await new Builder(`tbl_pets`).update(`color= '${(data.color).toUpperCase()}'`).condition(`WHERE id= ${pet.id}`).build(); }
+        if(global.compare(pet.size, data.size)) { await new Builder(`tbl_pets`).update(`size= '${(data.size).toUpperCase()}'`).condition(`WHERE id= ${pet.id}`).build(); }
+        if(global.compare(pet.tags, data.tags)) { await new Builder(`tbl_pets`).update(`tags= '${(data.tags).toUpperCase()}'`).condition(`WHERE id= ${pet.id}`).build(); }
+        if(global.compare(pet.description, data.description)) { await new Builder(`tbl_pets`).update(`description= '${(data.description).toUpperCase()}'`).condition(`WHERE id= ${pet.id}`).build(); }
+        if(global.compare(pet.photo, data.photo)) { await new Builder(`tbl_pets`).update(`photo= '${data.photo}'`).condition(`WHERE id= ${pet.id}`).build(); }
+        if(global.compare(pet.status, data.status ? 1 : 0)) { await new Builder(`tbl_pets`).update(`status= ${data.status === true || data.status === 'true' ? 1 : 0}`).condition(`WHERE id= ${brd.id}`).build(); }
 
-        await new Builder(`tbl_pets`).update(`updated_by= ${(this.data).updated_by}, date_updated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${pet.id}`).build();
+        await new Builder(`tbl_pets`).update(`updated_by= ${data.updated_by}, date_updated= '${date}'`).condition(`WHERE id= ${pet.id}`).build();
         return { result: 'success', message: 'Successfully updated!' }
     }
 }

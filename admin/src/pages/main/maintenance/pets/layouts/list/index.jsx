@@ -7,42 +7,53 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
-import { record } from "core/api/index.func"; // APIs
-import { useGet } from "core/global/function/index.func"; // Custom react query
+import { look, records } from "core/api/index.func"; // APIs
+import { useGet, usePost } from "core/global/function/index.func"; // Custom react query
 
 // Constants
-import { btnicon, btntxt, search, title } from "./index.style"; // Styles
+import { btnicon, btntxt, search } from "./index.style"; // Styles
 
 // Layouts
 import Item from "./layouts/Item";
 
 const Index = () => {
     const { setList } = useContext(ListCntxt);
-    const { isFetching } = useGet(['pet_list'], record({ table: 'tbl_pets', query: `ORDER BY pet.date_created DESC` }), { refetchOnWindowFocus: false }, (data) => setList(data));
+    const { mutate: find, isLoading: finding } = usePost({ fetch: look, onSuccess: (data) => setList(data) });
+    const { isFetching: fetching } = useGet({ key: ['pet_list'], fetch: records({ table: 'tbl_pets', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
 
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 1 }>
-            <Typography sx= { title }>Pet list</Typography>
-            <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
-                <form autoComplete = "off">
-                    <Box sx= { search }>
-                        <FontAwesomeIcon icon= { solid('magnifying-glass') } size= "sm" style= {{ margin: '8px' }} />
-                        <TextField variant= "standard" size= "small" fullWidth= { true } InputProps= {{ disableUnderline: true }} placeholder= "Search..." />
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 3 }>
+            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
+                <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#3C4048' }}>Pets</Typography>
+                <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
+                    <form autoComplete= "off">
+                        <Box sx= { search }>
+                            <FontAwesomeIcon icon= { solid('magnifying-glass') } size= "sm" style= {{ margin: '8px' }} />
+                            <TextField variant= "standard" size= "small" fullWidth InputProps= {{ disableUnderline: true }} placeholder= "Search..." sx= {{ padding: '5px 0 0 0' }}
+                                onChange= { e => { find({ table: 'tbl_pets', data: { condition: e.target.value !== '' ? (e.target.value).toUpperCase() : e.target.value } }); } } />
+                        </Box>
+                    </form>
+                    <Box>
+                        <Typography component= { Link } to= "/maintenance/pet/form/new" sx= { btnicon }><FontAwesomeIcon icon= { solid('plus') } style= {{ color: '#FFFFFF' }} /></Typography>
+                        <Typography component= { Link } to= "/maintenance/pet/form/new" sx= { btntxt }>New Breed</Typography>
                     </Box>
-                </form>
-                <Box>
-                    <Typography component= { Link } to= "/maintenance/pets/form/new" sx= { btnicon }><FontAwesomeIcon icon= { solid('plus') } style= {{ color: '#ffffff' }} /></Typography>
-                    <Typography component= { Link } to= "/maintenance/pets/form/new" sx= { btntxt }>New Pet</Typography>
-                </Box>
+                </Stack>
             </Stack>
-            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '20px 0', overflowY: 'scroll', '&::-webkit-scrollbar': { display: 'none' } }}>
-                { !isFetching ? <Item /> : 
-                    <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-                        <Skeleton variant= "rounded" animation= "wave" height= "100px" sx= {{ borderRadius: '5px' }} />
-                        <Skeleton variant= "rounded" animation= "wave" height= "100px" sx= {{ borderRadius: '5px' }} />
-                        <Skeleton variant= "rounded" animation= "wave" height= "100px" sx= {{ borderRadius: '5px' }} />
-                    </Stack> }
-            </Stack>
+            { !fetching && !finding ? <Item /> : 
+                <Stack direction= "row" justifyContent= "space-between" alignItems= "center" sx= {{ backgroundColor: '#FFFFFF', padding: '10px 20px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }} spacing= { 2 }>
+                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ flexGrow: 1 }} spacing= { 1 }>
+                        <Skeleton variant= "circular" sx= {{ width: 55, height: 55 }} />
+                        <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ flexGrow: 1 }}>
+                            <Skeleton variant= "rounded" sx= {{ width: '50%', height: '10px' }} />
+                            <Skeleton variant= "rounded" sx= {{ width: '25%', height: '10px' }} />
+                            <Skeleton variant= "rounded" sx= {{ width: '27%', height: '10px' }} />
+                        </Stack>
+                    </Stack>
+                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
+                        <Skeleton variant= "rounded" sx= {{ padding: '15px' }} />
+                        <Skeleton variant= "rounded" sx= {{ padding: '15px' }} />
+                    </Stack>
+                </Stack> }
         </Stack>
     );
 }

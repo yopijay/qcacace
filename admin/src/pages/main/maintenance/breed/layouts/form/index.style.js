@@ -10,17 +10,6 @@ export const btnicon = {
     '&:hover': { backgroundColor: '#adadad' }
 }
 
-export const title = {
-    fontSize: {
-        xs: '1.2rem',
-        md: '1.3rem'
-    },
-    fontFamily: 'Gilroy Bold',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    transition: 'all 0.2s ease-in-out'
-}
-
 export const card = {
     padding: '30px 15px',
     flexGrow: 1,

@@ -23,7 +23,7 @@ const Index = () => {
     const { isFetching: fetching } = useGet({ key: ['brd_list'], fetch: records({ table: 'tbl_breed', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
 
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 1 }>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 3 }>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                 <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#3C4048' }}>Breed</Typography>
                 <Dashboard />

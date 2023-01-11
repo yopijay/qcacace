@@ -5,6 +5,7 @@ const Builder = require('../../functions/builder');
 class Breed {
     list = async () => { return (await new Builder(`tbl_breed AS brd`).select(`brd.id, brd.series_no, ctg.name AS pet_category, brd.name, brd.date_created`).join({ table: `tbl_pet_category AS ctg`, condition: `brd.pet_category_id = ctg.id`, type: 'LEFT' }).condition(`ORDER BY brd.date_created DESC`).build()).rows; }
     specific = async (id) => { return (await new Builder(`tbl_breed`).select().condition(`WHERE id= ${id}`).build()).rows; }
+    dropdown = async (data) => { return (await new Builder(`tbl_breed`).select(`id, name`).condition(`WHERE pet_category_id = ${data.id}`).build()).rows; }
 
     dashboard = async() => {
         let dog = (await new Builder(`tbl_pet_category`).select().condition(`WHERE name= 'DOG' AND status= 1`).build()).rows[0];
@@ -12,8 +13,8 @@ class Breed {
 
         return {
             others: (await new Builder(`tbl_breed`).select(`COUNT(*)`).build()).rows[0].count,
-            dogs: (await new Builder(`tbl_breed AS brd`).select(`COUNT(brd.*)`).condition(`WHERE brd.pet_category_id= ${dog.id}`).build()).rows[0].count,
-            cats: (await new Builder(`tbl_breed AS brd`).select(`COUNT(brd.*)`).condition(`WHERE brd.pet_category_id= ${cat.id}`).build()).rows[0].count
+            dogs: (await new Builder(`tbl_breed`).select(`COUNT(*)`).condition(`WHERE pet_category_id= ${dog.id}`).build()).rows[0].count,
+            cats: (await new Builder(`tbl_breed`).select(`COUNT(*)`).condition(`WHERE pet_category_id= ${cat.id}`).build()).rows[0].count
         }
     }
 
@@ -56,7 +57,7 @@ class Breed {
 
         if(global.compare(brd.status, data.status ? 1 : 0)) { await new Builder(`tbl_breed`).update(`status= ${data.status === true || data.status === 'true' ? 1 : 0}`).condition(`WHERE id= ${brd.id}`).build(); }
 
-        await new Builder(`tbl_breed`).update(`updated_by= ${data.updated_by}, date_created= '${date}'`).condition(`WHERE id= ${brd.id}`).build();
+        await new Builder(`tbl_breed`).update(`updated_by= ${data.updated_by}, date_updated= '${date}'`).condition(`WHERE id= ${brd.id}`).build();
         return { result: 'success', message: 'Successfully updated!' }
     }
 }
