@@ -1,11 +1,11 @@
 export const title = {
     fontSize: {
-        xs: '1.2rem',
-        md: '1.3rem'
+        xs: '1.0rem',
+        sm: '1.1rem',
+        md: '1.2rem'
     },
-    fontFamily: 'Gilroy Bold',
-    fontWeight: 'bold',
-    transition: 'all 0.2s ease-in-out',
+    fontFamily: 'Gilroy Light',
+    transition: 'all 0.2s ease-in-out'
 }
 
 export const brand = {
@@ -28,11 +28,18 @@ export const input = {
     borderRadius: '5px'
 }
 
+export const link = { 
+    fontSize: { xs: '.90rem', md: '.95rem' }, 
+    cursor: 'pointer', 
+    transition: 'all 0.2s ease-in-out', 
+    textDecoration: 'none' 
+}
+
 export const error = {
     color: '#e84118'
 }
 
-export const btnTxt = { 
+export const btn = { 
     display: 'flex',
     cursor: 'pointer',
     flexDirection: 'row', 

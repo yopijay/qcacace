@@ -14,17 +14,17 @@ const Account = () => {
     const { register, errors } = useContext(FormCntxt);
 
     return (
-        <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ padding: { xs: '0 15px', sm: '0 35px' } }}>
+        <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary">*Email</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Email</Typography>
                     <TextField { ...register('email') } name= "email" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { type === 'view' } sx= { input } />
                     <Typography variant= "body2" sx= { error } gutterBottom>{ errors.email?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary">*Password</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Password</Typography>
                     <TextField { ...register('password') } type= "password" name= "password" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { type === 'view' } sx= { input } />
                     <Typography variant= "body2" sx= { error } gutterBottom>{ errors.password?.message }</Typography>
                 </Stack>

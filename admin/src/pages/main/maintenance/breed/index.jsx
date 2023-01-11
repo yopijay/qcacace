@@ -13,11 +13,6 @@ import Form from './layouts/form';
 
 // Custom styles
 const container = {
-    padding: {
-        xs: '80px 0 20px 0',
-        md: '80px 0 20px 0',
-        lg: '80px 40px 20px 40px' 
-    },
     overflow: 'scroll',
     width: '100%',
     height: '100%',

@@ -10,33 +10,19 @@ export const title = {
 }
 
 export const search = {
+    backgroundColor: '#FFFFFF',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    border: 'solid 1px #dfe4ea',
-    borderRadius: '8px',
-    padding: '6px 10px',
+    border: 'solid 1px #F3F3F3',
+    borderRadius: '50px',
+    padding: '4px 10px',
     width: {
-        xs: '200px',
+        xs: '100%',
         sm: '350px',
         md: '500px'
     }
-}
-
-export const btnicon = {
-    display: {
-        xs: 'flex',
-        md: 'none'
-    }, 
-    flexDirection: 'row', 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    backgroundColor: '#204c6f',
-    borderRadius: '7px',
-    padding: '8px 10px',
-    transition: 'all 0.2s ease-in-out',
-    '&:hover': { backgroundColor: '#1b405d' }
 }
 
 export const btntxt = { 
@@ -50,6 +36,21 @@ export const btntxt = {
     color: '#ffffff',
     borderRadius: '7px',
     padding: '7px 15px',
+    transition: 'all 0.2s ease-in-out',
+    '&:hover': { backgroundColor: '#1b405d' }
+}
+
+export const btnicon = {
+    display: {
+        xs: 'flex',
+        md: 'none'
+    }, 
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: '#204c6f',
+    borderRadius: '7px',
+    padding: '8px 10px',
     transition: 'all 0.2s ease-in-out',
     '&:hover': { backgroundColor: '#1b405d' }
 }

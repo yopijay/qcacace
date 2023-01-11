@@ -3,8 +3,8 @@ import { Stack, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 
 // Core
-import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
 import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
+import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
 import { input } from "core/global/theme/index.style"; // Theme
 
 // Layouts
@@ -13,11 +13,6 @@ import Form from './layouts/form';
 
 // Custom styles
 const container = {
-    padding: {
-        xs: '80px 0 20px 0',
-        md: '80px 0 20px 0',
-        lg: '80px 40px 20px 40px' 
-    },
     overflow: 'scroll',
     width: '100%',
     height: '100%',
@@ -35,4 +30,5 @@ const Index = () => {
         </Stack>
     );
 }
+
 export default Index;
