@@ -13,12 +13,12 @@ class Users {
         if(email.rowCount > 0) {
             if(verified.rowCount > 0) {
                 if(creds.rowCount > 0) {
-                    let logged_in = new Builder(`tbl_users`).update(`is_logged= 1`).condition(`WHERE id= ${creds.rows[0].id} RETURNING id`).test();
-                    console.log(logged_in);
-                    // if(creds.rows[0].is_logged === 0) {
-                    //     // return { result: 'success', message: { id: btoa(logged_in.rows[0].id) } }
-                    // }
-                    // else { return { result: 'error', error: [{ name: 'email', message: 'Account already used in another device' }] } }
+                    if(creds.rows[0].is_logged === 0) {
+                        let logged_in = await new Builder(`tbl_users`).update(`is_logged= 1`).condition(`WHERE id= ${creds.rows[0].id} RETURNING id`).build();
+                        return { logged_in }
+                        // return { result: 'success', message: { id: btoa(logged_in.rows[0].id) } }
+                    }
+                    else { return { result: 'error', error: [{ name: 'email', message: 'Account already used in another device' }] } }
                 }
                 else { return { result: 'error', error: [{ name: 'password', message: 'Incorrect password!' }] } }
             }
