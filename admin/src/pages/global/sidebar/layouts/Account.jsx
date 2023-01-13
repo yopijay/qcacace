@@ -13,7 +13,8 @@ const Account = ({ setElem }) => {
     return (
         <Stack direction= "row" justifyContent= "space-between" alignItems= "center" sx= {{ padding: { xs: '20px', lg: '0' } }}>
             <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                <Avatar src= { JSON.parse(data.avatar) } />
+                {/* <Avatar src= { JSON.parse(data.avatar) } /> */}
+                <Avatar />
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography variant= "body1">{ data.fname } { data.mname } { data.lname }</Typography>
                     <Typography variant= "button">{ data.user_level }</Typography>
