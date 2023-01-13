@@ -7,8 +7,9 @@ class Users {
 
     login = async (data) => {
         let email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();
-        return email.rows;
-        // let verified = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}' AND is_email_verified= 1`).build();
+        let verified = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}' AND is_email_verified= 1`).build();
+
+        return { email, verified } 
         // let creds = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}' AND password= '${data.password}'`).build();
 
         // if(email.rowCount === 1) {
