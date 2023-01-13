@@ -27,7 +27,7 @@ class Users {
     }
 
     logout = async (data) => {
-        await new Builder(`tbl_users`).update(`is_logged= 0`).condition(`WHERE id= ${atob(data.id)}`).build();
+        await new Builder(`tbl_users`).update(`is_logged= 0`).condition(`WHERE id= ${data.id}`).build();
         return { result: 'success', message: 'Successfully logged out!' }
     }
 
