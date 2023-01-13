@@ -6,8 +6,8 @@ class Users {
     specific = async (id) => { return (await new Builder(`tbl_users AS usr`).select().join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' }).condition(`WHERE usr.id= ${id}`).build()).rows; }
 
     login = async (data) => {
-        return data;
-        // let email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();
+        let email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();
+        return email.rows;
         // let verified = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}' AND is_email_verified= 1`).build();
         // let creds = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}' AND password= '${data.password}'`).build();
 
