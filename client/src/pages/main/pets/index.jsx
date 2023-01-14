@@ -13,6 +13,7 @@ import Pet2 from 'assets/images/pets/pet2.png';
 import Pet3 from 'assets/images/pets/pet3.png';
 
 const Index = () => {
+    
     return (
         <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '20px 0' }}>
             <Grid item>
@@ -41,7 +42,7 @@ const Index = () => {
                                 </Stack>
                             </Stack>
                         </Grid>
-                        <Grid item xs= { 12 } sm= { 4 } md= { 3 } sx= {{ padding: { xs: '5px 15px', sm: '5px 10px', lg: '5px 20px'} }}>
+                        {/* <Grid item xs= { 12 } sm= { 4 } md= { 3 } sx= {{ padding: { xs: '5px 15px', sm: '5px 10px', lg: '5px 20px'} }}>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ boxShadow: 1, borderRadius: '25px', overflow: 'hidden', paddingBottom: '20px', height: '100%' }}>
                                 <Box sx= {{ width: '100%', height: '250px', backgroundColor: '#ffa8ae' }} />
                                 <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { Pet2 } alt= "pet" width= "60%" height= "auto" /></Box>
@@ -73,7 +74,7 @@ const Index = () => {
                                     <Typography component= { Link } to= "/pets" sx= {{ color: '#777d9c' }}>{ `Read more >>` }</Typography>
                                 </Stack>
                             </Stack>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Container>
             </Grid>

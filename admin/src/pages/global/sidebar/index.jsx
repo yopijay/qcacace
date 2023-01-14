@@ -42,7 +42,7 @@ export const Index = () => {
                         <Typography gutterBottom variant= "body1" component= { Link } to= "" sx= { link } onClick= { () => { setElem(null); localStorage.setItem('nav', 'profile'); setIsActive('profile'); } }>Profile</Typography>
                         <Typography gutterBottom variant= "body1" component= { Link } to= "" sx= { link } onClick= { () => { setElem(null); localStorage.setItem('nav', 'settings'); setIsActive('settings'); } }>Settings</Typography>
                     </Stack>
-                    <Box sx= {{ padding: '10px 20px' }}><Typography variant= "body1" onClick= { () => signout({ id: localStorage.getItem('token') }) } sx= { link }>Logout</Typography></Box>
+                    <Box sx= {{ padding: '10px 20px' }}><Typography variant= "body1" onClick= { () => signout({ id: atob(localStorage.getItem('token')) }) } sx= { link }>Logout</Typography></Box>
                 </Stack>
             </Popover>
         </Stack>

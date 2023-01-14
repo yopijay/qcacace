@@ -7,9 +7,9 @@ const Breed = require('./tables/Breed');
 const Users = require('./tables/Users');
 const Pets = require('./tables/Pets');
 
-const login = (data) => { return new Users().login(data); }
-const logout = (data) => { return new Users().logout(data); }
-const profile = (id) => { return new Users().profile(id); }
+const login = async (data) => { return await new Users().login(data); }
+const logout = async (data) => { return await new Users().logout(data); }
+const profile = async (id) => { return await new Users().profile(id); }
 
 const dashboard = (table) => {
     return new Promise(async resolve => {
