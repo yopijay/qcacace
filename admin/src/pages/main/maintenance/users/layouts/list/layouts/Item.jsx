@@ -19,7 +19,7 @@ const Item = () => {
             {
                 list.length > 0 ? 
                     list?.map((data, index) => (
-                        <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" key= { index } sx= {{ backgroundColor: '#FFFFFF', padding: '10px 20px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }}>
+                        <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" key= { index } sx= {{ backgroundColor: '#D2E1E6', padding: '10px 20px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }}>
                             <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ flexGrow: 1 }} spacing= { 1 }>
                                 <Avatar src= { JSON.parse(data.avatar) } sx= {{ width: 55, height: 55, border: 'solid 5px #dfe4ea' }} />
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start">
