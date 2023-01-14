@@ -42,11 +42,13 @@ const Index = () => {
                                                         <Typography sx= { petdesc }>{ data.age }, { data.size }</Typography>
                                                         <Typography sx= { data.gender === 'male' ? petmale : petfemale }><FontAwesomeIcon icon= { data.gender === 'male' ? solid('mars') : solid('venus') } /></Typography>
                                                     </Stack>
-                                                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ margin: '10px 0 20px 0' }}>
+                                                    <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" sx= {{ margin: '20px 0' }}>
                                                         { ((data.tags).split(', ')).map((tag, index) => ( 
-                                                                <Typography sx= {{ color: colors[Math.floor(Math.random() * 10)], fontWeight: 'bold', backgroundColor: `${colors[Math.floor(Math.random() * 10)]}3b`, padding: '2px 10px', borderRadius: '10px' }} key= { index }># { tag.toLowerCase() }</Typography> 
+                                                            <Grid item xs= { 4 } key= { index } sx= {{ padding: '5px' }}>
+                                                                <Typography sx= {{ color: colors[Math.floor(Math.random() * 10)], fontWeight: 'bold', backgroundColor: `${colors[Math.floor(Math.random() * 10)]}3b`, padding: '2px 10px', borderRadius: '10px' }}># { tag.toLowerCase() }</Typography> 
+                                                            </Grid>
                                                             )) }
-                                                    </Stack>
+                                                    </Grid>
                                                     <Typography component= { Link } to= "/pets" sx= {{ color: '#777d9c' }}>{ `Read more >>` }</Typography>
                                                 </Stack>
                                             </Stack>
