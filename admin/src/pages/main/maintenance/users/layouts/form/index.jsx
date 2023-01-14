@@ -36,7 +36,7 @@ const Index = () => {
     useEffect(() => { setValidation(validation()); register('avatar'); if(id !== undefined) { refetch() } }, [ setValidation, id, refetch, register ]);
     
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%', paddingBottom: '20px' }} spacing= { 3 }>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%', paddingBottom: '20px'}} spacing= { 3 }>
             <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
                 <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#3C4048' }}>Users</Typography>
                 <Typography sx= { btnicon } component= { Link } to= "/maintenance/users" ><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
@@ -46,11 +46,11 @@ const Index = () => {
                 <form autoComplete= "off">
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" divider= { <Divider orientation="horizontal" flexItem /> } spacing= { 2 }>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                            <Typography variant= "body1" sx= {{ fontWeight: 'bold', marginBottom: '15px' }}>Account Information</Typography>
+                            <Typography variant= "body1" sx= {{ fontWeight: 'bold', marginBottom: '15px', color: '#142F4B'}}>Account Information</Typography>
                             <Account />
                         </Stack>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                            <Typography variant= "body1" sx= {{ fontWeight: 'bold', marginBottom: '15px' }}>Other Information</Typography>
+                            <Typography variant= "body1" sx= {{ fontWeight: 'bold', marginBottom: '15px', color: '#142F4B' }}>Other Information</Typography>
                             <ThemeProvider theme= { input }><OtherInfo fetching= { isFetching } /></ThemeProvider>
                         </Stack>
                     </Stack>

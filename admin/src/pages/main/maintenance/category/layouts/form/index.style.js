@@ -24,7 +24,7 @@ export const title = {
 export const card = {
     padding: '30px 15px',
     flexGrow: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#D2E1E6',
     borderRadius: '8px',
     border: 'solid 1px #919eab40',
     overflowY: 'scroll',
@@ -32,6 +32,7 @@ export const card = {
 }
 
 export const input = {
+    backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',
     padding: {
         xs: '6px 8px',

@@ -10,7 +10,7 @@ export const title = {
 }
 
 export const search = {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#EDE9E8',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -21,7 +21,7 @@ export const search = {
     width: {
         xs: '100%',
         sm: '350px',
-        md: '500px'
+        md: '990px'
     }
 }
 
