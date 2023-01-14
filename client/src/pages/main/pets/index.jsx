@@ -53,12 +53,7 @@ const Index = () => {
                                                 </Stack>
                                             </Stack>
                                         </Grid>
-                                    )) : 
-                                    <Grid item xs= { 12 }>
-                                        <Stack direction= "column" justifyContent= "center" alignItems= "center">
-                                            <Typography>No record/s found!</Typography>
-                                        </Stack>
-                                    </Grid> :
+                                    )) : <Grid item xs= { 12 }><Stack direction= "column" justifyContent= "center" alignItems= "center"><Typography>No record/s found!</Typography></Stack></Grid> :
                                 <Grid item xs= { 12 } sm= { 4 } md= { 3 } sx= {{ padding: { xs: '5px 15px', sm: '5px 10px', lg: '5px 20px'} }}>
                                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ boxShadow: 1, borderRadius: '25px', overflow: 'hidden', paddingBottom: '20px', height: '100%' }}>
                                         <Box sx= {{ width: '100%', height: '250px', backgroundColor: colors[Math.floor(Math.random() * 10)] }} />
