@@ -1,6 +1,9 @@
 // Libraries
 import { Stack } from "@mui/material";
 
+// Core
+import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
+
 // Layouts
 import Intro from './intro';
 import About from './about';
@@ -24,7 +27,7 @@ const Index = () => {
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx= { container }>
             <Intro />
             <About />
-            <Pets />
+            <ListPrvdr><Pets /></ListPrvdr>
             <Services />
             <Feedback />
             <Footer />

@@ -12,7 +12,7 @@ import { GlobalPrvdr } from 'core/context/GlobalCntxt.func';
 
 const App = () => {
     const client = new QueryClient();
-    // localStorage.setItem('nav', window.location.pathname === '/' ? 'home' : localStorage.getItem('nav'));
+    localStorage.setItem('nav', window.location.pathname === '/' ? 'home' : localStorage.getItem('nav'));
     
     return (
         <Router>

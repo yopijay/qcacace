@@ -3,16 +3,20 @@ import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+
+// Core
+import { ListCntxt } from "core/context/ListCntxt.func"; // Context
+import { useGet } from "core/global/function/index.func"; // Function
+import { top } from "core/api/index.func"; // API
 
 // Constants
 import { petdesc, petfemale, petmale, subtitle, title } from "./index.style"; // Styles
 
-// Assets
-import Pet1 from 'assets/images/pets/pet1.png';
-import Pet2 from 'assets/images/pets/pet2.png';
-import Pet3 from 'assets/images/pets/pet3.png';
-
 const Index = () => {
+    const { list, setList } = useContext(ListCntxt);
+    let colors = [ '#feca57', '#ee5253', '#0abde3', '#ff9ff3', '#ff9f43', '#f368e0', '#01a3a4', '#00d2d3', '#54a0ff', '#341f97' ];
+    const { isFetching: fetching } = useGet({ key: ['top_pets'], fetch: top({ table: 'tbl_pets', data: { limit: 3 } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
     
     return (
         <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '20px 0' }}>
@@ -25,56 +29,32 @@ const Index = () => {
             <Grid item>
                 <Container maxWidth= "lg">
                     <Grid container direction= "row" justifyContent= "center" alignItems= "stretch" sx= {{ padding: '20px 0' }}>
-                        <Grid item xs= { 12 } sm= { 4 } md= { 3 } sx= {{ padding: { xs: '5px 15px', sm: '5px 10px', lg: '5px 20px'} }}>
-                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ boxShadow: 1, borderRadius: '25px', overflow: 'hidden', paddingBottom: '20px', height: '100%' }}>
-                                <Box sx= {{ width: '100%', height: '250px', backgroundColor: '#1ec2df' }} />
-                                <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { Pet1 } alt= "pet" width= "60%" height= "auto" /></Box>
-                                <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '0 20px' }}>
-                                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                        <Typography sx= { petdesc }>1 Year Old, 15KG</Typography>
-                                        <Typography sx= { petmale }><FontAwesomeIcon icon= { solid('mars') } /></Typography>
+                        {
+                            list.length > 0 ?
+                                list?.map((data, index) => (
+                                    <Grid item xs= { 12 } sm= { 4 } md= { 3 } sx= {{ padding: { xs: '5px 15px', sm: '5px 10px', lg: '5px 20px'} }} key= { index }>
+                                        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ boxShadow: 1, borderRadius: '25px', overflow: 'hidden', paddingBottom: '20px', height: '100%' }}>
+                                            <Box sx= {{ width: '100%', height: '250px', backgroundColor: colors[Math.floor(Math.random() * 10)] }} />
+                                            <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { JSON.parse(data.photo) } alt= "pet" width= "60%" height= "auto" /></Box>
+                                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '0 20px' }}>
+                                                <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
+                                                    <Typography sx= { petdesc }>{ data.age }, { data.size }</Typography>
+                                                    <Typography sx= { data.gender === 'male' ? petmale : petfemale }><FontAwesomeIcon icon= { data.gender === 'male' ? solid('mars') : solid('venus') } /></Typography>
+                                                </Stack>
+                                                <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ margin: '10px 0 20px 0' }}>
+                                                    { ((data.tags).split(', ')).map((tag, index) => ( <Typography sx= {{ color: '#ffde88', fontWeight: 'bold', backgroundColor: '#ffde883b', padding: '2px 10px', borderRadius: '10px' }} key= { index }># { tag.toLowerCase() }</Typography> )) }
+                                                </Stack>
+                                                <Typography component= { Link } to= "/pets" sx= {{ color: '#777d9c' }}>{ `Read more >>` }</Typography>
+                                            </Stack>
+                                        </Stack>
+                                    </Grid>
+                                )) : 
+                                <Grid item xs= { 12 }>
+                                    <Stack direction= "column" justifyContent= "center" alignItems= "center">
+                                        <Typography>No record/s found!</Typography>
                                     </Stack>
-                                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ margin: '10px 0 20px 0' }}>
-                                        <Typography sx= {{ color: '#ffde88', fontWeight: 'bold', backgroundColor: '#ffde883b', padding: '2px 10px', borderRadius: '10px' }}># friendly</Typography>
-                                        <Typography sx= {{ color: '#1aa6d1', fontWeight: 'bold', backgroundColor: '#1aa6d13b', padding: '2px 10px', borderRadius: '10px'  }}># smart</Typography>
-                                    </Stack>
-                                    <Typography component= { Link } to= "/pets" sx= {{ color: '#777d9c' }}>{ `Read more >>` }</Typography>
-                                </Stack>
-                            </Stack>
-                        </Grid>
-                        {/* <Grid item xs= { 12 } sm= { 4 } md= { 3 } sx= {{ padding: { xs: '5px 15px', sm: '5px 10px', lg: '5px 20px'} }}>
-                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ boxShadow: 1, borderRadius: '25px', overflow: 'hidden', paddingBottom: '20px', height: '100%' }}>
-                                <Box sx= {{ width: '100%', height: '250px', backgroundColor: '#ffa8ae' }} />
-                                <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { Pet2 } alt= "pet" width= "60%" height= "auto" /></Box>
-                                <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '0 20px' }}>
-                                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                        <Typography sx= { petdesc }>10 Months, 10KG</Typography>
-                                        <Typography sx= { petmale }><FontAwesomeIcon icon= { solid('mars') } /></Typography>
-                                    </Stack>
-                                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ margin: '10px 0 20px 0' }}>
-                                        <Typography sx= {{ color: '#ffde88', fontWeight: 'bold', backgroundColor: '#ffde883b', padding: '2px 10px', borderRadius: '10px' }}># kind</Typography>
-                                        <Typography sx= {{ color: '#1aa6d1', fontWeight: 'bold', backgroundColor: '#1aa6d13b', padding: '2px 10px', borderRadius: '10px'  }}># smart</Typography>
-                                    </Stack>
-                                    <Typography component= { Link } to= "/pets" sx= {{ color: '#777d9c' }}>{ `Read more >>` }</Typography>
-                                </Stack>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs= { 12 } sm= { 4 } md= { 3 } sx= {{ padding: { xs: '5px 15px', sm: '5px 10px', lg: '5px 20px'} }}>
-                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ boxShadow: 1, borderRadius: '25px', overflow: 'hidden', paddingBottom: '20px', height: '100%' }}>
-                                <Box sx= {{ width: '100%', height: '250px', backgroundColor: '#6d70c8' }} />
-                                <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { Pet3 } alt= "pet" width= "60%" height= "auto" /></Box>
-                                <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '0 20px' }}>
-                                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                        <Typography sx= { petdesc }>7 Months, 6KG</Typography>
-                                        <Typography sx= { petfemale }><FontAwesomeIcon icon= { solid('venus') } /></Typography>
-                                    </Stack>
-                                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ margin: '10px 0 20px 0' }}>
-                                        <Typography sx= {{ color: '#ffde88', fontWeight: 'bold', backgroundColor: '#ffde883b', padding: '2px 10px', borderRadius: '10px' }}># kind</Typography>
-                                    </Stack>
-                                    <Typography component= { Link } to= "/pets" sx= {{ color: '#777d9c' }}>{ `Read more >>` }</Typography>
-                                </Stack>
-                            </Stack>
-                        </Grid> */}
+                                </Grid>
+                        }
                     </Grid>
                 </Container>
             </Grid>

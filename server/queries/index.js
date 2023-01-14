@@ -20,6 +20,14 @@ const dashboard = (table) => {
     });
 }
 
+const top = (table, data) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_pets': resolve(await new Pets().top(data)); break;
+        }
+    });
+}
+
 const search = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
@@ -94,5 +102,6 @@ module.exports = {
     save,
     update,
     search,
-    dropdown
+    dropdown,
+    top
 }

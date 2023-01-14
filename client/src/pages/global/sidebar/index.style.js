@@ -27,10 +27,7 @@ export const link = {
     transition: 'transform .2s',
     cursor: 'pointer',
     padding: '3px 0',
-    '&:hover': { 
-        color: '#204c6f',
-        transform: 'scale(1.1)'
-    }
+    '&:hover': { color: '#204c6f' }
 }
 
 export const activeLink = {
@@ -39,5 +36,4 @@ export const activeLink = {
     color: '#204c6f',
     transition: 'transform .2s',
     cursor: 'pointer',
-    transform: 'scale(1.1)'
 }

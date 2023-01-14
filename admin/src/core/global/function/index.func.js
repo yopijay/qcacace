@@ -2,7 +2,6 @@
 import axios from "axios";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
-import * as XLSX from 'xlsx';
 
 export const api = ({ url, method, data = null }) => {
     const config= {
@@ -38,25 +37,6 @@ export const getDate = (date) => {
         today: `${year}-${month}-${day}`,
         label: `${hr > 12 ? 'PM' : 'AM'}`
     }
-}
-
-export const exportToExcel = (json, sheet_name, file_name) => {
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.json_to_sheet(json);
-
-    XLSX.utils.book_append_sheet(wb, ws, sheet_name);
-    XLSX.writeFile(wb, `${file_name}.xlsx`);
-}
-
-export const importFromExcel = async (e) => {
-    const file = e.target.files[0];
-    const data = await file.arrayBuffer();
-    const workbook = XLSX.read(data); // workbook
-    const worksheet = workbook.Sheets[workbook.SheetNames[0]]; // worksheets
-
-    const jsonData = XLSX.utils.sheet_to_json(worksheet);
-    
-    return jsonData;
 }
 
 export const pad = (num, size) => {

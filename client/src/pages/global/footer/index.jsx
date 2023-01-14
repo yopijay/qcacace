@@ -17,7 +17,7 @@ import { brand, brandinfo, brandlinks, title, links, info, newsletter } from "./
 const Index = () => {
     const { setIsActive } = useContext(GlobalCntxt);
     return (
-        <Box sx= {{ backgroundColor: '#142F4B', padding: '70px 0' }}>
+        <Box sx= {{ backgroundColor: '#1B4168', padding: '70px 0' }}>
             <Container maxWidth= "lg">
                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start">
                     <Grid item xs= { 12 } md= { 3 } sx= {{ padding: { xs: '15px 0', md: '0 20px'} }}>
@@ -35,7 +35,7 @@ const Index = () => {
                             </Stack>
                         </Stack>
                     </Grid>
-                    <Grid item xs= { 12 } md= { 3 } sx= {{ padding: { xs: '15px 0', md: '0 20px'} }}>
+                    <Grid item xs= { 12 } md= { 2 } sx= {{ padding: { xs: '15px 0', md: '0 20px'} }}>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
                             <Typography sx= { links } component= { Link } to= "/" onClick= { () => { localStorage.setItem('nav', 'home'); setIsActive('home'); } }>Home</Typography>
                             <Typography sx= { links } component= { Link } to= "/pets" onClick= { () => { localStorage.setItem('nav', 'pets'); setIsActive('pets'); } }>Pet Gallery</Typography>
@@ -43,7 +43,7 @@ const Index = () => {
                             <Typography sx= { links } component= { Link } to= "/faqs" onClick= { () => { localStorage.setItem('nav', 'faqs'); setIsActive('faqs'); } }>FAQs</Typography>
                         </Stack>
                     </Grid>
-                    <Grid item xs= { 12 } md= { 3 } sx= {{ padding: { xs: '15px 0', md: '0 20px'} }}>
+                    <Grid item xs= { 12 } md= { 4 } sx= {{ padding: { xs: '15px 0', md: '0 20px'} }}>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                             <Typography sx= { title }>Contact Us</Typography>
                             <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 2 }>

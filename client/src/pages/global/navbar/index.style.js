@@ -23,28 +23,24 @@ export const mainLink = {
 export const link = {
     fontFamily: 'Tommy',
     textDecoration: 'none',
-    color: '#ffffff',
+    color: '#9f9f9f',
     transition: 'transform .2s',
     cursor: 'pointer',
     display: { xs: 'none', sm: 'block' },
-    '&:hover': { 
-        color: '#07bc0c',
-        transform: 'scale(1.1)'
-    }
+    '&:hover': { color: '#728ca1' }
 }
 
 export const activeLink = {
     fontFamily: 'Tommy',
     textDecoration: 'none',
-    color: '#07bc0c',
+    color: '#728ca1',
     transition: 'transform .2s',
     cursor: 'pointer',
-    transform: 'scale(1.1)'
 }
 
 export const burger = {
     display: { xs: 'flex', md: 'none' },
-    color: '#728ca1',
+    color: '#9f9f9f',
     transition: 'transform 0.2s',
-    '&:hover': { color: '#204c6f' }
+    '&:hover': { color: '#728ca1' }
 }
