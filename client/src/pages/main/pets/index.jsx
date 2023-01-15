@@ -36,7 +36,7 @@ const Index = () => {
                                         <Grid item xs= { 12 } sm= { 4 } md= { 3 } sx= {{ padding: { xs: '5px 15px', sm: '5px 10px', lg: '5px 20px'} }} key= { index }>
                                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ boxShadow: 1, borderRadius: '25px', overflow: 'hidden', paddingBottom: '20px', height: '100%' }}>
                                                 <Box sx= {{ width: '100%', height: '250px', backgroundColor: colors[Math.floor(Math.random() * 10)] }} />
-                                                <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { JSON.parse(data.photo) } alt= "pet" width= "60%" height= "auto" /></Box>
+                                                <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { JSON.parse(data.photo) } alt= "pet" width= "65%" height= "250px" /></Box>
                                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '0 20px' }}>
                                                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                                                         <Typography sx= { petdesc }>{ data.age }, { data.size }</Typography>

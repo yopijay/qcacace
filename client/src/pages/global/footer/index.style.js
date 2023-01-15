@@ -8,9 +8,8 @@ export const brand = {
 }
 
 export const brandinfo = {
-    fontSize: {
-        md: '105%'
-    },
+    textAlign: 'justify',
+    fontSize: { md: '105%' },
     color: '#ececec',
     padding: '10px 0 20px 0'
 }
@@ -48,4 +47,19 @@ export const newsletter = {
     borderRadius: '20px',
     padding: '8px 10px 6px 10px',
     marginTop: '15px'
+}
+
+export const btntxt = { 
+    display: 'flex',
+    cursor: 'pointer',
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: '#64a93e',
+    color: '#ffffff',
+    marginTop: '12px',
+    borderRadius: '20px',
+    padding: '7px 0',
+    transition: 'all 0.2s ease-in-out',
+    '&:hover': { backgroundColor: '#508732' }
 }

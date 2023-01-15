@@ -7,7 +7,7 @@ class Pets {
 
     search = async (data) => {
         return (await new Builder(`tbl_pets AS pet`)
-                                        .select(`pet.id, pet.series_no, ctg.name AS company, brd.name AS breed, pet.photo, pet.status, pet.date_created`)
+                                        .select(`pet.id, pet.series_no, ctg.name AS company, brd.name AS breed, pts.age, pts.size, pts.gender, pts.tags, pet.photo, pet.status, pet.date_created`)
                                         .join({ table: `tbl_pet_category AS ctg`, condition: `pet.pet_category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pet.breed_id = brd.id`, type: 'LEFT' })
                                         .condition(`WHERE pet.series_no LIKE '%${data.condition}%' OR ctg.name LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%' ORDER BY pet.date_created DESC`)
@@ -16,7 +16,7 @@ class Pets {
 
     list = async () => { 
         return (await new Builder(`tbl_pets AS pts`)
-                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, pts.photo, pts.status, pts.date_created`)
+                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, pts.age, pts.size, pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
                                         .join({ table: `tbl_pet_category AS ctg`, condition: `pts.pet_category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
                                         .condition(`ORDER BY pts.date_created DESC`)

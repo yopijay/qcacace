@@ -12,7 +12,7 @@ import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
 import Logo from 'assets/images/logo.png';
 
 // Constants
-import { brand, brandinfo, brandlinks, title, links, info, newsletter } from "./index.style"; // Styles
+import { brand, brandinfo, brandlinks, title, links, info, newsletter, btntxt } from "./index.style"; // Styles
 
 const Index = () => {
     const { setIsActive } = useContext(GlobalCntxt);
@@ -64,7 +64,10 @@ const Index = () => {
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                             <Typography sx= { title }>Newsletter</Typography>
                             <Typography sx= { info }>Want to know what we`re up to? Sign up for the newsletter.</Typography>
-                            <form autoComplete = "off"><Box sx= { newsletter }><TextField variant= "standard" size= "small" fullWidth= { true } InputProps= {{ disableUnderline: true }} /></Box></form>
+                            <form autoComplete = "off">
+                                <Box sx= { newsletter }><TextField variant= "standard" size= "small" fullWidth= { true } InputProps= {{ disableUnderline: true }} /></Box>
+                                <Box sx= { btntxt }>Subscribe</Box>
+                            </form>
                         </Stack>
                     </Grid>
                 </Grid>

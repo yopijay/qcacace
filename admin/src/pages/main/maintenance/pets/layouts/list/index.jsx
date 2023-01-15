@@ -35,7 +35,7 @@ const Index = () => {
                     </form>
                     <Box>
                         <Typography component= { Link } to= "/maintenance/pet/form/new" sx= { btnicon }><FontAwesomeIcon icon= { solid('plus') } style= {{ color: '#FFFFFF' }} /></Typography>
-                        <Typography component= { Link } to= "/maintenance/pet/form/new" sx= { btntxt }>New Breed</Typography>
+                        <Typography component= { Link } to= "/maintenance/pet/form/new" sx= { btntxt }>New Pet</Typography>
                     </Box>
                 </Stack>
             </Stack>

@@ -17,4 +17,6 @@ let _dropdown= [{ id: 0, name: '-- SELECT AN ITEM BELOW --' }];
 // export const dropdown = async({ table, data }) => { return await api(`${Env[env].url}/dropdown/${table}`, 'post', data).then(res => { return _dropdown.concat(res.data); }); }
 // export const generateQR = async (table, condition, type, set) => { const qrcode = await QRCode.toDataURL(`${Env[env].url}/${table}/${type}/${condition}`); set(qrcode); }
 // export const upload = async ({ table, data }) => { return await api(`${Env[env].url}/upload/${table}`, 'post', data).then(res => res.data); }
+export const records = async ({ table, data }) => { return await api({ url: `${Env[env].url}/list/${table}`, method: 'post', data: data }).then(res => res.data); }
+export const look = async ({ table, data }) => { return await api({ url: `${Env[env].url}/search/${table}`, method: 'post', data: data }).then(res => res.data); }
 export const top = async ({ table, data }) => { return await api({ url: `${Env[env].url}/top/${table}`, method: 'post', data: data }).then(res => res.data); }

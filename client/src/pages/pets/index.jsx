@@ -1,33 +1,29 @@
 // Libraries
-import { Dialog, Stack, useMediaQuery, useTheme } from "@mui/material";
-import { useState } from "react";
+import { Container, Stack, ThemeProvider } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
 
 // Core
-import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
+import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
+import { input } from "core/global/theme/index.style"; // Theme
 
 // Layouts
-import Recommended from './recommended';
-import List from './list';
+import List from './layouts/list';
 import Footer from '../global/footer';
-import PreferForm from './dialog/recommendation';
 
 // Constants
 import { container } from "./index.style"; // Styles
 
 const Index = () => {
     localStorage.setItem('nav', 'pets');
-    const [ open, setOpen ] = useState(localStorage.getItem('recommend') === null);
-    const theme = useTheme();
-    const fullscreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>
-            { localStorage.getItem('recommend') !== null ? <Recommended /> : '' }
-            <List />
+            <Container maxWidth= "lg" sx= {{ marginBottom: '30px' }}>
+                <Routes>
+                    <Route exact path= "/" element= { <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } />
+                </Routes> 
+            </Container>
             <Footer />
-            <Dialog fullScreen= { fullscreen } open= { open } keepMounted onClose= { () => setOpen(false) } maxWidth= "sm" fullWidth= { true } disableEscapeKeyDown= { true }>
-                <FormPrvdr><PreferForm setOpen= { setOpen } /></FormPrvdr>
-            </Dialog>
         </Stack>
     );
 }

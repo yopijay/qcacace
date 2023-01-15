@@ -2,7 +2,7 @@ export const swipe = {
     '& .MuiDrawer-paper': {
         boxSizing: 'border-box',
         width: 280,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#fafafa',
         backdropFilter: 'blur(10px)',
         '&::-webkit-scrollbar': { display: 'none' }
     }
@@ -21,19 +21,18 @@ export const brand = {
 }
 
 export const link = {
-    fontFamily: 'Tommy',
-    textDecoration: 'none',
-    color: '#212b36',
-    transition: 'transform .2s',
-    cursor: 'pointer',
-    padding: '3px 0',
-    '&:hover': { color: '#204c6f' }
+    textDecoration: 'none', 
+    padding: '11px 15px', 
+    borderRadius: '7px', 
+    '&:hover': { backgroundColor: '#F5F5F5' }, 
+    transition: 'all 0.2s ease-in-out',
+    cursor: 'pointer'
 }
 
 export const activeLink = {
-    fontFamily: 'Tommy',
-    textDecoration: 'none',
-    color: '#204c6f',
-    transition: 'transform .2s',
-    cursor: 'pointer',
+    textDecoration: 'none', 
+    padding: '11px 15px', 
+    borderRadius: '7px', 
+    backgroundColor: '#FFFFFF',
+    cursor: 'pointer'
 }
