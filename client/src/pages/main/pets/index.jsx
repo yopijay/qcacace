@@ -11,11 +11,12 @@ import { useGet } from "core/global/function/index.func"; // Function
 import { top } from "core/api/index.func"; // API
 
 // Constants
-import { petdesc, petfemale, petmale, subtitle, title } from "./index.style"; // Styles
+import { petdesc, petfemale, petmale, petseries, pettag, subtitle, title } from "./index.style"; // Styles
+import Pet1 from 'assets/images/cat.png';
 
 const Index = () => {
     const { list, setList } = useContext(ListCntxt);
-    let colors = [ '#feca57', '#ee5253', '#0abde3', '#ff9ff3', '#ff9f43', '#f368e0', '#01a3a4', '#00d2d3', '#54a0ff', '#341f97' ];
+    let colors = [ [ '#feca57', '#feca573b' ], [ '#ee5253', '#ee52533b' ], [ '#0abde3', '#0abde33b' ], [ '#ff9ff3', '#ff9ff33b' ], [ '#ff9f43', '#ff9f433b' ], [ '#f368e0', '#f368e03b' ], [ '#01a3a4', '#01a3a43b' ], [ '#00d2d3', '#00d2d33b' ], [ '#54a0ff', '#54a0ff3b' ], [ '#341f97', '#341f973b' ] ];
     const { isFetching: fetching } = useGet({ key: ['top_pets'], fetch: top({ table: 'tbl_pets', data: { limit: 3 } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
     
     return (
@@ -27,14 +28,55 @@ const Index = () => {
                 </Box>
             </Grid>
             <Grid item>
-                <Container maxWidth= "lg">
+                <Container maxWidth= "lg" sx= {{ marginTop: '20px' }}>
+                    <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 1 } sx= {{ height: '100%' }}>
+                        {
+                            !fetching ?
+                                list.length > 0 ?
+                                    list?.map((data, index) => (
+                                        <Grid item xs= { 12 } md= { 6 } key= { index }>
+                                            <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= {{ xs: 'flex-start' }} alignItems= {{ xs: 'flex-start' }} sx= {{ width: '100%', padding: '20px', backgroundColor: '#FFFFFF', boxShadow: 1, borderRadius: '20px' }} spacing= { 2 }>
+                                                <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%' } }}>
+                                                    <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', width: { xs: '40%', sm: '100%' }, height: { xs: 'auto', sm: '200px' }, borderRadius: '10px', overflow: 'hidden', boxShadow: 1 }}>
+                                                        <img src= { JSON.parse(data.photo) } alt= "pet" width= "100%"  height= "auto" />
+                                                    </Box>
+                                                </Stack>
+                                                <Stack direction= "column" justifyContent= "flex-start" alignItems= {{ xs: 'stretch' }} sx= {{ flexGrow: 1 }}>
+                                                    <Typography sx= { petseries }>#{ data.series_no }</Typography>
+                                                    <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
+                                                        <Typography sx= { petdesc }>{ data.age }, { data.size }</Typography>
+                                                        <Typography sx= { data.gender === 'male' ? petmale : petfemale }><FontAwesomeIcon icon= { data.gender === 'male' ? solid('mars') : solid('venus') } /></Typography>
+                                                    </Stack>
+                                                    <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
+                                                        { ((data.tags).split(', ')).map((tag, index) => ( <Grid item xs= { 4 } sm= { 3 } key= { index }><Typography sx= { pettag }>#{ tag.toLowerCase() }</Typography></Grid> )) }
+                                                    </Grid>
+                                                    {/* <Stack direction= "row" justifyContent= 'flex-start' alignItems= "flex-start" spacing= { 1 } sx= {{ width: '100%', marginTop: '10px' }}>
+                                                        
+                                                    </Stack> */}
+                                                    <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography>
+                                                    <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ data.description }</Typography>
+                                                </Stack>
+                                            </Stack>
+                                        </Grid>
+                                    )) :
+                                    '' :
+                                ''
+                        }
+                    </Grid>
+                </Container>
+                {/* <Container maxWidth= "lg">
                     <Grid container direction= "row" justifyContent= "center" alignItems= "stretch" sx= {{ padding: '20px 0' }}>
                         {
                             !fetching ? 
                                 list.length > 0 ?
                                     list?.map((data, index) => (
-                                        <Grid item xs= { 12 } sm= { 4 } md= { 3 } sx= {{ padding: { xs: '5px 15px', sm: '5px 10px', lg: '5px 20px'} }} key= { index }>
-                                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ boxShadow: 1, borderRadius: '25px', overflow: 'hidden', paddingBottom: '20px', height: '100%' }}>
+                                        <Grid item xs= { 12 } sm= { 8 } md= { 6 } sx= {{ padding: { xs: '10px 0', sm: '10px 20px', lg: '5px 20px'} }} key= { index }>
+                                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ boxShadow: 1, borderRadius: '25px', overflow: 'hidden' }}>
+                                                <Stack direction= "row" justifyContent= "flex-start" alignItems= "center">
+                                                    <Box sx= {{ width:  { xs: '100%' }, height: { xs: '100px' }, backgroundColor: '' }}>
+
+                                                    </Box>
+                                                </Stack>
                                                 <Box sx= {{ width: '100%', height: '250px', backgroundColor: colors[Math.floor(Math.random() * 10)] }} />
                                                 <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: { xs: '-65% 0 10px 0', md: '-75% 0 20px 0' } }}><img src= { JSON.parse(data.photo) } alt= "pet" width= "65%" height= "250px" /></Box>
                                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '0 20px' }}>
@@ -72,7 +114,7 @@ const Index = () => {
                                 </Grid>
                         }
                     </Grid>
-                </Container>
+                </Container> */}
             </Grid>
         </Grid>
     );
