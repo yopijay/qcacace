@@ -56,5 +56,6 @@ export const cardaddress = {
 export const cardmessage = {
     marginTop: '20px',
     color: '#371313',
-    fontSize: '95%'
+    fontSize: '95%',
+    textAlign: 'justify'
 }

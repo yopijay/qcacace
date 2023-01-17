@@ -24,9 +24,9 @@ const Index = () => {
                     <Grid container direction= "row" justifyContent= "center" alignItems= "center">
                         <Grid item xs= { 12 } sm= { 10 } md= { 8 } lg= { 7 } sx= {{ padding: '10px', boxShadow: 1, borderRadius: '30px' }}>
                             <Grid container direction= "row" justifyContent= "center" alignItems= "center">
-                                <Grid item xs= { 12 } sm= { 5 } lg= { 4 }><img src= { Feedback1 } alt= "feedback" width= "100%" height= "auto" style= {{ borderRadius: '30px' }} /></Grid>
+                                <Grid item xs= { 12 } sm= { 5 } lg= { 4 } sx= {{ padding: '10px 20px' }}><img src= { Feedback1 } alt= "feedback" width= "100%" height= "auto" style= {{ borderRadius: '30px' }} /></Grid>
                                 <Grid item xs= { 12 } sm= { 7 } lg= { 8 }>
-                                    <Stack direction= "column" justifyContent= "center" alignItems= "stretch" sx= {{ padding: '20px 30px' }}>
+                                    <Stack direction= "column" justifyContent= "center" alignItems= "stretch" sx= {{ padding: '10px 20px' }}>
                                         <Typography sx= { cardquote }><FontAwesomeIcon icon= { solid('quote-left') } /></Typography>
                                         <Typography sx= { cardtitle }>Thraia Mercadejas and Maggy</Typography>
                                         <Typography sx= { cardaddress }>Novaliches, Holycross</Typography>

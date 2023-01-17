@@ -17,9 +17,7 @@ const Index = () => {
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>
-            <Container maxWidth= "lg" sx= {{ marginBottom: '30px' }}>
-                <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider>
-            </Container>
+            <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider>
             <Footer />
         </Stack>
     );

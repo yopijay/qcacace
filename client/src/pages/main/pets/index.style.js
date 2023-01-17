@@ -26,20 +26,19 @@ export const petseries = {
 }
 
 export const petmale = {
+    width: '10%',
     color: '#1ec2df',
-    fontSize: {
-        xs: '110%'
-    }
+    fontSize: { xs: '110%' }
 }
 
 export const petfemale = {
+    width: '10%',
     color: '#e76165',
-    fontSize: {
-        xs: '110%'
-    }
+    fontSize: { xs: '110%' }
 }
 
 export const petdesc = {
+    width: '90%',
     fontWeight: 'bold',
     color: '#777d9c',
     fontSize: {

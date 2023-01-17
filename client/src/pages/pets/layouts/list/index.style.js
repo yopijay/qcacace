@@ -74,30 +74,52 @@ export const btnadopticon = {
     '&:hover': { backgroundColor: '#1b405d' }
 }
 
-export const petname = {
-    fontFamily: 'Tommy',
-    color: '#435278',
-    fontSize: {
-        md: '140%'
-    }
+export const petseries = {
+    fontWeight: 'bold',
+    color: '#a7a7a9',
+    fontSize: { 
+        xs: '110%',
+        sm: '100%'
+    },
+    whiteSapce: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
 }
 
 export const petmale = {
     color: '#1ec2df',
-    fontSize: {
-        md: '110%'
-    }
+    fontSize: { xs: '110%' },
+    whiteSapce: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
 }
 
 export const petfemale = {
     color: '#e76165',
-    fontSize: {
-        md: '110%'
-    }
+    fontSize: { xs: '110%' },
+    whiteSapce: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
 }
 
 export const petdesc = {
     fontWeight: 'bold',
+    padding: '0 5px 0 0',
     color: '#777d9c',
-    fontSize: '105%'
+    fontSize: { xs: '125%' },
+    whiteSapce: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+}
+
+export const pettag = {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    backgroundColor: '#c9c9c9',
+    padding: '2px 0',
+    borderRadius: '50px',
+    whiteSapce: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
 }

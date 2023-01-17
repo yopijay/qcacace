@@ -29,13 +29,13 @@ const Index = () => {
             </Grid>
             <Grid item>
                 <Container maxWidth= "lg" sx= {{ marginTop: '20px' }}>
-                    <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 1 } sx= {{ height: '100%' }}>
+                    <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 1 }>
                         {
                             !fetching ?
                                 list.length > 0 ?
                                     list?.map((data, index) => (
                                         <Grid item xs= { 12 } md= { 6 } key= { index }>
-                                            <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= {{ xs: 'flex-start' }} alignItems= {{ xs: 'flex-start' }} sx= {{ width: '100%', padding: '20px', backgroundColor: '#FFFFFF', boxShadow: 1, borderRadius: '20px' }} spacing= { 2 }>
+                                            <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "flex-start" sx= {{ width: '100%', padding: '20px', backgroundColor: '#FFFFFF', boxShadow: 1, borderRadius: '20px' }} spacing= { 2 }>
                                                 <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%' } }}>
                                                     <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', width: { xs: '40%', sm: '100%' }, height: { xs: 'auto', sm: '200px' }, borderRadius: '10px', overflow: 'hidden', boxShadow: 1 }}>
                                                         <img src= { JSON.parse(data.photo) } alt= "pet" width= "100%"  height= "auto" />
@@ -44,11 +44,11 @@ const Index = () => {
                                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= {{ xs: 'stretch' }} sx= {{ flexGrow: 1 }}>
                                                     <Typography sx= { petseries }>#{ data.series_no }</Typography>
                                                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                                        <Typography sx= { petdesc }>{ data.age }, { data.size }</Typography>
+                                                        <Typography variant sx= {{ whiteSapce: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.age }, { data.size }</Typography>
                                                         <Typography sx= { data.gender === 'male' ? petmale : petfemale }><FontAwesomeIcon icon= { data.gender === 'male' ? solid('mars') : solid('venus') } /></Typography>
                                                     </Stack>
                                                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
-                                                        { ((data.tags).split(', ')).map((tag, index) => ( <Grid item xs= { 4 } sm= { 3 } key= { index }><Typography sx= { pettag }>#{ tag.toLowerCase() }</Typography></Grid> )) }
+                                                        { ((data.tags).split(', ')).map((tag, index) => ( <Grid item xs= { 4 } sm= { 3 } md= { 4 } key= { index }><Typography sx= { pettag }>#{ tag.toLowerCase() }</Typography></Grid> )) }
                                                     </Grid>
                                                     <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography>
                                                     <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ data.description }</Typography>
@@ -62,7 +62,7 @@ const Index = () => {
                                     <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%' } }}>
                                         <Skeleton variant= "rounded" sx= {{ width: '100%', height: '200px', borderRadius: '20px' }} />
                                     </Stack>
-                                    <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ flexGrow: 1 }}>
+                                    <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ flexGrow: 1, width: '100%' }}>
                                         <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} />
                                         <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                                             <Skeleton variant= "text" sx= {{ fontSize: '2rem', width: '50%' }} />
