@@ -50,17 +50,32 @@ const Index = () => {
                                                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
                                                         { ((data.tags).split(', ')).map((tag, index) => ( <Grid item xs= { 4 } sm= { 3 } key= { index }><Typography sx= { pettag }>#{ tag.toLowerCase() }</Typography></Grid> )) }
                                                     </Grid>
-                                                    {/* <Stack direction= "row" justifyContent= 'flex-start' alignItems= "flex-start" spacing= { 1 } sx= {{ width: '100%', marginTop: '10px' }}>
-                                                        
-                                                    </Stack> */}
                                                     <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography>
                                                     <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ data.description }</Typography>
                                                 </Stack>
                                             </Stack>
                                         </Grid>
                                     )) :
-                                    '' :
-                                ''
+                                <Grid item xs= { 12 }><Typography sx= {{ width: '100%', textAlign: 'center' }}>No record/s found.</Typography></Grid> :
+                            <Grid item xs= { 12 } md= { 6 }>
+                                <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "flex-start" sx= {{ width: '100%', padding: '20px', backgroundColor: '#FFFFFF', boxShadow: 1, borderRadius: '20px' }} spacing= { 2 }>
+                                    <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%' } }}>
+                                        <Skeleton variant= "rounded" sx= {{ width: '100%', height: '200px', borderRadius: '20px' }} />
+                                    </Stack>
+                                    <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ flexGrow: 1 }}>
+                                        <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} />
+                                        <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
+                                            <Skeleton variant= "text" sx= {{ fontSize: '2rem', width: '50%' }} />
+                                            <Skeleton variant= "rounded" sx= {{ width: '20px', height: '20px' }} />
+                                        </Stack>
+                                        <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
+                                            <Grid item xs= { 4 } sm= { 3 }><Skeleton variant= "text" sx= { pettag } /></Grid>
+                                        </Grid>
+                                        <Skeleton variant= "text" sx= {{ fontSize: '1.2rem', width: '25%' }} />
+                                        <Skeleton variant= "rounded" sx= {{ width: '100%', height: '50px' }} />
+                                    </Stack>
+                                </Stack>
+                            </Grid>
                         }
                     </Grid>
                 </Container>

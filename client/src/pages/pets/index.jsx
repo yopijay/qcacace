@@ -1,6 +1,5 @@
 // Libraries
 import { Container, Stack, ThemeProvider } from "@mui/material";
-import { Route, Routes } from "react-router-dom";
 
 // Core
 import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
@@ -19,9 +18,7 @@ const Index = () => {
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>
             <Container maxWidth= "lg" sx= {{ marginBottom: '30px' }}>
-                <Routes>
-                    <Route exact path= "/" element= { <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } />
-                </Routes> 
+                <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider>
             </Container>
             <Footer />
         </Stack>
