@@ -22,7 +22,10 @@ export const petseries = {
     fontSize: { 
         xs: '110%',
         sm: '100%'
-    }
+    },
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
 }
 
 export const petmale = {
@@ -41,9 +44,10 @@ export const petdesc = {
     width: '90%',
     fontWeight: 'bold',
     color: '#777d9c',
-    fontSize: {
-        xs: '125%'
-    }
+    fontSize: { xs: '125%' },
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
 }
 
 export const pettag = {
@@ -53,5 +57,8 @@ export const pettag = {
     color: '#FFFFFF',
     backgroundColor: '#c9c9c9',
     padding: '2px 0',
-    borderRadius: '50px'
+    borderRadius: '50px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
 }

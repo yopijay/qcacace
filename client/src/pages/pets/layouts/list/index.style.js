@@ -29,13 +29,10 @@ export const btntxt = {
     '&:hover': { backgroundColor: '#1b405d' }
 }
 
-export const btnadopt = { 
-    display: {
-        xs: 'none',
-        md: 'block'
-    }, 
+export const btnadopt = {
     textDecoration: 'none',
     cursor: 'pointer',
+    textAlign: 'center',
     backgroundColor: '#204c6f',
     color: '#ffffff',
     borderRadius: '25px',
@@ -81,33 +78,35 @@ export const petseries = {
         xs: '110%',
         sm: '100%'
     },
-    whiteSapce: 'nowrap',
+    whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
 }
 
 export const petmale = {
+    width: '10%',
     color: '#1ec2df',
     fontSize: { xs: '110%' },
-    whiteSapce: 'nowrap',
+    whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
 }
 
 export const petfemale = {
+    width: '10%',
     color: '#e76165',
     fontSize: { xs: '110%' },
-    whiteSapce: 'nowrap',
+    whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
 }
 
 export const petdesc = {
+    width: '90%',
     fontWeight: 'bold',
-    padding: '0 5px 0 0',
     color: '#777d9c',
     fontSize: { xs: '125%' },
-    whiteSapce: 'nowrap',
+    whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
 }
@@ -119,7 +118,7 @@ export const pettag = {
     backgroundColor: '#c9c9c9',
     padding: '2px 0',
     borderRadius: '50px',
-    whiteSapce: 'nowrap',
+    whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
 }
