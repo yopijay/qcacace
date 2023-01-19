@@ -2,7 +2,6 @@
 import { Box, Container, Grid, Skeleton, Stack, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Link } from "react-router-dom";
 import { useContext } from "react";
 
 // Core
@@ -11,12 +10,10 @@ import { useGet } from "core/global/function/index.func"; // Function
 import { top } from "core/api/index.func"; // API
 
 // Constants
-import { petdesc, petfemale, petmale, petseries, pettag, subtitle, title } from "./index.style"; // Styles
-import Pet1 from 'assets/images/cat.png';
+import { petcontainer, petdesc, petfemale, petimage, petmale, petseries, pettag, subtitle, title } from "./index.style"; // Styles
 
 const Index = () => {
     const { list, setList } = useContext(ListCntxt);
-    let colors = [ [ '#feca57', '#feca573b' ], [ '#ee5253', '#ee52533b' ], [ '#0abde3', '#0abde33b' ], [ '#ff9ff3', '#ff9ff33b' ], [ '#ff9f43', '#ff9f433b' ], [ '#f368e0', '#f368e03b' ], [ '#01a3a4', '#01a3a43b' ], [ '#00d2d3', '#00d2d33b' ], [ '#54a0ff', '#54a0ff3b' ], [ '#341f97', '#341f973b' ] ];
     const { isFetching: fetching } = useGet({ key: ['top_pets'], fetch: top({ table: 'tbl_pets', data: { limit: 3 } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
     
     return (
@@ -30,35 +27,40 @@ const Index = () => {
             <Grid item>
                 <Container maxWidth= "lg" sx= {{ marginTop: '20px' }}>
                     <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 3 }>
-                        {
-                            list.length > 0 ?
+                        { list.length > 0 ?
                                 list?.map((data, index) => (
                                     <Grid item xs= { 12 } md= { 6 } key= { index }>
-                                        <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "flex-start" sx= {{ width: '100%', padding: '20px', backgroundColor: '#FFFFFF', boxShadow: 1, borderRadius: '20px' }} spacing= { 2 }>
+                                        <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "flex-start" sx= { petcontainer } spacing= { 2 }>
                                             <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%', md: '50%' } }}>
                                                 { !fetching ?
-                                                    <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', width: { xs: '40%', sm: '100%' }, height: { xs: 'auto', sm: '200px', md: ' 180px' }, borderRadius: '10px', overflow: 'hidden', boxShadow: 1 }}>
-                                                        <img src= { JSON.parse(data.photo) } alt= "pet" width= "100%"  height= "auto" />
-                                                    </Box> :
+                                                    <Box sx= { petimage }><img src= { JSON.parse(data.photo) } alt= "pet" width= "100%"  height= "auto" /></Box> :
                                                     <Skeleton variant= "rounded" sx= {{ width: '100%', height: '200px', borderRadius: '20px' }} /> }
                                             </Stack>
                                             <Stack direction= "column" justifyContent= "flex-start" alignItems= {{ xs: 'stretch' }} sx= {{ width: '100%' }}>
                                                 { !fetching ? <Typography sx= { petseries }>#{ data.series_no }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} /> }
                                                 <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                                                     { !fetching ? <Typography sx= { petdesc }>{ data.age }, { data.size }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} /> }
-                                                    { !fetching ? <Typography sx= { data.gender === 'male' ? petmale : petfemale }><FontAwesomeIcon icon= { data.gender === 'male' ? solid('mars') : solid('venus') } /></Typography> : <Skeleton variant= "rounded" sx= {{ width: '20px', height: '20px' }} /> }
+                                                    { !fetching ? 
+                                                        <Typography sx= { data.gender === 'male' ? petmale : petfemale }>
+                                                            <FontAwesomeIcon icon= { data.gender === 'male' ? solid('mars') : solid('venus') } />
+                                                        </Typography> : 
+                                                        <Skeleton variant= "rounded" sx= {{ width: '20px', height: '20px' }} /> }
                                                 </Stack>
                                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
-                                                    { ((data.tags).split(', ')).map((tag, index) => ( <Grid item xs= { 4 } sm= { 3 } md= { 4 } key= { index }>{ !fetching ? <Typography sx= { pettag }>#{ tag.toLowerCase() }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1rem'}} /> }</Grid> )) }
+                                                    { ((data.tags).split(', ')).map((tag, index) => ( 
+                                                        <Grid item xs= { 4 } sm= { 3 } md= { 4 } key= { index }>{ 
+                                                            !fetching ? <Typography sx= { pettag }>#{ tag.toLowerCase() }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1rem'}} /> }</Grid> 
+                                                    )) }
                                                 </Grid>
-                                                { !fetching ? <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.2rem', width: '25%' }} /> }
-                                                { !fetching ? <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ data.description }</Typography> : <Skeleton variant= "rounded" sx= {{ width: '100%', height: '50px' }} />  }
+                                                { !fetching ? <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography> : 
+                                                    <Skeleton variant= "text" sx= {{ fontSize: '1.2rem', width: '25%' }} /> }
+                                                { !fetching ? <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ data.description }</Typography> : 
+                                                    <Skeleton variant= "rounded" sx= {{ width: '100%', height: '50px' }} />  }
                                             </Stack>
                                         </Stack>
                                     </Grid>
                                 )) :
-                            <Grid item xs= { 12 }><Typography sx= {{ width: '100%', textAlign: 'center' }}>No record/s found.</Typography></Grid>
-                        }
+                            <Grid item xs= { 12 }><Typography sx= {{ width: '100%', textAlign: 'center' }}>No record/s found.</Typography></Grid> }
                     </Grid>
                 </Container>
             </Grid>

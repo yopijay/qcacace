@@ -13,7 +13,8 @@ export const About = () => (
             title: 'Quezon City Veterinary Department',
             info: `Conducts Animal Vaccinations, Animal Pounding Operations, Animal Adoption Services And Other Veterinary Services. 
                         It Promotes And Implements Animal Health, Animal Welfare, Animal Rights And Protection Within The City. 
-                        To Execute Different Policies, Programs And Other Services, Quezon City Veterinary Department Divided It Into Three (3) Divisions Which Are Animal Care And Disease Control Division, 
+                        To Execute Different Policies, Programs And Other Services, Quezon City Veterinary Department Divided It Into Three (3) Divisions 
+                        Which Are Animal Care And Disease Control Division, 
                         City Pound Division, And Food Hygiene And Regulatory Division.`,
             link: 'https://www.facebook.com/QCVDgovph/',
         },
@@ -44,7 +45,8 @@ export const About = () => (
             alt: 'adopt',
             title: 'Animal Care And Adoption Center',
             info: `Under The City Pound Division Provides An Electronic Services (EServices) That Can Help The Citizens To Adopt Easily Through This Website. 
-                        Its Mission Is To Promote Animal Adoption In The City And Help The Animals To Find A New Family. Aside From That, QC Animal Care And Adoption Center EServices Offers Services Such As Surrendering Of Pets, 
+                        Its Mission Is To Promote Animal Adoption In The City And Help The Animals To Find A New Family. Aside From That, 
+                        QC Animal Care And Adoption Center E-Services Offers Services Such As Surrendering Of Pets, 
                         Reporting Of Missing Pets And Provides Information About Pet Vaccination And Other Programs For Pets.`,
             link: 'https://www.facebook.com/animalcareandadoptioncenter/',
         }

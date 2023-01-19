@@ -17,7 +17,8 @@ export const Index = () => {
     
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ flexShrink: { xs: 0 } }}>
-            <SwipeableDrawer anchor= "left" variant= "temporary" sx= { swipe } ModalProps= {{ keepMounted: true }} container= { container } onOpen= { drawerToggle(true) } open= { open.left } onClose= { drawerToggle(false) }>
+            <SwipeableDrawer anchor= "left" variant= "temporary" sx= { swipe } ModalProps= {{ keepMounted: true }} container= { container } 
+                onOpen= { drawerToggle(true) } open= { open.left } onClose= { drawerToggle(false) }>
                 <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" sx= {{ height: '100vh' }} spacing= { 2 }>
                     <Navs />
                     <Footer />

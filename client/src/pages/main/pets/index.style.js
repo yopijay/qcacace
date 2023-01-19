@@ -62,3 +62,30 @@ export const pettag = {
     overflow: 'hidden',
     textOverflow: 'ellipsis'
 }
+
+export const petcontainer = {
+    width: '100%', 
+    padding: '20px', 
+    backgroundColor: '#FFFFFF', 
+    boxShadow: 1, 
+    borderRadius: '20px'
+}
+
+export const petimage = {
+    display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    alignItems: 'flex-start', 
+    width: { 
+        xs: '40%', 
+        sm: '100%' 
+    }, 
+    height: { 
+        xs: 'auto', 
+        sm: '200px', 
+        md: ' 180px' 
+    }, 
+    borderRadius: '10px', 
+    overflow: 'hidden', 
+    boxShadow: 1
+}

@@ -23,11 +23,20 @@ const linkActive = {
     backgroundColor: '#FFFFFF'
 }
 
+const container = {
+    padding: { 
+        xs: '20px', 
+        lg: '90px 0 20px 0' 
+    }, 
+    overflowY: 'scroll', 
+    '&::-webkit-scrollbar': { display: 'none' }
+}
+
 const Navs = () => {
     const { isActive, setIsActive, setOpen } = useContext(GlobalCntxt);
 
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: { xs: '20px', lg: '90px 0 20px 0' }, overflowY: 'scroll', '&::-webkit-scrollbar': { display: 'none' } }} spacing= { 2 }>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container } spacing= { 2 }>
             {
                 links().map((ctgy, index) => (
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } key= { index }>

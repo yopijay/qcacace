@@ -22,13 +22,36 @@ const Index = () => {
     const { setValidation, handleSubmit, setValue, setError, register, errors, control, getValues, setCheck, check } = useContext(FormCntxt);
     const { data: category, isFetching } = useGet({ key: ['ctg_dropdown'], fetch: dropdown({ table: 'tbl_pet_category', data: {} }) });
     const { refetch, isFetching: fetching } = useGet({ key: ['ctg_specific'], fetch: specific({ table: 'tbl_breed', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
-        onSuccess: (data) => { if(Array.isArray(data)) { for(let count = 0; count < Object.keys(data[0]).length; count++) { let _name = Object.keys(data[0])[count]; setValue(_name, data[0][_name] !== null ? data[0][_name] : ''); } } } });
+        onSuccess: (data) => { 
+            if(Array.isArray(data)) { 
+                for(let count = 0; count < Object.keys(data[0]).length; count++) { 
+                    let _name = Object.keys(data[0])[count]; setValue(_name, data[0][_name] !== null ? data[0][_name] : ''); 
+                } 
+            } 
+        } 
+    });
 
     const { mutate: saving } = usePost({ fetch: save, 
-        onSuccess: (data) => { if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); } else { successToast(data.message, 3000, navigate('/maintenance/breed', { replace: true })); } } });
+        onSuccess: (data) => { 
+            if(data.result === 'error') { 
+                (data.error).forEach((err, index) => { 
+                    setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
+                }); 
+            } 
+            else { successToast(data.message, 3000, navigate('/maintenance/breed', { replace: true })); } 
+        } 
+    });
 
     const { mutate: updating } = usePost({ fetch: update, 
-        onSuccess: (data) => { if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); } else { successToast(data.message, 3000, navigate('/maintenance/breed', { replace: true })); } } });
+        onSuccess: (data) => { 
+            if(data.result === 'error') { 
+                (data.error).forEach((err, index) => { 
+                    setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
+                }); 
+            } 
+            else { successToast(data.message, 3000, navigate('/maintenance/breed', { replace: true })); } 
+        } 
+    });
 
     useEffect(() => { if(type === 'new') { setValue('series_no', randomizer(7)); } }, [type, setValue]);
     useEffect(() => { setValidation(validation()); if(id !== undefined) { refetch() } }, [ setValidation, id, refetch]);
@@ -45,7 +68,8 @@ const Index = () => {
                         <Grid item xs= { 12 } sm= { 8 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography gutterBottom color= "text.secondary" variant= "body2">Series No.</Typography>
-                                { fetching ? <Skeleton variant= "rounded" height= "35px" /> : <TextField { ...register('series_no') } name= "series_no" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
+                                { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
+                                    <TextField { ...register('series_no') } name= "series_no" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
                             </Stack>
                         </Grid>
                         <Grid item xs= { 12 } sm= { 6 }>
@@ -80,8 +104,10 @@ const Index = () => {
                                 <Typography gutterBottom>Status</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
                                     <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                                        <Checkbox sx= {{ color: '#919eab', '&.Mui-checked': { color: '#2065d1' } }} name= "status" { ...register('status', { onChange: () => setCheck(!check) }) } disabled= { type === 'view' } checked= { getValues().status !== undefined ? getValues().status > 0 ? true : false : check } />
-                                        <Typography gutterBottom sx= {{ marginTop: '7px' }}>{ getValues().status !== undefined ? getValues().status > 0 ? 'Active' : 'Inactive' : check ? 'Active' : 'Inactive' }</Typography>
+                                        <Checkbox sx= {{ color: '#919eab', '&.Mui-checked': { color: '#2065d1' } }} name= "status" { ...register('status', { onChange: () => setCheck(!check) }) } 
+                                            disabled= { type === 'view' } checked= { getValues().status !== undefined ? getValues().status > 0 ? true : false : check } />
+                                        <Typography gutterBottom sx= {{ marginTop: '7px' }}>
+                                            { getValues().status !== undefined ? getValues().status > 0 ? 'Active' : 'Inactive' : check ? 'Active' : 'Inactive' }</Typography>
                                     </Box> }
                             </Stack>
                         </Grid>

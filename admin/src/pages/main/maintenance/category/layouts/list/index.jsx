@@ -9,7 +9,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
 
 // Constants
-import { btnicon, btntxt, search } from "./index.style"; // Styles
+import { btnicon, btntxt, item, search } from "./index.style"; // Styles
 import { useGet, usePost } from "core/global/function/index.func";
 import { look, records } from "core/api/index.func";
 
@@ -22,7 +22,7 @@ const Index = () => {
     const { isFetching: fetching } = useGet({ key: ['ctg_list'], fetch: records({ table: 'tbl_pet_category', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
 
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= {  3 }>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 3 }>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                 <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#3C4048' }}>Category</Typography>
                 <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
@@ -40,7 +40,7 @@ const Index = () => {
                 </Stack>
             </Stack>
             { !fetching && !finding ? <Item /> : 
-                <Stack direction= "row" justifyContent= "space-between" alignItems= "center" sx= {{ backgroundColor: '#FFFFFF', padding: '10px 20px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }} spacing= { 2 }>
+                <Stack direction= "row" justifyContent= "space-between" alignItems= "center" sx= { item } spacing= { 2 }>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ flexGrow: 1 }} spacing= { 1 }>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ flexGrow: 1 }}>
                             <Skeleton variant= "rounded" sx= {{ width: '50%', height: '10px' }} />

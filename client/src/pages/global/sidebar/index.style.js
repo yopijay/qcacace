@@ -36,3 +36,12 @@ export const activeLink = {
     backgroundColor: '#FFFFFF',
     cursor: 'pointer'
 }
+
+export const navcontainer = {
+    padding: { 
+        xs: '20px', 
+        lg: '90px 0 20px 0' 
+    }, 
+    overflowY: 'scroll', 
+    '&::-webkit-scrollbar': { display: 'none' }
+}

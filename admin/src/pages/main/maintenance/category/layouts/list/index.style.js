@@ -56,11 +56,10 @@ export const btnicon = {
 }
 
 export const item = {
-    backgroundColor: '#ffffff',
-    overflow: 'hidden',
-    border: 'solid 1px #919eab40',
-    padding: '20px 16px',
-    borderRadius: '8px'
+    backgroundColor: '#D2E1E6', 
+    padding: '10px 20px', 
+    border: 'solid 1px #F3F3F3', 
+    borderRadius: '10px'
 }
 
 export const icons = {

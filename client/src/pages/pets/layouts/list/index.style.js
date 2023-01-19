@@ -29,6 +29,18 @@ export const btntxt = {
     '&:hover': { backgroundColor: '#1b405d' }
 }
 
+export const btnrecommend = {
+    cursor: 'pointer',
+    padding: '8px 15px', 
+    borderRadius: '26px', 
+    color: '#CFCFCF', 
+    '&:hover': { 
+        backgroundColor: '#C3C3C366', 
+        color: '#FFFFFF'
+    },
+    transition: 'all 0.2s ease-in-out'
+}
+
 export const btnadopt = {
     textDecoration: 'none',
     cursor: 'pointer',
@@ -121,4 +133,31 @@ export const pettag = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
+}
+
+export const petcontainer = {
+    width: '100%', 
+    padding: '20px', 
+    backgroundColor: '#FFFFFF', 
+    boxShadow: 1, 
+    borderRadius: '20px', 
+    overflow: 'hidden'
+}
+
+export const petimage = {
+    display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    alignItems: 'flex-start', 
+    width: { 
+        xs: '40%', 
+        sm: '100%' 
+    }, 
+    height: { 
+        xs: 'auto', 
+        sm: '200px' 
+    }, 
+    borderRadius: '10px', 
+    boxShadow: 1, 
+    overflow: 'hidden'
 }

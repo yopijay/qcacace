@@ -25,7 +25,9 @@ const Index = () => {
                                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 }>
                                         <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}><Typography sx= { itemTitle }>{ item.title }</Typography></Box>
                                         <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}><Typography sx= { itemText }>{ item.info }</Typography></Box>
-                                        <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: { xs: 'center', md: 'flex-end'}, alignItems: 'center' }}><Typography component= { Link } href= { item.link } target= "_blank" sx= { itemLink }>Learn more</Typography></Box>
+                                        <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: { xs: 'center', md: 'flex-end'}, alignItems: 'center' }}>
+                                            <Typography component= { Link } href= { item.link } target= "_blank" sx= { itemLink }>Learn more</Typography>
+                                        </Box>
                                     </Stack>
                                 </Grid>
                             </Grid>

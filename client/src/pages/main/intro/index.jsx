@@ -54,7 +54,9 @@ const Index = () => {
                     <Stack direction= "column" justifyContent= "center" alignItems= "stretch" sx= {{ height: '100%' }}>
                         <Typography sx= { subtitle }>Animals are our Friends</Typography>
                         <Typography sx= { title }>Give our Pets a Better Home</Typography>
-                        <Box display= "flex" flexDirection= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ marginTop: '30px' }}><Typography component= { Link } to= "/pets" sx= { link } onClick= { () => { localStorage.setItem('nav', 'pets'); setIsActive('pets'); } }>Find your Pets</Typography></Box>
+                        <Box display= "flex" flexDirection= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ marginTop: '30px' }}>
+                            <Typography component= { Link } to= "/pets" sx= { link } onClick= { () => { localStorage.setItem('nav', 'pets'); setIsActive('pets'); } }>Find your Pets</Typography>
+                        </Box>
                     </Stack>
                 </Grid>
                 <Grid item xs= { 12 } sm= { 7 } md= { 8 }><img src= { Banner } alt= "banner" style= {{ width: '100%', height: 'auto', borderRadius: '10px' }} /></Grid>

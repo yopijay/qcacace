@@ -27,11 +27,15 @@ const Index = () => {
         <AppBar position= "fixed" sx= { appbar }>
             <Container maxWidth= "lg">
                 <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
-                    <Stack component= { Link } to= "/" direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ textDecoration: 'none' }} onClick= { () => { localStorage.setItem('nav', 'home'); setIsActive('home'); } }>
+                    <Stack component= { Link } to= "/" direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ textDecoration: 'none' }} 
+                        onClick= { () => { localStorage.setItem('nav', 'home'); setIsActive('home'); } }>
                         <Avatar alt= "QCACAC" src= { Logo } sx= {{ width: 35, height: 35 }} />
                         <Typography variant= "h5" sx= {{ fontFamily: 'Gilroy Bold', color: '#ffffff' }}>QC ACAC E - Services</Typography>
                     </Stack>
-                    <Typography sx= {{ transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.1)' }, display: { xs: 'block', lg: 'none' } }} onClick= { drawerToggle(!open.left) }><FontAwesomeIcon icon= { solid('bars-staggered') } /></Typography>
+                    <Typography sx= {{ transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.1)' }, display: { xs: 'block', lg: 'none' } }} 
+                        onClick= { drawerToggle(!open.left) }>
+                        <FontAwesomeIcon icon= { solid('bars-staggered') } />
+                    </Typography>
                 </Stack>
             </Container>
         </AppBar>
