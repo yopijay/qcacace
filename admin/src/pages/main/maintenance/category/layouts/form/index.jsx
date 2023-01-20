@@ -19,37 +19,40 @@ const Index = () => {
     const { type, id } = useParams();
     const navigate = useNavigate();
     const { setValidation, handleSubmit, setValue, setError, getValues, register, errors, check, setCheck } = useContext(FormCntxt);
-    const { refetch, isFetching: fetching } = useGet({ key: ['ctg_specific'], fetch: specific({ table: 'tbl_pet_category', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
-        onSuccess: (data) => { 
-            if(Array.isArray(data)) { 
-                for(let count = 0; count < Object.keys(data[0]).length; count++) { 
-                    let _name = Object.keys(data[0])[count]; setValue(_name, data[0][_name] !== null ? data[0][_name] : ''); 
+    const { refetch, isFetching: fetching } = 
+        useGet({ key: ['ctg_specific'], fetch: specific({ table: 'tbl_pet_category', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
+            onSuccess: (data) => { 
+                if(Array.isArray(data)) { 
+                    for(let count = 0; count < Object.keys(data[0]).length; count++) { 
+                        let _name = Object.keys(data[0])[count]; setValue(_name, data[0][_name] !== null ? data[0][_name] : ''); 
+                    } 
                 } 
             } 
-        } 
-    });
+        });
 
-    const { mutate: saving } = usePost({ fetch: save, 
-        onSuccess: (data) => { 
-            if(data.result === 'error') { 
-                (data.error).forEach((err, index) => { 
-                    setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
-                }); 
+    const { mutate: saving } = 
+        usePost({ fetch: save, 
+            onSuccess: (data) => { 
+                if(data.result === 'error') { 
+                    (data.error).forEach((err, index) => { 
+                        setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
+                    }); 
+                } 
+                else { successToast(data.message, 3000, navigate('/maintenance/category', { replace: true })); } 
             } 
-            else { successToast(data.message, 3000, navigate('/maintenance/category', { replace: true })); } 
-        } 
-    });
+        });
 
-    const { mutate: updating } = usePost({ fetch: update, 
-        onSuccess: (data) => { 
-            if(data.result === 'error') { 
-                (data.error).forEach((err, index) => { 
-                    setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
-                }); 
+    const { mutate: updating } = 
+        usePost({ fetch: update, 
+            onSuccess: (data) => { 
+                if(data.result === 'error') { 
+                    (data.error).forEach((err, index) => { 
+                        setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
+                    }); 
+                } 
+                else { successToast(data.message, 3000, navigate('/maintenance/category', { replace: true })); } 
             } 
-            else { successToast(data.message, 3000, navigate('/maintenance/category', { replace: true })); } 
-        } 
-    });
+        });
 
     useEffect(() => { if(type === 'new') { setValue('series_no', randomizer(7)); } }, [type, setValue]);
     useEffect(() => { setValidation(validation()); if(id !== undefined) { refetch() } }, [ setValidation, id, refetch]);

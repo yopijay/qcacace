@@ -24,14 +24,41 @@ const Index = () => {
     const { type, id } = useParams();
     const navigate = useNavigate();
     const { setValidation, handleSubmit, setValue, setError, register } = useContext(FormCntxt);
-    const { refetch, isFetching } = useGet({ key: ['usr_specific'], fetch: specific({ table: 'tbl_users', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
-        onSuccess: (data) => { if(Array.isArray(data)) { for(let count = 0; count < Object.keys(data[0]).length; count++) { let _name = Object.keys(data[0])[count]; setValue(_name, data[0][_name] !== null ? _name === 'password' ? atob(data[0][_name]) : data[0][_name] : ''); } } } });
+    const { refetch, isFetching } = 
+        useGet({ key: ['usr_specific'], fetch: specific({ table: 'tbl_users', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
+            onSuccess: (data) => { 
+                if(Array.isArray(data)) { 
+                    for(let count = 0; count < Object.keys(data[0]).length; count++) { 
+                        let _name = Object.keys(data[0])[count]; 
+                        setValue(_name, data[0][_name] !== null ? _name === 'password' ? atob(data[0][_name]) : data[0][_name] : ''); 
+                    } 
+                } 
+            } 
+        });
 
-    const { mutate: saving } = usePost({ fetch: save, 
-        onSuccess: (data) => { if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); } else { successToast(data.message, 3000, navigate('/maintenance/users', { replace: true })); } } });
+    const { mutate: saving } = 
+        usePost({ fetch: save, 
+            onSuccess: (data) => { 
+                if(data.result === 'error') { 
+                    (data.error).forEach((err, index) => { 
+                        setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
+                    }); 
+                } 
+                else { successToast(data.message, 3000, navigate('/maintenance/users', { replace: true })); } 
+            } 
+        });
 
-    const { mutate: updating } = usePost({ fetch: update, 
-        onSuccess: (data) => { if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); } else { successToast(data.message, 3000, navigate('/maintenance/users', { replace: true })); } } });
+    const { mutate: updating } = 
+        usePost({ fetch: update, 
+            onSuccess: (data) => { 
+                if(data.result === 'error') { 
+                    (data.error).forEach((err, index) => { 
+                        setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
+                    }); 
+                } 
+                else { successToast(data.message, 3000, navigate('/maintenance/users', { replace: true })); } 
+            } 
+        });
 
     useEffect(() => { setValidation(validation()); register('avatar'); if(id !== undefined) { refetch() } }, [ setValidation, id, refetch, register ]);
     

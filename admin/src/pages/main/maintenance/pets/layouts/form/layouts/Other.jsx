@@ -14,12 +14,6 @@ const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }];
 const Form = ({ fetching }) => {
     const { type } = useParams();
     const { getValues, control, errors, register, check, setCheck } = useContext(FormCntxt);
-    // const [ qrcode, setQrcode ] = useState('');
-    // const { data: category, isFetching } = useGet(['category'], get({ table: 'tbl_pet_category', type: 'dropdown', query: 'WHERE status= 1 ORDER BY name ASC' }), {});
-    // const { data: breed, mutate: menu, isLoading } = usePost(dropdown);
-
-    // useEffect(() => { if(!isFetching) { if(type !== 'new') { menu({ table: 'tbl_breed', data: { query: getValues()?.category_id} }); } } }, [isFetching, type, menu, getValues]);
-    // useEffect(() => { if(!isFetching) if(type === 'view') generateQR(getValues().series_no, setQrcode); }, [ isFetching, getValues, type]);
 
     return (
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>

@@ -27,7 +27,11 @@ const Index = () => {
                 <Stack direction= "row" justifyContent= "flex-start" alignItems= "flex-start">
                     <Sidebar />
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100vh', padding: { xs: '70px 0 0 0', lg: '90px 10px 0 10px' } }}>
-                        <Routes>{ components().map(ctgy => { return (ctgy.nav).map((layout, index) => ( <Route exact path= { `${layout.path}/*` } key= { index } element= { <Suspense fallback= { <LoaderScreen /> }>{ layout.component }</Suspense> } /> )) }) }</Routes>
+                        <Routes>{ components().map(ctgy => { 
+                            return (ctgy.nav).map((layout, index) => ( 
+                                <Route exact path= { `${layout.path}/*` } key= { index } element= { <Suspense fallback= { <LoaderScreen /> }>{ layout.component }</Suspense> } /> 
+                            )) 
+                        }) }</Routes>
                     </Stack>
                 </Stack>
             </Container>
