@@ -1,5 +1,5 @@
 // Libraries
-const { Router, response } = require('express');
+const { Router } = require('express');
 
 // Variables
 const query = require('../queries');
