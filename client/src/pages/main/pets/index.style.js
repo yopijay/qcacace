@@ -66,6 +66,7 @@ export const pettag = {
 export const petcontainer = {
     width: '100%', 
     padding: '20px', 
+    minHeight: '200px',
     backgroundColor: '#FFFFFF', 
     boxShadow: 1, 
     borderRadius: '20px'

@@ -9,11 +9,14 @@ import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 
 // Constants
 import { error, input, select, textarea } from "../index.style"; // Styles
+import { useGet } from "core/global/function/index.func";
+import { dropdown } from "core/api/index.func";
 const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }]; // Gender
 
 const Form = ({ fetching }) => {
     const { type } = useParams();
     const { getValues, control, errors, register, check, setCheck } = useContext(FormCntxt);
+    const { data: tags, isFetching: tagfetching } = useGet({ key: ['tag_dropdown' ], fetch: dropdown({ table: 'tbl_pet_tags', data: {} }) });
 
     return (
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
@@ -57,8 +60,20 @@ const Form = ({ fetching }) => {
             <Grid item xs= { 12 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography gutterBottom color= "text.secondary">*Tags</Typography>
-                    <TextareaAutosize name= "tags" { ...register('tags') } minRows= { 4 } maxRows= { 4 } style= { textarea } disabled= { type === 'view' } />
-                    <Typography variant= "body2" sx= { error } gutterBottom>{ errors.tags?.message }</Typography>
+                    { tagfetching ? <Skeleton variant= "rectangular" height= "35px" sx= {{ borderRadius: '5px' }} /> : tags?.length > 0 ?
+                        <Box sx= { select }>
+                            <Controller control= { control } name= "tags" defaultValue= { [] }
+                                render= { ({ field: { onChange, value } }) => (
+                                    <Autocomplete options= { tags } multiple disableClearable disabled= { type === 'view' }
+                                        getOptionLabel= { tags => tags.name || tags.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
+                                        isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
+                                        onChange= { (e, item) => { onChange(item); } }
+                                        renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
+                                        value= { getValues().tags !== undefined ? (getValues().tags).length > 0 ? getValues().tags : [] : [] }
+                                        />
+                                ) } /> 
+                        </Box> : '' }
+                    <Typography variant= "body2" sx= { error } gutterBottom>{ errors.pet_tags?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 }>
@@ -73,18 +88,12 @@ const Form = ({ fetching }) => {
                     <Typography gutterBottom>Status</Typography>
                     { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
                         <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                            <Checkbox sx= {{ color: '#919eab', '&.Mui-checked': { color: '#2065d1' } }} name= "status" { ...register('status', { onChange: () => setCheck(!check) }) } disabled= { type === 'view' } checked= { getValues().status !== undefined ? getValues().status > 0 ? true : false : check } />
+                            <Checkbox sx= {{ color: '#919eab', '&.Mui-checked': { color: '#2065d1' } }} name= "status" { ...register('status', { onChange: () => setCheck(!check) }) } 
+                                disabled= { type === 'view' } checked= { getValues().status !== undefined ? getValues().status > 0 ? true : false : check } />
                             <Typography gutterBottom sx= {{ marginTop: '7px' }}>{ getValues().status !== undefined ? getValues().status > 0 ? 'Active' : 'Inactive' : check ? 'Active' : 'Inactive' }</Typography>
                         </Box> }
                 </Stack>
             </Grid>
-            {/* 
-            { type === 'view' ? 
-                <Grid item xs= { 12 }>
-                    <Box sx= {{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                        <img src= { qrcode } alt= "qrcode" style= {{ width: '250px', height: '250px' }} />
-                    </Box>
-                </Grid> : '' } */}
         </Grid>
     );
 }

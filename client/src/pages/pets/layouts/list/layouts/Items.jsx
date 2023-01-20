@@ -32,9 +32,10 @@ const Items = () => {
                                             </Typography>
                                         </Stack>
                                         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ width: '100%', marginTop: '5px' }}>
-                                            { ((data.tags).split(', ')).map((tag, index) => ( 
-                                                <Grid item xs= { 4 } sm= { 3 } md= { 4 } key= { index }><Typography sx= { pettag }>#{ tag.toLowerCase() }</Typography></Grid> 
-                                             )) }
+                                            { (JSON.parse(data.tags)).map((tag, index) => (
+                                                <Grid item xs= { 4 } sm= { 3 } md= { 4 } key= { index }>
+                                                    <Typography sx= { pettag }>#{(tag.name).toLowerCase()}</Typography>
+                                                </Grid> )) }
                                         </Grid>
                                         <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography>
                                         <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ data.description }</Typography>
@@ -43,7 +44,14 @@ const Items = () => {
                                 </Stack>
                             </Stack>
                         </Grid>
-                    )) : <Grid item xs= { 12 }><Typography sx= {{ width: '100%', textAlign: 'center' }}>No record/s found!</Typography></Grid> }
+                    )) : 
+                    [0, 1, 2].map(index => (
+                        <Grid item xs= { 12 } md= { 6 } lg= { 4 } key= { index }>
+                            <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= { petcontainer }>
+                                <Typography sx= {{ width: '100%', textAlign: 'center' }}>No record/s found!</Typography>
+                            </Stack>
+                        </Grid>
+                    )) }
             </Grid>
     );
 }

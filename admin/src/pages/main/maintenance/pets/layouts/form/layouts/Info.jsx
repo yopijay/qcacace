@@ -36,15 +36,14 @@ const Info = ({ fetching }) => {
                     <Box sx= { select }>
                         <Controller control= { control } name= "pet_category_id" defaultValue= { 0 }
                             render= { ({ field: { onChange, value } }) => (
-                                <Autocomplete options= { category } disableClearable
+                                <Autocomplete options= { category } disableClearable disabled= { type === 'view' }
                                     getOptionLabel= { category => category.name || category.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                     isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                     onChange= { (e, item) => { onChange(item.id); setbreeds({ table: 'tbl_breed', data: { id: item.id } }); } }
                                     renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
                                     value= { category?.find(data => { return data.id === (getValues().pet_category_id !== undefined ? getValues().pet_category_id : value) }) !== undefined ?
-                                        category?.find(data => { return data.id === (getValues().pet_category_id !== undefined ? getValues().pet_category_id : value) }) : category?.length === 0 ?
-                                        { id: 0, name: '-- SELECT AN ITEM BELOW --' } : category[0] } />
-                            ) } /> 
+                                                    category?.find(data => { return data.id === (getValues().pet_category_id !== undefined ? getValues().pet_category_id : value) }) : 
+                                                    category?.length === 0 ? { id: 0, name: '-- SELECT AN ITEM BELOW --' } : category[0] } /> ) } /> 
                     </Box> : '' }
                 <Typography variant= "body2" sx= { error } gutterBottom>{ errors.pet_category_id?.message }</Typography>
             </Stack>

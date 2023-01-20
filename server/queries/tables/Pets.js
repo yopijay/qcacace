@@ -35,8 +35,9 @@ class Pets {
     save = async (data) => {
         await new Builder(`tbl_pets`)
                             .insert({ columns: `series_no, pet_category_id, breed_id, gender, age, color, size, tags, description, photo, status, created_by, date_created`,
-                                            values: `'${(data.series_no).toUpperCase()}', ${data.pet_category_id}, ${data.breed_id}, '${data.gender}', '${(data.age).toUpperCase()}', '${(data.color).toUpperCase()}', '${(data.size).toUpperCase()}',
-                                                            '${(data.tags).toUpperCase()}', '${(data.description).toUpperCase()}', '${data.photo}', ${data.status ? 1 : 0}, ${data.created_by}, CURRENT_TIMESTAMP` })
+                                            values: `'${(data.series_no).toUpperCase()}', ${data.pet_category_id}, ${data.breed_id}, '${data.gender}', '${(data.age).toUpperCase()}', 
+                                                            '${(data.color).toUpperCase()}', '${(data.size).toUpperCase()}', '${JSON.stringify(data.tags)}', '${(data.description).toUpperCase()}', 
+                                                            '${data.photo}', ${data.status ? 1 : 0}, ${data.created_by}, CURRENT_TIMESTAMP` })
                             .build();
         return { result: 'success', message: 'Successfully saved!' }
     }

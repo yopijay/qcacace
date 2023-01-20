@@ -29,8 +29,9 @@ const Index = () => {
             onSuccess: (data) => { 
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
-                        let _name = Object.keys(data[0])[count]; 
-                        setValue(_name, data[0][_name] !== null ? data[0][_name] : ''); 
+                        let _name = Object.keys(data[0])[count];
+                        
+                        setValue(_name, data[0][_name] !== null ? _name === 'tags' ? JSON.parse(data[0][_name]) : data[0][_name] : ''); 
                     } 
                 } 
             } 
@@ -57,8 +58,7 @@ const Index = () => {
                     }); 
                 } 
                 else { successToast(data.message, 3000, navigate('/maintenance/pet', { replace: true })); } 
-            } 
-        });
+            } });
         
     useEffect(() => { setValidation(validation()); if(id !== undefined) { refetch() } }, [ setValidation, id, refetch ]);
 
@@ -82,8 +82,14 @@ const Index = () => {
                             if(data.photo !== undefined) {
                                 if(data.pet_category_id !== 0) {
                                     if(data.breed_id !== 0) {
-                                        if(type === 'new') { saving({ table: 'tbl_pets', data: data }); }
-                                        else { updating({ table: 'tbl_pets', data: data }); }
+                                        if(data.tags !== undefined) {
+                                            if((data.tags).length > 0) {
+                                                if(type === 'new') { saving({ table: 'tbl_pets', data: data }); }
+                                                else { updating({ table: 'tbl_pets', data: data }); }
+                                            }
+                                            else { setError('tags', { message: 'This field is required!' }); }
+                                        }
+                                        else { setError('tags', { message: 'This field is required!' }) }
                                     }
                                     else { setError('breed_id', { message: 'This field is required!' }); }
                                 }

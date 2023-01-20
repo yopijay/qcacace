@@ -36,7 +36,7 @@ const Index = () => {
                                                     <Box sx= { petimage }><img src= { JSON.parse(data.photo) } alt= "pet" width= "100%"  height= "auto" /></Box> :
                                                     <Skeleton variant= "rounded" sx= {{ width: '100%', height: '200px', borderRadius: '20px' }} /> }
                                             </Stack>
-                                            <Stack direction= "column" justifyContent= "flex-start" alignItems= {{ xs: 'stretch' }} sx= {{ width: '100%' }}>
+                                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%' }}>
                                                 { !fetching ? <Typography sx= { petseries }>#{ data.series_no }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} /> }
                                                 <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                                                     { !fetching ? <Typography sx= { petdesc }>{ data.age }, { data.size }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} /> }
@@ -47,10 +47,11 @@ const Index = () => {
                                                         <Skeleton variant= "rounded" sx= {{ width: '20px', height: '20px' }} /> }
                                                 </Stack>
                                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
-                                                    { ((data.tags).split(', ')).map((tag, index) => ( 
-                                                        <Grid item xs= { 4 } sm= { 3 } md= { 4 } key= { index }>{ 
-                                                            !fetching ? <Typography sx= { pettag }>#{ tag.toLowerCase() }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1rem'}} /> }</Grid> 
-                                                    )) }
+                                                    { !fetching ? 
+                                                        (JSON.parse(data.tags)).map((tag, index) => (
+                                                            <Grid item xs= { 4 } sm= { 3 } md= { 4 } key= { index }>
+                                                                <Typography sx= { pettag }>#{(tag.name).toLowerCase()}</Typography>
+                                                            </Grid> )) : <Grid item xs= { 4 } sm= { 3 } md= { 4 }><Skeleton variant= "text" sx= {{ fiontSize: '1rem' }} /></Grid> }
                                                 </Grid>
                                                 { !fetching ? <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography> : 
                                                     <Skeleton variant= "text" sx= {{ fontSize: '1.2rem', width: '25%' }} /> }
@@ -60,7 +61,11 @@ const Index = () => {
                                         </Stack>
                                     </Grid>
                                 )) :
-                            <Grid item xs= { 12 }><Typography sx= {{ width: '100%', textAlign: 'center' }}>No record/s found.</Typography></Grid> }
+                            <Grid item xs= { 12 } md= { 6 }>
+                                <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= { petcontainer }>
+                                    <Typography sx= {{ width: '100%', textAlign: 'center' }}>No record/s found.</Typography>
+                                </Stack>
+                            </Grid> }
                     </Grid>
                 </Container>
             </Grid>
