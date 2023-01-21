@@ -11,6 +11,7 @@ const Tags = require('./tables/Tags');
 const login = async (data) => { return await new Users().login(data); }
 const logout = async (data) => { return await new Users().logout(data); }
 const profile = async (id) => { return await new Users().profile(id); }
+const recommend = async (data) => { return await new Pets().recommend(data); }
 
 const dashboard = (table) => {
     return new Promise(async resolve => {
@@ -110,5 +111,6 @@ module.exports = {
     update,
     search,
     dropdown,
-    top
+    top,
+    recommend
 }

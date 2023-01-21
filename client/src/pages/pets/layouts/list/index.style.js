@@ -15,18 +15,16 @@ export const search = {
 }
 
 export const btntxt = { 
-    display: {
-        xs: 'none',
-        md: 'block'
-    }, 
     textDecoration: 'none',
     cursor: 'pointer',
-    backgroundColor: '#204c6f',
-    color: '#ffffff',
-    borderRadius: '7px',
-    padding: '7px 15px',
+    color: '#204c6f',
+    textAlign: 'center',
+    width: '100%',
+    fontSize: {
+        md: '130%'
+    },
+    fontWeight: 'bold',
     transition: 'all 0.2s ease-in-out',
-    '&:hover': { backgroundColor: '#1b405d' }
 }
 
 export const btnrecommend = {

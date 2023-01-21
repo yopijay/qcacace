@@ -14,6 +14,20 @@ class Pets {
                                         .build()).rows;
     }
 
+    recommend = async (data) => {
+        let ctgy = (await new Builder(`tbl_pet_category`).select(`name`).condition(`WHERE id= ${data.pet_category_id}`).build()).rows[0];
+        let brd = (await new Builder(`tbl_breed`).select(`name`).condition(`WHERE id= ${data.breed_id}`).build()).rows[0];
+        
+        return (await new Builder(`tbl_pets AS pts`)
+                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, pts.age, pts.size, pts.gender, pts.tags, pts.description, pts.photo, pts.status, pts.date_created`)
+                                        .join({ table: `tbl_pet_category AS ctg`, condition: `pts.pet_category_id = ctg.id`, type: 'LEFT' })
+                                        .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
+                                        .condition(`WHERE ctg.name LIKE '%${ctgy.name}%' AND brd.name LIKE '%${brd.name}%' AND pts.gender LIKE '%${data.gender}%' 
+                                                            OR pts.tags LIKE '%${JSON.stringify(data.tags)}%' OR (pts.age LIKE '%${(data.age).toUpperCase()}%' OR pts.size LIKE '%${(data.size).toUpperCase()}%')
+                                                            ORDER BY pts.date_created ASC LIMIT 3`)
+                                        .build()).rows;
+    }
+
     list = async () => { 
         return (await new Builder(`tbl_pets AS pts`)
                                         .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, pts.age, pts.size, pts.gender, pts.tags, pts.description, pts.photo, pts.status, pts.date_created`)

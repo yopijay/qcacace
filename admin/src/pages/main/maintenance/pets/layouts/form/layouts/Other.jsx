@@ -6,11 +6,11 @@ import { useParams } from "react-router-dom";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { dropdown } from "core/api/index.func"; // API
+import { useGet } from "core/global/function/index.func"; // Function
 
 // Constants
 import { error, input, select, textarea } from "../index.style"; // Styles
-import { useGet } from "core/global/function/index.func";
-import { dropdown } from "core/api/index.func";
 const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }]; // Gender
 
 const Form = ({ fetching }) => {

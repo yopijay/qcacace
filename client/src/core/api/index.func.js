@@ -9,3 +9,5 @@ let _dropdown= [{ id: 0, name: '-- SELECT AN ITEM BELOW --' }];
 export const records = async ({ table, data }) => { return await api({ url: `${Env[env].url}/list/${table}`, method: 'post', data: data }).then(res => res.data); }
 export const look = async ({ table, data }) => { return await api({ url: `${Env[env].url}/search/${table}`, method: 'post', data: data }).then(res => res.data); }
 export const top = async ({ table, data }) => { return await api({ url: `${Env[env].url}/top/${table}`, method: 'post', data: data }).then(res => res.data); }
+export const recommend = async (data) => { return await api({ url: `${Env[env].url}/recommend`, method: 'post', data: data }).then(res => res.data); }
+export const dropdown = async({ table, data}) => { return await api({ url: `${Env[env].url}/dropdown/${table}`, method: 'post', data: data }).then(res => _dropdown.concat(res.data)); }

@@ -26,7 +26,6 @@ const Index = ({ setDialog }) => {
             <Grid item>
                 <Container maxWidth= "lg">
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-                        <Recommended />
                         <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
                             <form autoComplete= "off">
                                 <Box sx= { search }>
@@ -41,6 +40,7 @@ const Index = ({ setDialog }) => {
             </Grid>
             <Grid item>
                 <Container maxWidth= "lg" sx= {{ marginTop: '20px' }}>
+                    { localStorage.getItem('recommend') !== null ? <Recommended /> : '' }
                     { !fetching && !finding ? <Items /> : 
                         <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 2 } sx= {{ padding: '20px' }}>
                             { [0, 1, 2].map(index => (
