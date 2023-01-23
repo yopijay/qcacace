@@ -1,9 +1,77 @@
+// Libraires
+const nodemailer = require('nodemailer');
+const mailgen = require('mailgen');
+
 // Custom functions
 const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Users {
-    specific = async (id) => { return (await new Builder(`tbl_users AS usr`).select().join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' }).condition(`WHERE usr.id= ${id}`).build()).rows; }
+    specific = async (id) => { return (await new Builder(`tbl_users AS usr`)
+                                                                            .select()
+                                                                            .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' })
+                                                                            .condition(`WHERE usr.id= ${id}`)
+                                                                            .build()).rows; }
+
+    register = async (data) => {
+        let _email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();
+        let _id = 0;
+        let config = { service: 'gmail', auth: { user: 'flipmusicc@gmail.com', pass: 'hstmwapmutgawcpz' } }
+        let transporter = nodemailer.createTransport(config);
+        let generator = new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let body = new Object();
+
+        if(_email.rowCount > 0) {
+            _id = _email.rows[0].id;
+            if(_email.rows[0].is_email_verified === 0) {
+                body = {
+                    body: {
+                        name: 'Hi!',
+                        intro: 'Welcome to Quezon City Animal Care & Adoption Center.',
+                        action: {
+                            instruction: 'To get started on your adoption process, please confirm your email address by clicking the button below:',
+                            button: {
+                                color: '#22BC66', // Optional action button color
+                                text: 'Confirm your account',
+                                link: `http://192.168.100.49:3005/api/verify/${_email.rows[0].id}`
+                            }
+                        },
+                        outro: 'Please don`t reply to this email!'
+                    }
+                }
+            }
+            else { return { result: 'success', message: 'Email already verified!', id: _id } }
+        }
+        else {
+            let usr = await new Builder(`tbl_users`)
+                                                .insert({ columns: `series_no, email, is_email_verified, user_level, is_logged, status, date_created`, 
+                                                                values: `'${global.randomizer(7)}', '${data.email}', 0, 'user', 0, 1, CURRENT_TIMESTAMP` })
+                                                .condition(`RETURNING id`)
+                                                .build();
+            _id = usr.rows[0].id;
+            body = {
+                body: {
+                    name: 'User!',
+                    intro: 'Welcome to Quezon City Animal Care & Adoption Center.',
+                    action: {
+                        instruction: 'To get started on your adoption process, please confirm your email address by clicking the button below:',
+                        button: {
+                            color: '#22BC66', // Optional action button color
+                            text: 'Confirm your account',
+                            link: `http://192.168.100.49:3005/api/verify/${usr.rows[0].id}`
+                        }
+                    },
+                    outro: 'Please don`t reply to this email!'
+                }
+            }
+        }
+
+        let mail = generator.generate(body);
+        transporter.sendMail({ from: 'flipmusicc@gmail.com', to: data.email, subject: 'Confirm your email address', html: mail });
+        return { result: 'success', message: 'Email verification sent!', id: _id }
+    }
+
+    verify = async (id) => { await new Builder(`tbl_users`).update(`is_email_verified= 1`).condition(`WHERE id= ${id}`).build(); return `<script>window.close();</script>` }
 
     login = async (data) => {
         let email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();
@@ -91,7 +159,11 @@ class Users {
     }
 
     update = async (data) => {
-        let usr = (await new Builder(`tbl_users AS usr`).select().join({ table: 'tbl_users_info AS info', condition: `info.user_id = usr.id`, type: `LEFT` }).condition(`WHERE usr.id= ${data.id}`).build()).rows[0];
+        let usr = (await new Builder(`tbl_users AS usr`)
+                                            .select()
+                                            .join({ table: 'tbl_users_info AS info', condition: `info.user_id = usr.id`, type: `LEFT` })
+                                            .condition(`WHERE usr.id= ${data.id}`)
+                                            .build()).rows[0];
         let date = global.date(new Date());
         
         if(global.compare(usr.email, data.email)) {
@@ -108,14 +180,30 @@ class Users {
             else { return { result: 'error', error: [{ name: 'lname', message: 'Name already exist! Please change your last name or first name to proceed!' }] } }
         }
         
-        if(global.compare(usr.avatar, data.avatar)) { await new Builder(`tbl_users_info`).update(`avatar= '${data.avatar}'`).condition(`WHERE user_id= ${usr.id}`).build(); }
-        if(global.compare(usr.password, data.password)) { await new Builder(`tbl_users`).update(`password= '${data.password}'`).condition(`WHERE id= ${usr.id}`).build(); }
-        if(global.compare(usr.fname, data.fname)) { await new Builder(`tbl_users_info`).update(`fname= '${(data.fname).toUpperCase()}'`).condition(`WHERE user_id= ${usr.id}`).build(); }
-        if(global.compare(usr.mname, data.mname)) { await new Builder(`tbl_users_info`).update(`mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}`).condition(`WHERE user_id= ${usr.id}`).build(); }
-        if(global.compare(usr.gender, data.gender)) { await new Builder(`tbl_users_info`).update(`gender= '${data.gender}'`).condition(`WHERE user_id= ${usr.id}`).build(); }
-        if(global.compare(usr.user_level, data.user_level)) { await new Builder(`tbl_users`).update(`user_level= '${data.user_level}'`).condition(`WHERE id= ${usr.id}`).build(); }
-        if(global.compare(usr.address, data.address)) { await new Builder(`tbl_users_info`).update(`address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}`).condition(`WHERE user_id= ${usr.id}`).build(); }
-        if(global.compare(usr.status, data.status ? 1 : 0)) { await new Builder(`tbl_users`).update(`status= ${data.status === true || data.status === 'true' ? 1 : 0}`).condition(`WHERE id= ${usr.id}`).build(); }
+        if(global.compare(usr.avatar, data.avatar)) { 
+            await new Builder(`tbl_users_info`).update(`avatar= '${data.avatar}'`).condition(`WHERE user_id= ${usr.id}`).build(); 
+        }
+        if(global.compare(usr.password, data.password)) { 
+            await new Builder(`tbl_users`).update(`password= '${data.password}'`).condition(`WHERE id= ${usr.id}`).build(); 
+        }
+        if(global.compare(usr.fname, data.fname)) { 
+            await new Builder(`tbl_users_info`).update(`fname= '${(data.fname).toUpperCase()}'`).condition(`WHERE user_id= ${usr.id}`).build(); 
+        }
+        if(global.compare(usr.mname, data.mname)) { 
+            await new Builder(`tbl_users_info`).update(`mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}`).condition(`WHERE user_id= ${usr.id}`).build(); 
+        }
+        if(global.compare(usr.gender, data.gender)) { 
+            await new Builder(`tbl_users_info`).update(`gender= '${data.gender}'`).condition(`WHERE user_id= ${usr.id}`).build(); 
+        }
+        if(global.compare(usr.user_level, data.user_level)) { 
+            await new Builder(`tbl_users`).update(`user_level= '${data.user_level}'`).condition(`WHERE id= ${usr.id}`).build(); 
+        }
+        if(global.compare(usr.address, data.address)) { 
+            await new Builder(`tbl_users_info`).update(`address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}`).condition(`WHERE user_id= ${usr.id}`).build(); 
+        }
+        if(global.compare(usr.status, data.status ? 1 : 0)) { 
+            await new Builder(`tbl_users`).update(`status= ${data.status === true || data.status === 'true' ? 1 : 0}`).condition(`WHERE id= ${usr.id}`).build(); 
+        }
 
         await new Builder(`tbl_users`).update(`updated_by= ${data.updated_by}, date_updated= '${date}'`).condition(`WHERE id= ${usr.id}`).build();
         return { result: 'success', message: 'Successfully updated!' }

@@ -2,6 +2,7 @@
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Grid, Skeleton, Stack, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 // Core
 import { recommend } from "core/api/index.func"; // API
@@ -42,7 +43,7 @@ const Recommended = () => {
                                         <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography>
                                         <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ data.description }</Typography>
                                     </Stack>
-                                    <Box sx= { btnadopt }>Adopt</Box>
+                                    <Typography sx= { btnadopt } component= { Link } to= { `/pets/adopt/${btoa(data.id)}/verification` }>Adopt</Typography>
                                 </Stack>
                             </Stack>
                         </Grid>

@@ -18,5 +18,7 @@ router.get('/series/:table', (req, res) => { query.series(req.params.table).then
 router.post('/search/:table', (req, res) => { query.search(req.params.table, req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 router.post('/top/:table', (req, res) => { query.top(req.params.table, req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 router.post('/recommend', (req, res) => { query.recommend(req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
+router.post('/register', (req, res) => { query.register(req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
+router.get('/verify/:id', (req, res) => { query.verify(req.params.id).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 
 module.exports = router;

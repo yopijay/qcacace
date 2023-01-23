@@ -23,14 +23,14 @@ const Index = ({ dialog, setDialog  }) => {
 
     return (
         <Dialog fullScreen= { fullscreen } open= { dialog }  fullWidth maxWidth= "md">
-            <DialogContent sx= {{ backgroundImage: `url(${BG})`, padding: '30px 50px' }}>
-                <Stack direction= "column" justifyContent= "flex-start" alignItems= 'stretch' spacing= { 3 }>
-                    <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
+            <DialogContent sx= {{ backgroundImage: `url(${BG})` }}>
+                <Stack direction= "column" justifyContent= "flex-start" alignItems= 'stretch'>
+                    <Stack direction= "row" justifyContent= "space-between" alignItems= "center" sx= {{ marginBottom: '40px' }}>
                         <Typography variant= "h5" sx= {{ fontWeight: 'bold' }}>Tell us what you want!</Typography>
                         <Typography sx= {{ fontSize: '150%', color: '#C3C3C3', cursor: 'pointer' }} onClick= { () => setDialog(false) }><FontAwesomeIcon icon= { solid('xmark') } /></Typography>
                     </Stack>
                     <Form />
-                    <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center">
+                    <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ marginTop: '40px' }}>
                         <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
                             <Box sx= { btntxt } onClick= { handleSubmit(data => { 
                                 if(data.pet_category_id !== 0) {

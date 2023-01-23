@@ -49,7 +49,7 @@ const Index = () => {
                                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
                                                     { !fetching ? 
                                                         (JSON.parse(data.tags)).map((tag, index) => (
-                                                            <Grid item xs= { 4 } sm= { 3 } md= { 4 } key= { index }>
+                                                            <Grid item xs= { 4 } sm= { 3 } key= { index }>
                                                                 <Typography sx= { pettag }>#{(tag.name).toLowerCase()}</Typography>
                                                             </Grid> )) : <Grid item xs= { 4 } sm= { 3 } md= { 4 }><Skeleton variant= "text" sx= {{ fiontSize: '1rem' }} /></Grid> }
                                                 </Grid>

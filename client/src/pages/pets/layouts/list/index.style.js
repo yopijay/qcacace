@@ -21,6 +21,8 @@ export const btntxt = {
     textAlign: 'center',
     width: '100%',
     fontSize: {
+        xs: '120%',
+        sm: '150%',
         md: '130%'
     },
     fontWeight: 'bold',

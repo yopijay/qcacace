@@ -9,16 +9,17 @@ import { ListCntxt } from "core/context/ListCntxt.func"; // Context
 
 // Constants
 import { btnadopt, petcontainer, petdesc, petfemale, petimage, petmale, petseries, pettag } from "../index.style"; // Styles
+import { Link } from "react-router-dom";
 
 const Items = () => {
     const { list } = useContext(ListCntxt);
 
     return (
-            <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 2 } sx= {{ padding: '20px' }}>
+            <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 2 } sx= {{ padding: '20px' }}>
                 { list.length > 0 ?
                     list?.map((data, index) => (
                         <Grid item xs= { 12 } md= { 6 } lg= { 4 } key= { index }>
-                            <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "start" sx= { petcontainer } spacing= { 2 }>
+                            <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "flex-start" sx= { petcontainer } spacing= { 2 }>
                                 <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%' } }}>
                                     <Box sx= { petimage }><img src= { JSON.parse(data.photo) } alt= "pet" width= "100%"  height= "auto" /></Box>
                                 </Stack>
@@ -40,7 +41,7 @@ const Items = () => {
                                         <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography>
                                         <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ data.description }</Typography>
                                     </Stack>
-                                    <Box sx= { btnadopt }>Adopt</Box>
+                                    <Typography sx= { btnadopt } component= { Link } to= { `/pets/adopt/${btoa(data.id)}/verification` }>Adopt</Typography>
                                 </Stack>
                             </Stack>
                         </Grid>
