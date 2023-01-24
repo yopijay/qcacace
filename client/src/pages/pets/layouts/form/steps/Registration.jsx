@@ -1,5 +1,5 @@
 // Libraries
-import { Box, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Grid, Stack, TextField, Typography } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -11,22 +11,23 @@ import { successToast, usePost } from "core/global/function/index.func"; // Func
 // Constants
 import { btntxt, inputemail, instruction } from "../index.style"; // Styles
 import { verification } from "../index.validation"; // Validation
+import Logo from "assets/images/logo.png"; // Assets
 
-const Verification = () => {
-    const navigate = useNavigate();
+const Registration = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const { register, handleSubmit, setValidation, errors } = useContext(FormCntxt);
-    const { mutate: rgstr, isLoading: loading } = usePost({ fetch: registration, onSuccess: (data) => {
-        if(data.result === 'success') { successToast(data.message, 3000, navigate(`/pets/adopt/${id}/personal-information/${btoa(data.id)}`, { replace: true })); }
-    } });
+    const { mutate: rgstr, isLoading: loading } = 
+        usePost({ fetch: registration, onSuccess: (data) => { if(data.result === 'success') { successToast(data.message, 3000, navigate(`/pets/${id}/adopt/${btoa(data.id)}/verifying`)); } } });
 
-    useEffect(() => setValidation(verification()), [ setValidation ]);
+    useEffect(() => { setValidation(verification()); }, [ setValidation ]);
 
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 5 } sx= {{ padding: { xs: 0, sm: '0 30px' } }}>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 5 } sx= {{ padding: { xs: 0, sm: '0 30px' } }}>
+            <Avatar src= { Logo } sx= {{ width: 160, height: 160 }} />
             <Typography sx= { instruction }>We are conducting KYC Verification by Quezon City Animal Care & Adoption Center. This is to protect our 
                 customers from AMLA and Money Mules. Please bear with us.</Typography>
-            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 }>
+            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx= {{ width: '100%' }}>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                     <Typography variant= "h6">Enter your email address</Typography>
                     <TextField { ...(register('email')) } name= "email" variant= "standard" InputProps= {{ disableUnderline: true }} fullWidth sx= { inputemail } />
@@ -44,4 +45,4 @@ const Verification = () => {
     );
 }
 
-export default Verification;
+export default Registration;

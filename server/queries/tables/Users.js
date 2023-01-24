@@ -16,7 +16,7 @@ class Users {
     register = async (data) => {
         let _email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();
         let _id = 0;
-        let config = { service: 'gmail', auth: { user: 'flipmusicc@gmail.com', pass: 'hstmwapmutgawcpz' } }
+        let config = { service: 'gmail', auth: { user: 'flipmusicc@gmail.com', pass: 'yzudtfrbsecejbia' } }
         let transporter = nodemailer.createTransport(config);
         let generator = new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
         let body = new Object();
@@ -26,7 +26,7 @@ class Users {
             if(_email.rows[0].is_email_verified === 0) {
                 body = {
                     body: {
-                        name: 'Hi!',
+                        name: 'User!',
                         intro: 'Welcome to Quezon City Animal Care & Adoption Center.',
                         action: {
                             instruction: 'To get started on your adoption process, please confirm your email address by clicking the button below:',
@@ -72,6 +72,7 @@ class Users {
     }
 
     verify = async (id) => { await new Builder(`tbl_users`).update(`is_email_verified= 1`).condition(`WHERE id= ${id}`).build(); return `<script>window.close();</script>` }
+    verifying = async (id) => { return (await new Builder(`tbl_users`).select(`is_email_verified`).condition(`WHERE id= ${id}`).build()).rows[0]; }
 
     login = async (data) => {
         let email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();

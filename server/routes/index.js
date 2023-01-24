@@ -20,5 +20,6 @@ router.post('/top/:table', (req, res) => { query.top(req.params.table, req.body)
 router.post('/recommend', (req, res) => { query.recommend(req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 router.post('/register', (req, res) => { query.register(req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 router.get('/verify/:id', (req, res) => { query.verify(req.params.id).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
+router.get('/verifying/:id', (req, res) => { query.verifying(req.params.id).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 
 module.exports = router;

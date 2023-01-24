@@ -14,6 +14,7 @@ const profile = async (id) => { return await new Users().profile(id); }
 const recommend = async (data) => { return await new Pets().recommend(data); }
 const register = async (data) => { return await new Users().register(data); }
 const verify = async (id) => { return await new Users().verify(id); }
+const verifying = async (id) => { return await new Users().verifying(id); }
 
 const dashboard = (table) => {
     return new Promise(async resolve => {
@@ -116,5 +117,6 @@ module.exports = {
     top,
     recommend,
     register,
-    verify
+    verify,
+    verifying
 }

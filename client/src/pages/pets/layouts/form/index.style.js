@@ -110,6 +110,29 @@ export const input = {
     borderRadius: '5px'
 }
 
+export const select = {
+    backgroundColor: '#ffffff',
+    border: 'solid 1px #dfe4ea',
+    padding: {
+        xs: '9px 8px',
+        md: '10px 10px'
+    },
+    marginBottom: '5px',
+    borderRadius: '5px'
+}
+
+export const textarea = {
+    backgroundColor: '#ffffff',
+    border: 'solid 1px #dfe4ea',
+    borderRadius: '5px',
+    fontFamily: 'Gilroy Light',
+    fontSize: '105%',
+    padding: '10px',
+    outline: 'none',
+    textTransform: 'uppercase',
+    color: '#353b48'
+}
+
 export const inputemail = {
     backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',

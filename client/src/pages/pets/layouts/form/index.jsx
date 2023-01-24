@@ -9,7 +9,9 @@ import { btnback, card } from "./index.style"; // Styles
 
 // Layouts
 import PetInfo from "./PetInfo";
-import Verification from "./steps/Verification";
+import PersonalInformation from "./steps/PersonalInformation";
+import Registration from "./steps/Registration";
+import Verifying from "./steps/Verifying";
 
 const Index = () => {
     
@@ -24,8 +26,9 @@ const Index = () => {
                         <Grid item xs= { 12 } sm= { 4 } md= { 3 } lg= { 3 } sx= {{ display: { xs: 'none', sm: 'block' } }}><PetInfo /></Grid>
                         <Grid item xs= { 12 } sm= { 8 } md= { 6 } lg= { 5 }>
                             <Routes>
-                                <Route exact path= "/" element= { <Verification /> } />
-                                <Route exact path= "/personal-information/:user_id" element= { 'Enter personal Information' } />
+                                <Route exact path= "/" element= { <Registration /> } />
+                                <Route exact path= "/:userid/verifying" element= { <Verifying /> } />
+                                <Route exact path= "/:userid/personal-information" element= { <PersonalInformation /> } />
                             </Routes>
                         </Grid>
                     </Grid>

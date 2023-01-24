@@ -20,7 +20,7 @@ export const api = ({ url, method, data = null }) => {
 }
 
 export const useGet = ({ key, fetch, options, onSuccess, onError }) => { return useQuery(key, () => fetch, { onSuccess, onError, ...options }); }
-export const usePost = ({ fetch, onSuccess, onError }) => { return useMutation(fetch, { onSuccess, onError }); }
+export const usePost = ({ fetch, options, onSuccess, onError }) => { return useMutation(fetch, { onSuccess, onError, ...options }); }
 
 export const successToast = (message, duration = 3000, navigate) => {
     return toast.success(message, {

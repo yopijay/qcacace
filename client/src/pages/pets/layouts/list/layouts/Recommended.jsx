@@ -43,7 +43,7 @@ const Recommended = () => {
                                         <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography>
                                         <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ data.description }</Typography>
                                     </Stack>
-                                    <Typography sx= { btnadopt } component= { Link } to= { `/pets/adopt/${btoa(data.id)}/verification` }>Adopt</Typography>
+                                    <Typography sx= { btnadopt } component= { Link } to= { `/pets/${btoa(data.id)}/adopt` }>Adopt</Typography>
                                 </Stack>
                             </Stack>
                         </Grid>

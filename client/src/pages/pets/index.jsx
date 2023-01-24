@@ -22,21 +22,18 @@ const Index = () => {
     const [ dialog, setDialog ] = useState(localStorage.getItem('recommend') === null);
 
     return (
-        <Routes>
-            <Route exact path= "/" element= {
-                <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>
-                    <ThemeProvider theme= { input }><ListPrvdr><List setDialog= { setDialog } /></ListPrvdr></ThemeProvider>
-                    <FormPrvdr><Adopt dialog= { dialog } setDialog= { setDialog } /></FormPrvdr>
-                    <Footer />
-                </Stack>
-            } />
-            <Route exact path= "/adopt/:id/verification/*" element= { 
-                <Stack direciton= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>
-                    <FormPrvdr><Form /></FormPrvdr>
-                    <Footer />
-                </Stack>
-            } />
-        </Routes>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>
+            <Routes>
+                <Route exact path= "/" element= {
+                    <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%' }}>
+                        <ThemeProvider theme= { input }><ListPrvdr><List setDialog= { setDialog } /></ListPrvdr></ThemeProvider>
+                        <FormPrvdr><Adopt dialog= { dialog } setDialog= { setDialog } /></FormPrvdr>
+                    </Stack>
+                } />
+                <Route exact path= "/:id/adopt/*" element= { <FormPrvdr><Form /></FormPrvdr> } />
+            </Routes>
+            <Footer />
+        </Stack>
     );
 }
 

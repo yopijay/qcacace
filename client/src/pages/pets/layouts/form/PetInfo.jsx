@@ -13,37 +13,44 @@ import { petdesc, petfemale, petimage, petmale, petseries, pettag } from "./inde
 
 const PetInfo = () => {
     const { id } = useParams();
-    const { data: pet, isFething: fetching,} = useGet({ key: ['pet_specific'], fetch: specific({ table: 'tbl_pets', id: atob(id) }) });
-    
+    const { data: pet } = useGet({ key: ['pet_specific'], fetch: specific({ table: 'tbl_pets', id: atob(id) }) });
+
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 }>
             <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: '100%' }}>
-                { pet !== undefined && !fetching ? <Box sx= { petimage }><img src= { JSON.parse(pet[0].photo) } alt= "pet" width= "100%" height= "auto" /></Box> : 
+                { pet !== undefined ? <Box sx= { petimage }><img src= { JSON.parse(pet[0].photo) } alt= "pet" width= "100%" height= "auto" /></Box> : 
                     <Skeleton variant= "rounded" sx= {{ width: '100%', height: '200px', borderRadius: '20px' }} /> }
             </Stack>
             <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" sx= {{ width: '100%' }} spacing= { 2 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= 'stretch' sx= {{ width: '100%' }}>
-                    { pet !== undefined && !fetching ? <Typography sx= { petseries }>#{ pet[0].series_no }</Typography> : ''  }
+                    { pet !== undefined ? <Typography sx= { petseries }>#{ pet[0].series_no }</Typography> :
+                        <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} />  }
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                        { pet !== undefined && !fetching ? <Typography sx= { petdesc }>{ `${pet[0].age}, ${pet[0].size}` }</Typography> : '' }
-                        { pet !== undefined && !fetching ? 
+                        { pet !== undefined ? <Typography sx= { petdesc }>{ `${pet[0].age}, ${pet[0].size}` }</Typography> :
+                            <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} /> }
+                        { pet !== undefined ? 
                             <Typography sx= { pet[0].gender === 'male' ? petmale : petfemale }>
                                     <FontAwesomeIcon icon= { pet[0].gender === 'male' ? solid('mars') : solid('venus') } />
-                                </Typography> : '' }
+                                </Typography> : <Skeleton variant= "rounded" sx= {{ width: '20px', height: '20px' }} /> }
                     </Stack>
-                    { pet !== undefined && !fetching ? 
+                    { pet !== undefined ? 
                         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ width: '100%', marginTop: '5px' }}>
                             { (JSON.parse(pet[0].tags)).map((tag, index) => (
                                 <Grid item xs= { 4 } sm= { 6 } md= { 4 } key= { index }>
                                     <Typography sx= { pettag }>#{(tag.name).toLowerCase()}</Typography>
                                 </Grid> )) }
-                        </Grid> : '' }
-                    { pet !== undefined && !fetching ? <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography> : '' }
-                    { pet !== undefined && !fetching ? <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ pet[0].description }</Typography> : '' }
+                        </Grid> : 
+                        <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
+                            <Grid item xs= { 4 } sm= { 3 } md= { 4 }><Skeleton variant= "text" sx= {{ fontSize: '1rem' }} /></Grid>
+                        </Grid> }
+                    { pet !== undefined ? <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography> :
+                        <Skeleton variant= "text" sx= {{ fontSize: '1.2rem', width: '25%' }} /> }
+                    { pet !== undefined ? <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ pet[0].description }</Typography> :
+                        <Skeleton variant= "rounded" sx= {{ width: '100%', height: '50px' }} /> }
                 </Stack>
             </Stack>
         </Stack>
-    )
+    );
 }
 
 export default PetInfo;
