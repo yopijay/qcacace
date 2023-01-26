@@ -16,14 +16,14 @@ export const FormPrvdr = (props) => {
     const [ validation, setValidation ] = useState({});
     const [ series, setSeries ] = useState();
 
-    const { register, handleSubmit, formState: { errors }, getValues, setValue, setError, control, clearErrors } = useForm({
+    const { register, handleSubmit, formState: { errors }, getValues, setValue, setError, control, clearErrors, setFocus } = useForm({
         resolver: Object.keys(validation).length === 0 ? '' : yupResolver(validation)
     });
 
     return (
         <FormCntxt.Provider 
             value= {{ fields, setFields, disabled, setDisabled, setValidation, register, handleSubmit, errors, getValues, setValue, setError, check, setCheck,
-                            loader, setLoader, control, clearErrors, series, setSeries }}>
+                            loader, setLoader, control, clearErrors, series, setSeries, setFocus }}>
             { children }
         </FormCntxt.Provider>
     );

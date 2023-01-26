@@ -13,4 +13,4 @@ export const top = async ({ table, data }) => { return await api({ url: `${Env[e
 export const recommend = async (data) => { return await api({ url: `${Env[env].url}/recommend`, method: 'post', data: data }).then(res => res.data); }
 export const dropdown = async ({ table, data}) => { return await api({ url: `${Env[env].url}/dropdown/${table}`, method: 'post', data: data }).then(res => _dropdown.concat(res.data)); }
 export const registration = async (data) => { return await api({ url: `${Env[env].url}/register`, method: 'post', data: data }).then(res => res.data); }
-export const verifying = async (id) => { return await api({ url: `${Env[env].url}/verifying/${id}`, method: 'get' }).then(res => res.data); }
+export const verifying = async (data) => { return await api({ url: `${Env[env].url}/verifying`, method: 'post', data: data }).then(res => res.data); }

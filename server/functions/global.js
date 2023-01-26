@@ -1,8 +1,9 @@
 // Global
 const Builder = require("./builder");
 
+const USER = "flipmusicc@gmail.com";
+const PASS = "yzudtfrbsecejbia";
 const checkifsame = (value1, value2) => { return ((value1 !== null && value1 !== '' && value1 !== undefined ? value1 : null) !== (value2 !== null && value2 !== '' && value2 !== undefined ? value2 : null)); }
-
 const series = (label, count, limit = 7) => { return `${label}${('0000000' + count).substr(('0000000' + count).length - limit)}`; }
 
 const form = (oc = [], uoc = []) => {
@@ -75,5 +76,7 @@ module.exports = {
     checkifsame,
     randomizer,
     audit,
-    compare
+    compare,
+    USER,
+    PASS
 }

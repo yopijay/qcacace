@@ -26,7 +26,7 @@ const Index = () => {
             <Routes>
                 <Route exact path= "/" element= {
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%' }}>
-                        <ThemeProvider theme= { input }><ListPrvdr><List setDialog= { setDialog } /></ListPrvdr></ThemeProvider>
+                        <ListPrvdr><List setDialog= { setDialog } /></ListPrvdr>
                         <FormPrvdr><Adopt dialog= { dialog } setDialog= { setDialog } /></FormPrvdr>
                     </Stack>
                 } />

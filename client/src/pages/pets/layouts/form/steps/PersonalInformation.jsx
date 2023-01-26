@@ -1,17 +1,20 @@
 // Libraries
 import { Autocomplete, Box, Grid, Stack, TextareaAutosize, TextField, Typography } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { Controller } from "react-hook-form";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 
 // Constants
 import { btntxt, input, select, textarea } from "../index.style"; // Styles
-import { Controller } from "react-hook-form";
+import { personalinformation } from "../index.validation"; // Validation
 const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }]; // Gender
 
 const PersonalInformation = () => {
-    const { register, errors, getValues, control } = useContext(FormCntxt);
+    const { register, errors, getValues, control, handleSubmit, setValidation } = useContext(FormCntxt);
+
+    useEffect(() => { setValidation(personalinformation()); }, [ setValidation ]);
 
     return (
         <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 }>
@@ -30,7 +33,6 @@ const PersonalInformation = () => {
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography>Middle name</Typography>
                                 <TextField { ...register('mname') } name= "mname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
-                                <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.mname?.message }</Typography>
                             </Stack>
                         </Grid>
                         <Grid item xs= { 12 } sm= { 6 }>
@@ -43,8 +45,8 @@ const PersonalInformation = () => {
                         <Grid item xs= { 12 } sm= { 7 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography>*Contact no.</Typography>
-                                <TextField { ...register('lname') } name= "lname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
-                                <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.lname?.message }</Typography>
+                                <TextField { ...register('contact_no') } name= "contact_no" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
+                                <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.contact_no?.message }</Typography>
                             </Stack>
                         </Grid>
                         <Grid item xs= { 12 } sm= { 5 }>
@@ -72,10 +74,9 @@ const PersonalInformation = () => {
                         <Grid item xs= { 12 }>
                             <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ paddingTop: '20px' }}>
                                 <Grid item xs= { 12 } md= { 5 } lg= { 3 }>
-                                    <Box sx= { btntxt }>Next</Box>
-                                    {/* { !loading ? 
-                                        <Box sx= { btntxt } onClick= { handleSubmit((data) => rgstr(data) )}>Verify</Box> : 
-                                        <Box sx= { btntxt }>Verifying</Box>} */}
+                                    <Box sx= { btntxt } onClick= { handleSubmit(data => {
+                                        console.log(data);
+                                    }) }>Next</Box>
                                 </Grid>
                             </Grid>
                         </Grid>

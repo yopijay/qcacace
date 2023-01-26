@@ -1,28 +1,30 @@
 // Libraries
-import { Avatar, Stack, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { Avatar, Box, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
 
 // Core
-import { verifying } from "core/api/index.func"; // API
-import { useGet } from "core/global/function/index.func"; // Function
-import { SnakeLoader } from "core/global/layout/loader/Loader"; // Laoder
+import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 
 // Constants
 import Logo from "assets/images/logo.png"; // Assets
-import { instruction } from "../index.style"; // Styles
+import { btntxt, inputcode, instruction } from "../index.style"; // Styles
+import { successToast, usePost } from "core/global/function/index.func";
+import { verifying } from "core/api/index.func";
 
 const Verifying = () => {
-    const { userid } = useParams();
+    const { id, adoptid } = useParams();
     const navigate = useNavigate();
-    const { data: vrfyng } = 
-        useGet({ key: ['vrfy'], fetch: verifying(atob(userid)), options: { refetchInterval: 1000 }, 
-            onSuccess: (data) => {
-                if(data.is_email_verified === 1) {
-                    let link = `/${(window.location.pathname).split('/')[1]}/${(window.location.pathname).split('/')[2]}/${(window.location.pathname).split('/')[3]}/${(window.location.pathname).split('/')[4]}`;
-                    navigate(`${link}/personal-information`);
-                }
-            } 
-        });
+    const { errors, register, setFocus, handleSubmit, setError, getValues } = useContext(FormCntxt);
+
+    const { mutate: verify } = 
+        usePost({ fetch: verifying, onSuccess: (data) => {
+            if(data.result === 'error') { setError(data.errors[0].name, { message: data.errors[0].message }); }
+            else { successToast(data.message, 3000, navigate(`/pets/${id}/adopt/${btoa(data.id)}/personal-information`)); }
+        } 
+    });
+
+    useEffect(() => { if(getValues().email === undefined) { window.location.href= `/pets/${id}/adopt`; } }, [getValues, id]);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 5 } sx= {{ padding: { xs: 0, sm: '0 30px' } }}>
@@ -30,11 +32,41 @@ const Verifying = () => {
             <Typography sx= { instruction }>We are conducting KYC Verification by Quezon City Animal Care & Adoption Center. This is to protect our 
                 customers from AMLA and Money Mules. Please bear with us.</Typography>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 2 } sx= {{ width: '100%' }}>
-                <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                    <Typography variant= "h4" sx= {{ textAlign: 'center' }}>Please confirm your email address</Typography>
-                    <Typography variant= "h6">We send a confimation link to your email.</Typography>
+                <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 4 }>
+                    <form autoComplete= "off">
+                        <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
+                            <Typography variant= "h6">Enter verification code</Typography>
+                            <Grid container direction= "row" justifyContent= "center" alignItems= "center">
+                                { ([1, 2, 3, 4, 5, 6]).map(item => (
+                                    <Grid item xs= { 2 } sx= {{ padding: item === 1 ? '0 2.5px 0 5px' : item === 6 ? '0 5px 0 2.5px' : '0 2.5px' }} key= { item }>
+                                        <TextField { ...(register(`code${item}`)) } name= { `code${item}` } variant= "standard" 
+                                            InputProps= {{ disableUnderline: true }} fullWidth sx= { inputcode } inputProps= {{ maxLength: 1 }}
+                                            onChange= { e => { setError('code', { message: '' }); setFocus(`code${parseInt(item) === 6 || e.target.value === '' ? item : parseInt(item) + 1}`); } } />
+                                    </Grid>
+                                )) }
+                            </Grid>
+                            <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.code?.message }</Typography>
+                            <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
+                                <Typography>Didn`t get the code?</Typography>
+                                <Typography component= { Link } to= "" sx= {{ textDecoration: 'none', color: '#1b4168 ' }}>Resend</Typography>
+                            </Stack>
+                        </Stack>
+                    </form>
+                    <Grid container direction= "row" justifyContent= "space-between" alignItems= "center">
+                        <Grid item xs= { 5 } sm= { 4 } md= { 5 } lg= { 3 }>
+                            <Box sx= { btntxt } component= { Link } to= { `/pets/${id}/adopt` }>Back</Box>
+                        </Grid>
+                        <Grid item xs= { 5 } sm= { 4 } md= { 5 } lg= { 3 }>
+                            <Box sx= { btntxt } onClick= { handleSubmit(data => {
+                                if(data.code1 !== '' && data.code2 !== '' && data.code3 !== '' && data.code4 !== '' && data.code5 !== '' && data.code6 !== '') {
+                                    let code = `${data.code1}${data.code2}${data.code3}${data.code4}${data.code5}${data.code6}`;
+                                    verify({ id: atob(adoptid), pet_id: atob(id), code: code, email: data.email });
+                                }
+                                else { setError('code', { message: 'Verification code must not be empty!' }); }
+                            })}>Verify</Box>
+                        </Grid>
+                    </Grid> 
                 </Stack>
-                { vrfyng?.is_email_verified === 0 ? <SnakeLoader bg= "#C9C9C9" size= "8px" distance= "7px" /> : '' }
             </Stack>
         </Stack>
     );

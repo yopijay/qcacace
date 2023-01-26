@@ -1,4 +1,5 @@
 // Libraries
+import { ThemeProvider } from "@emotion/react";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
@@ -6,15 +7,57 @@ import { Link, Route, Routes } from "react-router-dom";
 
 // Constants
 import { btnback, card } from "./index.style"; // Styles
+import { input, inputcenter, theme } from "core/global/theme/index.style"; // Theme
 
 // Layouts
 import PetInfo from "./PetInfo";
-import PersonalInformation from "./steps/PersonalInformation";
 import Registration from "./steps/Registration";
 import Verifying from "./steps/Verifying";
+import PersonalInformation from "./steps/PersonalInformation";
 
 const Index = () => {
-    
+    const input = {
+        MuiInput: {
+            styleOverrides: {
+                root: {
+                    '&:before': { borderBottom: 'none' },
+                    '&:after': { borderBottom: 'none' },
+                    '&.Mui-disabled:before': { borderBottom: 'none' },
+                    '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+                },
+                input: { fontSize: '120%', textTransform: 'uppercase' }
+            }
+        }
+    }
+
+    const email = {
+        MuiInput: {
+            styleOverrides: {
+                root: {
+                    '&:before': { borderBottom: 'none' },
+                    '&:after': { borderBottom: 'none' },
+                    '&.Mui-disabled:before': { borderBottom: 'none' },
+                    '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+                },
+                input: { textAlign: 'center', fontSize: '120%' }
+            }
+        }
+    }
+
+    const code = {
+        MuiInput: {
+            styleOverrides: {
+                root: {
+                    '&:before': { borderBottom: 'none' },
+                    '&:after': { borderBottom: 'none' },
+                    '&.Mui-disabled:before': { borderBottom: 'none' },
+                    '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+                },
+                input: { textAlign: 'center', fontSize: '120%', textTransform: 'uppercase' }
+            }
+        }
+    }
+
     return (
         <Container maxWidth= "lg">
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%', paddingBottom: '20px' }} spacing= { 3 }>
@@ -22,13 +65,13 @@ const Index = () => {
                     <Typography sx= { btnback } component= { Link } to= "/pets"><FontAwesomeIcon icon= { solid('chevron-left') } /></Typography>
                 </Stack>
                 <Box sx= { card }>
-                    <Grid container direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start', md: 'space-evenly' }} alignItems= {{ xs: 'flex-start', sm: 'center' }} spacing= { 2 } sx= {{ padding: '20px' }}>
-                        <Grid item xs= { 12 } sm= { 4 } md= { 3 } lg= { 3 } sx= {{ display: { xs: 'none', sm: 'block' } }}><PetInfo /></Grid>
-                        <Grid item xs= { 12 } sm= { 8 } md= { 6 } lg= { 5 }>
+                    <Grid container direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start', md: 'space-evenly' }} alignItems= "flex-start" spacing= { 5 }>
+                        <Grid item xs= { 12 } md= { 4 } lg= { 3 }><PetInfo /></Grid>
+                        <Grid item xs= { 12 } md= { 6 } lg= { 5 }>
                             <Routes>
-                                <Route exact path= "/" element= { <Registration /> } />
-                                <Route exact path= "/:userid/verifying" element= { <Verifying /> } />
-                                <Route exact path= "/:userid/personal-information" element= { <PersonalInformation /> } />
+                                <Route exact path= "/" element= { <ThemeProvider theme= { theme(email) }><Registration /></ThemeProvider> } />
+                                <Route exact path= "/:adoptid/verify" element= { <ThemeProvider theme= { theme(code) }><Verifying /></ThemeProvider> } />
+                                <Route exact path= "/:adoptid/personal-information" element= { <ThemeProvider theme= { theme(input) }><PersonalInformation /></ThemeProvider> } />
                             </Routes>
                         </Grid>
                     </Grid>

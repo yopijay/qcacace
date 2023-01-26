@@ -92,9 +92,9 @@ export const pettag = {
 export const instruction = {
     textAlign: 'center',
     fontSize: {
-        xs: '120%',
-        sm: '117%',
-        md: '110%'
+        xs: '97%',
+        sm: '102%',
+        md: '107%'
     },
     transition: 'all 0.2s ease-in-out'
 }
@@ -136,12 +136,25 @@ export const textarea = {
 export const inputemail = {
     backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',
+    fontSize: '150%',
     padding: {
         xs: '8px 15px',
         md: '10px 20px'
     },
     marginBottom: '5px',
-    borderRadius: '50px'
+    borderRadius: '10px'
+}
+
+export const inputcode = {
+    backgroundColor: '#ffffff',
+    border: 'solid 1px #dfe4ea',
+    fontSize: '150%',
+    padding: {
+        xs: '8px 15px',
+        md: '10px 20px'
+    },
+    marginBottom: '5px',
+    borderRadius: '10px'
 }
 
 export const btntxt = { 
@@ -152,8 +165,9 @@ export const btntxt = {
     alignItems: 'center',
     backgroundColor: '#204c6f',
     color: '#ffffff',
+    textDecoration: 'none',
     borderRadius: '50px',
-    padding: '10px 0',
+    padding: '7px 0',
     transition: 'all 0.2s ease-in-out',
     '&:hover': { backgroundColor: '#1b405d' }
 }

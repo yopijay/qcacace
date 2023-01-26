@@ -31,12 +31,12 @@ export const btntxt = {
 
 export const btnrecommend = {
     cursor: 'pointer',
-    padding: '8px 15px', 
-    borderRadius: '26px', 
+    padding: '5px 12px', 
+    borderRadius: '10px', 
     color: '#CFCFCF', 
     '&:hover': { 
         backgroundColor: '#C3C3C366', 
-        color: '#FFFFFF'
+        color: '#979797'
     },
     transition: 'all 0.2s ease-in-out'
 }

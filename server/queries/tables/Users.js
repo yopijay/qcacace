@@ -13,67 +13,6 @@ class Users {
                                                                             .condition(`WHERE usr.id= ${id}`)
                                                                             .build()).rows; }
 
-    register = async (data) => {
-        let _email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();
-        let _id = 0;
-        let config = { service: 'gmail', auth: { user: 'flipmusicc@gmail.com', pass: 'yzudtfrbsecejbia' } }
-        let transporter = nodemailer.createTransport(config);
-        let generator = new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
-        let body = new Object();
-
-        if(_email.rowCount > 0) {
-            _id = _email.rows[0].id;
-            if(_email.rows[0].is_email_verified === 0) {
-                body = {
-                    body: {
-                        name: 'User!',
-                        intro: 'Welcome to Quezon City Animal Care & Adoption Center.',
-                        action: {
-                            instruction: 'To get started on your adoption process, please confirm your email address by clicking the button below:',
-                            button: {
-                                color: '#22BC66', // Optional action button color
-                                text: 'Confirm your account',
-                                link: `http://192.168.100.49:3005/api/verify/${_email.rows[0].id}`
-                            }
-                        },
-                        outro: 'Please don`t reply to this email!'
-                    }
-                }
-            }
-            else { return { result: 'success', message: 'Email already verified!', id: _id } }
-        }
-        else {
-            let usr = await new Builder(`tbl_users`)
-                                                .insert({ columns: `series_no, email, is_email_verified, user_level, is_logged, status, date_created`, 
-                                                                values: `'${global.randomizer(7)}', '${data.email}', 0, 'user', 0, 1, CURRENT_TIMESTAMP` })
-                                                .condition(`RETURNING id`)
-                                                .build();
-            _id = usr.rows[0].id;
-            body = {
-                body: {
-                    name: 'User!',
-                    intro: 'Welcome to Quezon City Animal Care & Adoption Center.',
-                    action: {
-                        instruction: 'To get started on your adoption process, please confirm your email address by clicking the button below:',
-                        button: {
-                            color: '#22BC66', // Optional action button color
-                            text: 'Confirm your account',
-                            link: `http://192.168.100.49:3005/api/verify/${usr.rows[0].id}`
-                        }
-                    },
-                    outro: 'Please don`t reply to this email!'
-                }
-            }
-        }
-
-        let mail = generator.generate(body);
-        transporter.sendMail({ from: 'flipmusicc@gmail.com', to: data.email, subject: 'Confirm your email address', html: mail });
-        return { result: 'success', message: 'Email verification sent!', id: _id }
-    }
-
-    verify = async (id) => { await new Builder(`tbl_users`).update(`is_email_verified= 1`).condition(`WHERE id= ${id}`).build(); return `<script>window.close();</script>` }
-    verifying = async (id) => { return (await new Builder(`tbl_users`).select(`is_email_verified`).condition(`WHERE id= ${id}`).build()).rows[0]; }
-
     login = async (data) => {
         let email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();
         let verified = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}' AND is_email_verified= 1`).build();

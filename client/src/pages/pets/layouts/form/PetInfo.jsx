@@ -16,12 +16,12 @@ const PetInfo = () => {
     const { data: pet } = useGet({ key: ['pet_specific'], fetch: specific({ table: 'tbl_pets', id: atob(id) }) });
 
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 }>
-            <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: '100%' }}>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 2 }>
+            <Stack direction= "row" justifyContent= {{ xs: 'center', md: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%', md: '100%' } }}>
                 { pet !== undefined ? <Box sx= { petimage }><img src= { JSON.parse(pet[0].photo) } alt= "pet" width= "100%" height= "auto" /></Box> : 
                     <Skeleton variant= "rounded" sx= {{ width: '100%', height: '200px', borderRadius: '20px' }} /> }
             </Stack>
-            <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" sx= {{ width: '100%' }} spacing= { 2 }>
+            <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" sx= {{ width: { xs: '100%', sm: '60%', md: '100%' } }} spacing= { 2 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= 'stretch' sx= {{ width: '100%' }}>
                     { pet !== undefined ? <Typography sx= { petseries }>#{ pet[0].series_no }</Typography> :
                         <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} />  }
