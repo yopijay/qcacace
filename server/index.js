@@ -14,4 +14,4 @@ app.use(express.json({ limit: '50mb' }));
 // Routes
 app.use('/api', routes);
 
-app.listen(port, (error) => console.log(`App running on port ${port}.`));
+app.listen(port, () => console.log(`App running on port ${port}.`));

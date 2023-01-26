@@ -9,10 +9,18 @@ import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 // Constants
 import { btntxt, input, select, textarea } from "../index.style"; // Styles
 import { personalinformation } from "../index.validation"; // Validation
+import { usePost } from "core/global/function/index.func";
+import { step } from "core/api/index.func";
 const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }]; // Gender
 
 const PersonalInformation = () => {
     const { register, errors, getValues, control, handleSubmit, setValidation } = useContext(FormCntxt);
+    const { mutate: registration } = 
+        usePost({ fetch: step, 
+            onSuccess: (data) => {
+                console.log(data);
+            } 
+        });
 
     useEffect(() => { setValidation(personalinformation()); }, [ setValidation ]);
 
@@ -74,9 +82,7 @@ const PersonalInformation = () => {
                         <Grid item xs= { 12 }>
                             <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ paddingTop: '20px' }}>
                                 <Grid item xs= { 12 } md= { 5 } lg= { 3 }>
-                                    <Box sx= { btntxt } onClick= { handleSubmit(data => {
-                                        console.log(data);
-                                    }) }>Next</Box>
+                                    <Box sx= { btntxt } onClick= { handleSubmit(data => { registration({ step: 1, data: data }); }) }>Next</Box>
                                 </Grid>
                             </Grid>
                         </Grid>

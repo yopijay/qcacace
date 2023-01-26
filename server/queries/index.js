@@ -34,6 +34,14 @@ const top = (table, data) => {
     });
 }
 
+const step = (step, data) => {
+    return new Promise(async resolve => {
+        switch(step) {
+            case 1: resolve(await new Adopt().personal_information(data)); break;
+        }
+    });
+}
+
 const search = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
@@ -119,5 +127,6 @@ module.exports = {
     recommend,
     register,
     verify,
-    verifying
+    verifying,
+    step
 }

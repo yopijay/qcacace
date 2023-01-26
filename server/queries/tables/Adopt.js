@@ -49,10 +49,11 @@ class Adopt {
         if((await new Builder(`tbl_adopt_info`).select().condition(`WHERE id= ${data.id} AND code= '${(data.code).toUpperCase()}'`).build()).rowCount > 0) {
             return { result: 'success', message: 'Email verification successfully', id: data.id }
         }
-        else { 
-            return { result: 'error', errors: [{ name: 'code', message: 'Verification doesn`t match!' }] }
-        }
-        // return (await new Builder(`tbl_users`).select(`is_email_verified`).condition(`WHERE id= ${id}`).build()).rows[0]; 
+        else {  return { result: 'error', errors: [{ name: 'code', message: 'Verification doesn`t match!' }] } }
+    }
+
+    personal_information = async (data) => {
+        return data;
     }
 }
 
