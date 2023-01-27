@@ -7,7 +7,7 @@ import { Link, Route, Routes } from "react-router-dom";
 
 // Constants
 import { btnback, card } from "./index.style"; // Styles
-import { input, inputcenter, theme } from "core/global/theme/index.style"; // Theme
+import { theme } from "core/global/theme/index.style"; // Theme
 
 // Layouts
 import PetInfo from "./PetInfo";
@@ -65,13 +65,13 @@ const Index = () => {
                     <Typography sx= { btnback } component= { Link } to= "/pets"><FontAwesomeIcon icon= { solid('chevron-left') } /></Typography>
                 </Stack>
                 <Box sx= { card }>
-                    <Grid container direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start', md: 'space-evenly' }} alignItems= "flex-start" spacing= { 5 }>
+                    <Grid container direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start', md: 'space-evenly' }} alignItems= "stretch" spacing= { 5 }>
                         <Grid item xs= { 12 } md= { 4 } lg= { 3 }><PetInfo /></Grid>
                         <Grid item xs= { 12 } md= { 6 } lg= { 5 }>
                             <Routes>
                                 <Route exact path= "/" element= { <ThemeProvider theme= { theme(email) }><Registration /></ThemeProvider> } />
-                                <Route exact path= "/:adoptid/verify" element= { <ThemeProvider theme= { theme(code) }><Verifying /></ThemeProvider> } />
-                                <Route exact path= "/:adoptid/personal-information" element= { <ThemeProvider theme= { theme(input) }><PersonalInformation /></ThemeProvider> } />
+                                <Route exact path= "/:userid/verify" element= { <ThemeProvider theme= { theme(code) }><Verifying /></ThemeProvider> } />
+                                <Route exact path= "/:userid/personal-information" element= { <ThemeProvider theme= { theme(input) }><PersonalInformation /></ThemeProvider> } />
                             </Routes>
                         </Grid>
                     </Grid>

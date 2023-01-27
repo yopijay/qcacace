@@ -29,11 +29,11 @@ const Registration = () => {
     useEffect(() => { setValidation(verification()); }, [ setValidation ]);
 
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 5 } sx= {{ padding: { xs: 0, sm: '0 30px' } }}>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 5 } sx= {{ padding: { xs: 0, sm: '0 30px' }, height: '100%' }}>
             <Avatar src= { Logo } sx= {{ width: 160, height: 160 }} />
             <Typography sx= { instruction }>We are conducting KYC Verification by Quezon City Animal Care & Adoption Center. This is to protect our 
                 customers from AMLA and Money Mules. Please bear with us.</Typography>
-            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx= {{ width: '100%' }}>
+            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx= {{ width: '100%', height: '100%' }}>
                 <form autoComplete= "off">
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                         <Typography variant= "h6">Enter your email address</Typography>

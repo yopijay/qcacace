@@ -34,14 +34,6 @@ const top = (table, data) => {
     });
 }
 
-const step = (step, data) => {
-    return new Promise(async resolve => {
-        switch(step) {
-            case 1: resolve(await new Adopt().personal_information(data)); break;
-        }
-    });
-}
-
 const search = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
@@ -74,6 +66,7 @@ const specific = (table, id) => {
             case 'tbl_pets': resolve(await new Pets().specific(id)); break;
             case 'tbl_users': resolve(await new Users().specific(id)); break;
             case 'tbl_pet_tags': resolve(await new Tags().specific(id)); break;
+            case 'tbl_adopt_info': resolve(await new Adopt().specific(id)); break;
         }
     });
 }
@@ -98,6 +91,7 @@ const update = (table, data) => {
             case 'tbl_pets': resolve(await new Pets().update(data)); break;
             case 'tbl_users': resolve(await new Users().update(data)); break;
             case 'tbl_pet_tags': resolve(await new Tags().update(data)); break;
+            case 'tbl_adopt_info': resolve(await new Adopt().update(data)); break;
         }
     });
 }
@@ -128,5 +122,4 @@ module.exports = {
     register,
     verify,
     verifying,
-    step
 }

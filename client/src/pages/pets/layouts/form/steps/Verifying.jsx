@@ -13,7 +13,7 @@ import { successToast, usePost } from "core/global/function/index.func";
 import { verifying } from "core/api/index.func";
 
 const Verifying = () => {
-    const { id, adoptid } = useParams();
+    const { id, userid } = useParams();
     const navigate = useNavigate();
     const { errors, register, setFocus, handleSubmit, setError, getValues } = useContext(FormCntxt);
 
@@ -60,7 +60,7 @@ const Verifying = () => {
                             <Box sx= { btntxt } onClick= { handleSubmit(data => {
                                 if(data.code1 !== '' && data.code2 !== '' && data.code3 !== '' && data.code4 !== '' && data.code5 !== '' && data.code6 !== '') {
                                     let code = `${data.code1}${data.code2}${data.code3}${data.code4}${data.code5}${data.code6}`;
-                                    verify({ id: atob(adoptid), pet_id: atob(id), code: code, email: data.email });
+                                    verify({ id: atob(userid), pet_id: atob(id), code: code, email: data.email });
                                 }
                                 else { setError('code', { message: 'Verification code must not be empty!' }); }
                             })}>Verify</Box>
