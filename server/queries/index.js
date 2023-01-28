@@ -16,6 +16,7 @@ const recommend = async (data) => { return await new Pets().recommend(data); }
 const register = async (data) => { return await new Adopt().register(data); }
 const verify = async (id) => { return await new Adopt().verify(id); }
 const verifying = async (data) => { return await new Adopt().verifying(data); }
+const payment = async (data) => { return await new Adopt().payment(data); }
 
 const dashboard = (table) => {
     return new Promise(async resolve => {
@@ -79,6 +80,7 @@ const save = (table, data) => {
             case 'tbl_pets': resolve(await new Pets().save(data)); break;
             case 'tbl_users': resolve(await new Users().save(data)); break;
             case 'tbl_pet_tags': resolve(await new Tags().save(data)); break;
+            case 'tbl_adopt_documents': resolve(await new Adopt().save(data)); break;
         }
     });
 }
@@ -92,6 +94,7 @@ const update = (table, data) => {
             case 'tbl_users': resolve(await new Users().update(data)); break;
             case 'tbl_pet_tags': resolve(await new Tags().update(data)); break;
             case 'tbl_adopt_info': resolve(await new Adopt().update(data)); break;
+            case 'tbl_adopt': resolve(await new Adopt().schedule(data)); break;
         }
     });
 }
@@ -122,4 +125,5 @@ module.exports = {
     register,
     verify,
     verifying,
+    payment
 }

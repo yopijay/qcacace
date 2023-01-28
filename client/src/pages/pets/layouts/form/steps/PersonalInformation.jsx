@@ -37,16 +37,16 @@ const PersonalInformation = () => {
                         setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
                     }); 
                 }
-                else { successToast(data.message, 3000, navigate(`/pets/${id}/adopt/${userid}/appointment`, { replace: true })); }
+                else { successToast(data.message, 3000, navigate(`/pets/${id}/adopt/${userid}/documents`, { replace: true })); }
             }
         });
     
     useEffect(() => { setValidation(personalinformation()); }, [ setValidation ]);
 
     return (
-        <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 }>
-            <Grid item><Typography variant= "h5">Personal Information</Typography></Grid>
-            <Grid item>
+        <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" spacing= { 1 } sx= {{ height: '100%' }}>
+            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
+                <Typography variant= "h5">Personal Information</Typography>
                 <form autoComplete= "off">
                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
                         <Grid item xs= { 12 } sm= { 6 }>
@@ -104,17 +104,19 @@ const PersonalInformation = () => {
                                     <TextareaAutosize name= "address" { ...register('address') } minRows= { 4 } maxRows= { 4 } style= { textarea } /> }
                             </Stack>
                         </Grid>
-                        <Grid item xs= { 12 }>
-                            <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ paddingTop: '20px' }}>
-                                <Grid item xs= { 12 } md= { 5 } lg= { 3 }>
-                                    <Box sx= { btntxt } onClick= { handleSubmit(data => updating({ table: 'tbl_adopt_info', data: data })) }>Next</Box>
-                                </Grid>
-                            </Grid>
-                        </Grid>
                     </Grid>
                 </form>
+            </Stack>
+            <Grid container direction= "row" justifyContent= "space-between" alignItems= "center">
+                <Grid item xs= { 12 }>
+                    <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ paddingTop: '20px' }}>
+                        <Grid item xs= { 12 } md= { 5 } lg= { 3 }>
+                            <Box sx= { btntxt } onClick= { handleSubmit(data => updating({ table: 'tbl_adopt_info', data: data })) }>Next</Box>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </Grid>
-        </Grid>
+        </Stack>
     );
 }
 

@@ -14,6 +14,10 @@ import PetInfo from "./PetInfo";
 import Registration from "./steps/Registration";
 import Verifying from "./steps/Verifying";
 import PersonalInformation from "./steps/PersonalInformation";
+import Documents from "./steps/Documents";
+import Appointment from "./steps/Appointment";
+import Payment from "./steps/Payment";
+import Finish from "./steps/Finish";
 
 const Index = () => {
     const input = {
@@ -72,6 +76,10 @@ const Index = () => {
                                 <Route exact path= "/" element= { <ThemeProvider theme= { theme(email) }><Registration /></ThemeProvider> } />
                                 <Route exact path= "/:userid/verify" element= { <ThemeProvider theme= { theme(code) }><Verifying /></ThemeProvider> } />
                                 <Route exact path= "/:userid/personal-information" element= { <ThemeProvider theme= { theme(input) }><PersonalInformation /></ThemeProvider> } />
+                                <Route exact path = "/:userid/documents" element= { <ThemeProvider theme= { theme(input) }><Documents /></ThemeProvider> } />
+                                <Route exact path= "/:userid/:adoptid/appointment" element= { <ThemeProvider theme= { theme(input) }><Appointment  /></ThemeProvider> } />
+                                <Route exact path= "/:userid/:adoptid/payment" element= { <ThemeProvider theme= { theme(input) }><Payment  /></ThemeProvider> } />
+                                <Route exact path= "/:userid/:adoptid/finish" element= { <ThemeProvider theme= { theme(input) }><Finish  /></ThemeProvider> } />
                             </Routes>
                         </Grid>
                     </Grid>

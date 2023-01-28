@@ -171,3 +171,34 @@ export const btntxt = {
     transition: 'all 0.2s ease-in-out',
     '&:hover': { backgroundColor: '#1b405d' }
 }
+
+export const date = {
+    padding: '10px 0',
+    cursor: 'pointer',
+    '&:hover': { backgroundColor: '#ebebeb' },
+    transition: 'all 0.2s ease-in-out',
+    width: '100%',
+    textAlign: 'center',
+    borderRadius: '8px',
+    fontWeight: 'bold'
+}
+
+export const datedisabled = {
+    padding: '10px 0',
+    cursor: 'pointer',
+    width: '100%',
+    textAlign: 'center',
+    borderRadius: '8px',
+    fontWeight: 'bold',
+    color: '#b9b9b9',
+}
+
+export const dateactive = {
+    padding: '10px 0',
+    cursor: 'pointer',
+    width: '100%',
+    textAlign: 'center',
+    borderRadius: '8px',
+    fontWeight: 'bold',
+    backgroundColor: '#ebebeb',
+}
