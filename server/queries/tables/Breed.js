@@ -31,8 +31,8 @@ class Breed {
 
     search = async (data) => { 
         return (await new Builder(`tbl_breed AS brd`)
-                                        .select(`brd.id, brd.series_no, ctg.name AS pet_category, brd.name, brd.date_created`).
-                                        join({ table: `tbl_category AS ctg`, condition: `brd.category_id = ctg.id`, type: 'LEFT' })
+                                        .select(`brd.id, brd.series_no, ctg.name AS pet_category, brd.name, brd.date_created`)
+                                        .join({ table: `tbl_category AS ctg`, condition: `brd.category_id = ctg.id`, type: 'LEFT' })
                                         .condition(`WHERE brd.series_no LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%' 
                                                             OR ctg.name LIKE '%${data.condition}%' ORDER BY brd.date_created DESC`)
                                         .build()).rows;

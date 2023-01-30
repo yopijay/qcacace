@@ -20,7 +20,7 @@ export const search = {
     padding: '4px 10px',
     width: {
         xs: '100%',
-        sm: '350px'
+        sm: '350px',
     }
 }
 
@@ -55,11 +55,10 @@ export const btnicon = {
 }
 
 export const item = {
-    backgroundColor: '#ffffff',
-    overflow: 'hidden',
-    border: 'solid 1px #919eab40',
-    padding: '20px 16px',
-    borderRadius: '8px'
+    backgroundColor: '#FFFFFF', 
+    padding: '10px 20px', 
+    border: 'solid 1px #F3F3F3', 
+    borderRadius: '10px'
 }
 
 export const icons = {

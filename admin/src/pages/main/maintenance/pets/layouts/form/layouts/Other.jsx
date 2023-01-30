@@ -16,7 +16,7 @@ const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }];
 const Form = ({ fetching }) => {
     const { type } = useParams();
     const { getValues, control, errors, register, check, setCheck } = useContext(FormCntxt);
-    const { data: tags, isFetching: tagfetching } = useGet({ key: ['tag_dropdown' ], fetch: dropdown({ table: 'tbl_pet_tags', data: {} }) });
+    const { data: tags, isFetching: tagfetching } = useGet({ key: ['tag_dropdown'], fetch: dropdown({ table: 'tbl_tags', data: {} }) });
 
     return (
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>

@@ -13,7 +13,7 @@ export const btnicon = {
 export const card = {
     padding: '30px 15px',
     flexGrow: 1,
-    backgroundColor: '#FFFFFF', 
+    backgroundColor: '#FFFFFF',
     borderRadius: '8px',
     border: 'solid 1px #919eab40',
     overflowY: 'scroll',
@@ -36,10 +36,10 @@ export const error = {
 }
 
 export const select = {
-    backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',
+    backgroundColor: '#ffffff',
     padding: {
-        xs: '8px',
+        xs: '9px 8px',
         md: '10px 10px'
     },
     marginBottom: '5px',

@@ -1,7 +1,7 @@
 // Libraries
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Grid, Stack, ThemeProvider, Typography } from "@mui/material";
+import { Box, Divider, Grid, Stack, ThemeProvider, Typography } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -17,8 +17,8 @@ import { validation } from "./index.validation"; // Validation
 
 // Layouts
 import Photo from "./layouts/Photo";
-import Info from "./layouts/Info";
-import Other from "./layouts/Other";
+import Classification from "./layouts/Classification";
+import Condition from "./layouts/Condition";
 
 const Index = () => {
     const { type, id } = useParams();
@@ -68,11 +68,23 @@ const Index = () => {
                 <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#3C4048' }}>Pets</Typography>
                 <Typography sx= { btnicon } component= { Link } to= "/maintenance/pet" ><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
             </Stack>
-            <Box sx= { card }>
-                <Photo fetching= { fetching } />
-                <form autoComplete= "off"><ThemeProvider theme= { input }><Info fetching= { fetching } /></ThemeProvider></form>
-                <form autoComplete= "off"><ThemeProvider theme= { input }><Other fetching= { fetching } /></ThemeProvider></form>
-            </Box>
+            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stertch" divider= { <Divider orientation= "horizontal" flexItem /> } sx= { card }>
+                <Grid container direction= "column" justifyContent= 'flex-start' alignItems= "stretch" spacing= { 3 }>
+                    <Grid item><Photo fetching= { fetching } /></Grid>
+                    <Grid item>
+                        <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
+                            <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} variant= "body1" gutterBottom>Pet Classification</Typography>
+                            <Classification fetching= { fetching } />
+                        </Stack>
+                    </Grid>
+                    <Grid item>
+                        <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
+                            <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} variant= "body1" gutterBottom>Pet Condition</Typography>
+                            <Condition fetching= { fetching } />
+                        </Stack>
+                    </Grid>
+                </Grid>
+            </Stack>
             { type !== 'view' ?
                 <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center">
                     <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
