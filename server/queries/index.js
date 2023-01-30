@@ -2,8 +2,9 @@
 const Category = require('./tables/Category');
 const Breed = require('./tables/Breed');
 const Coat = require('./tables/Coat');
-const Users = require('./tables/Users');
+const LifeStages = require('./tables/LifeStages');
 const Tags = require('./tables/Tags');
+const Users = require('./tables/Users');
 const Pets = require('./tables/Pets');
 // const Adopt = require('./tables/Adopt');
 
@@ -39,6 +40,7 @@ const search = (table, data) => {
             case 'tbl_category': resolve(await new Category().search(data)); break;
             case 'tbl_breed': resolve(await new Breed().search(data)); break;
             case 'tbl_coat': resolve(await new Coat().search(data)); break;
+            case 'tbl_life_stages': resolve(await new LifeStages().search(data)); break;
             case 'tbl_tags': resolve(await new Tags().search(data)); break;
             case 'tbl_pets': resolve(await new Pets().search(data)); break;
             // case 'tbl_users': resolve(await new Users().search(data)); break;
@@ -51,7 +53,8 @@ const list = (table, data) => {
         switch(table) {
             case 'tbl_category': resolve(await new Category().list()); break;
             case 'tbl_breed': resolve(await new Breed().list()); break;
-            case 'tbl_breed': resolve(await new Breed().list()); break;
+            case 'tbl_life_stages': resolve(await new LifeStages().list()); break;
+            case 'tbl_tags': resolve(await new Tags().list()); break;
             case 'tbl_coat': resolve(await new Coat().list()); break;
             case 'tbl_pets': resolve(await new Pets().list()); break;
             // case 'tbl_users': resolve(await new Users().list(data)); break;
@@ -64,6 +67,7 @@ const specific = (table, id) => {
         switch(table) {
             case 'tbl_category': resolve(await new Category().specific(id)); break;
             case 'tbl_breed': resolve(await new Breed().specific(id)); break;
+            case 'tbl_life_stages': resolve(await new LifeStages().specific(id)); break;
             case 'tbl_coat': resolve(await new Coat().specific(id)); break;
             case 'tbl_tags': resolve(await new Tags().specific(id)); break;
             case 'tbl_pets': resolve(await new Pets().specific(id)); break;
@@ -78,6 +82,7 @@ const save = (table, data) => {
         switch(table) {
             case 'tbl_category': resolve(await new Category().save(data)); break;
             case 'tbl_breed': resolve(await new Breed().save(data)); break;
+            case 'tbl_life_stages': resolve(await new LifeStages().save(data)); break;
             case 'tbl_coat': resolve(await new Coat().save(data)); break;
             case 'tbl_tags': resolve(await new Tags().save(data)); break;
             case 'tbl_pets': resolve(await new Pets().save(data)); break;
@@ -92,6 +97,7 @@ const update = (table, data) => {
         switch(table) {
             case 'tbl_category': resolve(await new Category().update(data)); break;
             case 'tbl_breed': resolve(await new Breed().update(data)); break;
+            case 'tbl_life_stages': resolve(await new LifeStages().update(data)); break;
             case 'tbl_coat': resolve(await new Coat().update(data)); break;
             case 'tbl_tags': resolve(await new Tags().update(data)); break;
             case 'tbl_pets': resolve(await new Pets().update(data)); break;
@@ -108,6 +114,7 @@ const dropdown = (table, data) => {
             case 'tbl_category': resolve(await new Category().dropdown()); break;
             case 'tbl_breed': resolve(await new Breed().dropdown(data)); break;
             case 'tbl_coat': resolve(await new Coat().dropdown(data)); break;
+            case 'tbl_life_stages': resolve(await new LifeStages().dropdown(data)); break;
             case 'tbl_tags': resolve(await new Tags().dropdown()); break;
         }
     })
