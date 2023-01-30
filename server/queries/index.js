@@ -1,5 +1,5 @@
 // Tables
-// const Category = require('./tables/Category');
+const Category = require('./tables/Category');
 // const Breed = require('./tables/Breed');
 const Users = require('./tables/Users');
 // const Pets = require('./tables/Pets');
@@ -32,91 +32,91 @@ const profile = async (id) => { return await new Users().profile(id); }
 //     });
 // }
 
-// const search = (table, data) => {
-//     return new Promise(async resolve => {
-//         switch(table) {
-//             case 'tbl_pet_category': resolve(await new Category().search(data)); break;
-//             case 'tbl_breed': resolve(await new Breed().search(data)); break;
-//             case 'tbl_pets': resolve(await new Pets().search(data)); break;
-//             case 'tbl_users': resolve(await new Users().search(data)); break;
-//             case 'tbl_pet_tags': resolve(await new Tags().search(data)); break;
-//         }
-//     })
-// }
+const search = (table, data) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_category': resolve(await new Category().search(data)); break;
+            // case 'tbl_breed': resolve(await new Breed().search(data)); break;
+            // case 'tbl_pets': resolve(await new Pets().search(data)); break;
+            // case 'tbl_users': resolve(await new Users().search(data)); break;
+            // case 'tbl_pet_tags': resolve(await new Tags().search(data)); break;
+        }
+    })
+}
 
-// const list = (table, data) => {
-//     return new Promise(async resolve => {
-//         switch(table) {
-//             case 'tbl_pet_category': resolve(await new Category().list()); break;
-//             case 'tbl_breed': resolve(await new Breed().list()); break;
-//             case 'tbl_pets': resolve(await new Pets().list()); break;
-//             case 'tbl_users': resolve(await new Users().list(data)); break;
-//             case 'tbl_pet_tags': resolve(await new Tags().list()); break;
-//         }
-//     });
-// }
+const list = (table, data) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_category': resolve(await new Category().list()); break;
+            // case 'tbl_breed': resolve(await new Breed().list()); break;
+            // case 'tbl_pets': resolve(await new Pets().list()); break;
+            // case 'tbl_users': resolve(await new Users().list(data)); break;
+            // case 'tbl_pet_tags': resolve(await new Tags().list()); break;
+        }
+    });
+}
 
-// const specific = (table, id) => {
-//     return new Promise(async resolve => {
-//         switch(table) {
-//             case 'tbl_pet_category': resolve(await new Category().specific(id)); break;
-//             case 'tbl_breed': resolve(await new Breed().specific(id)); break;
-//             case 'tbl_pets': resolve(await new Pets().specific(id)); break;
-//             case 'tbl_users': resolve(await new Users().specific(id)); break;
-//             case 'tbl_pet_tags': resolve(await new Tags().specific(id)); break;
-//             case 'tbl_adopt_info': resolve(await new Adopt().specific(id)); break;
-//         }
-//     });
-// }
+const specific = (table, id) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_category': resolve(await new Category().specific(id)); break;
+            // case 'tbl_breed': resolve(await new Breed().specific(id)); break;
+            // case 'tbl_pets': resolve(await new Pets().specific(id)); break;
+            // case 'tbl_users': resolve(await new Users().specific(id)); break;
+            // case 'tbl_pet_tags': resolve(await new Tags().specific(id)); break;
+            // case 'tbl_adopt_info': resolve(await new Adopt().specific(id)); break;
+        }
+    });
+}
 
-// const save = (table, data) => {
-//     return new Promise(async resolve => {
-//         switch(table) {
-//             case 'tbl_pet_category': resolve(await new Category().save(data)); break;
-//             case 'tbl_breed': resolve(await new Breed().save(data)); break;
-//             case 'tbl_pets': resolve(await new Pets().save(data)); break;
-//             case 'tbl_users': resolve(await new Users().save(data)); break;
-//             case 'tbl_pet_tags': resolve(await new Tags().save(data)); break;
-//             case 'tbl_adopt_documents': resolve(await new Adopt().save(data)); break;
-//         }
-//     });
-// }
+const save = (table, data) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_category': resolve(await new Category().save(data)); break;
+            // case 'tbl_breed': resolve(await new Breed().save(data)); break;
+            // case 'tbl_pets': resolve(await new Pets().save(data)); break;
+            // case 'tbl_users': resolve(await new Users().save(data)); break;
+            // case 'tbl_pet_tags': resolve(await new Tags().save(data)); break;
+            // case 'tbl_adopt_documents': resolve(await new Adopt().save(data)); break;
+        }
+    });
+}
 
-// const update = (table, data) => {
-//     return new Promise(async resolve => {
-//         switch(table) {
-//             case 'tbl_pet_category': resolve(await new Category().update(data)); break;
-//             case 'tbl_breed': resolve(await new Breed().update(data)); break;
-//             case 'tbl_pets': resolve(await new Pets().update(data)); break;
-//             case 'tbl_users': resolve(await new Users().update(data)); break;
-//             case 'tbl_pet_tags': resolve(await new Tags().update(data)); break;
-//             case 'tbl_adopt_info': resolve(await new Adopt().update(data)); break;
-//             case 'tbl_adopt': resolve(await new Adopt().schedule(data)); break;
-//         }
-//     });
-// }
+const update = (table, data) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_category': resolve(await new Category().update(data)); break;
+            // case 'tbl_breed': resolve(await new Breed().update(data)); break;
+            // case 'tbl_pets': resolve(await new Pets().update(data)); break;
+            // case 'tbl_users': resolve(await new Users().update(data)); break;
+            // case 'tbl_pet_tags': resolve(await new Tags().update(data)); break;
+            // case 'tbl_adopt_info': resolve(await new Adopt().update(data)); break;
+            // case 'tbl_adopt': resolve(await new Adopt().schedule(data)); break;
+        }
+    });
+}
 
-// const dropdown = (table, data) => {
-//     return new Promise(async resolve => {
-//         switch(table) {
-//             case 'tbl_pet_category': resolve(await new Category().dropdown()); break;
-//             case 'tbl_breed': resolve(await new Breed().dropdown(data)); break;
-//             case 'tbl_pet_tags': resolve(await new Tags().dropdown()); break;
-//         }
-//     })
-// }
+const dropdown = (table, data) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_category': resolve(await new Category().dropdown()); break;
+            // case 'tbl_breed': resolve(await new Breed().dropdown(data)); break;
+            // case 'tbl_pet_tags': resolve(await new Tags().dropdown()); break;
+        }
+    })
+}
 
 module.exports = {
     login,
     logout,
     profile,
     // dashboard,
-    // list,
-    // specific,
-    // save,
-    // update,
-    // search,
-    // dropdown,
+    list,
+    specific,
+    save,
+    update,
+    search,
+    dropdown,
     // top,
     // recommend,
     // register,
