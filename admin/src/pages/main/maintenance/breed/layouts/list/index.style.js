@@ -10,7 +10,7 @@ export const title = {
 }
 
 export const search = {
-    backgroundColor: '#EDE9E8',
+    backgroundColor: '#FFFFFF',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -21,7 +21,6 @@ export const search = {
     width: {
         xs: '100%',
         sm: '350px',
-        md: '970px'
     }
 }
 
@@ -56,7 +55,7 @@ export const btnicon = {
 }
 
 export const item = {
-    backgroundColor: '#D2E1E6', 
+    backgroundColor: '#FFFFFF', 
     padding: '10px 20px', 
     border: 'solid 1px #F3F3F3', 
     borderRadius: '10px'

@@ -20,7 +20,7 @@ const Index = () => {
     const { type, id } = useParams();
     const navigate = useNavigate();
     const { setValidation, handleSubmit, setValue, setError, register, errors, control, getValues, setCheck, check } = useContext(FormCntxt);
-    const { data: category, isFetching } = useGet({ key: ['ctg_dropdown'], fetch: dropdown({ table: 'tbl_pet_category', data: {} }) });
+    const { data: category, isFetching } = useGet({ key: ['ctg_dropdown'], fetch: dropdown({ table: 'tbl_category', data: {} }) });
     const { refetch, isFetching: fetching } = 
         useGet({ key: ['ctg_specific'], fetch: specific({ table: 'tbl_breed', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
             onSuccess: (data) => { 
@@ -68,34 +68,34 @@ const Index = () => {
             <Box sx= { card }>
                 <ThemeProvider theme= { theme }>
                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
-                        <Grid item xs= { 12 } sm= { 8 }>
+                        <Grid item xs= { 12 } sm= { 7 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography gutterBottom color= "text.secondary" variant= "body2">Series No.</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
                                     <TextField { ...register('series_no') } name= "series_no" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
                             </Stack>
                         </Grid>
-                        <Grid item xs= { 12 } sm= { 6 }>
+                        <Grid item xs= { 12 } sm= { 7 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography gutterBottom color= "text.secondary">*Pet Category</Typography>
                                 { isFetching ? <Skeleton variant= "rectangular" height= "35px" sx= {{ borderRadius: '5px' }} /> : category?.length > 0 ?
                                         <Box sx= { select }>
-                                            <Controller control= { control } name= "pet_category_id" defaultValue= { 0 }
+                                            <Controller control= { control } name= "category_id" defaultValue= { 0 }
                                                 render= { ({ field: { onChange, value } }) => (
                                                     <Autocomplete options= { category } disabled= { type === 'view' } disableClearable
                                                         getOptionLabel= { category => category.name || category.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                                         isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                                         onChange= { (e, item) => onChange(item.id) }
                                                         renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
-                                                        value= { category?.find(data => { return data.id === (getValues().pet_category_id !== undefined ? getValues().pet_category_id : value) }) !== undefined ?
-                                                            category?.find(data => { return data.id === (getValues().pet_category_id !== undefined ? getValues().pet_category_id : value) }) : category?.length === 0 ?
+                                                        value= { category?.find(data => { return data.id === (getValues().category_id !== undefined ? getValues().category_id : value) }) !== undefined ?
+                                                            category?.find(data => { return data.id === (getValues().category_id !== undefined ? getValues().category_id : value) }) : category?.length === 0 ?
                                                             { id: 0, name: '-- SELECT AN ITEM BELOW --' } : category[0] } />
                                                 ) } /> 
                                         </Box> : '' }
-                                <Typography variant= "body2" sx= { error } gutterBottom>{ errors.pet_category_id?.message }</Typography>
+                                <Typography variant= "body2" sx= { error } gutterBottom>{ errors.category_id?.message }</Typography>
                             </Stack>
                         </Grid>
-                        <Grid item xs= { 12 } sm= { 6 }>
+                        <Grid item xs= { 12 } sm= { 7 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography gutterBottom color= "text.secondary">*Name</Typography>
                                 <TextField { ...register('name') } name= "name" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { type === 'view' } sx= { input } />
@@ -123,11 +123,11 @@ const Index = () => {
                         <Box sx= { btntxt } onClick= { handleSubmit(data => {
                             data[type === 'new' ? 'created_by' : 'updated_by'] = atob(localStorage.getItem('token'));
                             
-                            if(data.pet_category_id !== 0) {
+                            if(data.category_id !== 0) {
                                 if(type === 'new') { saving({ table: 'tbl_breed', data: data }); }
                                 else { updating({ table: 'tbl_breed', data: data }); }
                             }
-                            else { setError('pet_category_id', { message: 'This field is required!' }); }
+                            else { setError('category_id', { message: 'This field is required!' }); }
                         }) }>Save</Box>
                     </Grid>
                 </Grid> : '' }
