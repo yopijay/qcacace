@@ -111,7 +111,7 @@ const PersonalInformation = () => {
                 <Grid item xs= { 12 }>
                     <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ paddingTop: '20px' }}>
                         <Grid item xs= { 12 } md= { 5 } lg= { 3 }>
-                            <Box sx= { btntxt } onClick= { handleSubmit(data => updating({ table: 'tbl_adopt_info', data: data })) }>Next</Box>
+                            <Box sx= { btntxt } onClick= { handleSubmit(data => { data['id'] = atob(userid); updating({ table: 'tbl_adopt_info', data: data }); }) }>Next</Box>
                         </Grid>
                     </Grid>
                 </Grid>

@@ -19,7 +19,12 @@ const App = () => {
         <ThemeProvider theme= { theme() }>
             <Router>
                 <QueryClientProvider client= { client }>
-                    <GlobalPrvdr><Routes><Route path= "*" element= { <Main /> } /></Routes></GlobalPrvdr>
+                    <GlobalPrvdr>
+                        <Routes>
+                            <Route path= "*" element= { <Main /> } />
+                            <Route path= "/progress" element= { "PROGRESS" } />
+                        </Routes>
+                    </GlobalPrvdr>
                     <ReactQueryDevtools initialIsOpen= { false } position= "bottom-right" />
                 </QueryClientProvider>
             </Router>

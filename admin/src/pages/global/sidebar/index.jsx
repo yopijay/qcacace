@@ -19,7 +19,12 @@ export const Index = () => {
     const { open, drawerToggle, container, setIsActive } = useContext(GlobalCntxt);
     const [ elem, setElem ] = useState(null);
 
-    const { mutate: signout } = usePost({ fetch: logout, onSuccess: (data) => { if(data.result === 'success') { localStorage.removeItem('token'); window.location.href= '/'; } }});
+    const { mutate: signout } = 
+    usePost({ fetch: logout, 
+        onSuccess: (data) => { 
+            if(data.result === 'success') { localStorage.removeItem('token'); window.location.href= '/'; } 
+        }
+    });
 
     const pop = Boolean(elem);
     const id = pop ? 'simple-popover' : undefined;

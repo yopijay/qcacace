@@ -21,7 +21,7 @@ class Adopt {
         let transporter = nodemailer.createTransport(config);
         let generator = new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
         let _id = null;
-        let _code = null
+        let _code = null;
 
         if(!((await new Builder(`tbl_adopt_info`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0)) {
             let usr = (await new Builder(`tbl_adopt_info`)

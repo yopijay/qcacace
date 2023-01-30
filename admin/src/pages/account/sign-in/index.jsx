@@ -47,7 +47,7 @@ const Index = () => {
                         </form>
                         <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">
                             <Typography variant= "body1" color= "text.primary" component= { Link } to= "/forgot-password" sx= { link }>Forgot Password?</Typography>
-                        </Stack>w
+                        </Stack>
                     </Stack>
                     <Typography variant= "button" sx= { btn } onClick= { handleSubmit(data => { data['password'] = btoa(data.password); signin(data); } ) }>Sign in</Typography>
                 </Stack>

@@ -53,10 +53,6 @@ const Index = () => {
                                                                 <Typography sx= { pettag }>#{(tag.name).toLowerCase()}</Typography>
                                                             </Grid> )) : <Grid item xs= { 4 } sm= { 3 } md= { 4 }><Skeleton variant= "text" sx= {{ fiontSize: '1rem' }} /></Grid> }
                                                 </Grid>
-                                                { !fetching ? <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography> : 
-                                                    <Skeleton variant= "text" sx= {{ fontSize: '1.2rem', width: '25%' }} /> }
-                                                { !fetching ? <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ data.description }</Typography> : 
-                                                    <Skeleton variant= "rounded" sx= {{ width: '100%', height: '50px' }} />  }
                                             </Stack>
                                         </Stack>
                                     </Grid>
