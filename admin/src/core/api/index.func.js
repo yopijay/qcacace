@@ -7,7 +7,7 @@ import Env from '../constants/json/Env.json'; // Constants
 
 
 let env = 'lan'; // Environment
-let _dropdown = [{ id: 0, name: '-- SELECT AN ITEM BELOW --' }]; // Dropdown
+// let _dropdown = [{ id: 0, name: '-- SELECT AN ITEM BELOW --' }]; // Dropdown
 
 export const authentication = async (data) => { return await api({ url: `${Env[env].url}/login`, method: 'post', data: data }).then(res => res.data); }
 export const logout = async (data) => { return await api({ url: `${Env[env].url}/logout`, method: 'post', data: data }).then(res => res.data); }
