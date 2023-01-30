@@ -20,7 +20,7 @@ const Index = () => {
     const navigate = useNavigate();
     const { setValidation, handleSubmit, setValue, setError, getValues, register, errors, check, setCheck } = useContext(FormCntxt);
     const { refetch, isFetching: fetching } = 
-        useGet({ key: ['tag_specific'], fetch: specific({ table: 'tbl_pet_tags', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
+        useGet({ key: ['tag_specific'], fetch: specific({ table: 'tbl_tags', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
             onSuccess: (data) => { 
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
@@ -66,14 +66,14 @@ const Index = () => {
             <Box sx= { card }>
                 <ThemeProvider theme= { theme }>
                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
-                        <Grid item xs= { 12 } sm= { 8 }>
+                        <Grid item xs= { 12 } sm= { 7 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography gutterBottom color= "text.secondary" variant= "body2">Series No.</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
                                     <TextField { ...register('series_no') } name= "series_no" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
                             </Stack>
                         </Grid>
-                        <Grid item xs= { 12 } sm= { 6 }>
+                        <Grid item xs= { 12 } sm= { 7 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                                 <Typography gutterBottom color= "text.secondary" variant= "body2">*Name</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
@@ -102,8 +102,8 @@ const Index = () => {
                         <Box sx= { btntxt } onClick= { handleSubmit(data => {
                             data[type === 'new' ? 'created_by' : 'updated_by'] = atob(localStorage.getItem('token'));
                             
-                            if(type === 'new') { saving({ table: 'tbl_pet_tags', data: data }); }
-                            else { updating({ table: 'tbl_pet_tags', data: data }); }
+                            if(type === 'new') { saving({ table: 'tbl_tags', data: data }); }
+                            else { updating({ table: 'tbl_tags', data: data }); }
                         }) }>Save</Box>
                     </Grid>
                 </Grid> : '' }
