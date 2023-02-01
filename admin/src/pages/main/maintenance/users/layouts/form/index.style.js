@@ -24,7 +24,7 @@ export const title = {
 export const card = {
     padding: '30px 15px',
     flexGrow: 1,
-    backgroundColor: '#D2E1E6',
+    backgroundColor: '#FFFFFF',
     borderRadius: '8px',
     border: 'solid 1px #919eab40',
     overflowY: 'scroll',

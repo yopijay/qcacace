@@ -21,7 +21,8 @@ import Item from "./layouts/Item";
 const Index = () => {
     const { setList } = useContext(ListCntxt);
     const { mutate: find, isLoading: finding } = usePost({ fetch: look, onSuccess: (data) => setList(data) });
-    const { isFetching: fetching } = useGet({ key: ['usr_list'], fetch: records({ table: 'tbl_users', data: { condition: JSON.stringify({ condition: '', except: localStorage.getItem('token') }) } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
+    const { isFetching: fetching } = 
+        useGet({ key: ['usr_list'], fetch: records({ table: 'tbl_users', data: { id: atob(localStorage.getItem('token')) } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 3 }>

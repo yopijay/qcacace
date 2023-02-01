@@ -7,11 +7,11 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Users {
-    // specific = async (id) => { return (await new Builder(`tbl_users AS usr`)
-    //                                                                         .select()
-    //                                                                         .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' })
-    //                                                                         .condition(`WHERE usr.id= ${id}`)
-    //                                                                         .build()).rows; }
+    specific = async (id) => { return (await new Builder(`tbl_users AS usr`)
+                                                                            .select()
+                                                                            .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' })
+                                                                            .condition(`WHERE usr.id= ${id}`)
+                                                                            .build()).rows; }
 
     login = async (data) => {
         let email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();
@@ -47,13 +47,13 @@ class Users {
                                         .build()).rows;
     }
 
-    // dashboard = async () => {
-    //     return {
-    //         total: (await new Builder(`tbl_users`).select(`COUNT(*)`).build()).rows[0].count,
-    //         active: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 1`).build()).rows[0].count,
-    //         inactive: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 0`).build()).rows[0].count
-    //     }
-    // }
+    dashboard = async () => {
+        return {
+            total: (await new Builder(`tbl_users`).select(`COUNT(*)`).build()).rows[0].count,
+            active: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 1`).build()).rows[0].count,
+            inactive: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 0`).build()).rows[0].count
+        }
+    }
 
     // search = async (data) => {
     //     return (await new Builder(`tbl_users AS usr`)
@@ -65,89 +65,78 @@ class Users {
     //                         .build()).rows;
     // }
 
-    // list = async (query) => {
-    //     let _query = JSON.parse(query.condition);
+    list = async (data) => {
+        return (await new Builder(`tbl_users AS usr`)
+                                        .select(`usr.id, usr.series_no, usr.email, usr.user_level, usr.status, usr.date_created, info.fname, info.mname, info.lname, info.avatar`)
+                                        .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: `LEFT` })
+                                        .except(`WHERE usr.user_level= 'superadmin' OR usr.id= ${data.id} ORDER BY 6 DESC`)
+                                        .build()).rows;
+    }
 
-    //     return (await new Builder(`tbl_users AS usr`)
-    //                                     .select(`usr.id, usr.series_no, usr.email, usr.user_level, usr.status, usr.date_created, info.fname, info.mname, info.lname, info.suffix, info.avatar`)
-    //                                     .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: `LEFT` })
-    //                                     .condition(`${_query.condition}`)
-    //                                     .except(`WHERE usr.id= ${atob(_query.except)} ORDER BY 6 DESC`)
-    //                                     .build()).rows;
-    // }
-
-    // save = async (data) => {
-    //     if(!((await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0)) {
-    //         if(!((await new Builder(`tbl_users_info`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0)) {
-    //             let usr = await new Builder(` tbl_users`)
-    //                                                 .insert({ columns: `series_no, email, password, user_level, is_logged, status, created_by, date_created`,
-    //                                                             values: `'${global.randomizer(7)}', '${data.email}', '${data.password}', '${data.user_level}', 0, 1, ${data.created_by}, CURRENT_TIMESTAMP` })
-    //                                                 .condition(`RETURNING id`)
-    //                                                 .build();
-    //             await new Builder(`tbl_users_info`)
-    //                                 .insert({ columns: `user_id, fname, mname, lname, suffix, gender, address, avatar`, 
-    //                                             values: `${usr.rows[0].id}, '${(data.fname).toUpperCase()}', ${data.mname !== undefined && data.mname !== null ? `'${(data.mname).toUpperCase()}'` : null},
-    //                                                         '${(data.lname).toUpperCase()}', ${data.suffix !== undefined && data.suffix !== null ? `'${(data.suffix).toUpperCase()}'` : null}, '${data.gender}',
-    //                                                         ${data.address !== undefined && data.address !== null ? `'${(data.address).toUpperCase()}'` : null}, '${data.avatar}'` })
-    //                                 .build();
-
-    //             return { result: 'success', message: 'Successfully saved!' }
-    //         }
-    //         else { return { result: 'error', error: [{ name: 'lname', message: 'Name already exist! Change your first name or last name to proceed!' }] } }
-    //     }
-    //     else { return { result: 'error', error: [{ name: 'email', message: 'Email already used!' }] } }
-    // }
-
-    // update = async (data) => {
-    //     let usr = (await new Builder(`tbl_users AS usr`)
-    //                                         .select()
-    //                                         .join({ table: 'tbl_users_info AS info', condition: `info.user_id = usr.id`, type: `LEFT` })
-    //                                         .condition(`WHERE usr.id= ${data.id}`)
-    //                                         .build()).rows[0];
-    //     let date = global.date(new Date());
+    save = async (data) => {
+        let _errors = [];
         
-    //     if(global.compare(usr.email, data.email)) {
-    //         if(!(await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0) {
-    //             await new Builder(`tbl_users`).update(`email= '${data.email}'`).condition(`WHERE id= ${usr.id}`).build();
-    //         }
-    //         else { return { result: 'error', error: [{ name: 'email', message: 'Email already used!' }] } }
-    //     }
-
-    //     if(global.compare(usr.lname, data.lname)) {
-    //         if(!(await new Builder(`tbl_users_info`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
-    //             await new Builder(`tbl_users_info`).update(`lname= '${(data.lname).toUpperCase()}'`).condition(`WHERE user_id= ${usr.id}`).build();
-    //         }
-    //         else { return { result: 'error', error: [{ name: 'lname', message: 'Name already exist! Please change your last name or first name to proceed!' }] } }
-    //     }
+        if((await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0) { _errors.push({ name: 'email', message: 'Email already used!' }); }
+        if((await new Builder(`tbl_users_info`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
+            _errors.push({ name: 'lname', message: 'Name already existing!' });
+        }
         
-    //     if(global.compare(usr.avatar, data.avatar)) { 
-    //         await new Builder(`tbl_users_info`).update(`avatar= '${data.avatar}'`).condition(`WHERE user_id= ${usr.id}`).build(); 
-    //     }
-    //     if(global.compare(usr.password, data.password)) { 
-    //         await new Builder(`tbl_users`).update(`password= '${data.password}'`).condition(`WHERE id= ${usr.id}`).build(); 
-    //     }
-    //     if(global.compare(usr.fname, data.fname)) { 
-    //         await new Builder(`tbl_users_info`).update(`fname= '${(data.fname).toUpperCase()}'`).condition(`WHERE user_id= ${usr.id}`).build(); 
-    //     }
-    //     if(global.compare(usr.mname, data.mname)) { 
-    //         await new Builder(`tbl_users_info`).update(`mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}`).condition(`WHERE user_id= ${usr.id}`).build(); 
-    //     }
-    //     if(global.compare(usr.gender, data.gender)) { 
-    //         await new Builder(`tbl_users_info`).update(`gender= '${data.gender}'`).condition(`WHERE user_id= ${usr.id}`).build(); 
-    //     }
-    //     if(global.compare(usr.user_level, data.user_level)) { 
-    //         await new Builder(`tbl_users`).update(`user_level= '${data.user_level}'`).condition(`WHERE id= ${usr.id}`).build(); 
-    //     }
-    //     if(global.compare(usr.address, data.address)) { 
-    //         await new Builder(`tbl_users_info`).update(`address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}`).condition(`WHERE user_id= ${usr.id}`).build(); 
-    //     }
-    //     if(global.compare(usr.status, data.status ? 1 : 0)) { 
-    //         await new Builder(`tbl_users`).update(`status= ${data.status === true || data.status === 'true' ? 1 : 0}`).condition(`WHERE id= ${usr.id}`).build(); 
-    //     }
+        if(!(_errors.length > 0)) {
+            let usr = (await new Builder(`tbL_users`)
+                                                .insert({ columns: `series_no, email, password, is_email_verified, user_level, is_logged, code, status, created_by, date_created`, 
+                                                                values: `'${global.randomizer(7)}', '${data.email}', '${data.password}', 1, '${data.user_level}', 0, '${global.randomizer(6)}',
+                                                                                ${data.status === true || data.status === 'true' ? 1 : 0}, ${data.created_by}, CURRENT_TIMESTAMP` })
+                                                .condition(`RETURNING id`)
+                                                .build()).rows[0];
+            await new Builder(`tbl_users_info`)
+                                .insert({ columns: `user_id, fname, mname, lname, gender, address, avatar`, 
+                                                values: `${usr.id}, '${(data.fname).toUpperCase()}', ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
+                                                                '${(data.lname).toUpperCase()}', '${data.gender}', '${(data.address).toUpperCase()}', '${data.avatar}'` })
+                                .build();
+            return { result: 'success', message: 'Successfully saved!' }
+        }
+        else { return { result: 'errors', error: _errors } }
+    }
 
-    //     await new Builder(`tbl_users`).update(`updated_by= ${data.updated_by}, date_updated= '${date}'`).condition(`WHERE id= ${usr.id}`).build();
-    //     return { result: 'success', message: 'Successfully updated!' }
-    // }
+    update = async (data) => {
+        console.log(data);
+        let usr = (await new Builder(`tbl_users AS usr`)
+                                            .select()
+                                            .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: `LEFT` })
+                                            .condition(`WHERE usr.id= ${data.id}`)
+                                            .build()).rows[0];
+        let _errors = [];
+        
+        if(global.compare(usr.email, data.email)) {
+            if((await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0) { _errors.push({ name: 'email', message: 'Email already used!' }); }
+        }
+        if(global.compare(usr.fname, data.fname)) {
+            if((await new Builder(`tbl_users_info`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
+                _errors.push({ name: 'lname', message: 'Name already exist!' });
+            }
+        }
+        if(global.compare(usr.lname, data.lname)) {
+            if((await new Builder(`tbl_users_info`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
+                _errors.push({ name: 'lname', message: 'Name already exist!' });
+            }
+        }
+
+        if(!(_errors.length > 0)) {
+            await new Builder(`tbl_users`)
+                                .update(`email= '${data.email}', password= '${data.password}', user_level= '${data.user_level}', status= ${data.status === true || data.status === 'true' ? 1 : 0},
+                                                updated_by= ${data.updated_by}, date_updated= CURRENT_TIMESTAMP`)
+                                .condition(`WHERE id= ${usr.id}`)
+                                .build();
+            await new Builder(`tbl_users_info`)
+                                .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}, lname= '${(data.lname).toUpperCase()}',
+                                                gender= '${data.gender}', address= '${(data.address).toUpperCase()}'`)
+                                .condition(`WHERE id= ${usr.id}`)
+                                .build();
+
+            return { result: 'success', message: 'Successfully updated!' }
+        }
+        else { return { result: 'error', error: _errors } }
+    }
 }
 
 module.exports = Users;

@@ -8,7 +8,7 @@ const Coat = React.lazy(() => import('pages/main/maintenance/coat'));
 const LifeStages = React.lazy(() => import('pages/main/maintenance/lifestages'));
 const Tags = React.lazy(() => import('pages/main/maintenance/tags'));
 const Pets = React.lazy(() => import('pages/main/maintenance/pets'));
-// const Users = React.lazy(() => import('pages/main/maintenance/users'));
+const Users = React.lazy(() => import('pages/main/maintenance/users'));
 
 export const Navs = () => ([
     {
@@ -31,7 +31,7 @@ export const Navs = () => ([
             { path: '/maintenance/coat', label: 'Coat', name: 'coat', component: <Coat /> },
             { path: '/maintenance/tags', label: 'Tags', name: 'tags', component: <Tags /> },
             { path: '/maintenance/pet', label: 'Pets', name: 'pets', component: <Pets /> },
-            // { path: '/maintenance/users', label: 'Users', name: 'Users', component: <Users /> }
+            { path: '/maintenance/users', label: 'Users', name: 'Users', component: <Users /> }
         ]
     }
 ])

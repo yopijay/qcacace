@@ -4,8 +4,8 @@ const Breed = require('./tables/Breed');
 const Coat = require('./tables/Coat');
 const LifeStages = require('./tables/LifeStages');
 const Tags = require('./tables/Tags');
-const Users = require('./tables/Users');
 const Pets = require('./tables/Pets');
+const Users = require('./tables/Users');
 // const Adopt = require('./tables/Adopt');
 
 const login = async (data) => { return await new Users().login(data); }
@@ -21,7 +21,7 @@ const dashboard = (table) => {
     return new Promise(async resolve => {
         switch(table) {
             case 'tbl_breed': resolve(await new Breed().dashboard()); break;
-            // case 'tbl_users': resolve(await new Users().dashboard()); break;
+            case 'tbl_users': resolve(await new Users().dashboard()); break;
         }
     });
 }
@@ -43,7 +43,7 @@ const search = (table, data) => {
             case 'tbl_life_stages': resolve(await new LifeStages().search(data)); break;
             case 'tbl_tags': resolve(await new Tags().search(data)); break;
             case 'tbl_pets': resolve(await new Pets().search(data)); break;
-            // case 'tbl_users': resolve(await new Users().search(data)); break;
+            case 'tbl_users': resolve(await new Users().search(data)); break;
         }
     })
 }
@@ -57,7 +57,7 @@ const list = (table, data) => {
             case 'tbl_tags': resolve(await new Tags().list()); break;
             case 'tbl_coat': resolve(await new Coat().list()); break;
             case 'tbl_pets': resolve(await new Pets().list()); break;
-            // case 'tbl_users': resolve(await new Users().list(data)); break;
+            case 'tbl_users': resolve(await new Users().list(data)); break;
         }
     });
 }
@@ -71,7 +71,7 @@ const specific = (table, id) => {
             case 'tbl_coat': resolve(await new Coat().specific(id)); break;
             case 'tbl_tags': resolve(await new Tags().specific(id)); break;
             case 'tbl_pets': resolve(await new Pets().specific(id)); break;
-            // case 'tbl_users': resolve(await new Users().specific(id)); break;
+            case 'tbl_users': resolve(await new Users().specific(id)); break;
             // case 'tbl_adopt_info': resolve(await new Adopt().specific(id)); break;
         }
     });
@@ -86,7 +86,7 @@ const save = (table, data) => {
             case 'tbl_coat': resolve(await new Coat().save(data)); break;
             case 'tbl_tags': resolve(await new Tags().save(data)); break;
             case 'tbl_pets': resolve(await new Pets().save(data)); break;
-            // case 'tbl_users': resolve(await new Users().save(data)); break;
+            case 'tbl_users': resolve(await new Users().save(data)); break;
             // case 'tbl_adopt_documents': resolve(await new Adopt().save(data)); break;
         }
     });
@@ -101,7 +101,7 @@ const update = (table, data) => {
             case 'tbl_coat': resolve(await new Coat().update(data)); break;
             case 'tbl_tags': resolve(await new Tags().update(data)); break;
             case 'tbl_pets': resolve(await new Pets().update(data)); break;
-            // case 'tbl_users': resolve(await new Users().update(data)); break;
+            case 'tbl_users': resolve(await new Users().update(data)); break;
             // case 'tbl_adopt_info': resolve(await new Adopt().update(data)); break;
             // case 'tbl_adopt': resolve(await new Adopt().schedule(data)); break;
         }
