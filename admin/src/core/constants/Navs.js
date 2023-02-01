@@ -2,6 +2,7 @@
 import React from 'react';
 
 // Maintenance
+const Appointment = React.lazy(() => import('pages/main/maintenance/appointment'));
 const Category = React.lazy(() => import('pages/main/maintenance/category'));
 const Breed = React.lazy(() => import('pages/main/maintenance/breed'));
 const Coat = React.lazy(() => import('pages/main/maintenance/coat'));
@@ -25,6 +26,7 @@ export const Navs = () => ([
     },
     {
         title: 'Maintenance', access: [ 'superadmin' ], nav: [
+            { path: '/maintenance/appointment', label: 'Appointment', name: 'appointment', component: <Appointment /> },
             { path: '/maintenance/category', label: 'Category', name: 'category', component: <Category /> },
             { path: '/maintenance/breed', label: 'Breed', name: 'breed', component: <Breed /> },
             { path: '/maintenance/lifestages', label: 'Life Stages', name: 'lifestages', component: <LifeStages /> },
