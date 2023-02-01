@@ -1,14 +1,14 @@
 // libraries
 import { useContext } from "react";
-import { Box, Skeleton, Stack, TextField, Typography } from "@mui/material";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
-import { useGet, usePost } from "core/global/function/index.func"; // Function
-import { look, records } from "core/api/index.func"; // API
+import { useGet } from "core/global/function/index.func"; // Function
+import { records } from "core/api/index.func"; // API
 
 // Constants
 import { btnicon, btntxt, search } from "./index.style"; // Styles
@@ -18,7 +18,6 @@ import Item from "./layouts/Item";
 
 const Index = () => {
     const { setList } = useContext(ListCntxt);
-    const { mutate: find, isLoading: finding } = usePost({ fetch: look, onSuccess: (data) => setList(data) });
     const { isFetching: fetching } = useGet({ key: ['app_list'], fetch: records({ table: 'tbl_appointments', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
 
     return (
@@ -26,13 +25,6 @@ const Index = () => {
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                 <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#3C4048' }}>Appointments</Typography>
                 <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">
-                    {/* <form autoComplete= "off">
-                        <Box sx= { search }>
-                            <FontAwesomeIcon icon= { solid('magnifying-glass') } size= "sm" style= {{ margin: '8px' }} />
-                            <TextField variant= "standard" size= "small" fullWidth InputProps= {{ disableUnderline: true }} placeholder= "Search..." sx= {{ padding: '5px 0 0 0' }}
-                                onChange= { e => { find({ table: 'tbl_appointment', data: { condition: e.target.value !== '' ? (e.target.value).toUpperCase() : e.target.value } }); } } />
-                        </Box>
-                    </form> */}
                     <Box>
                         <Typography component= { Link } to= "/maintenance/appointment/form/new" sx= { btnicon }>
                             <FontAwesomeIcon icon= { solid('plus') } style= {{ color: '#FFFFFF' }} />
@@ -41,7 +33,7 @@ const Index = () => {
                     </Box>
                 </Stack>
             </Stack>
-            { !fetching && !finding ? <Item /> :
+            { !fetching ? <Item /> :
                 <Stack direction= "row" justifyContent= "space-between" alignItems= "center" 
                     sx= {{ backgroundColor: '#FFFFFF', padding: '10px 20px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }} spacing= { 2 }>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ flexGrow: 1 }} spacing= { 1 }>
