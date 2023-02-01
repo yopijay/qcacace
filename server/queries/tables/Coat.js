@@ -37,28 +37,29 @@ class Coat {
 
     update = async (data) => {
         let coat = (await new Builder(`tbl_coat`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
-        let date = global.date(new Date());
+        let _errors = [];
 
         if(global.compare(coat.category_id, data.category_id)) {
-            if(!((await new Builder(`tbl_coat`).select().condition(`WHERE category_id= ${data.category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0)) {
-                await new Builder(`tbl_coat`).update(`category_id= ${data.category_id}`).condition(`WHERE id= ${coat.id}`).build();
+            if((await new Builder(`tbl_coat`).select().condition(`WHERE category_id= ${data.category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {
+                _errors.push({ name: 'category_id', message: 'This category already have this coat!' });
             }
-            else { return { result: 'error', error: [{ name: 'This category already have this coat!' }] } }
         }
 
         if(global.compare(coat.name, data.name)) {
-            if(!((await new Builder(`tbl_coat`).select().condition(`WHERE category_id= ${data.category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0)) {
-                await new Builder(`tbl_coat`).update(`name= '${(data.name).toUpperCase()}'`).condition(`WHERE id= ${coat.id}`).build();
+            if((await new Builder(`tbl_coat`).select().condition(`WHERE category_id= ${data.category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {
+                _errors.push({ name: 'name', message: 'Coat already exist in this category' });
             }
-            else { return { result: 'error', error: [{ name: 'name', message: 'Coat already exist in this category' }] } }
         }
 
-        if(global.compare(coat.status, data.status ? 1 : 0)) {
-            await new Builder(`tbl_coat`).update(`status= ${data.status === true || data.status === 'true' ? 1 : 0}`).condition(`WHERE id= ${coat.id}`).build();
+        if(!(_errors.length > 0)) {
+            await new Builder(`tbl_coat`)
+                                .update(`category_id= ${data.category_id}, name= '${(data.name).toUpperCase()}', status= ${data.status === true || data.status === 'true' ? 1 : 0},
+                                                updated_by= ${data.updated_by}, date_updated= CURRENT_TIMESTAMP`)
+                                .condition(`WHERE id= ${coat.id}`)
+                                .build();
+            return { result: 'success', message: 'Successfully updated!' }
         }
-
-        await new Builder(`tbl_coat`).update(`updated_by= ${data.updated_by}, date_updated= '${date}'`).condition(`WHERE id= ${coat.id}`).build();
-        return { result: 'success', message: 'Successfully updated!' }
+        else { return { result: 'error', error: _errors } }
     }
 }
 

@@ -52,28 +52,29 @@ class Breed {
 
     update = async (data) => {
         let brd = (await new Builder(`tbl_breed`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
-        let date = global.date(new Date());
+        let _errors = [];
 
         if(global.compare(brd.category_id, data.category_id)) {
-            if(!(await new Builder(`tbl_breed`).select().condition(`WHERE category_id= ${data.category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {
-                await new Builder(`tbl_breed`).update(`category_id= ${data.category_id}`).condition(`WHERE id= ${brd.id}`).build();
+            if((await new Builder(`tbl_breed`).select().condition(`WHERE category_id= ${data.category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {
+                _errors.push({ name: 'category_id', message: 'Breed already exist in this pet category!' });
             }
-            else { return { result: 'error', error: [{ name: 'category_id', message: 'Breed already exist in this pet category!' }] } }
         }
 
         if(global.compare(brd.name, data.name)) {
-            if(!(await new Builder(`tbl_breed`).select().condition(`WHERE category_id= ${data.category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {
-                await new Builder(`tbl_breed`).update(`name= '${(data.name).toUpperCase()}'`).condition(`WHERE id= ${brd.id}`).build();
+            if((await new Builder(`tbl_breed`).select().condition(`WHERE category_id= ${data.category_id} AND name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {
+                _errors.push({ name: 'name', message: 'Breed already exist in this pet category! Please change your breed name or choose another pet category' });
             }
-            else { return { result: 'error', error: [{ name: 'name', message: 'Breed already exist in this pet category! Please change your breed name or choose another pet category' }] } }
         }
 
-        if(global.compare(brd.status, data.status ? 1 : 0)) { 
-            await new Builder(`tbl_breed`).update(`status= ${data.status === true || data.status === 'true' ? 1 : 0}`).condition(`WHERE id= ${brd.id}`).build(); 
+        if(!(_errors.length > 0)) {
+            await new Builder(`tbl_breed`)
+                                .update(`category_id= ${data.category_id}, name= '${(data.name).toUpperCase()}', status= ${data.status === true || data.status === 'true' ? 1 : 0},
+                                                updated_by= ${data.updated_by}, date_updated= CURRENT_TIMESTAMP`)
+                                .condition(`WHERE id= ${brd.id}`)
+                                .build();
+            return { result: 'success', message: 'Successfully updated!' }
         }
-
-        await new Builder(`tbl_breed`).update(`updated_by= ${data.updated_by}, date_updated= '${date}'`).condition(`WHERE id= ${brd.id}`).build();
-        return { result: 'success', message: 'Successfully updated!' }
+        else { return { result: 'error', error: _errors } }
     }
 }
 

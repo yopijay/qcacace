@@ -25,22 +25,21 @@ class Tags {
     }
 
     update = async (data) => {
-        let ctg = (await new Builder(`tbl_tags`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
-        let date = global.date(new Date());
+        let tag = (await new Builder(`tbl_tags`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
+        let _errors = [];
 
-        if(global.compare(ctg.name, data.name)) {
-            if(!(await new Builder(`tbl_tags`).select().condition(`WHERE name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) { 
-                await new Builder(`tbl_tags`).update(`name= '${(data.name).toUpperCase()}'`).condition(`WHERE id= ${ctg.id}`).build(); 
-            }
-            else { return { result: 'error', error: [{ name: 'name', message: 'Tag already exist!' }] } }
+        if(global.compare(tag.name, data.name)) {
+            if((await new Builder(`tbl_tags`).select().condition(`WHERE name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) { _errors.push({ name: 'name', message: 'Tag exist!' }) }
         }
 
-        if(global.compare(ctg.status, data.status ? 1 : 0)) { 
-            await new Builder(`tbl_tags`).update(`status= ${data.status === true || data.status === 'true' ? 1 : 0}`).condition(`WHERE id= ${ctg.id}`).build(); 
+        if(!(_errors.length > 0)) {
+            await new Builder(`tbl_tags`)
+                                .update(`name= '${(data.name).toUpperCase()}', status= ${data.status === true || data.status === 'true' ? 1 : 0}, updated_by= ${data.updated_by},
+                                                date_updated= CURRENT_TIMESTAMP`)
+                                .condition(`WHERE id= ${tag.id}`).build();
+            return { result: 'success', message: 'Successfully updated!' }
         }
-
-        await new Builder(`tbl_tags`).update(`updated_by= ${data.updated_by}, date_created= '${date}'`).condition(`WHERE id= ${ctg.id}`).build();
-        return { result: 'success', message: 'Successfully updated!' }
+        else { return { result: 'error', error: _errors } }
     }
 }
 

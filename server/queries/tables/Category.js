@@ -17,7 +17,11 @@ class Category {
 
     save = async (data) => {
         if(!(await new Builder(`tbl_category`).select().condition(`WHERE name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) {
-            await new Builder(`tbl_category`).insert({ columns: `series_no, name, status, created_by, date_created`, values: `'${(data.series_no).toUpperCase()}', '${(data.name).toUpperCase()}', ${data.status ? 1 : 0}, ${data.created_by}, CURRENT_TIMESTAMP` }).build();
+            await new Builder(`tbl_category`)
+                                .insert({ columns: `series_no, name, status, created_by, date_created`, 
+                                                values: `'${(data.series_no).toUpperCase()}', '${(data.name).toUpperCase()}', ${data.status ? 1 : 0}, ${data.created_by}, CURRENT_TIMESTAMP` })
+                                .build();
+
             return { result: 'success', message: 'Successfully saved!' }
         }
         else { return { result: 'error', error: [{ name: 'name', message: 'Category already exist!' }] } }
@@ -25,17 +29,20 @@ class Category {
 
     update = async (data) => {
         let ctg = (await new Builder(`tbl_category`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
-        let date = global.date(new Date());
+        let _errors = [];
 
         if(global.compare(ctg.name, data.name)) {
-            if(!(await new Builder(`tbl_category`).select().condition(`WHERE name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) { await new Builder(`tbl_category`).update(`name= '${(data.name).toUpperCase()}'`).condition(`WHERE id= ${ctg.id}`).build(); }
-            else { return { result: 'error', error: [{ name: 'name', message: 'Category already exist!' }] } }
+            if((await new Builder(`tbl_category`).select().condition(`WHERE name= '${(data.name).toUpperCase()}'`).build()).rowCount > 0) { _errors.push({ name: 'name', message: 'Category exist!' }) }
         }
 
-        if(global.compare(ctg.status, data.status ? 1 : 0)) { await new Builder(`tbl_category`).update(`status= ${data.status === true || data.status === 'true' ? 1 : 0}`).condition(`WHERE id= ${ctg.id}`).build(); }
-
-        await new Builder(`tbl_category`).update(`updated_by= ${data.updated_by}, date_created= '${date}'`).condition(`WHERE id= ${ctg.id}`).build();
-        return { result: 'success', message: 'Successfully updated!' }
+        if(!(_errors.length > 0)) {
+            await new Builder(`tbl_category`)
+                                .update(`name= '${(data.name).toUpperCase()}', status= ${data.status === true || data.status === 'true' ? 1 : 0}, updated_by= ${data.updated_by},
+                                                date_updated= CURRENT_TIMESTAMP`)
+                                .condition(`WHERE id= ${ctg.id}`).build();
+            return { result: 'success', message: 'Successfully updated!' }
+        }
+        else { return { result: 'error', error: _errors } }
     }
 }
 
