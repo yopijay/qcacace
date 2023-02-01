@@ -55,15 +55,15 @@ class Users {
         }
     }
 
-    // search = async (data) => {
-    //     return (await new Builder(`tbl_users AS usr`)
-    //                         .select(`usr.id, usr.user_level, usr.series_no, info.fname, info.mname, info.lname, info.avatar, usr.date_created`)
-    //                         .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' })
-    //                         .condition(`WHERE usr.user_level LIKE '%${data.condition}%' OR usr.series_no LIKE '%${data.condition}%'
-    //                                             OR info.fname LIKE '%${data.condition}%' OR info.mname LIKE '%${data.condition}%' OR info.lname LIKE '%${data.condition}%'`)
-    //                         .except(`WHERE usr.user_level= 'superadmin' OR usr.id= ${data.id} ORDER BY 8 DESC`)
-    //                         .build()).rows;
-    // }
+    search = async (data) => {
+        return (await new Builder(`tbl_users AS usr`)
+                                        .select(`usr.id, usr.series_no, usr.email, usr.user_level, usr.status, usr.date_created, info.fname, info.mname, info.lname, info.avatar`)
+                                        .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: `LEFT` })
+                                        .condition(`WHERE usr.user_level LIKE '%${data.condition}%' OR usr.series_no LIKE '%${data.condition}%'
+                                                            OR info.fname LIKE '%${data.condition}%' OR info.mname LIKE '%${data.condition}%' OR info.lname LIKE '%${data.condition}%'`)
+                                        .except(`WHERE usr.user_level= 'superadmin' OR usr.id= ${data.id} ORDER BY 6 DESC`)
+                                        .build()).rows;
+    }
 
     list = async (data) => {
         return (await new Builder(`tbl_users AS usr`)
