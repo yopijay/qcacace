@@ -8,7 +8,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { save, specific, update } from "core/api/index.func"; // APIs
-import { successToast, useGet, usePost } from "core/global/function/index.func"; // Custom react query
+import { successToast, useGet, usePost } from "core/global/function/index.func"; // Function
 import { input } from "core/global/theme/index.style"; // Theme
 
 // Constants
@@ -30,7 +30,6 @@ const Index = () => {
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
                         let _name = Object.keys(data[0])[count];
-                        
                         setValue(_name, data[0][_name] !== null ? _name === 'tags' ? JSON.parse(data[0][_name]) : data[0][_name] : ''); 
                     } 
                 } 
@@ -40,23 +39,15 @@ const Index = () => {
     const { mutate: saving } = 
         usePost({ fetch: save, 
             onSuccess: (data) => { 
-                if(data.result === 'error') { 
-                    (data.error).forEach((err, index) => { 
-                        setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
-                    }); 
-                } 
+                if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
                 else { successToast(data.message, 3000, navigate('/maintenance/pet', { replace: true })); } 
             } 
         });
 
     const { mutate: updating } = 
         usePost({ fetch: update, 
-            onSuccess: (data) => { 
-                if(data.result === 'error') { 
-                    (data.error).forEach((err, index) => { 
-                        setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
-                    }); 
-                } 
+            onSuccess: (data) => {
+                if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
                 else { successToast(data.message, 3000, navigate('/maintenance/pet', { replace: true })); } 
             } });
         
@@ -74,13 +65,13 @@ const Index = () => {
                     <Grid item>
                         <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
                             <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} variant= "body1" gutterBottom>Pet Classification</Typography>
-                            <Classification fetching= { fetching } />
+                            <ThemeProvider theme= { input }><Classification fetching= { fetching } /></ThemeProvider>
                         </Stack>
                     </Grid>
                     <Grid item>
                         <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
-                            <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} variant= "body1" gutterBottom>Pet Condition</Typography>
-                            <Condition fetching= { fetching } />
+                            <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} variant= "body1" gutterBottom>Other</Typography>
+                            <ThemeProvider theme= { input }><Condition fetching= { fetching } /></ThemeProvider>
                         </Stack>
                     </Grid>
                 </Grid>
@@ -90,24 +81,20 @@ const Index = () => {
                     <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
                         <Box sx= { btntxt } onClick= { handleSubmit(data => {
                             data[type === 'new' ? 'created_by' : 'updated_by'] = atob(localStorage.getItem('token'));
+                            let _errors = [];
                             
-                            if(data.photo !== undefined) {
-                                if(data.pet_category_id !== 0) {
-                                    if(data.breed_id !== 0) {
-                                        if(data.tags !== undefined) {
-                                            if((data.tags).length > 0) {
-                                                if(type === 'new') { saving({ table: 'tbl_pets', data: data }); }
-                                                else { updating({ table: 'tbl_pets', data: data }); }
-                                            }
-                                            else { setError('tags', { message: 'This field is required!' }); }
-                                        }
-                                        else { setError('tags', { message: 'This field is required!' }) }
-                                    }
-                                    else { setError('breed_id', { message: 'This field is required!' }); }
-                                }
-                                else { setError('pet_category_id', { message: 'This field is required!' }); }
+                            if(data.photo === undefined) { _errors.push({ name: 'photo', message: 'This field is required!' }); }
+                            if(data.category_id === 0) { _errors.push({ name: 'category_id', message: 'This field is required!' }); }
+                            if(data.breed_id === undefined || data.breed_id === 0) { _errors.push({ name: 'breed_id', message: 'This field is required!' }); }
+                            if(data.coat_id === undefined || data.coat_id === 0) { _errors.push({ name: 'coat_id', message: 'This field is required!' }); }
+                            if(data.life_stages_id === undefined || data.life_stages_id === 0) { _errors.push({ name: 'life_stages_id', message: 'This field is required!' }); }
+                            if(!((data.tags).length > 0)) { _errors.push({ name: 'tags', message: 'This field is requried!' }); }
+
+                            if(!(_errors.length > 0)) {
+                                if(type === 'new') { saving({ table: 'tbl_pets', data: data }); }
+                                else { updating({ table: 'tbl_pets', data: data }); }
                             }
-                            else { setError('photo', { message: 'This field is required!' }); }
+                            else { _errors.forEach(err => setError(err.name, { message: err.message }) ); }
                         }) }>Save</Box>
                     </Grid>
                 </Grid> : '' }

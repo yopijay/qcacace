@@ -23,41 +23,34 @@ const Index = () => {
     const { data: category, isFetching } = useGet({ key: ['ctg_dropdown'], fetch: dropdown({ table: 'tbl_category', data: {} }) });
     const { refetch, isFetching: fetching } = 
         useGet({ key: ['stages_specific'], fetch: specific({ table: 'tbl_life_stages', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
-            onSuccess: (data) => { 
-                if(Array.isArray(data)) { 
-                    for(let count = 0; count < Object.keys(data[0]).length; count++) { 
-                        let _name = Object.keys(data[0])[count]; setValue(_name, data[0][_name] !== null ? data[0][_name] : ''); 
-                    } 
-                } 
-            } 
+            onSuccess: (data) => {
+                if(Array.isArray(data)) {
+                    for(let count = 0; count < Object.keys(data[0]).length; count++) {
+                        let _name = Object.keys(data[0])[count];
+                        setValue(_name, data[0][_name] !== null ? data[0][_name] : '');
+                    }
+                }
+            }
         });
 
     const { mutate: saving } = 
         usePost({ fetch: save, 
-            onSuccess: (data) => { 
-                if(data.result === 'error') { 
-                    (data.error).forEach((err, index) => { 
-                        setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
-                    }); 
-                } 
-                else { successToast(data.message, 3000, navigate('/maintenance/lifestages', { replace: true })); } 
-            } 
+            onSuccess: (data) => {
+                if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
+                else { successToast(data.message, 3000, navigate('/maintenance/lifestages', { replace: true })); }
+            }
         });
 
     const { mutate: updating } = 
         usePost({ fetch: update, 
-            onSuccess: (data) => { 
-                if(data.result === 'error') { 
-                    (data.error).forEach((err, index) => { 
-                        setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
-                    }); 
-                } 
-                else { successToast(data.message, 3000, navigate('/maintenance/lifestages', { replace: true })); } 
-            } 
+            onSuccess: (data) => {
+                if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
+                else { successToast(data.message, 3000, navigate('/maintenance/lifestages', { replace: true })); }
+            }
         });
 
-    useEffect(() => { if(type === 'new') { setValue('series_no', randomizer(7)); } }, [type, setValue]);
-    useEffect(() => { setValidation(validation()); if(id !== undefined) { refetch() } }, [ setValidation, id, refetch]);
+    useEffect(() => { if(type === 'new') { setValue('series_no', randomizer(7)); } }, [ type, setValue ]);
+    useEffect(() => { setValidation(validation()); if(id !== undefined) { refetch() } }, [ setValidation, id, refetch ]);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%', paddingBottom: '20px' }} spacing= { 3 }>
@@ -79,19 +72,19 @@ const Index = () => {
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography gutterBottom color= "text.secondary">*Pet Category</Typography>
                                 { isFetching ? <Skeleton variant= "rectangular" height= "35px" sx= {{ borderRadius: '5px' }} /> : category?.length > 0 ?
-                                        <Box sx= { select }>
-                                            <Controller control= { control } name= "category_id" defaultValue= { 0 }
-                                                render= { ({ field: { onChange, value } }) => (
-                                                    <Autocomplete options= { category } disabled= { type === 'view' } disableClearable
-                                                        getOptionLabel= { category => category.name || category.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
-                                                        isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
-                                                        onChange= { (e, item) => onChange(item.id) }
-                                                        renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
-                                                        value= { category?.find(data => { return data.id === (getValues().category_id !== undefined ? getValues().category_id : value) }) !== undefined ?
-                                                            category?.find(data => { return data.id === (getValues().category_id !== undefined ? getValues().category_id : value) }) : category?.length === 0 ?
-                                                            { id: 0, name: '-- SELECT AN ITEM BELOW --' } : category[0] } />
-                                                ) } /> 
-                                        </Box> : '' }
+                                    <Box sx= { select }>
+                                        <Controller control= { control } name= "category_id" defaultValue= { 0 }
+                                            render= { ({ field: { onChange, value } }) => (
+                                                <Autocomplete options= { category } disabled= { type === 'view' } disableClearable
+                                                    getOptionLabel= { category => category.name || category.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
+                                                    isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
+                                                    onChange= { (e, item) => onChange(item.id) }
+                                                    renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
+                                                    value= { category?.find(data => { return data.id === (getValues().category_id !== undefined ? getValues().category_id : value) }) !== undefined ?
+                                                        category?.find(data => { return data.id === (getValues().category_id !== undefined ? getValues().category_id : value) }) : category?.length === 0 ?
+                                                        { id: 0, name: '-- SELECT AN ITEM BELOW --' } : category[0] } />
+                                            ) } /> 
+                                    </Box> : '' }
                                 <Typography variant= "body2" sx= { error } gutterBottom>{ errors.category_id?.message }</Typography>
                             </Stack>
                         </Grid>

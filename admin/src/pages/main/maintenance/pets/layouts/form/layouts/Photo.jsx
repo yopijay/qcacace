@@ -33,7 +33,7 @@ const Photo = ({ fetching }) => {
     useEffect(() => { register('photo'); if(!fetching) { setPic(getValues().photo !== undefined ? JSON.parse(getValues().photo) : '#'); } }, [fetching, getValues, register]);
 
     return (
-        <Stack direction= "row" justifyContent= "center" alignItems= "center">
+        <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ marginBottom: '50px' }}>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-end">
                 <Avatar src= { pic } sx= {{ width: '145px', height: '145px', border: 'solid 5px #DFE4EA' }} />
                 { type !== 'view' ? <FormLabel htmlFor= "photo" sx= { btn }><FontAwesomeIcon icon= { solid('camera') } /></FormLabel> : '' }
