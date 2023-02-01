@@ -12,6 +12,7 @@ const Appointment = require('./tables/Appointment');
 const login = async (data) => { return await new Users().login(data); }
 const logout = async (data) => { return await new Users().logout(data); }
 const profile = async (id) => { return await new Users().profile(id); }
+const top = async (data) => { return await new Pets().top(data); }
 // const recommend = async (data) => { return await new Pets().recommend(data); }
 // const register = async (data) => { return await new Adopt().register(data); }
 // const verify = async (id) => { return await new Adopt().verify(id); }
@@ -23,14 +24,6 @@ const dashboard = (table) => {
         switch(table) {
             case 'tbl_breed': resolve(await new Breed().dashboard()); break;
             case 'tbl_users': resolve(await new Users().dashboard()); break;
-        }
-    });
-}
-
-const top = (table, data) => {
-    return new Promise(async resolve => {
-        switch(table) {
-            case 'tbl_pets': resolve(await new Pets().top(data)); break;
         }
     });
 }
@@ -136,7 +129,7 @@ module.exports = {
     update,
     search,
     dropdown,
-    // top,
+    top,
     // recommend,
     // register,
     // verify,

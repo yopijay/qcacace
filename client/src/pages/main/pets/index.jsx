@@ -14,7 +14,7 @@ import { petcontainer, petdesc, petfemale, petimage, petmale, petseries, pettag,
 
 const Index = () => {
     const { list, setList } = useContext(ListCntxt);
-    const { isFetching: fetching } = useGet({ key: ['top_pets'], fetch: top({ table: 'tbl_pets', data: { limit: 3 } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
+    const { isFetching: fetching } = useGet({ key: ['top_pets'], fetch: top({ limit: 3 }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
     
     return (
         <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '20px 0' }}>
@@ -39,13 +39,14 @@ const Index = () => {
                                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%' }}>
                                                 { !fetching ? <Typography sx= { petseries }>#{ data.series_no }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} /> }
                                                 <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                                    { !fetching ? <Typography sx= { petdesc }>{ data.age }, { data.size }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} /> }
+                                                    { !fetching ? <Typography sx= { petdesc }>{ data.stage }  </Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} /> }
                                                     { !fetching ? 
                                                         <Typography sx= { data.gender === 'male' ? petmale : petfemale }>
                                                             <FontAwesomeIcon icon= { data.gender === 'male' ? solid('mars') : solid('venus') } />
                                                         </Typography> : 
                                                         <Skeleton variant= "rounded" sx= {{ width: '20px', height: '20px' }} /> }
                                                 </Stack>
+                                                { !fetching ? <Typography variant= "caption">{ data.coat}</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} /> }
                                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
                                                     { !fetching ? 
                                                         (JSON.parse(data.tags)).map((tag, index) => (
