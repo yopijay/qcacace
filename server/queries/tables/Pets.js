@@ -7,9 +7,12 @@ class Pets {
 
     search = async (data) => {
         return (await new Builder(`tbl_pets AS pet`)
-                                        .select(`pet.id, pet.series_no, ctg.name AS category, brd.name AS breed, pet.gender, pet.tags, pet.photo, pet.status, pet.date_created`)
-                                        .join({ table: `tbl_category AS ctg`, condition: `pet.category_id = ctg.id`, type: 'LEFT' })
-                                        .join({ table: `tbl_breed AS brd`, condition: `pet.breed_id = brd.id`, type: 'LEFT' })
+                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, 
+                                                        pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
+                                        .join({ table: `tbl_coat AS coat`, condition: `pts.coat_id = coat.id`, type: `LEFT` })
+                                        .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
+                                        .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
+                                        .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
                                         .condition(`WHERE pet.series_no LIKE '%${data.condition}%' OR ctg.name LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%' ORDER BY pet.date_created DESC`)
                                         .build()).rows;
     }
@@ -30,7 +33,10 @@ class Pets {
 
     list = async () => { 
         return (await new Builder(`tbl_pets AS pts`)
-                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
+                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, 
+                                                        pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
+                                        .join({ table: `tbl_coat AS coat`, condition: `pts.coat_id = coat.id`, type: `LEFT` })
+                                        .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
                                         .condition(`ORDER BY pts.date_created DESC`)
