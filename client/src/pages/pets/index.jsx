@@ -3,7 +3,6 @@ import { Stack, ThemeProvider } from "@mui/material";
 
 // Core
 import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
-import { input } from "core/global/theme/index.style"; // Theme
 import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
 
 // Layouts
