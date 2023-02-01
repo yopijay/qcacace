@@ -12,19 +12,19 @@ const Users = React.lazy(() => import('pages/main/maintenance/users'));
 
 export const Navs = () => ([
     {
-        title: 'Main', nav: [
+        title: 'Main', access: [ 'superadmin', 'evaluator' ], nav: [
             { path: '/', label: 'Dashboard', name: 'home', component: 'DASHBOARD'  }
         ]
     },
     {
-        title: 'Tools', nav: [
+        title: 'Tools', access: [ 'superadmin', 'evaluator' ], nav: [
             { path: '/tools/announcement', label: 'Announcements', name: 'announcement', component: 'ANNOUNCEMENT' },
             { path: '/tools/missing', label: 'Missing Pets', name: 'missing-pets', component: 'MISSING PETS' },
             { path: '/tools/adopt', label: 'Adopt Pet', name: 'adopt-pet', component: 'ADOPT PET' }
         ]
     },
     {
-        title: 'Maintenance', nav: [
+        title: 'Maintenance', access: [ 'superadmin' ], nav: [
             { path: '/maintenance/category', label: 'Category', name: 'category', component: <Category /> },
             { path: '/maintenance/breed', label: 'Breed', name: 'breed', component: <Breed /> },
             { path: '/maintenance/lifestages', label: 'Life Stages', name: 'lifestages', component: <LifeStages /> },
