@@ -17,7 +17,7 @@ import { validation } from "./index.validation"; // Validation
 const Index = ({ dialog, setDialog  }) => {
     const theme = useTheme();
     const fullscreen = useMediaQuery(theme.breakpoints.down('sm'));
-    const { setValidation, handleSubmit, setError,} = useContext(FormCntxt);
+    const { setValidation, handleSubmit, setError, } = useContext(FormCntxt);
         
     useEffect(() => { setValidation(validation()); }, [ setValidation ]);
 
@@ -33,20 +33,18 @@ const Index = ({ dialog, setDialog  }) => {
                     <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ marginTop: '40px' }}>
                         <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
                             <Box sx= { btntxt } onClick= { handleSubmit(data => { 
-                                if(data.pet_category_id !== 0) {
-                                    if(data.breed_Id !== 0) {
-                                        if(data.tags !== undefined) {
-                                            if((data.tags).length > 0) { 
-                                                localStorage.setItem('recommend', JSON.stringify(data));
-                                                setDialog(false);
-                                            }
-                                            else { setError('tags', { message: 'This field is required!' }); }
-                                        }
-                                        else { setError('tags', { message: 'This field is required!' }); }
-                                    }
-                                    else { setError('breed_id', { message: 'This field is required!' }); }
+                                let _errors = [];
+
+                                if(data.category_id === 0) { _errors.push({ name: 'category_id', message: 'This field is required!' }); }
+                                if(data.breed_id === undefined || data.breed_id === 0) { _errors.push({ name: 'breed_id', message: 'This field is required!' }); }
+                                if(data.coat_id === undefined || data.coat_id === 0) { _errors.push({ name: 'coat_id', message: 'This field is required!' }); }
+                                if(data.life_stages_id === undefined || data.life_stages_id === 0) { _errors.push({ name: 'life_stages_id', message: 'This field is required!' }); }
+
+                                if(!(_errors.length > 0)) {
+                                    localStorage.setItem('recommend', JSON.stringify(data));
+                                    setDialog(false);
                                 }
-                                else { setError('pet_category_id', { message: 'This field is required!' }); }
+                                else { _errors.forEach(err => setError(err.name, { message: err.message })); }
                             })}>Save</Box>
                         </Grid>
                     </Grid>

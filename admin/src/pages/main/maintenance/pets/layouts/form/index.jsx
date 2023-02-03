@@ -32,7 +32,7 @@ const Index = () => {
                         let _name = Object.keys(data[0])[count];
                         setValue(_name, data[0][_name] !== null ? _name === 'tags' ? JSON.parse(data[0][_name]) : data[0][_name] : ''); 
                     } 
-                } 
+                }
             } 
         });
 

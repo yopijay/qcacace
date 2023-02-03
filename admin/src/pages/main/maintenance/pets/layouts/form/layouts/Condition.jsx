@@ -28,13 +28,13 @@ const Condition = ({ fetching }) => {
                     <Typography gutterBottom color= "text.secondary" variant= "body2">*Gender</Typography>
                     <Box sx= { select }>
                         <Controller control= { control } name= "gender" defaultValue= "male"
-                                render= { ({ field: { onChange, value } }) => (
-                                    <Autocomplete options= { gender } disableClearable getOptionLabel= { opt => opt.name || opt.id } disabled= { type === 'view' }
-                                        noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
-                                        renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
-                                        onChange= { (e, item) => { onChange(item.id); } }
-                                        value= { gender.find(data => { return data.id === (getValues().gender !== undefined ? getValues().gender : value) }) } />
-                                ) } />
+                            render= { ({ field: { onChange, value } }) => (
+                                <Autocomplete options= { gender } disableClearable getOptionLabel= { opt => opt.name || opt.id } disabled= { type === 'view' }
+                                    noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
+                                    renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
+                                    onChange= { (e, item) => { onChange(item.id); } }
+                                    value= { gender.find(data => { return data.id === (getValues().gender !== undefined ? getValues().gender : value) }) } />
+                            ) } />
                     </Box>
                 </Stack>
             </Grid>

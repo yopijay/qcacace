@@ -13,23 +13,25 @@ class Pets {
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
-                                        .condition(`WHERE pet.series_no LIKE '%${data.condition}%' OR ctg.name LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%' ORDER BY pet.date_created DESC`)
+                                        .condition(`WHERE pet.series_no LIKE '%${data.condition}%' OR ctg.name LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%' 
+                                                            ORDER BY pet.date_created DESC`)
                                         .build()).rows;
     }
 
-    // recommend = async (data) => {
-    //     let ctgy = (await new Builder(`tbl_pet_category`).select(`name`).condition(`WHERE id= ${data.pet_category_id}`).build()).rows[0];
-    //     let brd = (await new Builder(`tbl_breed`).select(`name`).condition(`WHERE id= ${data.breed_id}`).build()).rows[0];
-        
-    //     return (await new Builder(`tbl_pets AS pts`)
-    //                                     .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, pts.age, pts.size, pts.gender, pts.tags, pts.description, pts.photo, pts.status, pts.date_created`)
-    //                                     .join({ table: `tbl_pet_category AS ctg`, condition: `pts.pet_category_id = ctg.id`, type: 'LEFT' })
-    //                                     .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
-    //                                     .condition(`WHERE ctg.name LIKE '%${ctgy.name}%' AND brd.name LIKE '%${brd.name}%' AND pts.gender LIKE '%${data.gender}%' 
-    //                                                         OR pts.tags LIKE '%${JSON.stringify(data.tags)}%' OR (pts.age LIKE '%${(data.age).toUpperCase()}%' OR pts.size LIKE '%${(data.size).toUpperCase()}%')
-    //                                                         ORDER BY pts.date_created ASC LIMIT 3`)
-    //                                     .build()).rows;
-    // }
+    recommend = async (data) => {
+        return (await new Builder(`tbl_pets AS pts`)
+                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, 
+                                                        pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
+                                        .join({ table: `tbl_coat AS coat`, condition: `pts.coat_id = coat.id`, type: `LEFT` })
+                                        .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
+                                        .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
+                                        .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
+                                        .condition(`WHERE (pts.category_id= ${data.category_id} AND pts.breed_id= ${data.breed_id} AND pts.coat_id= ${data.coat_id}
+                                                            AND pts.life_stages_id= ${data.life_stages_id} AND pts.gender= '${data.gender}' AND pts.sterilization= '${data.sterilization}'
+                                                            AND pts.energy_level= '${data.energy_level}' AND pts.weight= '${data.weight}')
+                                                            ${data.color !== '' ? ` OR pts.color LIKE '%${data.color}%'` : ''} ${(data.tags).length > 0 ? `AND pts.tags LIKE '%${JSON.stringify(data.tags)}%'` : ''}`)
+                                        .build()).rows;
+    }
 
     list = async () => { 
         return (await new Builder(`tbl_pets AS pts`)
