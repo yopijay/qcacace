@@ -10,6 +10,7 @@ const AppointmentDate = () => {
     const { type } = useParams();
     const [ day, setDay ] = useState(days());
     const { control, getValues } = useContext(FormCntxt);
+    
     return (
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
             <Grid item xs= { 4 }>

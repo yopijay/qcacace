@@ -49,12 +49,7 @@ const Recommended = () => {
                             </Stack>
                         </Grid>
                     )) 
-                :
-                <Grid item xs= { 12 } md= { 6 } lg= { 4 }>
-                    <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= { petcontainer }>
-                        <Typography sx= {{ width: '100%', textAlign: 'center' }}>No record/s found!</Typography>
-                    </Stack>
-                </Grid>: 
+                : '' : 
                 <Grid item xs= { 12 } md= { 6 } lg= { 4 }>
                     <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "start" sx= { petcontainer } spacing= { 2 }>
                         <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%', md: '50%' } }}>

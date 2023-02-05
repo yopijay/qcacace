@@ -26,7 +26,7 @@ const PetInfo = () => {
                     { pet !== undefined ? <Typography sx= { petseries }>#{ pet[0].series_no }</Typography> :
                         <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} />  }
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                        { pet !== undefined ? <Typography sx= { petdesc }>{ `${pet[0].age}, ${pet[0].size}` }</Typography> :
+                        { pet !== undefined ? <Typography sx= { petdesc }>{ pet[0].stage }</Typography> :
                             <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} /> }
                         { pet !== undefined ? 
                             <Typography sx= { pet[0].gender === 'male' ? petmale : petfemale }>
@@ -43,10 +43,6 @@ const PetInfo = () => {
                         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
                             <Grid item xs= { 4 } sm= { 3 } md= { 4 }><Skeleton variant= "text" sx= {{ fontSize: '1rem' }} /></Grid>
                         </Grid> }
-                    { pet !== undefined ? <Typography gutterBottom sx= {{ marginTop: '20px' }}>Description:</Typography> :
-                        <Skeleton variant= "text" sx= {{ fontSize: '1.2rem', width: '25%' }} /> }
-                    { pet !== undefined ? <Typography variant= "body2" color= "text.disabled" sx= {{ paddingLeft: '8px' }}>{ pet[0].description }</Typography> :
-                        <Skeleton variant= "rounded" sx= {{ width: '100%', height: '50px' }} /> }
                 </Stack>
             </Stack>
         </Stack>

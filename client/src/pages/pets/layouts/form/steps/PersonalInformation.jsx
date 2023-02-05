@@ -19,7 +19,7 @@ const PersonalInformation = () => {
     const navigate = useNavigate();
     const { register, errors, getValues, control, handleSubmit, setValidation, setValue, setError } = useContext(FormCntxt);
     const { isFetching: fetching } = 
-        useGet({ key: ['usr_specific'], fetch: specific({ table: 'tbl_adopt_info', id: atob(userid) }), options: { refetchOnWindowFocus: false },
+        useGet({ key: ['usr_specific'], fetch: specific({ table: 'tbl_adopter', id: atob(userid) }), options: { refetchOnWindowFocus: false },
             onSuccess: (data) => {
                 if(Array.isArray(data)) 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
@@ -32,11 +32,7 @@ const PersonalInformation = () => {
     const { mutate: updating } = 
         usePost({ fetch: update,
             onSuccess: (data) => {
-                if(data.result === 'error') {
-                    (data.error).forEach((err, index) => { 
-                        setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); 
-                    }); 
-                }
+                if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
                 else { successToast(data.message, 3000, navigate(`/pets/${id}/adopt/${userid}/documents`, { replace: true })); }
             }
         });
@@ -89,8 +85,8 @@ const PersonalInformation = () => {
                                                 render= { ({ field: { onChange, value } }) => (
                                                     <Autocomplete options= { gender } disableClearable getOptionLabel= { opt => opt.name || opt.id }
                                                         noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
-                                                        renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
-                                                        onChange= { (e, item) => { onChange(item.id); } }
+                                                        renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
+                                                        getOptionDisabled= { option => option.id === 0 } onChange= { (e, item) => { onChange(item.id); } }
                                                         value= { gender.find(data => { return data.id === (getValues().gender !== undefined ? getValues().gender : value) }) } />
                                                 ) } />
                                     </Box> }
@@ -111,7 +107,7 @@ const PersonalInformation = () => {
                 <Grid item xs= { 12 }>
                     <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ paddingTop: '20px' }}>
                         <Grid item xs= { 12 } md= { 5 } lg= { 3 }>
-                            <Box sx= { btntxt } onClick= { handleSubmit(data => { data['id'] = atob(userid); updating({ table: 'tbl_adopt_info', data: data }); }) }>Next</Box>
+                            <Box sx= { btntxt } onClick= { handleSubmit(data => { data['id'] = atob(userid); updating({ table: 'tbl_adopter', data: data }); }) }>Next</Box>
                         </Grid>
                     </Grid>
                 </Grid>

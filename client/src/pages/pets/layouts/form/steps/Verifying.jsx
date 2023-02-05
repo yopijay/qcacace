@@ -1,19 +1,21 @@
 // Libraries
 import { Avatar, Box, Grid, Stack, TextField, Typography } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { verifying } from "core/api/index.func"; // API
+import { successToast, usePost } from "core/global/function/index.func"; // Functionn
 
 // Constants
 import Logo from "assets/images/logo.png"; // Assets
 import { btntxt, inputcode, instruction } from "../index.style"; // Styles
-import { successToast, usePost } from "core/global/function/index.func";
-import { verifying } from "core/api/index.func";
+import Timer from "core/global/layout/timer";
 
 const Verifying = () => {
     const { id, userid } = useParams();
+    const [ timer, setTimer ] = useState('00:00');
     const navigate = useNavigate();
     const { errors, register, setFocus, handleSubmit, setError, getValues } = useContext(FormCntxt);
 
@@ -46,10 +48,7 @@ const Verifying = () => {
                                 )) }
                             </Grid>
                             <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.code?.message }</Typography>
-                            <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                <Typography>Didn`t get the code?</Typography>
-                                <Typography component= { Link } to= "" sx= {{ textDecoration: 'none', color: '#1b4168 ' }}>Resend</Typography>
-                            </Stack>
+                            <Timer timer= { timer } setTimer= { setTimer } />
                         </Stack>
                     </form>
                     <Grid container direction= "row" justifyContent= "space-between" alignItems= "center">
@@ -57,13 +56,14 @@ const Verifying = () => {
                             <Box sx= { btntxt } component= { Link } to= { `/pets/${id}/adopt` }>Back</Box>
                         </Grid>
                         <Grid item xs= { 5 } sm= { 4 } md= { 5 } lg= { 3 }>
-                            <Box sx= { btntxt } onClick= { handleSubmit(data => {
-                                if(data.code1 !== '' && data.code2 !== '' && data.code3 !== '' && data.code4 !== '' && data.code5 !== '' && data.code6 !== '') {
-                                    let code = `${data.code1}${data.code2}${data.code3}${data.code4}${data.code5}${data.code6}`;
-                                    verify({ id: atob(userid), pet_id: atob(id), code: code, email: data.email });
-                                }
-                                else { setError('code', { message: 'Verification code must not be empty!' }); }
-                            })}>Verify</Box>
+                            { timer !== '00:00' ?    
+                                <Box sx= { btntxt } onClick= { handleSubmit(data => {
+                                    if(data.code1 !== '' && data.code2 !== '' && data.code3 !== '' && data.code4 !== '' && data.code5 !== '' && data.code6 !== '') {
+                                        let code = `${data.code1}${data.code2}${data.code3}${data.code4}${data.code5}${data.code6}`;
+                                        verify({ id: atob(userid), pet_id: atob(id), code: code, email: data.email });
+                                    }
+                                    else { setError('code', { message: 'Verification code must not be empty!' }); }
+                                })}>Verify</Box> : '' }
                         </Grid>
                     </Grid> 
                 </Stack>

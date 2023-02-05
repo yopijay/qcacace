@@ -5,7 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
-import { registration } from "core/api/index.func"; // API
+import { save } from "core/api/index.func"; // API
 import { successToast, usePost } from "core/global/function/index.func"; // Function
 
 // Constants
@@ -17,8 +17,8 @@ const Registration = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { register, handleSubmit, setValidation, errors, getValues, setValue } = useContext(FormCntxt);
-    const { mutate: rgstr } = 
-        usePost({ fetch: registration, onSuccess: (data) => {
+    const { mutate: saving } = 
+        usePost({ fetch: save, onSuccess: (data) => {
             if(data.result === 'success') { 
                 setValue('id', btoa(data.id));
                 successToast(data.message, 3000, navigate(`/pets/${id}/adopt/${btoa(data.id)}/verify`)); 
@@ -43,7 +43,7 @@ const Registration = () => {
                 </form>
                 <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center">
                     <Grid item xs= { 6 } sm= { 4 } md= { 5 } lg= { 3 }>
-                        { getValues().email === '' ? <Box sx= { btntxt } onClick= { handleSubmit((data) => rgstr(data) )}>Verify</Box> :
+                        { getValues().email === '' ? <Box sx= { btntxt } onClick= { handleSubmit((data) => saving({ table: 'tbl_adopter', data: data }) )}>Verify</Box> :
                             <Box sx= { btntxt } component= { Link } to= { `/pets/${id}/adopt/${getValues().id}/verify` }>Verify</Box> }
                     </Grid>
                 </Grid> 

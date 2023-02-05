@@ -22,22 +22,21 @@ const Documents = () => {
     const { handleSubmit, setError, setValue } = useContext(FormCntxt);
 
     const { isFetching: fetching } = 
-        useGet({ key: ['usr_specific'], fetch: specific({ table: 'tbl_adopt_info', id: atob(userid) }), options: { refetchOnWindowFocus: false },
+        useGet({ key: ['docu_specific'], fetch: specific({ table: 'tbl_adopter_documents', id: atob(userid) }), options: { refetchOnWindowFocus: false },
             onSuccess: (data) => {
-                if(Array.isArray(data)) 
-                    for(let count = 0; count < Object.keys(data[0]).length; count++) { 
-                        let _name = Object.keys(data[0])[count];
-                        setValue(_name, data[0][_name]);
-                    }
+                if(data.length > 0) {
+                    if(Array.isArray(data)) 
+                        for(let count = 0; count < Object.keys(data[0]).length; count++) { 
+                            let _name = Object.keys(data[0])[count];
+                            setValue(_name, data[0][_name]);
+                        }
+                }
             }
         });
     
     const { mutate: saving } = 
-        usePost({ fetch: save,
-            onSuccess: data => {
-                successToast(data.message, 3000, navigate(`/pets/${id}/adopt/${userid}/${btoa(data.id)}/appointment`, { replace: true }));
-            }
-        });
+        usePost({ fetch: save, 
+            onSuccess: data => { successToast(data.message, 3000, navigate(`/pets/${id}/adopt/${userid}/${btoa(data.id)}/appointment`, { replace: true })); } });
 
     return (
         <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" spacing= { 3 } sx= {{ height: '100%' }}>
@@ -60,7 +59,7 @@ const Documents = () => {
                         if(data.picture=== undefined) { _errors.push(true); setError('picture', { message: 'This field is required!' }); }
                         if(data.pet_cage=== undefined) { _errors.push(true); setError('pet_cage', { message: 'This field is required!' }); }
 
-                        if(!(_errors.length > 0)) { saving({ table: 'tbl_adopt_documents', data: data }); }
+                        if(!(_errors.length > 0)) { saving({ table: 'tbl_adopter_documents', data: data }); }
                     })}>Next</Box>
                 </Grid>
             </Grid> 

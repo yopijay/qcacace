@@ -7,16 +7,20 @@ const Tags = require('./tables/Tags');
 const Pets = require('./tables/Pets');
 const Users = require('./tables/Users');
 const Appointment = require('./tables/Appointment');
-// const Adopt = require('./tables/Adopt');
+const Adopter = require('./tables/Adopter');
+const AdopterDocuments = require('./tables/AdopterDocuments');
+const AdopterSchedule = require('./tables/AdopterSchedule');
 
 const login = async (data) => { return await new Users().login(data); }
 const logout = async (data) => { return await new Users().logout(data); }
 const profile = async (id) => { return await new Users().profile(id); }
 const top = async (data) => { return await new Pets().top(data); }
 const recommend = async (data) => { return await new Pets().recommend(data); }
-// const register = async (data) => { return await new Adopt().register(data); }
+const resend = async (data) => { return await new Adopter().resend(data); }
+const verifying = async (data) => { return await new Adopter().verifying(data); }
+
+const availabledates = async (data) => { return await new Appointment().availabeldates(data); }
 // const verify = async (id) => { return await new Adopt().verify(id); }
-// const verifying = async (data) => { return await new Adopt().verifying(data); }
 // const payment = async (data) => { return await new Adopt().payment(data); }
 
 const dashboard = (table) => {
@@ -68,6 +72,8 @@ const specific = (table, id) => {
             case 'tbl_pets': resolve(await new Pets().specific(id)); break;
             case 'tbl_appointments': resolve(await new Appointment().specific(id)); break;
             case 'tbl_users': resolve(await new Users().specific(id)); break;
+            case 'tbl_adopter': resolve(await new Adopter().specific(id)); break;
+            case 'tbl_adopter_documents': resolve(await new AdopterDocuments().specific(id)); break;
             // case 'tbl_adopt_info': resolve(await new Adopt().specific(id)); break;
         }
     });
@@ -84,6 +90,9 @@ const save = (table, data) => {
             case 'tbl_pets': resolve(await new Pets().save(data)); break;
             case 'tbl_appointments': resolve(await new Appointment().save(data)); break;
             case 'tbl_users': resolve(await new Users().save(data)); break;
+            case 'tbl_adopter': resolve(await new Adopter().save(data)); break;
+            case 'tbl_adopter_documents': resolve(await new AdopterDocuments().save(data)); break;
+            case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().save(data)); break;
             // case 'tbl_adopt_documents': resolve(await new Adopt().save(data)); break;
         }
     });
@@ -100,6 +109,7 @@ const update = (table, data) => {
             case 'tbl_pets': resolve(await new Pets().update(data)); break;
             case 'tbl_appointments': resolve(await new Appointment().update(data)); break;
             case 'tbl_users': resolve(await new Users().update(data)); break;
+            case 'tbl_adopter': resolve(await new Adopter().update(data)); break;
             // case 'tbl_adopt_info': resolve(await new Adopt().update(data)); break;
             // case 'tbl_adopt': resolve(await new Adopt().schedule(data)); break;
         }
@@ -131,8 +141,9 @@ module.exports = {
     dropdown,
     top,
     recommend,
-    // register,
+    resend,
+    verifying,
+    availabledates
     // verify,
-    // verifying,
     // payment
 }

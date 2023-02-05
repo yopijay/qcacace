@@ -5,6 +5,7 @@ const Builder = require('../../functions/builder');
 class Appointment {
     list = async () => { return (await new Builder(`tbl_appointments`).select().condition(`ORDER BY date_created DESC`).build()).rows; }
     specific = async (id) => { return (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${id}`).build()).rows; }
+    availabeldates = async(data) => { return (await new Builder(`tbl_appointments`).select().condition(`WHERE month= ${data.month} AND year= ${data.year}`).build()).rows; }
 
     save = async (data) => {
         let _errors = [];
