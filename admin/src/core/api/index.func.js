@@ -9,6 +9,7 @@ import Env from '../constants/json/Env.json'; // Constants
 let env = 'lan'; // Environment
 let _dropdown = [{ id: 0, name: '-- SELECT AN ITEM BELOW --' }]; // Dropdown
 
+export const status = async () => { return await api({ url: `${Env[env].url}/status`, method: 'get' }); }
 export const authentication = async (data) => { return await api({ url: `${Env[env].url}/login`, method: 'post', data: data }).then(res => res.data); }
 export const logout = async (data) => { return await api({ url: `${Env[env].url}/logout`, method: 'post', data: data }).then(res => res.data); }
 export const profile = async (id) => { return await api({ url: `${Env[env].url}/profile/${id}`, method: 'get' }).then(res => res.data); }
@@ -18,5 +19,5 @@ export const specific = async ({ table, id }) => { return await api({ url: `${En
 export const save = async ({ table, data }) => { return await api({ url: `${Env[env].url}/save/${table}`, method: 'post', data: data }).then(res => res.data); }
 export const update = async ({ table, data }) => { return await api({ url: `${Env[env].url}/update/${table}`, method: 'post', data: data }).then(res => res.data); }
 export const dropdown = async({ table, data}) => { return await api({ url: `${Env[env].url}/dropdown/${table}`, method: 'post', data: data }).then(res => _dropdown.concat(res.data)); }
-// export const series = async(table) => { return await api({ url: `${Env[env].url}/series/${table}`, method: 'get' }).then(res => res.data); }
 export const look = async ({ table, data }) => { return await api({ url: `${Env[env].url}/search/${table}`, method: 'post', data: data }).then(res => res.data); }
+export const evaluate = async ({ table, type, data }) => { return await api({ url: `${Env[env].url}/evaluate/${table}/${type}`, method: 'post', data: data }).then(res => res.data); }

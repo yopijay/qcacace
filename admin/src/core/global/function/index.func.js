@@ -46,7 +46,7 @@ export const pad = (num, size) => {
 
 export const successToast = (message, duration = 3000, navigate) => {
     return toast.success(message, {
-        position: 'bottom-right',
+        position: 'bottom-left',
         autoClose: duration,
         hideProgressBar: false,
         closeOnClick: true,
@@ -60,7 +60,7 @@ export const successToast = (message, duration = 3000, navigate) => {
 
 export const errorToast = (message, duration = 3000, navigate) => {
     return toast.error(message, {
-        position: 'bottom-right',
+        position: 'bottom-left',
         autoClose: duration,
         hideProgressBar: false,
         closeOnClick: true,

@@ -22,9 +22,9 @@ export const title = {
 }
 
 export const card = {
-    padding: '10px 0',
+    padding: '30px 15px',
     flexGrow: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#FFFFFF',
     borderRadius: '8px',
     border: 'solid 1px #919eab40',
     overflowY: 'scroll',
@@ -32,6 +32,7 @@ export const card = {
 }
 
 export const input = {
+    backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',
     padding: {
         xs: '6px 8px',
@@ -41,9 +42,7 @@ export const input = {
     borderRadius: '5px'
 }
 
-export const error = {
-    color: '#e84118'
-}
+export const error = { color: '#e84118' }
 
 export const select = {
     border: 'solid 1px #dfe4ea',

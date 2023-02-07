@@ -7,10 +7,13 @@ const Tags = require('./tables/Tags');
 const Pets = require('./tables/Pets');
 const Users = require('./tables/Users');
 const Appointment = require('./tables/Appointment');
+const Adopt = require('./tables/Adopt');
 const Adopter = require('./tables/Adopter');
 const AdopterDocuments = require('./tables/AdopterDocuments');
 const AdopterSchedule = require('./tables/AdopterSchedule');
+const AdopterPayment = require('./tables/AdopterPayment');
 
+const status = async () => { return await new Adopt().status(); }
 const login = async (data) => { return await new Users().login(data); }
 const logout = async (data) => { return await new Users().logout(data); }
 const profile = async (id) => { return await new Users().profile(id); }
@@ -28,6 +31,25 @@ const dashboard = (table) => {
         switch(table) {
             case 'tbl_breed': resolve(await new Breed().dashboard()); break;
             case 'tbl_users': resolve(await new Users().dashboard()); break;
+        }
+    });
+}
+
+const evaluate = (table, type, data) => {
+    return new Promise(async resolve => {
+        switch(type) {
+            case 'approve':
+                switch(table) {
+                    case 'tbl_adopter_documents': resolve(await new AdopterDocuments().approve(data)); break;
+                    case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().approve(data)); break;
+                }
+            break;
+            case 'reject':
+                switch(table) {
+                    case 'tbl_adopter_documents': resolve(await new AdopterDocuments().reject(data)); break;
+                    case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().reject(data)); break;
+                }
+            break;
         }
     });
 }
@@ -57,6 +79,10 @@ const list = (table, data) => {
             case 'tbl_pets': resolve(await new Pets().list()); break;
             case 'tbl_appointments': resolve(await new Appointment().list()); break;
             case 'tbl_users': resolve(await new Users().list(data)); break;
+            case 'tbl_adopt': resolve(await new Adopt().list()); break;
+            case 'tbl_adopter_documents': resolve(await new AdopterDocuments().list()); break;
+            case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().list()); break;
+            case 'tbl_adopter_payment': resolve(await new AdopterPayment().list()); break;
         }
     });
 }
@@ -129,6 +155,7 @@ const dropdown = (table, data) => {
 }
 
 module.exports = {
+    status,
     login,
     logout,
     profile,
@@ -143,7 +170,8 @@ module.exports = {
     recommend,
     resend,
     verifying,
-    availabledates
+    availabledates,
+    evaluate
     // verify,
     // payment
 }

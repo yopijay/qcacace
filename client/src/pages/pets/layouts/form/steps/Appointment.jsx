@@ -82,6 +82,7 @@ const Appointment = () => {
                         if(data.appday === null || data.appday === undefined) { setError('appday', { message: 'Please select appointment date!' }); }
                         else { 
                             data['id'] = atob(adoptid);
+                            data['adopter_id'] = atob(userid);
                             data['appyear'] = new Date().getFullYear();
                             saving({ table: 'tbl_adopter_schedule', data: data });
                         }

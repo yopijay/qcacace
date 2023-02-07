@@ -1,10 +1,11 @@
 // Libraries
-const { Router } = require('express');
+const { Router, response } = require('express');
 
 // Variables
 const query = require('../queries');
 const router = Router();
 
+router.get('/status', () => { query.status(); });
 router.post('/login', (req, res) => { query.login(req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 router.post('/logout', (req, res) => { query.logout(req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 router.get('/profile/:id', (req, res) => { query.profile(req.params.id).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
@@ -20,6 +21,7 @@ router.post('/recommend', (req, res) => { query.recommend(req.body).then(respons
 router.post('/resend', (req, res) => { query.resend(req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 router.post('/verifying', (req, res) => { query.verifying(req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 router.post('/availabledates', (req, res) => { query.availabledates(req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
+router.post('/evaluate/:table/:type', (req, res) => { query.evaluate(req.params.table, req.params.type, req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 // router.get('/verify/:id', (req, res) => { query.verify(req.params.id).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
 // router.post('/step/:step', (req, res) => { query.step(req.params.step, req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(err)); });
 // router.post('/payment', (req, res) => { query.payment(req.body).then(response => res.status(200).send(response)).catch(error => res.status(200).send(error)); });
