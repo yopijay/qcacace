@@ -10,12 +10,13 @@ class AdopterSchedule {
     list = async () => {
         let list = (await new Builder(`tbl_adopt AS adpt`)
                                             .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
-                                                            adptr.email, adptr.fname, adptr.lname, sched.appointment_id, sched.status, sched.date_created`)
+                                                            adptr.email, adptr.fname, adptr.lname, sched.appointment_id, docu.status AS docu_status, sched.status, sched.date_created`)
                                             .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
                                             .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                            .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
                                             .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
                                             .condition(`ORDER BY 13 DESC`)
-                                            .build()).rows
+                                            .build()).rows;
 
         for(let count = 0; count < list.length; count++) {
             let docu = (await new Builder(`tbl_adopter_documents`).select('status').condition(`WHERE id= ${list[count].docu_id}`).build()).rows[0];
@@ -48,11 +49,14 @@ class AdopterSchedule {
 
         await new Builder(`tbl_adopter_schedule`).update(`status= 'passed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
-        let list = (await new Builder(`tbl_adopter_schedule AS sched`)
-                                        .select(`sched.id, sched.series_no, adptr.email, adptr.contact_no, adptr.fname, adptr.lname, sched.status, sched.date_created`)
-                                        .join({ table: `tbl_adopter AS adptr`, condition: `sched.adopter_id = adptr.id`, type: `LEFT` })
-                                        .condition(`ORDER BY sched.date_created DESC`)
-                                        .build()).rows;
+        let list = (await new Builder(`tbl_adopt AS adpt`)
+                                            .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
+                                                            adptr.email, adptr.fname, adptr.lname, sched.appointment_id, sched.status, sched.date_created`)
+                                            .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                            .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                            .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
+                                            .condition(`ORDER BY 13 DESC`)
+                                            .build()).rows
 
         // let mail = generator.generate({
         //     body: {
@@ -61,7 +65,7 @@ class AdopterSchedule {
         //         action: {
         //             button: {
         //                 text: 'Pay here',
-        //                 link: 'http://localhost:3000/payment'
+        //                 link: `http://localhost:3000/payment/${btoa(data.adopt_id)}`
         //             }
         //         },
         //         outro: 'Please contact me for additional help.'
@@ -79,11 +83,14 @@ class AdopterSchedule {
 
         await new Builder(`tbl_adopter_schedule`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
-        let list = (await new Builder(`tbl_adopter_schedule AS sched`)
-                                        .select(`sched.id, sched.series_no, adptr.email, adptr.contact_no, adptr.fname, adptr.lname, sched.status, sched.date_created`)
-                                        .join({ table: `tbl_adopter AS adptr`, condition: `sched.adopter_id = adptr.id`, type: `LEFT` })
-                                        .condition(`ORDER BY sched.date_created DESC`)
-                                        .build()).rows;
+        let list = (await new Builder(`tbl_adopt AS adpt`)
+                                            .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
+                                                            adptr.email, adptr.fname, adptr.lname, sched.appointment_id, sched.status, sched.date_created`)
+                                            .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                            .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                            .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
+                                            .condition(`ORDER BY 13 DESC`)
+                                            .build()).rows
 
         // let mail = generator.generate({
         //     body: {

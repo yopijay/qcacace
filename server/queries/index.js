@@ -22,8 +22,8 @@ const resend = async (data) => { return await new Adopter().resend(data); }
 const verifying = async (data) => { return await new Adopter().verifying(data); }
 
 const availabledates = async (data) => { return await new Appointment().availabeldates(data); }
+const pay = async (data) => { return await new AdopterPayment().pay(data); }
 // const verify = async (id) => { return await new Adopt().verify(id); }
-// const payment = async (data) => { return await new Adopt().payment(data); }
 
 const dashboard = (table) => {
     return new Promise(async resolve => {
@@ -97,6 +97,7 @@ const specific = (table, id) => {
             case 'tbl_pets': resolve(await new Pets().specific(id)); break;
             case 'tbl_appointments': resolve(await new Appointment().specific(id)); break;
             case 'tbl_users': resolve(await new Users().specific(id)); break;
+            case 'tbl_adopt': resolve(await new Adopt().specific(id)); break;
             case 'tbl_adopter': resolve(await new Adopter().specific(id)); break;
             case 'tbl_adopter_documents': resolve(await new AdopterDocuments().specific(id)); break;
             // case 'tbl_adopt_info': resolve(await new Adopt().specific(id)); break;
@@ -169,7 +170,7 @@ module.exports = {
     resend,
     verifying,
     availabledates,
-    evaluate
+    evaluate,
+    pay
     // verify,
-    // payment
 }

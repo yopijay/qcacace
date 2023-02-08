@@ -6,10 +6,12 @@ import { ThemeProvider } from '@emotion/react';
 
 // Layout
 import Main from './pages';
+import Payment from './pages/payment';
 
 // Core
 import { GlobalPrvdr } from 'core/context/GlobalCntxt.func'; // Conntext
 import { theme } from 'core/global/theme/index.style'; // Theme
+import { FormPrvdr } from 'core/context/FormCntxt.func';
 
 const App = () => {
     const client = new QueryClient();
@@ -22,7 +24,7 @@ const App = () => {
                     <GlobalPrvdr>
                         <Routes>
                             <Route path= "*" element= { <Main /> } />
-                            <Route path= "/progress" element= { "PROGRESS" } />
+                            <Route path= "/payment/:id" element= { <FormPrvdr><Payment /></FormPrvdr> } />
                         </Routes>
                     </GlobalPrvdr>
                     <ReactQueryDevtools initialIsOpen= { false } position= "bottom-right" />
