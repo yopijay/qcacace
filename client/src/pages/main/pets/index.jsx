@@ -14,7 +14,7 @@ import { petcontainer, petdesc, petfemale, petimage, petmale, petseries, pettag,
 
 const Index = () => {
     const { list, setList } = useContext(ListCntxt);
-    const { isFetching: fetching } = useGet({ key: ['top_pets'], fetch: top({ limit: 3 }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
+    const { isFetching: fetching } = useGet({ key: ['top_pets'], fetch: top({ limit: 3 }), options: { refetchOnWindowFocus: true, refetchInterval: 1000 }, onSuccess: (data) => setList(data) });
     
     return (
         <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '20px 0' }}>

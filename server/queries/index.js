@@ -13,7 +13,6 @@ const AdopterDocuments = require('./tables/AdopterDocuments');
 const AdopterSchedule = require('./tables/AdopterSchedule');
 const AdopterPayment = require('./tables/AdopterPayment');
 
-const status = async () => { return await new Adopt().status(); }
 const login = async (data) => { return await new Users().login(data); }
 const logout = async (data) => { return await new Users().logout(data); }
 const profile = async (id) => { return await new Users().profile(id); }
@@ -155,7 +154,6 @@ const dropdown = (table, data) => {
 }
 
 module.exports = {
-    status,
     login,
     logout,
     profile,

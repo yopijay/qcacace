@@ -6,7 +6,7 @@ import { Route, Routes } from "react-router-dom";
 // Core
 import { ProfileCntxt } from "core/context/ProfileCntxt.func"; // Context
 import { useGet } from "core/global/function/index.func"; // Function
-import { profile, status } from "core/api/index.func"; // APIs
+import { profile } from "core/api/index.func"; // APIs
 import { LoaderScreen } from "core/global/layout/loader/Screen"; // Loader
 import { Navs as components } from "core/constants/Navs"; // Navs
 
@@ -17,7 +17,6 @@ import Sidebar from '../global/sidebar';
 const Index = () => {
     const { setData } = useContext(ProfileCntxt);
     const { isLoading } = useGet({ key: ['profile'], fetch: profile(atob(localStorage.getItem('token'))), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setData(data[0]) });
-    useGet({ key: ['status'], fetch: status(), options: { refetchInterval: 1000, refetchOnWindowFocus: true } });
 
     if(isLoading) { return <LoaderScreen /> }
 
