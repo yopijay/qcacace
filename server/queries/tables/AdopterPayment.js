@@ -8,11 +8,50 @@ const Builder = require('../../functions/builder');
 
 class AdopterPayment {
     list = async () => {
-        return (await new Builder(`tbl_adopter_payment AS pymnt`)
-                                        .select(`pymnt.id, pymnt.series_no, pymnt.transaction_no, adptr.email, adptr.contact_no, adptr.fname, adptr.lname, pymnt.status, pymnt.date_created`)
-                                        .join({ table: `tbl_adopter AS adptr`, condition: `pymnt.adopter_id = adptr.id`, type: `LEFT` })
-                                        .condition(`ORDER BY pymnt.date_created DESC`)
+        return (await new Builder(`tbl_adopt AS adpt`)
+                                        .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.payment_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
+                                                        pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
+                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
+                                        .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
                                         .build()).rows;
+    }
+    
+    search = async (data) => {
+        return (await new Builder(`tbl_adopt AS adpt`)
+                                        .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.payment_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
+                                                        pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
+                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
+                                        .condition(`WHERE pymnt.transaction_no LIKE '%${data.condition}%'`)
+                                        .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
+                                        .build()).rows;
+    }
+
+    approve = async (data) => {
+        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        // let transporter = nodemailer.createTransport(config);
+        // let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+
+        await new Builder(`tbl_adopter_payment`).update(`status= 'paid', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+
+        let list = (await new Builder(`tbl_adopt AS adpt`)
+                                        .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.payment_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
+                                                        pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
+                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
+                                        .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
+                                        .build()).rows;
+        // let mail = generator.generate({
+        //     body: {
+        //         name: 'Fur Mom/Dad',
+        //         intro: `<b>PAID</b>. Notify natin si user na bayad na sya.`,
+        //         outro: 'Please contact me for additional help.'
+        //     }
+        // });
+
+        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        return { result: 'success', message: 'Payment confirmed!', list: list }
     }
 
     pay = async (data) => {

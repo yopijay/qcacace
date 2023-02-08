@@ -41,6 +41,7 @@ const evaluate = (table, type, data) => {
                 switch(table) {
                     case 'tbl_adopter_documents': resolve(await new AdopterDocuments().approve(data)); break;
                     case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().approve(data)); break;
+                    case 'tbl_adopter_payment': resolve(await new AdopterPayment().approve(data)); break;
                 }
             break;
             case 'reject':
@@ -63,6 +64,7 @@ const search = (table, data) => {
             case 'tbl_tags': resolve(await new Tags().search(data)); break;
             case 'tbl_pets': resolve(await new Pets().search(data)); break;
             case 'tbl_users': resolve(await new Users().search(data)); break;
+            case 'tbl_adopter_payment': resolve(await new AdopterPayment().search(data)); break;
         }
     })
 }

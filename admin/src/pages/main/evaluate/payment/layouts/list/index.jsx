@@ -28,7 +28,7 @@ const Index = () => {
                         <Box sx= { search }>
                             <FontAwesomeIcon icon= { solid('magnifying-glass') } size= "sm" style= {{ margin: '8px' }} />
                             <TextField variant= "standard" size= "small" fullWidth InputProps= {{ disableUnderline: true }} placeholder= "Search..." sx= {{ padding: '5px 0 0 0' }}
-                                onChange= { e => { find({ table: 'tbl_category', data: { condition: e.target.value !== '' ? (e.target.value).toUpperCase() : e.target.value } }); } } />
+                                onChange= { e => { find({ table: 'tbl_adopter_payment', data: { condition: e.target.value !== '' ? (e.target.value).toUpperCase() : e.target.value } }); } } />
                         </Box>
                     </form>
                 </Stack>

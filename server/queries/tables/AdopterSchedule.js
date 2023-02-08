@@ -56,7 +56,7 @@ class AdopterSchedule {
                                             .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
                                             .condition(`ORDER BY 13 DESC`)
-                                            .build()).rows
+                                            .build()).rows;
 
         // let mail = generator.generate({
         //     body: {
