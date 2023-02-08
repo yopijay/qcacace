@@ -13,7 +13,7 @@ class AdopterPayment {
                                                         pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
                                         .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
                                         .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
-                                        .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
+                                        .except(`WHERE adpt.payment_id IS NULL  ORDER BY 9 DESC`)
                                         .build()).rows;
     }
     
@@ -29,9 +29,9 @@ class AdopterPayment {
     }
 
     approve = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopter_payment`).update(`status= 'paid', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
@@ -42,22 +42,23 @@ class AdopterPayment {
                                         .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
                                         .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
                                         .build()).rows;
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `<b>PAID</b>. Notify natin si user na bayad na sya.`,
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
 
-        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `<b>PAID</b>. Notify natin si user na bayad na sya.`,
+                outro: 'Please contact me for additional help.'
+            }
+        });
+
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
         return { result: 'success', message: 'Payment confirmed!', list: list }
     }
 
     pay = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
 
         let adpt = (await new Builder(`tbl_adopt AS adpt`)
                                             .select(`adptr.id, adptr.email`)
@@ -82,21 +83,21 @@ class AdopterPayment {
 
             await new Builder(`tbl_adopt`).update(`payment_id= ${payment.id}, date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `Inform nyo si user na nagsend na yung payment nya and wait nya yung email natin within 48 hours, kung hindi dumating email natin
-        //                      punta na sya sa office natin and i-remind sya na dalhin yung transaction no. nya sa gcash kung nag gcash man sya,
-        //                      kung nag cash naman sya, dalhin nya yung bayad sa physical store.`,
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `Inform nyo si user na nagsend na yung payment nya and wait nya yung email natin within 48 hours, kung hindi dumating email natin
+                             punta na sya sa office natin and i-remind sya na dalhin yung transaction no. nya sa gcash kung nag gcash man sya,
+                             kung nag cash naman sya, dalhin nya yung bayad sa physical store.`,
                 
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
+                outro: 'Please contact me for additional help.'
+            }
+        });
 
-        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: adpt.email, subject: `Application status`, html: mail });
             return { result: 'success', message: 'Payment sent!' }
         }
-        else { return { result: 'error', error: errors } }
+        else { return { result: 'error', errors: errors } }
     }
 }
 

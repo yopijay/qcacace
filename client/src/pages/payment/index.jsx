@@ -85,7 +85,7 @@ const Index = () => {
                                                 data['id'] = atob(id);
                                                 if(data.payment === 'gcash' && data.transaction_no === '') { setError('transaction_no', { message: 'This field is required!' }); }
                                                 else { pay(data); }
-                                            })}>Next</Box>
+                                            })}>Pay</Box>
                                         </Grid>
                                     </Grid> 
                                 </Grid>

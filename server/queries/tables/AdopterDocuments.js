@@ -26,9 +26,9 @@ class AdopterDocuments {
     }
 
     approve = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopter_documents`).update(`status= 'approved', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
@@ -42,23 +42,23 @@ class AdopterDocuments {
                                             .condition(`GROUP BY adpt.docu_id ORDER BY date_created DESC`)
                                             .build()).rows;
 
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `<b>PASSED</b>. Notify lang natin si user na na-approve yung documents nya and wait nya na lang yung call natin para sa virtual interview na ni-set nya`,
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `<b>PASSED</b>. Notify lang natin si user na na-approve yung documents nya and wait nya na lang yung call natin para sa virtual interview na ni-set nya`,
                 
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
+                outro: 'Please contact me for additional help.'
+            }
+        });
 
-        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
         return { result: 'success', message: 'Documents approved!', list: list }
     }
 
     reject = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopter_documents`).update(`status= 'reject', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
@@ -72,16 +72,16 @@ class AdopterDocuments {
                                             .condition(`GROUP BY adpt.docu_id ORDER BY date_created DESC`)
                                             .build()).rows;
 
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `<b>REJECTED</b>. Inform nyo si user na na-reject yung application nya dahil may mali sa mga docu nya or hindi pumasa yung mga sinend nyan pic.`,
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `<b>REJECTED</b>. Inform nyo si user na na-reject yung application nya dahil may mali sa mga docu nya or hindi pumasa yung mga sinend nyan pic.`,
                 
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
+                outro: 'Please contact me for additional help.'
+            }
+        });
 
-        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
         return { result: 'success', message: 'Documents rejected!', list: list }
     }
 

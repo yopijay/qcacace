@@ -15,7 +15,7 @@ class AdopterSchedule {
                                             .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
                                             .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
-                                            .condition(`ORDER BY 13 DESC`)
+                                            .except(`WHERE docu.status = 'pending' ORDER BY 13 DESC`)
                                             .build()).rows;
 
         for(let count = 0; count < list.length; count++) {
@@ -43,9 +43,9 @@ class AdopterSchedule {
     }
 
     approve = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopter_schedule`).update(`status= 'passed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
@@ -58,28 +58,28 @@ class AdopterSchedule {
                                             .condition(`ORDER BY 13 DESC`)
                                             .build()).rows;
 
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `<b>PASSED</b>. Notify natin si user na pasado sya sa virtual interview, and wait nya na lang yung email natin para sa link ng payment.`,
-        //         action: {
-        //             button: {
-        //                 text: 'Pay here',
-        //                 link: `http://localhost:3000/payment/${btoa(data.adopt_id)}`
-        //             }
-        //         },
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `<b>PASSED</b>. Notify natin si user na pasado sya sa virtual interview, and wait nya na lang yung email natin para sa link ng payment.`,
+                action: {
+                    button: {
+                        text: 'Pay here',
+                        link: `http://localhost:3000/payment/${btoa(data.adopt_id)}`
+                    }
+                },
+                outro: 'Please contact me for additional help.'
+            }
+        });
 
-        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
         return { result: 'success', message: 'Interview passed!', list: list }
     }
 
     reject = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopter_schedule`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
@@ -92,16 +92,16 @@ class AdopterSchedule {
                                             .condition(`ORDER BY 13 DESC`)
                                             .build()).rows
 
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `<b>FAILED</b>. Notify natin si user na bagsak sya sa ating initial interview, resulting to termination ng application nya.`,
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `<b>FAILED</b>. Notify natin si user na bagsak sya sa ating initial interview, resulting to termination ng application nya.`,
                 
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
+                outro: 'Please contact me for additional help.'
+            }
+        });
 
-        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
         return { result: 'success', message: 'Interview failed!', list: list }
     }
 

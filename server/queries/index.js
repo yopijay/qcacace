@@ -42,6 +42,7 @@ const evaluate = (table, type, data) => {
                     case 'tbl_adopter_documents': resolve(await new AdopterDocuments().approve(data)); break;
                     case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().approve(data)); break;
                     case 'tbl_adopter_payment': resolve(await new AdopterPayment().approve(data)); break;
+                    case 'tbl_adopt': resolve(await new Adopt().approve(data)); break;
                 }
             break;
             case 'reject':
