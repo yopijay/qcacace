@@ -2,16 +2,25 @@
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
+// Core
 import { evaluate, specific } from "core/api/index.func";
 import { errorToast, successToast, useGet, usePost } from "core/global/function/index.func";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { btnicon, btntxt, card } from "./index.style";
+
+// Constants
+import { btnicon, btntxt, card } from "./index.style"; // Styles
+
+// Layouts
+import ValidId from "./documents/ValidId";
+import Picture from "./documents/Picture";
+import PetCage from "./documents/PetCage";
 
 const Index = () => {
-    const { type, id } = useParams();
+    const { type, id, email } = useParams();
     const navigate = useNavigate();
     
-    const { data: docs, refetch, isFetching: fetching } = 
+    const { data: docs, isFetching: fetching } = 
         useGet({ key: ['docs_specific'], fetch: specific({ table: 'tbl_adopter_documents', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false } });
 
     const { mutate: approval } = 
@@ -27,17 +36,25 @@ const Index = () => {
                 <Typography sx= { btnicon } component= { Link } to= "/evaluate/documents" ><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
             </Stack>
             <Box sx= { card }>
-                { console.log(docs) }
+                <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 3 }>
+                    <Typography variant= "h5">Documentary Requirements</Typography>
+                    <ValidId fetching= { fetching } docs= { docs } />
+                    <Picture fetching= { fetching } docs= { docs } />
+                    <PetCage fetching= { fetching } docs= { docs } />
+                </Stack>
             </Box>
             <Box>
-                <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 }>
-                    <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
-                        <Box sx= { btntxt }>Approved</Box>
-                    </Grid>
-                    <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
-                        <Box sx= { btntxt }>Reject</Box>
-                    </Grid>
-                </Grid>
+                { docs?.[0]?.status === 'pending' ?
+                    <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 }>
+                        <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
+                            <Box sx= { btntxt }
+                                onClick= { () => approval({ table: 'tbl_adopter_documents', type: 'approve', data: { id: id, email: atob(email) } }) }>Approved</Box>
+                        </Grid>
+                        <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
+                            <Box sx= { btntxt }
+                                onClick= { () => reject({ table: 'tbl_adopter_documents', type: 'reject', data: { id: id, email: atob(email) } }) }>Reject</Box>
+                        </Grid>
+                    </Grid> : '' }
             </Box>
         </Stack>
     );

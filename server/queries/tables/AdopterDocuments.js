@@ -7,11 +7,7 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class AdopterDocuments {
-    specific = async (id) => { 
-        return (await new Builder(`tbl_adopter_documents`)
-                                        .select()
-                                        .condition(`WHERE adopter_id= ${id}`).build()).rows; 
-    }
+    specific = async (id) => { return (await new Builder(`tbl_adopter_documents`).select().condition(`WHERE id= ${id}`).build()).rows; }
 
     list = async () => {
         return (await new Builder(`tbl_adopt AS adpt`)

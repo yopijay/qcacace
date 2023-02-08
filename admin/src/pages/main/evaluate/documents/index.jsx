@@ -25,7 +25,7 @@ const Index = () => {
             <Routes>
                 <Route exact path= "/" element= { <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } />
                 <Route exact path= "/form/:type" element= { <FormPrvdr><Form /></FormPrvdr> } />
-                <Route exact path= "/form/:type/:id" element= { <FormPrvdr><Form /></FormPrvdr> } />
+                <Route exact path= "/form/:type/:id/:email" element= { <FormPrvdr><Form /></FormPrvdr> } />
             </Routes>
         </Stack>
     );
