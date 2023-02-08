@@ -12,7 +12,7 @@ class Adopt {
     save = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         let id = null;
         let code = null;
@@ -36,8 +36,8 @@ class Adopt {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rutrum elit in venenatis euismod. Suspendisse id eros porta, ultrices velit ac, pellentesque lectus. 
-                            Nunc dictum mattis lorem a varius. Nullam a ante sed ex fermentum semper. <b>${code}</b>`,
+                intro: `Thank you for your interest in adopting our loveable pets! To complete your profile and continue your application, 
+                you'll need to verify your email address. Your verification code is: <b>${code}</b>`,
                 
                 outro: 'Please contact me for additional help.'
             }
@@ -50,15 +50,15 @@ class Adopt {
     resend = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         let usr = (await new Builder(`tbl_adopter`).update(`code= '${global.randomizer(6)}'`).condition(`WHERE email= '${data.email}' RETURNING id, code`).build()).rows[0];
 
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rutrum elit in venenatis euismod. Suspendisse id eros porta, ultrices velit ac, pellentesque lectus. 
-                            Nunc dictum mattis lorem a varius. Nullam a ante sed ex fermentum semper. <b>${usr.code}</b>`,
+                intro: `Thank you for your interest in adopting our loveable pets! To complete your profile and continue your application, 
+                you'll need to verify your email address. Your verification code is: <b>${usr.code}</b>`,
                 
                 outro: 'Please contact me for additional help.'
             }

@@ -108,7 +108,7 @@ class AdopterSchedule {
     save = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         let appointment = (await new Builder(`tbl_appointments`).select().condition(`WHERE month= ${data.appmonth} AND day= ${data.appday} AND year= ${data.appyear}`).build()).rows[0];
         let adopt = (await new Builder(`tbl_adopt`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
@@ -127,15 +127,16 @@ class AdopterSchedule {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Ang naiisip kong message na ilagay dito is yung i-inform nyo yung adopter na ito yung sched nya, and make sure na tama yung number na inilgay nya dun sa form natin
-                            para sa on-call interview or kung anong klaseng interview man yung balak nyo gawin, kung pupunta sya mismo sa shop nyo para sa interview or kung ano man.
-                            Here is your schedule: <b>${appointment.month}/${appointment.day}/${appointment.year}</b>.`,
+                intro: `We would like to confirm your set schedule on <b>${appointment.month}/${appointment.day}/${appointment.year}</b>. 
+                On this day, the QC Animal Care and Adoption Center staff will conduct an interview regarding your application and you will 
+                have the chance to see your preferred pet at our shelter located at Clemente St.,Lupang Pangako, Payatas, Quezon City, Philippines. 
+                We are looking forward to seeing you. `,
                 
                 outro: 'Please contact me for additional help.'
             }
         });
 
-        transporter.sendMail({ from: 'flipmusicc@gmail.com', to: data.email, subject: `Appointment schedule`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Appointment Schedule`, html: mail });
         return { result: 'success', message: 'Successfully saved!' }
     }
 }
