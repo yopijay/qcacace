@@ -59,7 +59,7 @@ const Index = () => {
                                     </Grid>
                                 )) :
                             <Grid item xs= { 12 } md= { 6 }>
-                                <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= { petcontainer }>
+                                <Stack direction= "row" justifyContent= "center" alignItems= "center">
                                     <Typography sx= {{ width: '100%', textAlign: 'center' }}>No record/s found.</Typography>
                                 </Stack>
                             </Grid> }
