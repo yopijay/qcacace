@@ -7,10 +7,10 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
-import { successToast, usePost } from "core/global/function/index.func"; // Function
+import { errorToast, successToast, usePost } from "core/global/function/index.func"; // Function
 
 // Constants
-import { approve, item } from "../index.style"; // Styles
+import { approve, disapprove, item } from "../index.style"; // Styles
 import { evaluate } from "core/api/index.func"; // API
 
 const Item = () => {
@@ -22,6 +22,16 @@ const Item = () => {
                 if(data.result === 'success') { 
                     successToast(data.message, 3000, navigate('/evaluate/payment', { replace: true }));
                     setList(data.list);
+                } 
+            } 
+        });
+        
+    const { mutate: reject } = 
+        usePost({ fetch: evaluate, 
+            onSuccess: data => {
+                if(data.result === 'success') { 
+                    errorToast(data.message, 3000, navigate('/evaluate/payment', { replace: true }));
+                    setList(data.list); 
                 } 
             } 
         });
@@ -46,11 +56,23 @@ const Item = () => {
                                 onClick= { () => approval({ table: 'tbl_adopter_payment', type: 'approve', data: { id: data.payment_id, email: data.email } }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
+                        { data.status === 'pending' ? 
+                            <Typography sx= { disapprove }
+                                onClick= { () => reject({ table: 'tbl_adopter_payment', 
+                                                                        type: 'reject', 
+                                                                        data: { id: data.id, 
+                                                                                    adopter_id: data.adopter_id, 
+                                                                                    pet_id: data.pet_id,
+                                                                                    payment_id: data.payment_id,
+                                                                                    schedule_id: data.schedule_id,
+                                                                                    email: data.email } }) }>
+                                <FontAwesomeIcon icon= { solid('square-xmark') } size= "xl" />
+                            </Typography> : '' }
                         { data.status !== 'pending' ? 
                             data.status === 'paid' ? 
                                 <Chip variant= "default" size= "small" label= "Paid" sx= {{ backgroundColor: '#4cd137', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
-                                data.status === 'cancel' ? 
-                                    <Chip variant= "default" size= "small" label= "Cancelled" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' : '' }
+                                data.status === 'failed' ? 
+                                    <Chip variant= "default" size= "small" label= "Failed" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' : '' }
                     </Stack>
                 </Stack>
                 )) : 

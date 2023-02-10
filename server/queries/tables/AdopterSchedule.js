@@ -8,38 +8,15 @@ const Builder = require('../../functions/builder');
 
 class AdopterSchedule {
     list = async () => {
-        let list = (await new Builder(`tbl_adopt AS adpt`)
+        return (await new Builder(`tbl_adopt AS adpt`)
                                             .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
                                                             adptr.email, adptr.fname, adptr.lname, sched.appointment_id, docu.status AS docu_status, sched.status, sched.date_created`)
                                             .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
                                             .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
                                             .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
-                                            .except(`WHERE docu.status = 'pending' ORDER BY 13 DESC`)
+                                            .except(`WHERE docu.status = 'pending' AND sched.status = 'pending' ORDER BY 13 DESC`)
                                             .build()).rows;
-
-        for(let count = 0; count < list.length; count++) {
-            let docu = (await new Builder(`tbl_adopter_documents`).select('status').condition(`WHERE id= ${list[count].docu_id}`).build()).rows[0];
-            
-            if(docu.status === 'reject') {
-                if(list[count].schedule_id !== null) {
-                    let sched = (await new Builder(`tbl_adopter_schedule`).select('id, appointment_id, status').condition(`WHERE id= ${list[count].schedule_id}`).build()).rows[0];
-
-                    if(sched.status === 'pending') {
-                        let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
-                        await new Builder(`tbl_adopter_schedule`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${sched.id}`).build();
-                        await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
-                        await new Builder(`tbl_adopt`).update(`status= 'cancelled', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${list[count].id}`).build();
-
-                        if((await new Builder(`tbl_adopt`).select().condition(`WHERE id= ${list[count].id}`).build()).rows[0].status === 'cancelled') {
-                            await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${list[count].pet_id}`).build();
-                        }
-                    }
-                }
-            }
-        }
-        
-        return list;
     }
 
     approve = async (data) => {
@@ -47,7 +24,7 @@ class AdopterSchedule {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        await new Builder(`tbl_adopter_schedule`).update(`status= 'passed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        await new Builder(`tbl_adopter_schedule`).update(`status= 'passed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
 
         let list = (await new Builder(`tbl_adopt AS adpt`)
                                             .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
@@ -68,7 +45,7 @@ class AdopterSchedule {
                 action: {
                     button: {
                         text: 'Pay here',
-                        link: `http://localhost:3000/payment/${btoa(data.adopt_id)}`
+                        link: `http://localhost:3000/payment/${btoa(data.id)}`
                     }
                 },
                 outro: 'Please contact me for additional help.'
@@ -84,7 +61,13 @@ class AdopterSchedule {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        await new Builder(`tbl_adopter_schedule`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        let sched = (await new Builder(`tbl_adopter_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
+        let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
+        
+        await new Builder(`tbl_adopter_schedule`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
+        await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
+        await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
+        await new Builder(`tbl_adopt`).update(`status= 'cancelled', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
         let list = (await new Builder(`tbl_adopt AS adpt`)
                                             .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 

@@ -51,12 +51,19 @@ const Item = () => {
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                         { data.status === 'pending' ? 
                             <Typography sx= { approve } 
-                                onClick= { () => approval({ table: 'tbl_adopter_documents', type: 'approve', data: { id: data.docu_id, email: data.email } }) }>
+                                onClick= { () => approval({ table: 'tbl_adopter_documents', type: 'approve', data: { docu_id: data.docu_id, email: data.email } }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
                         { data.status === 'pending' ? 
                             <Typography sx= { disapprove }
-                                onClick= { () => reject({ table: 'tbl_adopter_documents', type: 'reject', data: { id: data.docu_id, email: data.email } }) }>
+                                onClick= { () => reject({ table: 'tbl_adopter_documents', 
+                                                                        type: 'reject', 
+                                                                        data: { id: data.id, 
+                                                                                    adopter_id: data.adopter_id, 
+                                                                                    pet_id: data.pet_id, 
+                                                                                    docu_id: data.docu_id, 
+                                                                                    schedule_id: data.schedule_id,
+                                                                                    email: data.email } }) }>
                                 <FontAwesomeIcon icon= { solid('square-xmark') } size= "xl" />
                             </Typography> : '' }
                         { data.status !== 'pending' ? 

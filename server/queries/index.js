@@ -1,4 +1,4 @@
-// Tables
+ // Tables
 const Category = require('./tables/Category');
 const Breed = require('./tables/Breed');
 const Coat = require('./tables/Coat');
@@ -49,6 +49,8 @@ const evaluate = (table, type, data) => {
                 switch(table) {
                     case 'tbl_adopter_documents': resolve(await new AdopterDocuments().reject(data)); break;
                     case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().reject(data)); break;
+                    case 'tbl_adopter_payment': resolve(await new AdopterPayment().reject(data)); break;
+                    case 'tbl_adopt': resolve(await new Adopt().reject(data)); break;
                 }
             break;
         }

@@ -57,8 +57,13 @@ const Item = () => {
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
                         { data.status === 'pending' ? 
-                            <Typography sx= { disapprove } 
-                                onClick= { () => reject({ table: 'tbl_adopt', type: 'reject', data: { id: data.id, email: data.email } }) }>
+                            <Typography sx= { disapprove }
+                                onClick= { () => reject({ table: 'tbl_adopt', 
+                                                                        type: 'reject', 
+                                                                        data: { id: data.id, 
+                                                                                    pet_id: data.pet_id,
+                                                                                    schedule_id: data.schedule_id,
+                                                                                    email: data.email } }) }>
                                 <FontAwesomeIcon icon= { solid('square-xmark') } size= "xl" />
                             </Typography> : '' }
                         { data.status !== 'pending' ? 

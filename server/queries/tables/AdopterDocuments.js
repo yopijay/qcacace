@@ -7,11 +7,17 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class AdopterDocuments {
-    specific = async (id) => { return (await new Builder(`tbl_adopter_documents`).select().condition(`WHERE id= ${id}`).build()).rows; }
+    specific = async (id) => { 
+        return (await new Builder(`tbl_adopt AS adpt`)
+                        .select(`adpt.id, docu.valid_id, docu.picture, docu.pet_cage`)
+                        .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
+                        .condition(`WHERE adpt.id= ${id}`)
+                        .build()).rows;
+    }
 
     list = async () => {
         return (await new Builder(`tbl_adopt AS adpt`)
-                                        .select(`MAX(adpt.id) AS id, MAX(adpt.adopter_id) AS adopter_id, MAX(adpt.pet_id) AS pet_id, adpt.docu_id, MAX(adpt.payment_id) AS payment_id, 
+                                        .select(`MAX(adpt.id) AS id, MAX(adpt.adopter_id) AS adopter_id, MAX(adpt.pet_id) AS pet_id, adpt.docu_id, 
                                                         MAX(adpt.schedule_id) AS schedule_id, MAX(docu.series_no) AS series_no, MAX(docu.valid_id) AS valid_id, MAX(docu.picture) AS picture, 
                                                         MAX(docu.pet_cage) AS pet_cage, MAX(adptr.email) AS email, MAX(adptr.fname) AS fname, MAX(adptr.lname) AS lname,
                                                         MAX(docu.status) AS status, MAX(docu.date_created) AS date_created`)
@@ -26,7 +32,7 @@ class AdopterDocuments {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        await new Builder(`tbl_adopter_documents`).update(`status= 'approved', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        await new Builder(`tbl_adopter_documents`).update(`status= 'approved', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.docu_id}`).build();
 
         let list = (await new Builder(`tbl_adopt AS adpt`)
                                             .select(`MAX(adpt.id) AS id, MAX(adpt.adopter_id) AS adopter_id, MAX(adpt.pet_id) AS pet_id, adpt.docu_id, MAX(adpt.payment_id) AS payment_id, 
@@ -60,7 +66,14 @@ class AdopterDocuments {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        await new Builder(`tbl_adopter_documents`).update(`status= 'reject', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        let sched = (await new Builder(`tbl_adopter_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
+        let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
+
+        await new Builder(`tbl_adopter_documents`).update(`status= 'reject', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.docu_id}`).build();
+        await new Builder(`tbl_adopter_schedule`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
+        await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
+        await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
+        await new Builder(`tbl_adopt`).update(`status= 'cancelled', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
         let list = (await new Builder(`tbl_adopt AS adpt`)
                                             .select(`MAX(adpt.id) AS id, MAX(adpt.adopter_id) AS adopter_id, MAX(adpt.pet_id) AS pet_id, adpt.docu_id, MAX(adpt.payment_id) AS payment_id, 

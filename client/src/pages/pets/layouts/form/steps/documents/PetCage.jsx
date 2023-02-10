@@ -1,7 +1,7 @@
 // Libraries
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Avatar, FormLabel, Stack, Typography } from "@mui/material";
+import { Avatar, FormLabel, Skeleton, Stack, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 
 // Core
@@ -23,10 +23,11 @@ const ValidId = ({ fetching }) => {
             <Typography gutterBottom>*Picture Of House's Outside And Inside, Showing
                 The Area Designated For The Desire Animal For Adoption.</Typography>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                <Stack direction= "row" justifyContent= "center" alignItems= "center" 
-                    sx= {{ backgroundColor: '#e0e0e0', width: '100%', height: '200px', overflow: 'hidden', borderRadius: '8px' }}>
-                    <Avatar src= { pet_cage } variant= "square" sx= {{ width: 'auto', height: '100%' }} />
-                </Stack>
+                { fetching ? <Skeleton variant= "rounded" sx= {{ width: '100%', height: '200px' }} /> :
+                    <Stack direction= "row" justifyContent= "center" alignItems= "center" 
+                        sx= {{ backgroundColor: '#e0e0e0', width: '100%', height: '200px', overflow: 'hidden', borderRadius: '8px' }}>
+                        <Avatar src= { pet_cage } variant= "square" sx= {{ width: 'auto', height: '100%' }} />
+                    </Stack> }
                 <Stack direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ padding: '0 10px' }}>
                     <Stack component= { FormLabel } htmlFor= "pet_cage" direction= "row" justifyContent= "center" alignItems= "center"
                         sx= {{ width: '40px', height: '40px', backgroundColor: '#ffffff', boxShadow: 1, borderRadius: '20px', marginTop: '-20px',
