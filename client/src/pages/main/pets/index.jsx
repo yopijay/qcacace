@@ -14,7 +14,7 @@ import { petcontainer, petdesc, petfemale, petimage, petmale, petseries, pettag,
 
 const Index = () => {
     const { list, setList } = useContext(ListCntxt);
-    const { isFetching: fetching } = useGet({ key: ['top_pets'], fetch: top({ limit: 3 }), options: { refetchOnWindowFocus: true, refetchInterval: 1000 }, onSuccess: (data) => setList(data) });
+    const { isFetching: fetching } = useGet({ key: ['top_pets'], fetch: top({ limit: 3 }), options: { refetchOnWindowFocus: true }, onSuccess: (data) => setList(data) });
     
     return (
         <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '20px 0' }}>
@@ -50,7 +50,7 @@ const Index = () => {
                                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
                                                     { !fetching ? 
                                                         (JSON.parse(data.tags)).map((tag, index) => (
-                                                            <Grid item xs= { 4 } sm= { 3 } key= { index }>
+                                                            <Grid item xs= { 4 } key= { index }>
                                                                 <Typography sx= { pettag }>#{(tag.name).toLowerCase()}</Typography>
                                                             </Grid> )) : <Grid item xs= { 4 } sm= { 3 } md= { 4 }><Skeleton variant= "text" sx= {{ fiontSize: '1rem' }} /></Grid> }
                                                 </Grid>

@@ -7,7 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import { ListCntxt } from "core/context/ListCntxt.func"; // Provider
 import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
 import { useGet } from "core/global/function/index.func"; // Function
-import { records } from "core/api/index.func"; // API
+import { recommend, records } from "core/api/index.func"; // API
 
 // Layouts
 import List from './layouts/list';
@@ -21,8 +21,8 @@ import { container } from "./index.style"; // Styles
 const Index = () => {
     localStorage.setItem('nav', 'pets');
     const { list, setList } = useContext(ListCntxt);
+    const [ dialog, setDialog ] = useState(localStorage.getItem('recommend') === null || list.length > 0);
     const { isFetching: fetching } = useGet({ key: ['pet_list'], fetch: records({ table: 'tbl_pets', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
-    const [ dialog, setDialog ] = useState(localStorage.getItem('recommend') === null && list.length > 0);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>

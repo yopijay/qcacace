@@ -22,7 +22,7 @@ const Index = ({ dialog, setDialog  }) => {
     useEffect(() => { setValidation(validation()); }, [ setValidation ]);
 
     return (
-        <Dialog fullScreen= { fullscreen } open= { dialog }  fullWidth maxWidth= "md">
+        <Dialog fullScreen= { fullscreen } open= { dialog } fullWidth maxWidth= "md">
             <DialogContent sx= {{ backgroundImage: `url(${BG})` }}>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= 'stretch'>
                     <Stack direction= "row" justifyContent= "space-between" alignItems= "center" sx= {{ marginBottom: '40px' }}>

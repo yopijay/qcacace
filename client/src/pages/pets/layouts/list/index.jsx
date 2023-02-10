@@ -1,13 +1,7 @@
 // Libraries
 import { Container, Grid, Skeleton, Stack, Typography } from "@mui/material";
-import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-
-// Core
-import { ListCntxt } from "core/context/ListCntxt.func"; // Context
-import { useGet } from "core/global/function/index.func"; // Functions
-import { records } from "core/api/index.func"; // API
 
 // Constants
 import { btnrecommend, petcontainer } from "./index.style";
