@@ -45,7 +45,7 @@ class AdopterSchedule {
     approve = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopter_schedule`).update(`status= 'passed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
@@ -61,7 +61,10 @@ class AdopterSchedule {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `<b>PASSED</b>. Notify natin si user na pasado sya sa virtual interview, and wait nya na lang yung email natin para sa link ng payment.`,
+                intro: `Thank you for taking the time to be interviewed as part of the pet adoption process. 
+
+                        We are pleased to inform you that you <b>PASSED</b> the interview. You can now proceed for the next phase by clicking the button below for the payment details.
+                `,
                 action: {
                     button: {
                         text: 'Pay here',
@@ -72,14 +75,14 @@ class AdopterSchedule {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Interview Status`, html: mail });
         return { result: 'success', message: 'Interview passed!', list: list }
     }
 
     reject = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopter_schedule`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
@@ -95,13 +98,15 @@ class AdopterSchedule {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `<b>FAILED</b>. Notify natin si user na bagsak sya sa ating initial interview, resulting to termination ng application nya.`,
+                intro: `We really appreciate you taking the time to come in for an interview regarding your application to adopt a pet from the QC Animal Care and Adoption Center. 
+                It was a pleasure to us to meet and thank you for your interest in adopting our pets. Unfortunately, 
+                we are sorry to inform you that you failed the interview. `,
                 
                 outro: 'Please contact me for additional help.'
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
         return { result: 'success', message: 'Interview failed!', list: list }
     }
 

@@ -50,7 +50,7 @@ class Adopt {
     approve = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopt`).update(`status= 'released', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
         
@@ -66,12 +66,18 @@ class Adopt {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `<b>CONGRATS</b>. Congratulation message lang sa pag-adopt nya ng pet, and appreciation message para sa pag adopt.`,
+                intro: `Good day! We would like to inform that you can now get your adopted pet at QC Animal Care and Adoption Center  
+                located at Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines. 
+
+                To help your pet get released quickly, please bring the following items:
+                
+                1. Cage or Pet carrier (depends on the size of pet)
+                2. Leash and Collar`,
                 outro: 'Please contact me for additional help.'
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Congratulations, You now own the pet`, html: mail });
         return { result: 'success', message: 'Adoption complete!', list: list }
     }
 }

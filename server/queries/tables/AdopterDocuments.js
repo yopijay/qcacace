@@ -24,7 +24,7 @@ class AdopterDocuments {
     approve = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopter_documents`).update(`status= 'approved', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
@@ -41,20 +41,24 @@ class AdopterDocuments {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `<b>PASSED</b>. Notify lang natin si user na na-approve yung documents nya and wait nya na lang yung call natin para sa virtual interview na ni-set nya`,
+                intro: `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center.
+
+                We have reviewed your application and submitted documents, and we want to inform you that you are pre-qualified for 
+                the next phase of the adoption process. You may proceed for the on site interview located at Clemente St., Lupang Pangako, 
+                Payatas, Quezon City, Philippines.Please reply to this email if you have any questions or need to reschedule. We look forward to seeing you.`,
                 
                 outro: 'Please contact me for additional help.'
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Document Status`, html: mail });
         return { result: 'success', message: 'Documents approved!', list: list }
     }
 
     reject = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopter_documents`).update(`status= 'reject', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
@@ -71,13 +75,21 @@ class AdopterDocuments {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `<b>REJECTED</b>. Inform nyo si user na na-reject yung application nya dahil may mali sa mga docu nya or hindi pumasa yung mga sinend nyan pic.`,
+                intro: `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center. 
+
+                We have reviewed your application and submitted documents, and we are sorry to inform you that your application has been rejected by the evaluator.
                 
-                outro: 'Please contact me for additional help.'
+                The reason could be one of the following:
+                
+                1. Blurred or unreadable documents
+                2. Fake or incorrect details
+                3. Not eligible to adopt pet due to house environment`,
+                
+                outro: 'If you think this is a mistake,Please contact me for additional help.'
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
         return { result: 'success', message: 'Documents rejected!', list: list }
     }
 

@@ -21,7 +21,7 @@ const Items = () => {
                         <Grid item xs= { 12 } md= { 6 } lg= { 4 } key= { index }>
                             <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= {{ xs: 'flex-start', sm: 'stretch' }} sx= { petcontainer } spacing= { 2 }>
                                 <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%' } }}>
-                                    <Box sx= { petimage }><img src= { JSON.parse(data.photo) } alt= "pet" width= "100%"  height= "auto" /></Box>
+                                    <Box sx= { petimage }><img src= { JSON.parse(data.photo) } alt= "pet" width= "100%"  height= "100%" /></Box>
                                 </Stack>
                                 <Stack direction= "column" justifyContent= "space-between" alignItems= "flex-start" sx= {{ width: { xs: '100%', sm: '60%' } }} spacing= { 2 }>
                                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%' }}>
