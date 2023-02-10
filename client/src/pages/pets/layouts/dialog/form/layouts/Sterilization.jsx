@@ -14,7 +14,7 @@ const Sterilization = () => {
     const { control, getValues } = useContext(FormCntxt);
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-            <Typography variant= "body2">*What gender of pet do you prefer to adopt?</Typography>
+            <Typography variant= "body2">*Do you prefer to adopt a spayed or neutered pet?</Typography>
             <Box sx= { select }>
                 <Controller control= { control } name= "sterilization" defaultValue= "no"
                     render= { ({ field: { onChange, value } }) => (

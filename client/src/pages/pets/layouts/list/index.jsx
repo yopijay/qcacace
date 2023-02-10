@@ -2,16 +2,19 @@
 import { Container, Grid, Skeleton, Stack, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { useEffect } from "react";
 
 // Constants
-import { btnrecommend, petcontainer } from "./index.style";
-import Recommended from "./layouts/Recommended";
+import { btnrecommend, petcontainer } from "./index.style"; // Styles
 
 // Layouts
 import Items from "./layouts/Items"; // Items
+import Recommended from "./layouts/Recommended"; // Recommend
 
-const Index = ({ setDialog, list, fetching }) => {
+const Index = ({ setDialog, list, fetching, recommended, recommendation, recommending }) => {
 
+    useEffect(() => { recommendation(JSON.parse(localStorage.getItem('recommend'))) }, [ recommendation ]);
+    
     return (
         <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '20px 0' }}>
             <Grid item>
@@ -26,7 +29,7 @@ const Index = ({ setDialog, list, fetching }) => {
             </Grid>
             <Grid item>
                 <Container maxWidth= "lg" sx= {{ marginTop: '20px' }}>
-                    { localStorage.getItem('recommend') !== null ? <Recommended /> : '' }
+                    { localStorage.getItem('recommend') !== null ? <Recommended recommended= { recommended } recommending= { recommending } /> : '' }
                     { !fetching ? <Items /> : 
                         <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 2 } sx= {{ padding: '20px' }}>
                             { [0, 1, 2].map(index => (

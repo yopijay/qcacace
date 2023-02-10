@@ -7,14 +7,13 @@ import { useContext, useEffect } from "react";
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 
-
 // Constants
 import BG from 'assets/images/section.jpg'; // Assets
 import { btntxt } from "../list/index.style"; // Styles
 import Form from "./form"; // Layout
 import { validation } from "./index.validation"; // Validation
 
-const Index = ({ dialog, setDialog  }) => {
+const Index = ({ dialog, setDialog, recommendation }) => {
     const theme = useTheme();
     const fullscreen = useMediaQuery(theme.breakpoints.down('sm'));
     const { setValidation, handleSubmit, setError, } = useContext(FormCntxt);
@@ -40,10 +39,7 @@ const Index = ({ dialog, setDialog  }) => {
                                 if(data.coat_id === undefined || data.coat_id === 0) { _errors.push({ name: 'coat_id', message: 'This field is required!' }); }
                                 if(data.life_stages_id === undefined || data.life_stages_id === 0) { _errors.push({ name: 'life_stages_id', message: 'This field is required!' }); }
 
-                                if(!(_errors.length > 0)) {
-                                    localStorage.setItem('recommend', JSON.stringify(data));
-                                    setDialog(false);
-                                }
+                                if(!(_errors.length > 0)) { localStorage.setItem('recommend', JSON.stringify(data)); recommendation(data); setDialog(false); }
                                 else { _errors.forEach(err => setError(err.name, { message: err.message })); }
                             })}>Save</Box>
                         </Grid>

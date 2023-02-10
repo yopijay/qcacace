@@ -48,7 +48,7 @@ const Index = () => {
                                                 </Stack>
                                                 { !fetching ? <Typography variant= "caption">{ data.coat}</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} /> }
                                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
-                                                    { !fetching ? 
+                                                    { !fetching ?   
                                                         (JSON.parse(data.tags)).map((tag, index) => (
                                                             <Grid item xs= { 4 } key= { index }>
                                                                 <Typography sx= { pettag }>#{(tag.name).toLowerCase()}</Typography>

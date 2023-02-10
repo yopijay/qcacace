@@ -4,20 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Grid, Skeleton, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-// Core
-import { recommend } from "core/api/index.func"; // API
-import { useGet } from "core/global/function/index.func"; // Function
-
 // Constants
 import { btnadopt, petcontainer, petdesc, petfemale, petimage, petmale, petseries, pettag } from "../index.style"; // Styles
 
-const Recommended = () => {
-    const { data: recommended, isLoading: recommendloading } = 
-        useGet({ key: ['pet_rcmmnd'], fetch: recommend(JSON.parse(localStorage.getItem('recommend'))), options: { refetchOnWindowFocus: false } });
+const Recommended = ({ recommended, recommending }) => {
 
     return (
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 2 } sx= {{ padding: '20px 20px 50px 20px' }}>
-            { !recommendloading ? 
+            { !recommending ? 
                 recommended?.length > 0 ?
                     recommended?.map((data, index) => (
                         <Grid item xs= { 12 } md= { 6 } lg= { 4 } key= { index }>
@@ -49,7 +43,7 @@ const Recommended = () => {
                             </Stack>
                         </Grid>
                     )) 
-                : '' : 
+                : <Grid item xs= { 12 }><Typography sx= {{ width: '100%', textAlign: 'center' }}>No recommendation/s found!</Typography></Grid> : 
                 <Grid item xs= { 12 } md= { 6 } lg= { 4 }>
                     <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "start" sx= { petcontainer } spacing= { 2 }>
                         <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%', md: '50%' } }}>

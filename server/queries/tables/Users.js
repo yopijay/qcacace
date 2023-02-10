@@ -49,9 +49,9 @@ class Users {
 
     dashboard = async () => {
         return {
-            total: (await new Builder(`tbl_users`).select(`COUNT(*)`).build()).rows[0].count,
-            active: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 1`).build()).rows[0].count,
-            inactive: (await new Builder(`tbl_users`).select(`COUNT(*)`).condition(`WHERE status= 0`).build()).rows[0].count
+            total: (await new Builder(`tbl_users`).select(`id`).except(`WHERE id= 1`).build()).rowCount,
+            active: (await new Builder(`tbl_users`).select(`id`).condition(`WHERE status= 1`).except(`WHERE id= 1`).build()).rowCount,
+            inactive: (await new Builder(`tbl_users`).select(`id`).condition(`WHERE status= 0`).except(`WHERE id= 1`).build()).rowCount
         }
     }
 

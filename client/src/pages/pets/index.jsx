@@ -6,7 +6,7 @@ import { Route, Routes } from "react-router-dom";
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Provider
 import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
-import { useGet } from "core/global/function/index.func"; // Function
+import { useGet, usePost } from "core/global/function/index.func"; // Function
 import { recommend, records } from "core/api/index.func"; // API
 
 // Layouts
@@ -23,14 +23,20 @@ const Index = () => {
     const { list, setList } = useContext(ListCntxt);
     const [ dialog, setDialog ] = useState(localStorage.getItem('recommend') === null || list.length > 0);
     const { isFetching: fetching } = useGet({ key: ['pet_list'], fetch: records({ table: 'tbl_pets', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
+    const { data: recommended, mutate: recommendation, isLoading: recommending } = usePost({ fetch: recommend });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>
             <Routes>
                 <Route exact path= "/" element= {
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%' }}>
-                        <List setDialog= { setDialog } list= { list } fetching= { fetching } />
-                        <FormPrvdr><Adopt dialog= { dialog } setDialog= { setDialog } /></FormPrvdr>
+                        <List setDialog= { setDialog } 
+                            list= { list } 
+                            fetching= { fetching } 
+                            recommended= { recommended } 
+                            recommendation= { recommendation }   
+                            recommending= { recommending } />
+                        <FormPrvdr><Adopt dialog= { dialog } setDialog= { setDialog } recommendation= { recommendation } /></FormPrvdr> 
                     </Stack>
                 } />
                 <Route exact path= "/:id/adopt/*" element= { <FormPrvdr><Form /></FormPrvdr> } />
