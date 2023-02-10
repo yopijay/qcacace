@@ -34,6 +34,7 @@ const Index = ({ dialog, setDialog, recommendation }) => {
                             <Box sx= { btntxt } onClick= { handleSubmit(data => { 
                                 let _errors = [];
 
+                                data['is_adopt'] = 0;
                                 if(data.category_id === 0) { _errors.push({ name: 'category_id', message: 'This field is required!' }); }
                                 if(data.breed_id === undefined || data.breed_id === 0) { _errors.push({ name: 'breed_id', message: 'This field is required!' }); }
                                 if(data.coat_id === undefined || data.coat_id === 0) { _errors.push({ name: 'coat_id', message: 'This field is required!' }); }

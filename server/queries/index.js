@@ -80,7 +80,7 @@ const list = (table, data) => {
             case 'tbl_life_stages': resolve(await new LifeStages().list()); break;
             case 'tbl_tags': resolve(await new Tags().list()); break;
             case 'tbl_coat': resolve(await new Coat().list()); break;
-            case 'tbl_pets': resolve(await new Pets().list()); break;
+            case 'tbl_pets': resolve(await new Pets().list(data)); break;
             case 'tbl_appointments': resolve(await new Appointment().list()); break;
             case 'tbl_users': resolve(await new Users().list(data)); break;
             case 'tbl_adopt': resolve(await new Adopt().list()); break;

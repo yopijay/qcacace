@@ -36,14 +36,14 @@ class Pets {
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
-                                        .condition(`WHERE (pts.category_id= ${data.category_id} AND pts.breed_id= ${data.breed_id} AND pts.coat_id= ${data.coat_id}
+                                        .condition(`WHERE pts.is_adopt= ${data.is_adopt} AND (pts.category_id= ${data.category_id} AND pts.breed_id= ${data.breed_id} AND pts.coat_id= ${data.coat_id}
                                                             AND pts.life_stages_id= ${data.life_stages_id} AND pts.gender= '${data.gender}' AND pts.sterilization= '${data.sterilization}'
                                                             AND pts.energy_level= '${data.energy_level}' AND pts.weight= '${data.weight}' AND pts.is_adopt= 0)
                                                             ${data.color !== '' ? ` OR pts.color LIKE '%${data.color}%'` : ''} ${(data.tags).length > 0 ? `AND pts.tags LIKE '%${JSON.stringify(data.tags)}%'` : ''}`)
                                         .build()).rows;
     }
 
-    list = async () => {
+    list = async (data) => {
         return (await new Builder(`tbl_pets AS pts`)
                                         .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, 
                                                         pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
@@ -51,7 +51,7 @@ class Pets {
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
-                                        .condition(`WHERE pts.is_adopt= 0 ORDER BY pts.date_created DESC`)
+                                        .condition(`${data.is_adopt !== undefined ? `WHERE pts.is_adopt= ${data.is_adopt}` : ''} ORDER BY pts.date_created DESC`)
                                         .build()).rows;
     }
 
@@ -63,7 +63,7 @@ class Pets {
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
-                                        .condition(`WHERE pts.is_adopt= 0 ORDER BY pts.date_created DESC LIMIT ${data.limit}`)
+                                        .condition(`${data.is_adopt !== undefined ? `WHERE pts.is_adopt= ${data.is_adopt}` : ''} ORDER BY pts.date_created DESC LIMIT ${data.limit}`)
                                         .build()).rows;
     }
     

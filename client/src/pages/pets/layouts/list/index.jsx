@@ -13,7 +13,7 @@ import Recommended from "./layouts/Recommended"; // Recommend
 
 const Index = ({ setDialog, list, fetching, recommended, recommendation, recommending }) => {
 
-    useEffect(() => { recommendation(JSON.parse(localStorage.getItem('recommend'))) }, [ recommendation ]);
+    useEffect(() => { if(localStorage.getItem('recommend') !== null) recommendation(JSON.parse(localStorage.getItem('recommend'))) }, [ recommendation ]);
     
     return (
         <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '20px 0' }}>
