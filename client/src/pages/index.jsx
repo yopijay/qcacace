@@ -2,6 +2,9 @@
 import { Box } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 
+// Core
+import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
+
 // Layouts
 import Navbar from './global/navbar';
 import Sidebar from './global/sidebar';
@@ -28,7 +31,7 @@ const Index = () => {
             <Box sx= { content }>
                 <Routes>
                     <Route exact path= "/*" element= { <Main /> } />
-                    <Route exact path= "/pets/*" element= { <Pets /> } />
+                    <Route exact path= "/pets/*" element= { <ListPrvdr><Pets /></ListPrvdr> } />
                 </Routes>
             </Box>
         </Box>

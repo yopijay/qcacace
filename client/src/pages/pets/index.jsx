@@ -1,9 +1,13 @@
 // Libraries
-import { Stack, ThemeProvider } from "@mui/material";
+import { Stack } from "@mui/material";
+import { useContext, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
 // Core
-import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
+import { ListCntxt } from "core/context/ListCntxt.func"; // Provider
 import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
+import { useGet } from "core/global/function/index.func"; // Function
+import { records } from "core/api/index.func"; // API
 
 // Layouts
 import List from './layouts/list';
@@ -13,19 +17,19 @@ import Form from './layouts/form';
 
 // Constants
 import { container } from "./index.style"; // Styles
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
 
 const Index = () => {
     localStorage.setItem('nav', 'pets');
-    const [ dialog, setDialog ] = useState(localStorage.getItem('recommend') === null);
+    const { list, setList } = useContext(ListCntxt);
+    const { isFetching: fetching } = useGet({ key: ['pet_list'], fetch: records({ table: 'tbl_pets', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
+    const [ dialog, setDialog ] = useState(localStorage.getItem('recommend') === null && list.length > 0);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>
             <Routes>
                 <Route exact path= "/" element= {
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%' }}>
-                        <ListPrvdr><List setDialog= { setDialog } /></ListPrvdr>
+                        <List setDialog= { setDialog } list= { list } fetching= { fetching } />
                         <FormPrvdr><Adopt dialog= { dialog } setDialog= { setDialog } /></FormPrvdr>
                     </Stack>
                 } />

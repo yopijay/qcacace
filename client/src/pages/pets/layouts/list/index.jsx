@@ -16,19 +16,18 @@ import Recommended from "./layouts/Recommended";
 // Layouts
 import Items from "./layouts/Items"; // Items
 
-const Index = ({ setDialog }) => {
-    const { setList } = useContext(ListCntxt);
-    const { isFetching: fetching } = useGet({ key: ['pet_list'], fetch: records({ table: 'tbl_pets', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
+const Index = ({ setDialog, list, fetching }) => {
 
     return (
         <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '20px 0' }}>
             <Grid item>
                 <Container maxWidth= "lg">
-                    <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-                        <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">
-                            <Typography variant= "h6" sx= { btnrecommend } onClick= { () => setDialog(true) }><FontAwesomeIcon icon= { solid('sliders') } /></Typography>
-                        </Stack>
-                    </Stack>
+                    { list.length > 0 ? 
+                        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
+                                <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">
+                                    <Typography variant= "h6" sx= { btnrecommend } onClick= { () => setDialog(true) }><FontAwesomeIcon icon= { solid('sliders') } /></Typography>
+                                </Stack>
+                            </Stack> : '' }
                 </Container>
             </Grid>
             <Grid item>
