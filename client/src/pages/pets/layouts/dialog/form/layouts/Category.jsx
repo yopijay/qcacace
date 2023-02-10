@@ -18,7 +18,7 @@ const Category = (props) => {
 
         if(typeof data === 'object' && data !== null) {
             setbreeds({ table: 'tbl_breed', data: { id: data.category_id } });
-            setcoat({ table: 'tbl_coat', data: { id: data.category_id } }); 
+            setcoat({ table: 'tbl_coat', data: { id: data.category_id } });
             setlifestages({ table: 'tbl_life_stages', data: { id: data.category_id } });
         }
     }, [ setbreeds, setcoat, setlifestages ]);
@@ -33,8 +33,11 @@ const Category = (props) => {
                             getOptionLabel= { category => category.name || category.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                             isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                             onChange= { (e, item) => { 
-                                onChange(item.id); setbreeds({ table: 'tbl_breed', data: { id: item.id } }); 
-                                setcoat({ table: 'tbl_coat', data: { id: item.id } }); setlifestages({ table: 'tbl_life_stages', data: { id: item.id } }); } }
+                                onChange(item.id); 
+                                setbreeds({ table: 'tbl_breed', data: { id: item.id } }); 
+                                setcoat({ table: 'tbl_coat', data: { id: item.id } }); 
+                                setlifestages({ table: 'tbl_life_stages', data: { id: item.id } }); 
+                            } }
                             renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
                             value= { category?.find(data => { return data.id === (getValues().category_id !== undefined ? getValues().category_id : value) }) !== undefined ?
                                             category?.find(data => { return data.id === (getValues().category_id !== undefined ? getValues().category_id : value) }) : 

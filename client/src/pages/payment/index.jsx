@@ -62,7 +62,7 @@ const Index = () => {
                                                     sx= { method === 'gcash' ? mthdactive : mthd }>
                                                     <Typography variant= "h6" sx= {{ fontFamily: 'Tommy Bold', color: method === 'gcash' ? '#FFFFFF' : '#1b4168' }}>G-Cash</Typography>
                                                     <Typography variant= "caption" sx= {{ color: method === 'gcash' ? '#FFFFFF' : '#1b4168' }}>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. </Typography>
+                                                        Gcash is a mobile wallet and mobile payment </Typography>
                                                 </Stack>
                                             </Grid>
                                             <Grid item xs= { 6 }>
@@ -71,7 +71,7 @@ const Index = () => {
                                                     sx= { method === 'cash' ? mthdactive : mthd }>
                                                     <Typography variant= "h6" sx= {{ fontFamily: 'Tommy Bold', color: method === 'cash' ? '#FFFFFF' : '#1b4168' }}>Cash</Typography>
                                                     <Typography variant= "caption" sx= {{ color: method === 'cash' ? '#FFFFFF' : '#1b4168' }}>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. </Typography>
+                                                    You can pay with cash directly at the office. </Typography>
                                                 </Stack>
                                             </Grid>
                                         </Grid>

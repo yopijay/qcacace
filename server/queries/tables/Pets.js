@@ -43,7 +43,7 @@ class Pets {
                                         .build()).rows;
     }
 
-    list = async () => { 
+    list = async () => {
         return (await new Builder(`tbl_pets AS pts`)
                                         .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, 
                                                         pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)

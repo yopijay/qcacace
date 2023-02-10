@@ -31,7 +31,7 @@ class AdopterPayment {
     approve = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         await new Builder(`tbl_adopter_payment`).update(`status= 'paid', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
@@ -46,19 +46,20 @@ class AdopterPayment {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `<b>PAID</b>. Notify natin si user na bayad na sya.`,
-                outro: 'Please contact me for additional help.'
+                intro: `Good day! We would like to inform you that your payment has been validated by QC Animal Care and Adoption Center's evaluator. 
+                You can now proceed to the last part of the pet adoption process which is the releasing of pets. Thank you!.`,
+                outro: 'If you have any concerns, Please contact me for additional help.'
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Payment Received`, html: mail });
         return { result: 'success', message: 'Payment confirmed!', list: list }
     }
 
     pay = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         let adpt = (await new Builder(`tbl_adopt AS adpt`)
                                             .select(`adptr.id, adptr.email`)
@@ -86,15 +87,17 @@ class AdopterPayment {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Inform nyo si user na nagsend na yung payment nya and wait nya yung email natin within 48 hours, kung hindi dumating email natin
-                             punta na sya sa office natin and i-remind sya na dalhin yung transaction no. nya sa gcash kung nag gcash man sya,
-                             kung nag cash naman sya, dalhin nya yung bayad sa physical store.`,
+                intro: `Good day! We would like to inform you that your payment has been sent. 
+                Please wait within 48 hours for the validation email of your payment. 
+                If you don't receive an email within the specified time limit, you can go directly to our center located at 
+                Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines and bring the transaction number of your payment 
+                for the validation.`,
                 
                 outro: 'Please contact me for additional help.'
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: adpt.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: adpt.email, subject: `Payment Status`, html: mail });
             return { result: 'success', message: 'Payment sent!' }
         }
         else { return { result: 'error', errors: errors } }

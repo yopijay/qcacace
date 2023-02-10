@@ -14,12 +14,16 @@ const Gcash = () => {
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-            <Typography>Instruction:</Typography>
-            <Typography>- Sed dapibus, metus vel scelerisque commodo, odio ipsum dictum est</Typography>
-            <Typography>- Sed dapibus, metus vel scelerisque commodo, odio ipsum dictum est</Typography>
-            <Typography>- Sed dapibus, metus vel scelerisque commodo, odio ipsum dictum est</Typography>
-            <Typography>- Sed dapibus, metus vel scelerisque commodo, odio ipsum dictum est</Typography>
-            <Typography>- Sed dapibus, metus vel scelerisque commodo, odio ipsum dictum est</Typography>
+            <Typography><b>Instruction:</b></Typography>
+            <Typography>- On your Gcash app, Tap View All</Typography>
+            <Typography>- Tap QR, Tap SCan QR</Typography>
+            <Typography>- Align your phone's camera to the store's QR code to scan it. Make sure the QR code
+                            is within frame.</Typography>
+            <Typography>- Input the total amount to be paid and tap NEXT.</Typography>
+            <Typography>- Review all details then tap Pay</Typography>
+            <Typography>- You will see your in-app receipt on screen as well as receive an SMS receipt to confirm your transaction.</Typography>
+            <Typography>- Please provide the Referrence ID</Typography>
+            <Typography><b>PS: This is non-refundable, please be careful before sending.</b></Typography>
             <Stack direction= "column" justifyContent= "center" alignItems= "center" spacing= { 1 }>  
                 <Avatar variant= "rounded" src= { QR } sx= {{ width: '200px', height: '200px' }} />
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%' }}>
