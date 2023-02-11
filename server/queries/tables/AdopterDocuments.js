@@ -9,10 +9,24 @@ const Builder = require('../../functions/builder');
 class AdopterDocuments {
     specific = async (id) => { 
         return (await new Builder(`tbl_adopt AS adpt`)
-                        .select(`adpt.id, docu.valid_id, docu.picture, docu.pet_cage`)
-                        .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
-                        .condition(`WHERE adpt.id= ${id}`)
-                        .build()).rows;
+                                        .select(`adpt.id, docu.valid_id, docu.picture, docu.pet_cage`)
+                                        .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
+                                        .condition(`WHERE adpt.id= ${id}`)
+                                        .build()).rows;
+    }
+
+    search = async (data) => {
+        return (await new Builder(`tbl_adopt AS adpt`)
+                                        .select(`MAX(adpt.id) AS id, MAX(adpt.adopter_id) AS adopter_id, MAX(adpt.pet_id) AS pet_id, adpt.docu_id, 
+                                                        MAX(adpt.schedule_id) AS schedule_id, MAX(docu.series_no) AS series_no, MAX(docu.valid_id) AS valid_id, MAX(docu.picture) AS picture, 
+                                                        MAX(docu.pet_cage) AS pet_cage, MAX(adptr.email) AS email, MAX(adptr.fname) AS fname, MAX(adptr.lname) AS lname,
+                                                        MAX(docu.status) AS status, MAX(docu.date_created) AS date_created`)
+                                        .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
+                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .condition(`WHERE docu.series_no LIKE '%${data.condition}%' OR adptr.email LIKE '%${(data.condition).toLowerCase()}%'
+                                                                OR adptr.fname LIKE '%${data.condition}%' OR adptr.lname LIKE '%${data.condition}%'
+                                                                GROUP BY adpt.docu_id ORDER BY date_created DESC`)
+                                        .build()).rows;
     }
 
     list = async () => {

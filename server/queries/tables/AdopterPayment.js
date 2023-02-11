@@ -23,7 +23,7 @@ class AdopterPayment {
                                                         pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
                                         .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
                                         .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
-                                        .condition(`WHERE pymnt.transaction_no LIKE '%${data.condition}%'`)
+                                        .condition(`WHERE pymnt.transaction_no LIKE '%${data.condition}%' OR pymnt.series_no LIKE '%${data.condition}%'`)
                                         .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
                                         .build()).rows;
     }

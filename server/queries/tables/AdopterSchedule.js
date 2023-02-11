@@ -9,14 +9,28 @@ const Builder = require('../../functions/builder');
 class AdopterSchedule {
     list = async () => {
         return (await new Builder(`tbl_adopt AS adpt`)
-                                            .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
-                                                            adptr.email, adptr.fname, adptr.lname, sched.appointment_id, docu.status AS docu_status, sched.status, sched.date_created`)
-                                            .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-                                            .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
-                                            .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
-                                            .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
-                                            .except(`WHERE docu.status = 'pending' AND sched.status = 'pending' ORDER BY 13 DESC`)
-                                            .build()).rows;
+                                        .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
+                                                        adptr.email, adptr.fname, adptr.lname, sched.appointment_id, docu.status AS docu_status, sched.status, sched.date_created`)
+                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                        .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
+                                        .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
+                                        .except(`WHERE docu.status = 'pending' AND sched.status = 'pending' ORDER BY 13 DESC`)
+                                        .build()).rows;
+    }
+
+    search = async (data) => {
+        return (await new Builder(`tbl_adopt AS adpt`)
+                                        .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
+                                                        adptr.email, adptr.fname, adptr.lname, sched.appointment_id, docu.status AS docu_status, sched.status, sched.date_created`)
+                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                        .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
+                                        .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
+                                        .condition(`WHERE sched.series_no LIKE '%${data.condition}%' OR adptr.email LIKE '%${(data.condition).toLowerCase()}%' OR
+                                                            adptr.fname LIKE '%${data.condition}%' OR adptr.lname LIKE '%${data.condition}%'`)
+                                        .except(`WHERE docu.status = 'pending' AND sched.status = 'pending' ORDER BY 13 DESC`)
+                                        .build()).rows;
     }
 
     approve = async (data) => {

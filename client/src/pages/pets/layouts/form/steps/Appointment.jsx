@@ -7,7 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { months } from "core/constants/Date.const" // Constants;
-import { availabledates, save, update } from "core/api/index.func"; // API
+import { availabledates, save } from "core/api/index.func"; // API
 import { successToast, usePost } from "core/global/function/index.func"; // Function
 
 // Constants
@@ -65,18 +65,13 @@ const Appointment = () => {
                                         </Stack>
                                     </Grid>    
                                 )) }
-                            </Grid> :
-                            <Typography>No record`s found.</Typography> }
+                            </Grid> : <Typography>No record`s found.</Typography> }
                     </Grid>
-                    <Grid item xs= { 12 }>
-                        <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.appday?.message }</Typography>
-                    </Grid>
+                    <Grid item xs= { 12 }><Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.appday?.message }</Typography></Grid>
                 </Grid>
             </Stack>
             <Grid container direction= "row" justifyContent= "space-between" alignItems= "center">
-                <Grid item xs= { 5 } sm= { 4 } md= { 5 } lg= { 3 }>
-                    <Box sx= { btntxt } component= { Link } to= { `/pets/${id}/adopt/${userid}/documents` }>Back</Box>
-                </Grid>
+                <Grid item xs= { 5 } sm= { 4 } md= { 5 } lg= { 3 }><Box sx= { btntxt } component= { Link } to= { `/pets/${id}/adopt/${userid}/documents` }>Back</Box></Grid>
                 <Grid item xs= { 5 } sm= { 4 } md= { 5 } lg= { 3 }>
                     <Box sx= { btntxt } onClick= { handleSubmit(data => {
                         if(data.appday === null || data.appday === undefined) { setError('appday', { message: 'Please select appointment date!' }); }

@@ -22,7 +22,8 @@ const Index = () => {
     localStorage.setItem('nav', 'pets');
     const { list, setList } = useContext(ListCntxt);
     const [ dialog, setDialog ] = useState(localStorage.getItem('recommend') === null || list.length > 0);
-    const { isFetching: fetching } = useGet({ key: ['pet_list'], fetch: records({ table: 'tbl_pets', data: { is_adopt: 0 } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
+    const { isFetching: fetching } = 
+        useGet({ key: ['pet_list'], fetch: records({ table: 'tbl_pets', data: { is_adopt: 0 } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
     const { data: recommended, mutate: recommendation, isLoading: recommending } = usePost({ fetch: recommend });
 
     return (

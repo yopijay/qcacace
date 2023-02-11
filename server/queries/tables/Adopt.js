@@ -15,7 +15,21 @@ class Adopt {
                                             .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFt` })
                                             .join({ table: `tbl_pets AS pet`, condition: `adpt.pet_id = pet.id`, type: `LEFT` })
-                                            .except(`WHERE pymnt.status = 'pending' ORDER BY 12 DESC`)
+                                            .except(`WHERE (pymnt.status IS NULL OR pymnt.status = 'pending') AND adpt.status = 'pending' ORDER BY 12 DESC`)
+                                            .build()).rows;
+    }
+
+    search = async (data) => {
+        return (await new Builder(`tbl_adopt AS adpt`)
+                                            .select(`adpt.id, pet.photo, adpt.adopter_id, adpt.series_no, adpt.schedule_id, adpt.pet_id, adptr.email, adptr.fname, adptr.lname, adpt.status, 
+                                                            sched.status AS sched_status, adpt.date_created, pymnt.status AS payment_status`)
+                                            .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                            .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                            .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFt` })
+                                            .join({ table: `tbl_pets AS pet`, condition: `adpt.pet_id = pet.id`, type: `LEFT` })
+                                            .condition(`WHERE adpt.series_no LIKE '%${data.condition}%' OR adptr.email LIKE '%${(data.condition).toLowerCase()}%' OR 
+                                                                    adptr.fname LIKE '%${data.condition}%' OR adptr.lname LIKE '%${data.condition}%'`)
+                                            .except(`WHERE (pymnt.status IS NULL OR pymnt.status = 'pending') AND adpt.status = 'pending' ORDER BY 12 DESC`)
                                             .build()).rows;
     }
 

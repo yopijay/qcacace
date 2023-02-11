@@ -77,7 +77,7 @@ const Index = () => {
                                 <Route exact path= "/:userid/personal-information" element= { <ThemeProvider theme= { theme(input) }><PersonalInformation /></ThemeProvider> } />
                                 <Route exact path = "/:userid/documents" element= { <ThemeProvider theme= { theme(input) }><Documents /></ThemeProvider> } />
                                 <Route exact path= "/:userid/:adoptid/appointment" element= { <ThemeProvider theme= { theme(input) }><Appointment  /></ThemeProvider> } />
-                                <Route exact path= "/:userid/:adoptid/finish" element= { <ThemeProvider theme= { theme(input) }><Finish  /></ThemeProvider> } />
+                                <Route exact path= "/:userid/:adoptid/finish" element= { <ThemeProvider theme= { theme(input) }><Finish /></ThemeProvider> } />
                             </Routes>
                         </Grid>
                     </Grid>
