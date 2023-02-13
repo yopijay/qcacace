@@ -124,15 +124,12 @@ export const petdesc = {
 }
 
 export const pettag = {
-    textAlign: 'center',
     fontWeight: 'bold',
     color: '#FFFFFF',
     backgroundColor: '#c9c9c9',
-    padding: '2px 0',
-    borderRadius: '50px',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    padding: '2px 10px',
+    margin: '8px 2px',
+    borderRadius: '50px'
 }
 
 export const petcontainer = {

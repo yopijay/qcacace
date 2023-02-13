@@ -23,8 +23,8 @@ class Pets {
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pet.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pet.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pet.breed_id = brd.id`, type: 'LEFT' })
-                                        .condition(`WHERE pet.series_no LIKE '%${data.condition}%' OR ctg.name LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%' 
-                                                            ORDER BY pet.date_created DESC`)
+                                        .condition(`WHERE (pet.series_no LIKE '%${data.condition}%' OR ctg.name LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%')
+                                                            ${data.is_adopt !== undefined ? `AND pet.is_adopt= ${data.is_adopt}` : ''} ORDER BY pet.date_created DESC`)
                                         .build()).rows;
     }
 

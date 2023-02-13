@@ -15,10 +15,10 @@ const Items = () => {
     const { list } = useContext(ListCntxt);
 
     return (
-            <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 2 } sx= {{ padding: '20px' }}>
+            <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" sx= {{ padding: '0 0 40px 0' }}>
                 { list.length > 0 ?
                     list?.map((data, index) => (
-                        <Grid item xs= { 12 } md= { 6 } lg= { 4 } key= { index }>
+                        <Grid item xs= { 12 } md= { 6 } lg= { 4 } key= { index } sx= {{ padding: '10px 8px' }}>
                             <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= {{ xs: 'flex-start', sm: 'stretch' }} sx= { petcontainer } spacing= { 2 }>
                                 <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%' } }}>
                                     <Box sx= { petimage }><img src= { JSON.parse(data.photo) } alt= "pet" width= "100%"  height= "100%" /></Box>
@@ -33,12 +33,7 @@ const Items = () => {
                                             </Typography>
                                         </Stack>
                                         <Typography variant= "caption">{ data.coat }</Typography>
-                                        <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ width: '100%', marginTop: '5px' }}>
-                                            { (JSON.parse(data.tags)).map((tag, index) => (
-                                                <Grid item xs= { 4 } sm= { 3 } md= { 4 } key= { index }>
-                                                    <Typography sx= { pettag }>#{(tag.name).toLowerCase()}</Typography>
-                                                </Grid> )) }
-                                        </Grid>
+                                        <Typography>{ (JSON.parse(data.tags)).map((tag, index) => ( <span key= { index } style= { pettag }>#{(tag.name).toLowerCase()}</span> )) }</Typography>
                                     </Stack>
                                     <Stack direction= "row" justifyContent= 'flex-end' alignItems= "center" sx= {{ width: '100%' }}>
                                         <Typography sx= { btnadopt } component= { Link } to= { `/pets/${btoa(data.id)}/adopt` }>Adopt</Typography>

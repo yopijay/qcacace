@@ -47,13 +47,11 @@ const Index = () => {
                                                         <Skeleton variant= "rounded" sx= {{ width: '20px', height: '20px' }} /> }
                                                 </Stack>
                                                 { !fetching ? <Typography variant= "caption">{ data.coat}</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} /> }
-                                                <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 } sx= {{ marginTop: '5px' }}>
-                                                    { !fetching ?   
-                                                        (JSON.parse(data.tags)).map((tag, index) => (
-                                                            <Grid item xs= { 4 } key= { index }>
-                                                                <Typography sx= { pettag }>#{(tag.name).toLowerCase()}</Typography>
-                                                            </Grid> )) : <Grid item xs= { 4 } sm= { 3 } md= { 4 }><Skeleton variant= "text" sx= {{ fiontSize: '1rem' }} /></Grid> }
-                                                </Grid>
+                                                <Typography>
+                                                    { !fetching ? (JSON.parse(data.tags)).map((tag, index) => (
+                                                        <span key= { index } style= { pettag }>#{(tag.name).toLowerCase()}</span>
+                                                    )) : <Skeleton variant= "text" sx= {{ fiontSize: '1rem' }} /> }
+                                                </Typography>
                                             </Stack>
                                         </Stack>
                                     </Grid>
