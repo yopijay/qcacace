@@ -26,17 +26,17 @@ const Index = () => {
             </Grid>
             <Grid item>
                 <Container maxWidth= "lg" sx= {{ marginTop: '20px' }}>
-                    <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 3 }>
+                    <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 1 }>
                         { list.length > 0 ?
                                 list?.map((data, index) => (
                                     <Grid item xs= { 12 } md= { 6 } key= { index }>
                                         <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "flex-start" sx= { petcontainer } spacing= { 2 }>
-                                            <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%', md: '50%' } }}>
+                                            <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%', md: '45%' } }}>
                                                 { !fetching ?
                                                     <Box sx= { petimage }><img src= { JSON.parse(data.photo) } alt= "pet" width= "100%"  height= "auto" /></Box> :
                                                     <Skeleton variant= "rounded" sx= {{ width: '100%', height: '200px', borderRadius: '20px' }} /> }
                                             </Stack>
-                                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%' }}>
+                                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: { xs: '100%', sm: '60%', md: '55%' } }}>
                                                 { !fetching ? <Typography sx= { petseries }>#{ data.series_no }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} /> }
                                                 <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                                                     { !fetching ? <Typography sx= { petdesc }>{ data.stage }  </Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} /> }
