@@ -3,7 +3,7 @@ import { api } from '../global/function/index.func'; // Function
 import Env from '../constants/json/Env.json'; // Constants
 
 
-let env = 'local';
+let env = 'lan';
 let _dropdown= [{ id: 0, name: '-- SELECT AN ITEM BELOW --' }];
 
 export const records = async ({ table, data }) => { return await api({ url: `${Env[env].url}/list/${table}`, method: 'post', data: data }).then(res => res.data); }

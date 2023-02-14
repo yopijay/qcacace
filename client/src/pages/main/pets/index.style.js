@@ -1,4 +1,5 @@
 export const title = {
+    textAlign: 'center',
     fontFamily: 'Tommy Bolder',
     fontSize: {
         xs: '170%',
@@ -8,6 +9,7 @@ export const title = {
 }
 
 export const subtitle = {
+    textAlign: 'center',
     fontWeight: 'bold',
     fontSize: {
         xs: '120%',
@@ -41,7 +43,7 @@ export const petfemale = {
 }
 
 export const petdesc = {
-    width: '90%',
+    width: '80%',
     fontWeight: 'bold',
     color: '#777d9c',
     fontSize: { xs: '125%' },
@@ -60,7 +62,7 @@ export const pettag = {
 }
 
 export const petcontainer = {
-    width: '100%', 
+    width: '100%',
     padding: '20px', 
     minHeight: '200px',
     backgroundColor: '#FFFFFF', 

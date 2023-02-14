@@ -17,19 +17,17 @@ const Index = () => {
     const { isFetching: fetching } = useGet({ key: ['top_pets'], fetch: top({ limit: 3, is_adopt: 0 }), options: { refetchOnWindowFocus: true }, onSuccess: (data) => setList(data) });
     
     return (
-        <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '20px 0' }}>
-            <Grid item>
-                <Box sx= {{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Typography sx= { subtitle }>Our Pets</Typography>
-                    <Typography sx= { title }>Waiting for Adoption</Typography>
-                </Box>
-            </Grid>
-            <Grid item>
-                <Container maxWidth= "lg" sx= {{ marginTop: '20px' }}>
-                    <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 1 }>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= 'stretch' spacing= { 2 }>
+            <Stack direction= "column" justifyContent= 'center' alignitems= "center">
+                <Typography sx= { subtitle }>Our Pets</Typography>
+                <Typography sx= { title }>Waiting for Adoption</Typography>
+            </Stack>
+            <Stack sx= {{ width: '100%' }}>
+                <Container maxWidth= "lg">
+                    <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start">
                         { list.length > 0 ?
                                 list?.map((data, index) => (
-                                    <Grid item xs= { 12 } md= { 6 } key= { index }>
+                                    <Grid item xs= { 12 } md= { 6 } key= { index } sx= {{ padding: '10px 8px' }}>
                                         <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "flex-start" sx= { petcontainer } spacing= { 2 }>
                                             <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%', md: '45%' } }}>
                                                 { !fetching ?
@@ -38,15 +36,15 @@ const Index = () => {
                                             </Stack>
                                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: { xs: '100%', sm: '60%', md: '55%' } }}>
                                                 { !fetching ? <Typography sx= { petseries }>#{ data.series_no }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} /> }
-                                                <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                                    { !fetching ? <Typography sx= { petdesc }>{ data.stage }  </Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} /> }
+                                                <Stack direction= "row" justifyContent= "space-between" alignItems= "center" spacing= { 1 } sx= {{ width: '100%', overflow: 'hidden' }}>
+                                                    { !fetching ? <Typography sx= { petdesc }>{ data.stage }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.6rem', width: '50%' }} /> }
                                                     { !fetching ? 
                                                         <Typography sx= { data.gender === 'male' ? petmale : petfemale }>
                                                             <FontAwesomeIcon icon= { data.gender === 'male' ? solid('mars') : solid('venus') } />
                                                         </Typography> : 
                                                         <Skeleton variant= "rounded" sx= {{ width: '20px', height: '20px' }} /> }
                                                 </Stack>
-                                                { !fetching ? <Typography variant= "caption">{ data.coat}</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} /> }
+                                                { !fetching ? <Typography variant= "caption">{ data.coat }</Typography> : <Skeleton variant= "text" sx= {{ fontSize: '1.4rem', width: { xs: '30%' } }} /> }
                                                 <Typography>
                                                     { !fetching ? (JSON.parse(data.tags)).map((tag, index) => (
                                                         <span key= { index } style= { pettag }>#{(tag.name).toLowerCase()}</span>
@@ -63,8 +61,8 @@ const Index = () => {
                             </Grid> }
                     </Grid>
                 </Container>
-            </Grid>
-        </Grid>
+            </Stack>
+        </Stack>
     );
 }
 

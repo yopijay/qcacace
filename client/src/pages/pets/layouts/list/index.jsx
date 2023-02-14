@@ -1,5 +1,5 @@
 // Libraries
-import { Box, Container, Grid, Skeleton, Stack, TextField, Typography } from "@mui/material";
+import { Box, Grid, Skeleton, Stack, TextField, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useEffect } from "react";
@@ -11,7 +11,7 @@ import { btnrecommend, petcontainer, search } from "./index.style"; // Styles
 import Items from "./layouts/Items"; // Items
 import Recommended from "./layouts/Recommended"; // Recommend
 
-const Index = ({ setDialog, list, fetching, recommended, recommendation, recommending, find, finding }) => {
+const Index = ({ setDialog, fetching, recommended, recommendation, recommending, find, finding }) => {
     useEffect(() => { if(localStorage.getItem('recommend') !== null) recommendation(JSON.parse(localStorage.getItem('recommend'))) }, [ recommendation ]);
     
     return (
