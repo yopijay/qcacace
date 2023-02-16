@@ -16,7 +16,7 @@ export const search = {
     borderRadius: '50px',
     padding: '4px 10px',
     width: {
-        xs: '100%',
+        xs: '250px',
         sm: '350px',
         md: '500px'
     }

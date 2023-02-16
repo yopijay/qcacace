@@ -1,6 +1,9 @@
 // Libraries
 import React from 'react';
 
+// Tools
+const PetProgram = React.lazy(() => import('pages/main/tools/pet-programs'));
+
 // Maintenance
 const Appointment = React.lazy(() => import('pages/main/maintenance/appointment'));
 const Category = React.lazy(() => import('pages/main/maintenance/category'));
@@ -25,7 +28,7 @@ export const Navs = () => ([
     },
     {
         title: 'Tools', access: [ 'superadmin', 'admin', 'evaluator' ], nav: [
-            { path: '/tools/announcement', label: 'Announcements', name: 'announcement', component: 'ANNOUNCEMENT' },
+            { path: '/tools/petprogram', label: 'Pet Program', name: 'petprogram', component: <PetProgram /> },
             { path: '/tools/missing', label: 'Missing Pets', name: 'missing-pets', component: 'MISSING PETS' },
             { path: '/tools/adopt', label: 'Adopt Pet', name: 'adopt-pet', component: 'ADOPT PET' }
         ]

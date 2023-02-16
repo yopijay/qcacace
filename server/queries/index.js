@@ -12,6 +12,7 @@ const Adopter = require('./tables/Adopter');
 const AdopterDocuments = require('./tables/AdopterDocuments');
 const AdopterSchedule = require('./tables/AdopterSchedule');
 const AdopterPayment = require('./tables/AdopterPayment');
+const Programs = require('./tables/Programs');
 
 const login = async (data) => { return await new Users().login(data); }
 const logout = async (data) => { return await new Users().logout(data); }
@@ -90,6 +91,7 @@ const list = (table, data) => {
             case 'tbl_adopter_documents': resolve(await new AdopterDocuments().list()); break;
             case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().list()); break;
             case 'tbl_adopter_payment': resolve(await new AdopterPayment().list()); break;
+            case 'tbl_programs': resolve(await new Programs().list(data)); break;
         }
     });
 }
@@ -108,6 +110,7 @@ const specific = (table, id) => {
             case 'tbl_adopt': resolve(await new Adopt().specific(id)); break;
             case 'tbl_adopter': resolve(await new Adopter().specific(id)); break;
             case 'tbl_adopter_documents': resolve(await new AdopterDocuments().specific(id)); break;
+            case 'tbl_programs': resolve(await new Programs().specific(id)); break;
             // case 'tbl_adopt_info': resolve(await new Adopt().specific(id)); break;
         }
     });
@@ -127,6 +130,8 @@ const save = (table, data) => {
             case 'tbl_adopter': resolve(await new Adopter().save(data)); break;
             case 'tbl_adopter_documents': resolve(await new AdopterDocuments().save(data)); break;
             case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().save(data)); break;
+            case 'tbl_programs': resolve(await new Programs().save(data)); break;
+            // case 'tbl_programs': resolve(await new Pro)
             // case 'tbl_adopt_documents': resolve(await new Adopt().save(data)); break;
         }
     });
@@ -144,6 +149,7 @@ const update = (table, data) => {
             case 'tbl_appointments': resolve(await new Appointment().update(data)); break;
             case 'tbl_users': resolve(await new Users().update(data)); break;
             case 'tbl_adopter': resolve(await new Adopter().update(data)); break;
+            case 'tbl_programs': resolve(await new Programs().update(data)); break;
             // case 'tbl_adopt_info': resolve(await new Adopt().update(data)); break;
             // case 'tbl_adopt': resolve(await new Adopt().schedule(data)); break;
         }
