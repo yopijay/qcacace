@@ -27,7 +27,7 @@ const App = () => {
                             <Route path= "/payment/:id" element= { <FormPrvdr><Payment /></FormPrvdr> } />
                         </Routes>
                     </GlobalPrvdr>
-                    <ReactQueryDevtools initialIsOpen= { false } position= "bottom-right" />
+                    {/* <ReactQueryDevtools initialIsOpen= { false } position= "bottom-right" /> */}
                 </QueryClientProvider>
             </Router>
         </ThemeProvider>

@@ -44,3 +44,12 @@ export const tabactive = {
     borderRadius: '8px',
     color: '#ffffff'
 }
+
+export const item = {
+    backgroundColor: '#ffffff',
+    textDecoration: 'none',
+    overflow: 'hidden',
+    border: 'solid 1px #919eab40',
+    padding: '30px 25px',
+    borderRadius: '8px'
+}

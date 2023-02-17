@@ -72,6 +72,7 @@ const search = (table, data) => {
             case 'tbl_adopter_documents': resolve(await new AdopterDocuments().search(data)); break;
             case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().search(data)); break;
             case 'tbl_adopter_payment': resolve(await new AdopterPayment().search(data)); break;
+            case 'tbl_programs': resolve (await new Programs().search(data)); break;
         }
     })
 }

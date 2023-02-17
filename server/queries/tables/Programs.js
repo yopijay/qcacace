@@ -3,11 +3,21 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Programs {
-    list = async (data) => { return (await new Builder(`tbl_programs`).select().condition(`${data.status !== undefined ? `WHERE status= ${data.status}` : ''} ORDER BY date DESC`).build()).rows; }
     specific = async (id) => { return (await new Builder(`tbl_programs`).select().condition(`WHERE id= ${id}`).build()).rows; }
 
+    list = async (data) => { 
+        return (await new Builder(`tbl_programs`)
+                                        .select()
+                                        .condition(`${data.status !== undefined ? `WHERE status= ${data.status}` : ''} ORDER BY date_created DESC`)
+                                        .build()).rows; 
+    }
+
     search = async (data) => {
-        return [];
+        return (await new Builder(`tbl_programs`)
+                                        .select()
+                                        .condition(`WHERE title LIKE '%${data.condition}%' OR subtitle LIKE '%${data.condition}%' OR 
+                                                            description LIKE '%${data.condition}%' OR series_no LIKE '%${(data.condition).toUpperCase()}%'`)
+                                        .build()).rows;
     }
 
     save = async (data) => {
@@ -22,10 +32,9 @@ class Programs {
     }
 
     update = async (data) => {
-        console.log(data.subtitle !== '');
         await new Builder(`tbl_programs`)
                             .update(`title= '${data.title}', subtitle= ${data.subtitle !== '' || data.subtitle !== null ? `'${data.subtitle}'` : null}, date= '${data.date}', 
-                                            description= '${data.description}', photo= ${data.photo !== undefined ? `'${data.photo}'` : null},
+                                            description= '${data.description}', photo= ${data.photo !== undefined && data.photo !== null ? `'${data.photo}'` : null},
                                             status= ${data.status ? 1 : 0}, updated_by= ${data.updated_by}, date_updated= CURRENT_TIMESTAMP`)
                             .condition(`WHERE id= ${data.id}`)
                             .build();
