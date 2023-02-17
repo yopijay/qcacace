@@ -31,10 +31,6 @@ export const input = {
     borderRadius: '5px'
 }
 
-export const error = {
-    color: '#e84118'
-}
-
 export const select = {
     border: 'solid 1px #dfe4ea',
     backgroundColor: '#ffffff',
@@ -44,17 +40,6 @@ export const select = {
     },
     marginBottom: '5px',
     borderRadius: '5px'
-}
-
-export const textarea = {
-    border: 'solid 1px #dfe4ea',
-    borderRadius: '5px',
-    fontFamily: 'Gilroy Light',
-    fontSize: '105%',
-    padding: '10px',
-    outline: 'none',
-    textTransform: 'uppercase',
-    color: '#353b48'
 }
 
 export const btntxt = { 

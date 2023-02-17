@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 
 // Core
 import { input } from "core/global/theme/index.style"; // Theme
-import { ListPrvdr } from "core/context/ListCntxt.func"; // Context
+import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
 
 // Layouts
 import List from "./layouts/list"
@@ -20,9 +20,7 @@ const container = {
 const Index = () => {
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" sx= { container }>
-            <Routes>
-                <Route exact path= "/" element= { <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } />
-            </Routes>
+            <Routes><Route exact path= "/" element= { <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } /></Routes>
         </Stack>
     );
 }

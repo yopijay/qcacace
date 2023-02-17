@@ -6,12 +6,14 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
-import { look, records } from "core/api/index.func"; // API
-import { useGet, usePost } from "core/global/function/index.func"; // Function
+import { look, records } from "core/api/index.func"; // APIs
+import { useGet, usePost } from "core/global/function/index.func"; // Functions
+
+// Constants
+import { search } from "./index.style"; // Styles
 
 // Layouts
 import Item from "./layouts/Item";
-import { search } from "./index.style";
 
 const Index = () => {
     const { setList } = useContext(ListCntxt);

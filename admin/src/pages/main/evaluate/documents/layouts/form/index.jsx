@@ -5,8 +5,8 @@ import { Box, Grid, Stack, Typography } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 // Core
-import { evaluate, specific } from "core/api/index.func";
-import { errorToast, successToast, useGet, usePost } from "core/global/function/index.func";
+import { evaluate, specific } from "core/api/index.func"; // APIs
+import { errorToast, successToast, useGet, usePost } from "core/global/function/index.func"; // Functions
 
 // Constants
 import { btnicon, btntxt, card } from "./index.style"; // Styles

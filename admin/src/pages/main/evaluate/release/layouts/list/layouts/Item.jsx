@@ -1,7 +1,7 @@
 // Libraries
 import { useContext } from "react";
 import { Avatar, Chip, Stack, Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
@@ -17,24 +17,10 @@ const Item = () => {
     const { list, setList } = useContext(ListCntxt);
     const navigate = useNavigate();
     const { mutate: approval } = 
-        usePost({ fetch: evaluate, 
-            onSuccess: data => { 
-                if(data.result === 'success') { 
-                    successToast(data.message, 3000, navigate('/evaluate/releasing', { replace: true }));
-                    setList(data.list);
-                } 
-            } 
-        });
+        usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { successToast(data.message, 3000, navigate('/evaluate/releasing', { replace: true })); setList(data.list); } } });
         
     const { mutate: reject } = 
-        usePost({ fetch: evaluate, 
-            onSuccess: data => {
-                if(data.result === 'success') { 
-                    errorToast(data.message, 3000, navigate('/evaluate/releasing', { replace: true }));
-                    setList(data.list); 
-                } 
-            } 
-        });
+        usePost({ fetch: evaluate, onSuccess: data => {if(data.result === 'success') { errorToast(data.message, 3000, navigate('/evaluate/releasing', { replace: true })); setList(data.list); } } });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx=  {{ padding: '0 0 40px 0', overflowY: 'scroll', '&::-webkit-scrollbar': { display: 'none' } }}>

@@ -6,11 +6,10 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useContext } from "react";
 
 // Core
-import { GlobalCntxt } from "core/context/GlobalCntxt.func";
+import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
 
-// Assets
-import Logo from 'assets/images/logo.png';
-
+// Constants
+import Logo from 'assets/images/logo.png'; // Assets
 // Custom styles
 const appbar = {
     boxShadow: 'none',

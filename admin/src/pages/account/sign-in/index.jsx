@@ -9,7 +9,7 @@ import { usePost } from "core/global/function/index.func"; // Function
 import { authentication } from "core/api/index.func"; // APIs
 
 // Constants
-import { brand, btn, input, link, title } from "./index.style"; // Title
+import { brand, btn, input, link, title } from "./index.style"; // Styles
 import { Validation } from "./index.validation"; // Validation
 
 const Index = () => {

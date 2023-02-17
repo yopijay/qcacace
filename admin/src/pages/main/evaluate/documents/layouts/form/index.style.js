@@ -10,17 +10,6 @@ export const btnicon = {
     '&:hover': { backgroundColor: '#adadad' }
 }
 
-export const title = {
-    fontSize: {
-        xs: '1.2rem',
-        md: '1.3rem'
-    },
-    fontFamily: 'Gilroy Bold',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    transition: 'all 0.2s ease-in-out'
-}
-
 export const card = {
     padding: '30px 15px',
     flexGrow: 1,
@@ -29,40 +18,6 @@ export const card = {
     border: 'solid 1px #919eab40',
     overflowY: 'scroll',
     '&::-webkit-scrollbar': { display: 'none' }
-}
-
-export const input = {
-    backgroundColor: '#ffffff',
-    border: 'solid 1px #dfe4ea',
-    padding: {
-        xs: '6px 8px',
-        md: '8px 10px'
-    },
-    marginBottom: '5px',
-    borderRadius: '5px'
-}
-
-export const error = { color: '#e84118' }
-
-export const select = {
-    border: 'solid 1px #dfe4ea',
-    padding: {
-        xs: '9px 8px',
-        md: '10px 10px'
-    },
-    marginBottom: '5px',
-    borderRadius: '5px'
-}
-
-export const textarea = {
-    border: 'solid 1px #dfe4ea',
-    borderRadius: '5px',
-    fontFamily: 'Gilroy Light',
-    fontSize: '105%',
-    padding: '10px',
-    outline: 'none',
-    textTransform: 'uppercase',
-    color: '#353b48'
 }
 
 export const btntxt = { 

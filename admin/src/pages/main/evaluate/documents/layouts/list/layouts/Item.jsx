@@ -8,33 +8,20 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
 import { errorToast, successToast, usePost } from "core/global/function/index.func"; // Function
+import { evaluate } from "core/api/index.func"; // APIs
 
 // Constants
 import { approve, disapprove, icons, item } from "../index.style"; // Styles
-import { evaluate } from "core/api/index.func"; // API
 
 const Item = () => {
     const { list, setList } = useContext(ListCntxt);
     const navigate = useNavigate();
+
     const { mutate: approval } = 
-        usePost({ fetch: evaluate, 
-            onSuccess: data => { 
-                if(data.result === 'success') { 
-                    successToast(data.message, 3000, navigate('/evaluate/documents', { replace: true }));
-                    setList(data.list);
-                } 
-            } 
-        });
+        usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { successToast(data.message, 3000, navigate('/evaluate/documents', { replace: true })); setList(data.list); } } });
         
     const { mutate: reject } = 
-        usePost({ fetch: evaluate, 
-            onSuccess: data => {
-                if(data.result === 'success') { 
-                    errorToast(data.message, 3000, navigate('/evaluate/documents', { replace: true }));
-                    setList(data.list); 
-                } 
-            } 
-        });
+        usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { errorToast(data.message, 3000, navigate('/evaluate/documents', { replace: true })); setList(data.list); } } });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx=  {{ padding: '0 0 40px 0', overflowY: 'scroll', '&::-webkit-scrollbar': { display: 'none' } }}>

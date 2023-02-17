@@ -19,10 +19,7 @@ export const days = (month = 1, year= new Date().getFullYear()) => {
                                         31 : month === 4 || month === 6 || month === 9 || month === 11 ? 
                                                 30 : ((0 === year % 4) && (0 !== year % 100)) || (0 === year % 400) ? 29 : 28;
 
-    for(let _day = 1; _day <= _dayPerMonth; _day++) {
-        _days.push({ id: _day, name: _day.toString() });
-    }
-
+    for(let _day = 1; _day <= _dayPerMonth; _day++) { _days.push({ id: _day, name: _day.toString() }); }
     return _days;
 }
 
@@ -30,9 +27,6 @@ export const years = () => {
     let _year = [];
     let _curYear = new Date().getFullYear();
 
-    for(let year = _curYear - 122; year <=  _curYear; year++) {
-        _year.push({ id: year, name: year.toString() });
-    }
-    
+    for(let year = _curYear - 122; year <=  _curYear; year++) { _year.push({ id: year, name: year.toString() }); }
     return _year.sort().reverse();
 }
