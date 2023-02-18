@@ -13,6 +13,8 @@ const AdopterDocuments = require('./tables/AdopterDocuments');
 const AdopterSchedule = require('./tables/AdopterSchedule');
 const AdopterPayment = require('./tables/AdopterPayment');
 const Programs = require('./tables/Programs');
+const Subscribers = require('./tables/Subscribers');
+const MissingPets = require('./tables/MissingPets');
 
 const login = async (data) => { return await new Users().login(data); }
 const logout = async (data) => { return await new Users().logout(data); }
@@ -24,7 +26,6 @@ const verifying = async (data) => { return await new Adopter().verifying(data); 
 
 const availabledates = async (data) => { return await new Appointment().availabeldates(data); }
 const pay = async (data) => { return await new AdopterPayment().pay(data); }
-// const verify = async (id) => { return await new Adopt().verify(id); }
 
 const dashboard = (table) => {
     return new Promise(async resolve => {
@@ -72,9 +73,11 @@ const search = (table, data) => {
             case 'tbl_adopter_documents': resolve(await new AdopterDocuments().search(data)); break;
             case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().search(data)); break;
             case 'tbl_adopter_payment': resolve(await new AdopterPayment().search(data)); break;
-            case 'tbl_programs': resolve (await new Programs().search(data)); break;
+            case 'tbl_programs': resolve(await new Programs().search(data)); break;
+            case 'tbl_missing_pets': resolve(await new MissingPets().search(data)); break;
+            case 'tbl_subscribers': resolve(await new Subscribers().search(data)); break;
         }
-    })
+    });
 }
 
 const list = (table, data) => {
@@ -93,6 +96,8 @@ const list = (table, data) => {
             case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().list()); break;
             case 'tbl_adopter_payment': resolve(await new AdopterPayment().list()); break;
             case 'tbl_programs': resolve(await new Programs().list(data)); break;
+            case 'tbl_missing_pets': resolve(await new MissingPets().list()); break;
+            case 'tbl_subscribers': resolve(await new Subscribers().list()); break;
         }
     });
 }
@@ -112,7 +117,7 @@ const specific = (table, id) => {
             case 'tbl_adopter': resolve(await new Adopter().specific(id)); break;
             case 'tbl_adopter_documents': resolve(await new AdopterDocuments().specific(id)); break;
             case 'tbl_programs': resolve(await new Programs().specific(id)); break;
-            // case 'tbl_adopt_info': resolve(await new Adopt().specific(id)); break;
+            case 'tbl_missing_pets': resolve(await new MissingPets().specific(id)); break;
         }
     });
 }
@@ -132,8 +137,8 @@ const save = (table, data) => {
             case 'tbl_adopter_documents': resolve(await new AdopterDocuments().save(data)); break;
             case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().save(data)); break;
             case 'tbl_programs': resolve(await new Programs().save(data)); break;
-            // case 'tbl_programs': resolve(await new Pro)
-            // case 'tbl_adopt_documents': resolve(await new Adopt().save(data)); break;
+            case 'tbl_subscribers': resolve(await new Subscribers().save(data)); break;
+            case 'tbl_missing_pets': resolve(await new MissingPets().save(data)); break;
         }
     });
 }
@@ -151,8 +156,7 @@ const update = (table, data) => {
             case 'tbl_users': resolve(await new Users().update(data)); break;
             case 'tbl_adopter': resolve(await new Adopter().update(data)); break;
             case 'tbl_programs': resolve(await new Programs().update(data)); break;
-            // case 'tbl_adopt_info': resolve(await new Adopt().update(data)); break;
-            // case 'tbl_adopt': resolve(await new Adopt().schedule(data)); break;
+            case 'tbl_missing_pets': resolve(await new MissingPets().update(data)); break;
         }
     });
 }
@@ -187,5 +191,4 @@ module.exports = {
     availabledates,
     evaluate,
     pay
-    // verify,
 }

@@ -2,20 +2,32 @@
 import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Box, Container, Grid, Stack, TextField, Typography } from "@mui/material";
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 // Core
 import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
-
-// Assets
-import Logo from 'assets/images/logo.png';
+import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { save } from "core/api/index.func"; // APIs
+import { successToast, usePost } from "core/global/function/index.func"; // Functions
 
 // Constants
+import Logo from 'assets/images/logo.png'; // Assets
 import { brand, brandinfo, brandlinks, title, links, info, newsletter, btntxt } from "./index.style"; // Styles
+import { validation } from "./index.validation"; // Validation
 
 const Index = () => {
     const { setIsActive } = useContext(GlobalCntxt);
+    const navigate = useNavigate();
+    const { register, handleSubmit, errors, setError, setValidation, setValue } = useContext(FormCntxt);
+
+    const { mutate: subscribe } = usePost({ fetch: save, 
+        onSuccess: data => {
+            if(data.result  === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
+            else { setValue('email', ''); successToast(data.message, 3000, navigate(window.location.pathname, { replace: true })); }
+        } });
+
+    useEffect(() => { setValidation(validation()); }, [ setValidation ]);
     return (
         <Box sx= {{ backgroundColor: '#1B4168', padding: '70px 0' }}>
             <Container maxWidth= "lg">
@@ -67,8 +79,9 @@ const Index = () => {
                             <Typography sx= { title }>Newsletter</Typography>
                             <Typography sx= { info }>Want to know what we`re up to? Sign up for the newsletter.</Typography>
                             <form autoComplete = "off">
-                                <Box sx= { newsletter }><TextField variant= "standard" size= "small" fullWidth= { true } InputProps= {{ disableUnderline: true }} /></Box>
-                                <Box sx= { btntxt }>Subscribe</Box>
+                                <Box sx= { newsletter }><TextField { ...register('email') } variant= "standard" size= "small" fullWidth= { true } InputProps= {{ disableUnderline: true }} /></Box>
+                                <Typography variant= "body2" sx= {{ color: '#e84118', marginTop: '8px' }} gutterBottom>{ errors.email?.message }</Typography>
+                                <Box sx= { btntxt } onClick= { handleSubmit(data => subscribe({ table: 'tbl_subscribers', data: data }) )}>Subscribe</Box>
                             </form>
                         </Stack>
                     </Grid>

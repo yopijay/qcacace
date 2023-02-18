@@ -3,6 +3,7 @@ import { Stack } from "@mui/material";
 
 // Core
 import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
+import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
 
 // Layouts
 import Intro from './intro';
@@ -31,7 +32,7 @@ const Index = () => {
             <ListPrvdr><Pets /></ListPrvdr>
             <Services />
             <Feedback />
-            <Footer />
+            <FormPrvdr><Footer /></FormPrvdr>
         </Stack>
     );
 }
