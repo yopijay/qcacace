@@ -7,7 +7,7 @@ import { useContext } from "react";
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
 import { useGet, usePost } from "core/global/function/index.func"; // Function
-import { look, records } from "core/api/index.func"; // APUII
+import { look, records } from "core/api/index.func"; // APIs
 
 // Constants
 import { item, search } from "../index.style"; // Styles

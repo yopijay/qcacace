@@ -12,7 +12,7 @@ class MissingPets {
     search = async  (data) => {
         return (await new Builder(`tbl_missing_pets AS mp`)
                                         .select(`mp.id, mp.series_no, ctgy.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, 
-                                                        mp.gender, mp.photo, mp.date_created`)
+                                                        mp.color, mp.owner_contact_no, mp.gender, mp.photo, mp.date_created`)
                                         .join({ table: `tbl_category AS ctgy`, condition: `mp.category_id = ctgy.id`, type: `LEFT` })
                                         .join({ table: `tbl_breed AS brd`, condition: `mp.breed_id = brd.id`, type: `LEFT` })
                                         .join({ table: `tbl_coat AS coat`, condition: `mp.coat_id = coat.id`, type: `LEFT` })
@@ -26,7 +26,7 @@ class MissingPets {
     list = async () => {
         return (await new Builder(`tbl_missing_pets AS mp`)
                                         .select(`mp.id, mp.series_no, ctgy.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, 
-                                                        mp.gender, mp.photo, mp.date_created`)
+                                                        mp.color, mp.owner_contact_no, mp.gender, mp.photo, mp.date_created`)
                                         .join({ table: `tbl_category AS ctgy`, condition: `mp.category_id = ctgy.id`, type: `LEFT` })
                                         .join({ table: `tbl_breed AS brd`, condition: `mp.breed_id = brd.id`, type: `LEFT` })
                                         .join({ table: `tbl_coat AS coat`, condition: `mp.coat_id = coat.id`, type: `LEFT` })

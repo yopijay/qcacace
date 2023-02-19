@@ -53,3 +53,31 @@ export const item = {
     padding: '30px 25px',
     borderRadius: '8px'
 }
+
+export const petmale = {
+    width: '10%',
+    color: '#1ec2df',
+    fontSize: { xs: '110%' },
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+}
+
+export const petfemale = {
+    width: '10%',
+    color: '#e76165',
+    fontSize: { xs: '110%' },
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+}
+
+export const petdesc = {
+    width: '90%',
+    fontWeight: 'bold',
+    color: '#777d9c',
+    fontSize: { xs: '125%' },
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+}
