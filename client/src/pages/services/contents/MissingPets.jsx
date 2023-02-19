@@ -62,43 +62,18 @@ const MissingPets = () => {
                             <Grid item xs= { 12 }>
                                 <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= { item }><Typography>No missing pet/s available.</Typography></Stack>
                             </Grid> :
-                            <Grid item xs= { 6 } sm= { 4 } md= { 3 }>
-                                <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { item } spacing= { 1 }>
-                                    <Skeleton variant= "rounded" sx= {{ width: '100%' , height: '200px' }} />
-                                    <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
-                                        <Skeleton variant= "text" sx= {{ fontSize: '1rem', width: '60%' }} />
-                                        <Skeleton variant= "rounded" sx= {{ width: '15px', height: '15px' }} />
-                                    </Stack>
-                                    <Skeleton variant= "text" sx= {{ fontSize: '.7rem', width: '50%' }} />
-                                    <Skeleton variant= "text" sx= {{ fontSize: '.9rem', width: '50%' }} />
+                        <Grid item xs= { 6 } sm= { 4 } md= { 3 }>
+                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { item } spacing= { 1 }>
+                                <Skeleton variant= "rounded" sx= {{ width: '100%' , height: '200px' }} />
+                                <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
+                                    <Skeleton variant= "text" sx= {{ fontSize: '1rem', width: '60%' }} />
+                                    <Skeleton variant= "rounded" sx= {{ width: '15px', height: '15px' }} />
                                 </Stack>
-                            </Grid> }
-                </Grid>
-                {/* <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx= {{ padding: '0 0 40px 0' }}>
-                    { !fetching && !finding ? list?.length > 0 ?
-                        list?.map((data, index) => (
-                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" key= { index } spacing= { 1 } sx= { item }>
-                                <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">
-                                    <Typography variant= "body2" sx= {{ fontWeight: 'bold', color: '#444444' }}>{ data.date }</Typography>
-                                </Stack>
-                                { data.photo !== null ?
-                                    <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ width: '100%', height: '250px', overflow: 'hidden', borderRadius: '8px' }}>
-                                        <Avatar src= { JSON.parse(data.photo) } variant= "square" sx= {{ width: 'auto', height: '100%' }} />
-                                    </Stack> : '' }
-                                <Typography variant= "h6" sx= {{ fontFamily: 'Tommy Bolder', color: '#444444' }}>{ data.title }</Typography>
-                                <Typography sx= {{ fontFamily: 'Tommy Bold', color: '#444444' }}>{ data.subtitle }</Typography>
-                                <Typography sx= {{ fontFamily: 'Gilroy Light', color: '#555555' }}>{ data.description }</Typography>
+                                <Skeleton variant= "text" sx= {{ fontSize: '.7rem', width: '50%' }} />
+                                <Skeleton variant= "text" sx= {{ fontSize: '.9rem', width: '50%' }} />
                             </Stack>
-                        )) :
-                        <Stack direction= "row" justifyContent= "center" alignItems= "center"><Typography>No missing pet/s available!</Typography></Stack> :
-                        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { item }>
-                            <Stack direction= "row" justifyContent= "flex-end" alignItems= "center"><Skeleton variant= "text" sx= {{ fontSize: '1rem', width: '20%' }} /></Stack>
-                            <Skeleton variant= "rounded" sx= {{ width: '100%', height: '250px', margin: '10px 0 20px 0' }} />
-                            <Skeleton variant= "text" sx= {{ fontSize: '1.5rem', width: '20%' }} />
-                            <Skeleton variant= "text" sx= {{ fontSize: '1.2rem', width: '15%' }} />
-                            <Skeleton variant= "rounded" sx= {{ width: '100%', height: '100px', marginTop: '10px' }} />
-                        </Stack> }
-                </Stack> */}
+                        </Grid> }
+                </Grid>
             </Stack>
         </Stack>
     );
