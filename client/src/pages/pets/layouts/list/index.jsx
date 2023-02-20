@@ -34,7 +34,7 @@ const Index = ({ setDialog, fetching, recommended, recommendation, recommending,
                 </form>
             </Stack>
             { !fetching && !finding ? <Items /> : 
-                <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" sx= {{ padding: '0 0 40px 0' }}>
+                <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" sx= {{ padding: '0 0 40px 0' }}>
                     { [0, 1, 2].map(index => (
                         <Grid item xs= { 12 } md= { 6 } lg= { 4 } key= { index } sx= {{ padding: '10px 8px' }}>
                             <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "start" sx= { petcontainer } spacing= { 2 }>
