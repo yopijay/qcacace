@@ -1,45 +1,25 @@
 // Libraries
 import { Autocomplete, Box, Grid, Skeleton, Stack, TextField, Typography } from "@mui/material";
-import { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useContext } from "react";
 import { Controller } from "react-hook-form";
 
 // Core
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
-import { randomizer, useGet, usePost } from "core/global/function/index.func"; // Function
 import { dropdown } from "core/api/index.func"; // API
+import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { useGet, usePost } from "core/global/function/index.func"; // Function
 
 // Constants
-import { error, input, select } from "../index.style"; // Styles
+import { select } from "./surrender.style"; // Styles
 
-const Classification = ({ fetching }) => {
-    const { type } = useParams();
-    const { getValues, control, errors, register, setValue } = useContext(FormCntxt);
+const PetClassification = () => {
+    const { control, getValues, errors } = useContext(FormCntxt);
     const { data: category, isFetching: categoryfetching } = useGet({ key: ['ctg_dropdown'], fetch: dropdown({ table: 'tbl_category', data: {} }) });
     const { data: breed, mutate: setbreeds, isLoading: breedloading } = usePost({ fetch: dropdown });
     const { data: coat, mutate: setcoat, isLoading: coatloading } = usePost({ fetch: dropdown });
     const { data: lifestages, mutate: setlifestages, isLoading: lifestagesloading } = usePost({ fetch: dropdown });
 
-    useEffect(() => { 
-        if(!fetching) { 
-            if(type !== 'new') { 
-                setbreeds({ table: 'tbl_breed', data: { id: getValues().category_id } }); 
-                setcoat({ table: 'tbl_coat', data: { id: getValues().category_id } });
-                setlifestages({ table: 'tbl_life_stages', data: { id: getValues().category_id } });
-            } 
-        } 
-    }, [ fetching, type, setbreeds, setcoat, setlifestages, getValues ]);
-    useEffect(() => { if(type === 'new') { setValue('series_no', randomizer(7)); } }, [ type, setValue ]);
-
     return (
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
-            <Grid item xs= { 12 } sm= { 7 }>
-                <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">Series No.</Typography>
-                    { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
-                        <TextField { ...register('series_no') } name= "series_no" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
-                </Stack>
-            </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography gutterBottom color= "text.secondary" variant= "body2">*Pet Category</Typography>
@@ -47,7 +27,7 @@ const Classification = ({ fetching }) => {
                         <Box sx= { select }>
                             <Controller control= { control } name= "category_id" defaultValue= { 0 }
                                 render= { ({ field: { onChange, value } }) => (
-                                    <Autocomplete options= { category } disableClearable disabled= { type === 'view' }
+                                    <Autocomplete options= { category } disableClearable
                                         getOptionLabel= { category => category.name || category.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                         isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                         onChange= { (e, item) => { 
@@ -58,7 +38,7 @@ const Classification = ({ fetching }) => {
                                                         category?.find(data => { return data.id === (getValues().category_id !== undefined ? getValues().category_id : value) }) : 
                                                         category?.length === 0 ? { id: 0, name: '-- SELECT AN ITEM BELOW --' } : category[0] } /> ) } /> 
                         </Box> : '' }
-                    <Typography variant= "body2" sx= { error } gutterBottom>{ errors.category_id?.message }</Typography>
+                    <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.category_id?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
@@ -70,7 +50,7 @@ const Classification = ({ fetching }) => {
                             breed.length > 0 ?
                                 <Controller control= { control } name= "breed_id" defaultValue= { 0 }
                                     render= { ({ field: { onChange, value } }) => (
-                                        <Autocomplete options= { breed } disabled= { type === 'view' } disableClearable
+                                        <Autocomplete options= { breed } disableClearable
                                             getOptionLabel= { breed => breed.name || breed.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                             isOptionEqualToValue= { (option, value) => option.name === value.name || breed.id === value.id }
                                             onChange= { (e, item) => { onChange(item.id); } } renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
@@ -82,7 +62,7 @@ const Classification = ({ fetching }) => {
                             : <Typography variant= "body1" sx= {{ padding: '4px 0' }} color= "text.disabled">Please select a pet category first!</Typography>
                         : <Typography variant= "body1" sx= {{ padding: '4px 0' }} color= "text.disabled">Loading...</Typography> }
                     </Box> }
-                    <Typography variant= "body2" sx= { error } gutterBottom>{ errors.breed_id?.message }</Typography>
+                    <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.breed_id?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
@@ -94,7 +74,7 @@ const Classification = ({ fetching }) => {
                             coat.length > 0 ?
                                 <Controller control= { control } name= "coat_id" defaultValue= { 0 }
                                     render= { ({ field: { onChange, value } }) => (
-                                        <Autocomplete options= { coat } disabled= { type === 'view' } disableClearable
+                                        <Autocomplete options= { coat } disableClearable
                                             getOptionLabel= { coat => coat.name || coat.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                             isOptionEqualToValue= { (option, value) => option.name === value.name || coat.id === value.id }
                                             onChange= { (e, item) => { onChange(item.id); } } renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
@@ -106,7 +86,7 @@ const Classification = ({ fetching }) => {
                             : <Typography variant= "body1" sx= {{ padding: '4px 0' }} color= "text.disabled">Please select a pet category first!</Typography>
                         : <Typography variant= "body1" sx= {{ padding: '4px 0' }} color= "text.disabled">Loading...</Typography> }
                     </Box> }
-                    <Typography variant= "body2" sx= { error } gutterBottom>{ errors.coat_id?.message }</Typography>
+                    <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.coat_id?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
@@ -118,7 +98,7 @@ const Classification = ({ fetching }) => {
                             lifestages.length > 0 ?
                                 <Controller control= { control } name= "life_stages_id" defaultValue= { 0 }
                                     render= { ({ field: { onChange, value } }) => (
-                                        <Autocomplete options= { lifestages } disabled= { type === 'view' } disableClearable
+                                        <Autocomplete options= { lifestages } disableClearable
                                             getOptionLabel= { lifestages => lifestages.name || lifestages.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                             isOptionEqualToValue= { (option, value) => option.name === value.name || lifestages.id === value.id }
                                             onChange= { (e, item) => { onChange(item.id); } } renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
@@ -130,11 +110,11 @@ const Classification = ({ fetching }) => {
                             : <Typography variant= "body1" sx= {{ padding: '4px 0' }} color= "text.disabled">Please select a pet category first!</Typography>
                         : <Typography variant= "body1" sx= {{ padding: '4px 0' }} color= "text.disabled">Loading...</Typography> }
                     </Box> }
-                    <Typography variant= "body2" sx= { error } gutterBottom>{ errors.life_stages_id?.message }</Typography>
+                    <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.life_stages_id?.message }</Typography>
                 </Stack>
             </Grid>
         </Grid>
     );
 }
 
-export default Classification;
+export default PetClassification;

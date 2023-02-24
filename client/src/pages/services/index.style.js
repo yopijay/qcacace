@@ -15,12 +15,14 @@ export const search = {
 }
 
 export const tab = {
+    textDecoration: 'none',
     cursor: 'pointer',
     minWidth: '150px',
     textAlign: 'center',
     padding: '8px 0',
     transition: 'all 0.2s ease-in-out',
     borderRadius: '8px',
+    color: '#444444',
     '&:hover': {
         backgroundColor: '#1b4168c2',
         color: '#ffffff'
@@ -28,6 +30,7 @@ export const tab = {
 }
 
 export const tabactive = {
+    textDecoration: 'none',
     cursor: 'pointer',
     minWidth: '150px',
     textAlign: 'center',
@@ -72,4 +75,20 @@ export const petdesc = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
+}
+
+export const btntxt = { 
+    display: 'flex',
+    cursor: 'pointer',
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: '#204c6f',
+    color: '#ffffff',
+    textDecoration: 'none',
+    borderRadius: '10px',
+    padding: '7px 40px',
+    marginTop: '20px',
+    transition: 'all 0.2s ease-in-out',
+    '&:hover': { backgroundColor: '#1b405d' }
 }

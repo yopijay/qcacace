@@ -15,6 +15,7 @@ const AdopterPayment = require('./tables/AdopterPayment');
 const Programs = require('./tables/Programs');
 const Subscribers = require('./tables/Subscribers');
 const MissingPets = require('./tables/MissingPets');
+const Surrender = require('./tables/Surrender');
 
 const login = async (data) => { return await new Users().login(data); }
 const logout = async (data) => { return await new Users().logout(data); }
@@ -139,6 +140,7 @@ const save = (table, data) => {
             case 'tbl_programs': resolve(await new Programs().save(data)); break;
             case 'tbl_subscribers': resolve(await new Subscribers().save(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().save(data)); break;
+            case 'tbl_surrender': resolve(await new Surrender().save(data)); break;
         }
     });
 }

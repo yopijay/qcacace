@@ -39,7 +39,7 @@ const MissingPets = () => {
                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" sx= {{ padding: '0 0 40px 0' }}>
                         { !fetching && !finding ? list?.length > 0 ? 
                             list?.map((data, index) => (
-                                <Grid item xs= { 12 } md= { 6 } key= { index } sx= {{ padding: '10px 8px' }}>
+                                <Grid item xs= { 12 } sm= { 6 } md= { 4 } lg= { 3} key= { index } sx= {{ padding: '10px 8px' }}>
                                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { item } spacing= { 1 }>
                                         <Stack direction= "row" justifyContent= "center" alignItems= "center" 
                                             sx= {{ backgroundColor: '#EFEFEF', width: '100%', height: '250px', overflow: 'hidden', borderRadius: '8px' }}>

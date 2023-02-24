@@ -1,6 +1,6 @@
 // Libraries
-import { useState } from "react";
 import { Container, Divider, Stack, Typography } from "@mui/material";
+import { Link, Route, Routes, useParams } from "react-router-dom";
 
 // Core
 import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
@@ -16,23 +16,24 @@ import Surrender from "./contents/Surrender";
 import { container, tab, tabactive } from "./index.style"; // Styles
 
 const Index = () => {
+    const { srvc } = useParams();
     localStorage.setItem('nav', 'services');
-    const [ content, setContent ] = useState('pet-program');
 
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } divider={ <Divider orientation="horizontal" flexItem /> } sx= {{ padding: '90px 0 0 0', height: '100%' }}>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } divider={ <Divider orientation="horizontal" flexItem /> } 
+            sx= {{ overflow: 'hidden', padding: '90px 0 0 0', height: '100%' }}>
             <Container maxWidth= "lg">
                 <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 } sx= {{ overflowX: 'scroll', '&::-webkit-scrollbar': { display: 'none' } }}>
-                    <Typography sx= { content === 'pet-program' ? tabactive : tab } onClick= { () => setContent('pet-program') }>Pet Program</Typography>
-                    <Typography sx= { content === 'animal-care' ? tabactive : tab } onClick= { () => setContent('animal-care') }>Animal Care</Typography>
-                    <Typography sx= { content === 'missing-pet' ? tabactive : tab } onClick= { () => setContent('missing-pet') }>Missing Pets</Typography>
-                    <Typography sx= { content === 'surrender' ? tabactive : tab } onClick= { () => setContent('surrender') }>Surrender</Typography>
+                    <Typography sx= { srvc === 'pet-program' ? tabactive : tab } component= { Link } to= "/services/pet-program">Pet Program</Typography>
+                    <Typography sx= { srvc === 'animal-care' ? tabactive : tab } component= { Link } to= "/services/animal-care">Animal Care</Typography>
+                    <Typography sx= { srvc === 'missing-pets' ? tabactive : tab } component= { Link } to= "/services/missing-pets">Missing Pets</Typography>
+                    <Typography sx= { srvc === 'surrender' ? tabactive : tab } component= { Link } to= "/services/surrender">Surrender</Typography>
                 </Stack>
             </Container>
-            { content === 'pet-program' ? <ListPrvdr><PetProgram /></ListPrvdr> :
-                content === 'animal-care' ? <AnimalCare /> :
-                content === 'missing-pet' ? <ListPrvdr><MissingPets /></ListPrvdr> :
-                content === 'surrender' ? <FormPrvdr><Surrender /></FormPrvdr> : '' }
+            { srvc === 'pet-program' ? <ListPrvdr><PetProgram /></ListPrvdr> :
+                srvc === 'animal-care' ? <AnimalCare /> :
+                srvc === 'missing-pets' ? <ListPrvdr><MissingPets /></ListPrvdr> :
+                srvc === 'surrender' ? <FormPrvdr><Surrender /></FormPrvdr> : '' }
         </Stack>
     );
 }

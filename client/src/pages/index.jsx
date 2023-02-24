@@ -33,7 +33,7 @@ const Index = () => {
                 <Routes>
                     <Route exact path= "/*" element= { <Main /> } />
                     <Route exact path= "/pets/*" element= { <ListPrvdr><Pets /></ListPrvdr> } />
-                    <Route exact path= "/services/*" element= { <Services /> } />
+                    <Route exact path= "/services/:srvc/*" element= { <Services /> } />
                 </Routes>
             </Box>
         </Box>
