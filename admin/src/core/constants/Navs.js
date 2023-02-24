@@ -21,6 +21,7 @@ const Documents = React.lazy(() => import('pages/main/evaluate/documents'));
 const Interview = React.lazy(() => import('pages/main/evaluate/interview'));
 const Payment = React.lazy(() => import('pages/main/evaluate/payment'));
 const Releasing = React.lazy(() => import('pages/main/evaluate/release'));
+const SurrenderPet = React.lazy(() => import('pages/main/evaluate/surrender-pets'));
 
 export const Navs = () => ([
     {
@@ -38,7 +39,7 @@ export const Navs = () => ([
     },
     {
         title: 'Evaluate', access: [ 'superadmin', 'admin', 'evaluator' ], nav: [
-            { path: '/evaluate/surrender-pets', label: 'Surrendered Pets', name: 'surrender-pets', component: 'SURRENDERED PETS' },
+            { path: '/evaluate/surrender-pets', label: 'Surrendered Pets', name: 'surrender-pets', component: <SurrenderPet /> },
             { path: '/evaluate/documents', label: 'Documents', name: 'documents', component: <Documents /> },
             { path: '/evaluate/interview', label: 'Interview', name: 'interview', component: <Interview /> },
             { path: '/evaluate/payment', label: 'Payment', name: 'payment', component: <Payment /> },

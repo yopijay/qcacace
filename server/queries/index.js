@@ -46,6 +46,7 @@ const evaluate = (table, type, data) => {
                     case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().approve(data)); break;
                     case 'tbl_adopter_payment': resolve(await new AdopterPayment().approve(data)); break;
                     case 'tbl_adopt': resolve(await new Adopt().approve(data)); break;
+                    case 'tbl_surrender': resolve(await new Surrender().approve(data)); break;
                 }
             break;
             case 'reject':
@@ -54,6 +55,7 @@ const evaluate = (table, type, data) => {
                     case 'tbl_adopter_schedule': resolve(await new AdopterSchedule().reject(data)); break;
                     case 'tbl_adopter_payment': resolve(await new AdopterPayment().reject(data)); break;
                     case 'tbl_adopt': resolve(await new Adopt().reject(data)); break;
+                    case 'tbl_surrender': resolve(await new Surrender().reject(data)); break;
                 }
             break;
         }
@@ -77,6 +79,7 @@ const search = (table, data) => {
             case 'tbl_programs': resolve(await new Programs().search(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().search(data)); break;
             case 'tbl_subscribers': resolve(await new Subscribers().search(data)); break;
+            case 'tbl_surender': resolve(await new Surrender().search(data)); break;
         }
     });
 }
@@ -99,6 +102,7 @@ const list = (table, data) => {
             case 'tbl_programs': resolve(await new Programs().list(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().list()); break;
             case 'tbl_subscribers': resolve(await new Subscribers().list()); break;
+            case 'tbl_surrender': resolve(await new Surrender().list()); break;
         }
     });
 }
@@ -119,6 +123,7 @@ const specific = (table, id) => {
             case 'tbl_adopter_documents': resolve(await new AdopterDocuments().specific(id)); break;
             case 'tbl_programs': resolve(await new Programs().specific(id)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().specific(id)); break;
+            case 'tbl_surrender': resolve(await new Surrender().specific(id)); break;
         }
     });
 }

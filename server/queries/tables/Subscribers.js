@@ -31,7 +31,7 @@ class Subscribers {
 
                 await new Builder(`tbl_subscribers`). update(`is_subscribe= 1, date_subscribe= CURRENT_TIMESTAMP`).condition(`WHERE id= ${subs.rows[0].id}`).build(); 
 
-                //transporter.sendMail({ from: global.USER, to: data.email, subject: `Re-subscription`, html: mail });
+                transporter.sendMail({ from: global.USER, to: data.email, subject: `Re-subscription`, html: mail });
                 return { result: 'success', message: 'Thank you for re-subscribing!' }
             }
         }
@@ -49,7 +49,7 @@ class Subscribers {
                                 .insert({ columns: `series_no, email, is_subscribe, date_subscribe`, values: `'${global.randomizer(7)}', '${data.email}', 1, CURRENT_TIMESTAMP` })
                                 .build();
 
-            //transporter.sendMail({ from: global.USER, to: data.email, subject: `Re-subscription`, html: mail });
+            transporter.sendMail({ from: global.USER, to: data.email, subject: `Re-subscription`, html: mail });
             return { result: 'success', message: 'Thank you for subscribing!' }
         }
     }

@@ -7,6 +7,15 @@ const global = require('../../functions/global');
 const Builder = require("../../functions/builder");
 
 class Surrender {
+    list = async () => {
+        return (await new Builder(`tbl_surrender AS surr`)
+                                        .select(`surr.id, surr.series_no, surr.photo, ls.name AS life_stage, CONCAT(lname, ', ', fname, ' ', mname) AS owner_name,
+                                                        surr.email, surr.contact_no, surr.reference_no, surr.status, surr.date_created`)
+                                        .join({ table: `tbl_life_stages AS ls`, condition: `surr.life_stages_id = ls.id`, type: `LEFT` })
+                                        .condition(`ORDER BY surr.date_created DESC`)
+                                        .build()).rows;
+    }
+
     save = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
@@ -30,7 +39,7 @@ class Surrender {
             }
         });
 
-        //transporter.sendMail({ from: global.USER, to: data.email, subject: `Surrender Pets`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Surrender Pets`, html: mail });
         return { result: 'success', message: 'Application sent!' }
     }
 }

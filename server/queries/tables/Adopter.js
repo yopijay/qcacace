@@ -43,7 +43,7 @@ class Adopt {
             }
         });
 
-        //transporter.sendMail({ from: global.USER, to: data.email, subject: `Email verification`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Email verification`, html: mail });
         return { result: 'success', message: 'Email verification sent!', id: id }
     }
 
@@ -64,7 +64,7 @@ class Adopt {
             }
         });
 
-        //transporter.sendMail({ from: global.USER, to: data.email, subject: `Email verification`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Email verification`, html: mail });
         return { result: 'success', message: 'Email verification sent!', id: usr.id }
     }
 
