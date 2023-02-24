@@ -38,6 +38,7 @@ export const Navs = () => ([
     },
     {
         title: 'Evaluate', access: [ 'superadmin', 'admin', 'evaluator' ], nav: [
+            { path: '/evaluate/surrender-pets', label: 'Surrendered Pets', name: 'surrender-pets', component: 'SURRENDERED PETS' },
             { path: '/evaluate/documents', label: 'Documents', name: 'documents', component: <Documents /> },
             { path: '/evaluate/interview', label: 'Interview', name: 'interview', component: <Interview /> },
             { path: '/evaluate/payment', label: 'Payment', name: 'payment', component: <Payment /> },

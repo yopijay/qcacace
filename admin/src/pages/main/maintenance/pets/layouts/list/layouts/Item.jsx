@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Link } from "react-router-dom";
-import { Avatar, Stack, Typography } from "@mui/material";
+import { Avatar, Chip, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 
 // Core
@@ -30,6 +30,7 @@ const Item = () => {
                                 </Stack>
                             </Stack>
                             <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
+                                { data.is_adopt === 1 ? <Chip label= { <Typography variant= "caption" sx= {{ fontWeight: 'bold' }}>Adopted</Typography>} color="secondary" /> : '' }
                                 <Typography sx= { icons } component= { Link } to= { `/maintenance/pet/form/update/${data.id}` }><FontAwesomeIcon icon= { solid('pencil') } size= "lg" /></Typography>
                                 <Typography sx= { icons } component= { Link } to= { `/maintenance/pet/form/view/${data.id}` }><FontAwesomeIcon icon= { solid('eye') } size= "lg" /></Typography>
                             </Stack>

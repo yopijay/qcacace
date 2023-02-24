@@ -13,8 +13,6 @@ import PetCondition from "./surrender/PetCondition";
 import OwnerInformation from "./surrender/OwnerInformation";
 import Email from "./surrender/Email";
 import ValidId from "./surrender/documents/ValidId";
-import Picture from "./surrender/documents/Picture";
-import PetCage from "./surrender/documents/PetCage";
 import Payment from "./surrender/Payment";
 
 // Constants
@@ -79,8 +77,6 @@ const Surrender = () => {
                                 <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }}gutterBottom>Documentary requirements</Typography>
                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 2 }>
                                     <Grid item xs= { 12 } md= { 6 } lg= { 4 }><ValidId /></Grid>
-                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><Picture /></Grid>
-                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><PetCage /></Grid>
                                 </Grid>
                             </Stack>
                         </Grid>
@@ -102,8 +98,6 @@ const Surrender = () => {
                             if(data.life_stages_id === 0 || data.life_stages_id === undefined) { errors.push({ name: 'life_stages_id', message: 'This field is required' }); }
                             if((data.tags).length === 0) { errors.push({ name: 'tags', message: 'This field is required' }); }
                             if(data.valid_id === undefined) { errors.push({ name: 'valid_id', message: 'This field is required!' }); }
-                            if(data.picture === undefined) { errors.push({ name: 'picture', message: 'This field is required!' }); }
-                            if(data.pet_cage === undefined) { errors.push({ name: 'pet_cage', message: 'This field is required!' }); }
 
                             if(!(errors.length > 0)) { saving({ table: 'tbl_surrender', data: data }); }
                             else { errors.forEach(err => setError(err.name, { message: err.message })); }

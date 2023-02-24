@@ -23,7 +23,7 @@ class Subscribers {
                     body: {
                         name: 'Fur Mom/Dad',
                         intro: `Thank you message para sa pag re-subscribe and inform natin si user na everytime na may bago tayong pet, programs, and missing pets ay i-e-email natin sya
-                                    just in case na meron interested sya ganon.`,
+                                    just in case na interested sya ganon.`,
                         
                         outro: 'Please contact me for additional help.'
                     }
@@ -40,7 +40,7 @@ class Subscribers {
                 body: {
                     name: 'Fur Mom/Dad',
                     intro: `Thank you message para sa pagsubscribe and inform natin si user na everytime na may bago tayong pet, programs, and missing pets ay i-e-email natin sya
-                                just in case na meron interested sya ganon.`,
+                                just in case na interested sya ganon.`,
                     
                     outro: 'Please contact me for additional help.'
                 }
