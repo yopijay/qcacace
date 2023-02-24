@@ -86,7 +86,7 @@ class AdopterPayment {
             }
         });
 
-        /transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
         return { result: 'success', message: 'Payment failed!', list: list }
     }
 
