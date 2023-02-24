@@ -75,7 +75,7 @@ class Adopt {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Congratulations, You now own the pet`, html: mail });
+        //transporter.sendMail({ from: global.USER, to: data.email, subject: `Congratulations, You now own the pet`, html: mail });
         return { result: 'success', message: 'Adoption complete!', list: list }
     }
 
@@ -110,7 +110,7 @@ class Adopt {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        //transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
         return { result: 'success', message: 'Payment failed!', list: list }
     }
 }

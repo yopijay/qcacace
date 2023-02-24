@@ -52,7 +52,7 @@ class AdopterPayment {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Payment Received`, html: mail });
+        //transporter.sendMail({ from: global.USER, to: data.email, subject: `Payment Received`, html: mail });
         return { result: 'success', message: 'Payment confirmed!', list: list }
     }
 
@@ -86,7 +86,7 @@ class AdopterPayment {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        ///transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
         return { result: 'success', message: 'Payment failed!', list: list }
     }
 
@@ -131,7 +131,7 @@ class AdopterPayment {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: adpt.email, subject: `Payment Status`, html: mail });
+        //transporter.sendMail({ from: global.USER, to: adpt.email, subject: `Payment Status`, html: mail });
             return { result: 'success', message: 'Payment sent!' }
         }
         else { return { result: 'error', errors: errors } }

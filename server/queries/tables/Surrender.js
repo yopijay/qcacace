@@ -30,7 +30,7 @@ class Surrender {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Surrender Pets`, html: mail });
+        //transporter.sendMail({ from: global.USER, to: data.email, subject: `Surrender Pets`, html: mail });
         return { result: 'success', message: 'Application sent!' }
     }
 }
