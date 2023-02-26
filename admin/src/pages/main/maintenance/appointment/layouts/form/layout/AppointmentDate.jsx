@@ -1,6 +1,6 @@
 // Libraries
 import { Autocomplete, Box, Grid, Stack, TextField, Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useParams } from "react-router-dom";
 

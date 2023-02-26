@@ -11,7 +11,7 @@ import { useGet } from "core/global/function/index.func"; // Function
 import { records } from "core/api/index.func"; // API
 
 // Constants
-import { btnicon, btntxt, card } from "./index.style"; // Styles
+import { btnicon, btntxt } from "./index.style"; // Styles
 
 // Layouts
 import Item from "./layouts/Item";
