@@ -18,7 +18,7 @@ import Item from "./layouts/Item";
 
 const Index = () => {
     const { setList } = useContext(ListCntxt);
-    const { isFetching } = useGet(['adpt_list'], record({ table: 'tbl_adopt', query: `ORDER BY adpt.date_requested ASC` }), { refetchOnWindowFocus: false }, (data) => setList(data));
+    const { isFetching } = useGet(['adpt_list'], record({ table: 'tbl_services', query: `ORDER BY adpt.date_requested ASC` }), { refetchOnWindowFocus: false }, (data) => setList(data));
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 1 }>

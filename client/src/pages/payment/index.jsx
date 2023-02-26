@@ -33,7 +33,7 @@ const Index = () => {
     const navigate = useNavigate();
     const [ method, setMethod ] = useState('gcash');
     const { handleSubmit, register, setValue, setError } = useContext(FormCntxt);
-    const { data: adopt } = useGet({ key: ['adopt_specific'], fetch: specific({ table: 'tbl_adopt', id: atob(id) }) });
+    const { data: adopt } = useGet({ key: ['adopt_specific'], fetch: specific({ table: 'tbl_services', id: atob(id) }) });
     const { mutate: pay } = 
         usePost({ fetch: payment, 
             onSuccess: data => {

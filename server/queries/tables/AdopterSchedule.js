@@ -8,24 +8,24 @@ const Builder = require('../../functions/builder');
 
 class AdopterSchedule {
     list = async () => {
-        return (await new Builder(`tbl_adopt AS adpt`)
+        return (await new Builder(`tbl_services AS adpt`)
                                         .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, adptr.contact_no,
                                                         adptr.email, adptr.fname, adptr.lname, sched.appointment_id, docu.status AS docu_status, sched.status, sched.date_created`)
-                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-                                        .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
-                                        .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
+                                        .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                        .join({ table: `tbl_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
                                         .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
                                         .except(`WHERE docu.status = 'pending' AND sched.status = 'pending' ORDER BY 13 DESC`)
                                         .build()).rows;
     }
 
     search = async (data) => {
-        return (await new Builder(`tbl_adopt AS adpt`)
+        return (await new Builder(`tbl_services AS adpt`)
                                         .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, adptr.contact_no,
                                                         adptr.email, adptr.fname, adptr.lname, sched.appointment_id, docu.status AS docu_status, sched.status, sched.date_created`)
-                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-                                        .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
-                                        .join({ table: `tbl_adopter_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
+                                        .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                        .join({ table: `tbl_documents AS docu`, condition: `adpt.docu_id = docu.id`, type: `LEFT` })
                                         .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
                                         .condition(`WHERE sched.series_no LIKE '%${data.condition}%' OR adptr.email LIKE '%${(data.condition).toLowerCase()}%' OR
                                                             adptr.fname LIKE '%${data.condition}%' OR adptr.lname LIKE '%${data.condition}%'`)
@@ -38,13 +38,13 @@ class AdopterSchedule {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        await new Builder(`tbl_adopter_schedule`).update(`status= 'passed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
+        await new Builder(`tbl_schedule`).update(`status= 'passed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
 
-        let list = (await new Builder(`tbl_adopt AS adpt`)
+        let list = (await new Builder(`tbl_services AS adpt`)
                                             .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
                                                             adptr.email, adptr.fname, adptr.lname, sched.appointment_id, sched.status, sched.date_created`)
-                                            .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-                                            .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                            .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                            .join({ table: `tbl_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
                                             .condition(`ORDER BY 13 DESC`)
                                             .build()).rows;
@@ -75,19 +75,19 @@ class AdopterSchedule {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        let sched = (await new Builder(`tbl_adopter_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
+        let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
         let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
         
-        await new Builder(`tbl_adopter_schedule`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
+        await new Builder(`tbl_schedule`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
         await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
         await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
-        await new Builder(`tbl_adopt`).update(`status= 'cancelled', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        await new Builder(`tbl_services`).update(`status= 'cancelled', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
-        let list = (await new Builder(`tbl_adopt AS adpt`)
+        let list = (await new Builder(`tbl_services AS adpt`)
                                             .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
                                                             adptr.email, adptr.fname, adptr.lname, sched.appointment_id, sched.status, sched.date_created`)
-                                            .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-                                            .join({ table: `tbl_adopter_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                            .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                            .join({ table: `tbl_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
                                             .condition(`ORDER BY 13 DESC`)
                                             .build()).rows
@@ -113,10 +113,10 @@ class AdopterSchedule {
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
         let appointment = (await new Builder(`tbl_appointments`).select().condition(`WHERE month= ${data.appmonth} AND day= ${data.appday} AND year= ${data.appyear}`).build()).rows[0];
-        let adopt = (await new Builder(`tbl_adopt`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
+        let adopt = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
 
         
-        let sched = (await new Builder(`tbl_adopter_schedule`)
+        let sched = (await new Builder(`tbl_schedule`)
                                                 .insert({ columns: `series_no, adopter_id, appointment_id, status, date_created`, 
                                                                 values: `'${global.randomizer(7)}', ${data.adopter_id}, ${appointment.id}, 'pending', CURRENT_TIMESTAMP` })
                                                 .condition(`RETURNING id`)
@@ -124,7 +124,7 @@ class AdopterSchedule {
                                                 
         await new Builder(`tbl_appointments`).update(`slot= ${appointment.slot - 1}`).condition(`WHERE id= ${appointment.id}`).build();
         await new Builder(`tbl_pets`).update(`is_adopt= 1`).condition(`WHERE id= ${adopt.pet_id}`).build();
-        await new Builder(`tbl_adopt`).update(`schedule_id= ${sched.id}, date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        await new Builder(`tbl_services`).update(`schedule_id= ${sched.id}, date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
         let mail = generator.generate({
             body: {

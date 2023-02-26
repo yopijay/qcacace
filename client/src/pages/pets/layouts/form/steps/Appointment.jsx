@@ -79,7 +79,7 @@ const Appointment = () => {
                             data['id'] = atob(adoptid);
                             data['adopter_id'] = atob(userid);
                             data['appyear'] = new Date().getFullYear();
-                            saving({ table: 'tbl_adopter_schedule', data: data });
+                            saving({ table: 'tbl_schedule', data: data });
                         }
                     })}>Next</Box>
                 </Grid>

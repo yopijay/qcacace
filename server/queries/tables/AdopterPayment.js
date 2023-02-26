@@ -8,21 +8,21 @@ const Builder = require('../../functions/builder');
 
 class AdopterPayment {
     list = async () => {
-        return (await new Builder(`tbl_adopt AS adpt`)
+        return (await new Builder(`tbl_services AS adpt`)
                                         .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.payment_id, adpt.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
                                                         pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
-                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-                                        .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
+                                        .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_payments AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
                                         .except(`WHERE adpt.payment_id IS NULL  ORDER BY 9 DESC`)
                                         .build()).rows;
     }
     
     search = async (data) => {
-        return (await new Builder(`tbl_adopt AS adpt`)
+        return (await new Builder(`tbl_services AS adpt`)
                                         .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.payment_id, adpt.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
                                                         pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
-                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-                                        .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
+                                        .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_payments AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
                                         .condition(`WHERE pymnt.transaction_no LIKE '%${data.condition}%' OR pymnt.series_no LIKE '%${data.condition}%'`)
                                         .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
                                         .build()).rows;
@@ -33,13 +33,13 @@ class AdopterPayment {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        await new Builder(`tbl_adopter_payment`).update(`status= 'paid', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        await new Builder(`tbl_payments`).update(`status= 'paid', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
-        let list = (await new Builder(`tbl_adopt AS adpt`)
+        let list = (await new Builder(`tbl_services AS adpt`)
                                         .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.payment_id, adpt.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
                                                         pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
-                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-                                        .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
+                                        .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_payments AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
                                         .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
                                         .build()).rows;
 
@@ -61,19 +61,19 @@ class AdopterPayment {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
 
-        let sched = (await new Builder(`tbl_adopter_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
+        let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
         let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
 
-        await new Builder(`tbl_adopter_payment`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.payment_id}`).build();
+        await new Builder(`tbl_payments`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.payment_id}`).build();
         await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
         await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
-        await new Builder(`tbl_adopt`).update(`status= 'cancelled', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        await new Builder(`tbl_services`).update(`status= 'cancelled', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
-        let list = (await new Builder(`tbl_adopt AS adpt`)
+        let list = (await new Builder(`tbl_services AS adpt`)
                                         .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.payment_id, adpt.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
                                                         pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
-                                        .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-                                        .join({ table: `tbl_adopter_payment AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
+                                        .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                        .join({ table: `tbl_payments AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
                                         .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
                                         .build()).rows;
 
@@ -95,28 +95,28 @@ class AdopterPayment {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        let adpt = (await new Builder(`tbl_adopt AS adpt`)
+        let adpt = (await new Builder(`tbl_services AS adpt`)
                                             .select(`adptr.id, adptr.email`)
-                                            .join({ table: `tbl_adopter AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
+                                            .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
                                             .condition(`WHERE adpt.id= ${data.id}`)
                                             .build()).rows[0];
         let errors = [];
 
         if(data.payment === 'gcash') {
-            if((await new Builder(`tbl_adopter_payment`).select().condition(`WHERE transaction_no= '${data.transaction_no}'`).build()).rowCount > 0) {
+            if((await new Builder(`tbl_payments`).select().condition(`WHERE transaction_no= '${data.transaction_no}'`).build()).rowCount > 0) {
                 errors.push({ name: 'transaction_no', message: 'Transaction number already used!' });
             }
         }
 
         if(!(errors.length > 0)) {
-            let payment = (await new Builder(`tbl_adopter_payment`)
+            let payment = (await new Builder(`tbl_payments`)
                                                         .insert({ columns: `series_no, adopter_id, method, amount, transaction_no, status, date_created`, 
                                                                         values: `'${global.randomizer(7)}', ${adpt.id}, '${data.payment}', '250', ${data.payment === 'gcash' ? `'${data.transaction_no}'` : null},
                                                                                         'pending', CURRENT_TIMESTAMP` })
                                                         .condition(`RETURNING id`)
                                                         .build()).rows[0];
 
-            await new Builder(`tbl_adopt`).update(`payment_id= ${payment.id}, date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+            await new Builder(`tbl_services`).update(`payment_id= ${payment.id}, date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
         let mail = generator.generate({
             body: {

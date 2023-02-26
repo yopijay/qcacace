@@ -21,7 +21,7 @@ const Index = () => {
     const navigate = useNavigate();
     
     const { data: docs, isFetching: fetching } = 
-        useGet({ key: ['docs_specific'], fetch: specific({ table: 'tbl_adopter_documents', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false } });
+        useGet({ key: ['docs_specific'], fetch: specific({ table: 'tbl_documents', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false } });
 
     const { mutate: approval } = 
         usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { successToast(data.message, 3000, navigate('/evaluate/documents', { replace: true })); }  } });
@@ -48,11 +48,11 @@ const Index = () => {
                     <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 }>
                         <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
                             <Box sx= { btntxt }
-                                onClick= { () => approval({ table: 'tbl_adopter_documents', type: 'approve', data: { id: id, email: atob(email) } }) }>Approved</Box>
+                                onClick= { () => approval({ table: 'tbl_documents', type: 'approve', data: { id: id, email: atob(email) } }) }>Approved</Box>
                         </Grid>
                         <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
                             <Box sx= { btntxt }
-                                onClick= { () => reject({ table: 'tbl_adopter_documents', type: 'reject', data: { id: id, email: atob(email) } }) }>Reject</Box>
+                                onClick= { () => reject({ table: 'tbl_documents', type: 'reject', data: { id: id, email: atob(email) } }) }>Reject</Box>
                         </Grid>
                     </Grid> : '' }
             </Box>

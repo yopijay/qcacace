@@ -39,12 +39,12 @@ const Item = () => {
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                         { data.status === 'pending' ? 
                             <Typography sx= { approve } 
-                                onClick= { () => approval({ table: 'tbl_adopt', type: 'approve', data: { id: data.id, email: data.email } }) }>
+                                onClick= { () => approval({ table: 'tbl_services', type: 'approve', data: { id: data.id, email: data.email } }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
                         { data.status === 'pending' ? 
                             <Typography sx= { disapprove }
-                                onClick= { () => reject({ table: 'tbl_adopt', 
+                                onClick= { () => reject({ table: 'tbl_services', 
                                                                         type: 'reject', 
                                                                         data: { id: data.id, 
                                                                                     pet_id: data.pet_id,

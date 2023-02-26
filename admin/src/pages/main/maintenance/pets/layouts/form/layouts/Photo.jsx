@@ -3,7 +3,6 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, FormLabel, Stack, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
@@ -26,7 +25,6 @@ const btn = {
 const error = { color: '#e84118' }
 
 const  Photo = ({ fetching }) => {
-    const { type } = useParams();
     const { register, errors, setError, getValues, setValue } = useContext(FormCntxt);
     const [ pic, setPic ] = useState('#');
 
@@ -36,7 +34,7 @@ const  Photo = ({ fetching }) => {
         <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ marginBottom: '50px' }}>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-end">
                 <Avatar src= { pic } sx= {{ width: '145px', height: '145px', border: 'solid 5px #DFE4EA' }} />
-                { type !== 'view' ? <FormLabel htmlFor= "photo" sx= { btn }><FontAwesomeIcon icon= { solid('camera') } /></FormLabel> : '' }
+                { getValues()?.is_adopt !== 1 ? <FormLabel htmlFor= "photo" sx= { btn }><FontAwesomeIcon icon= { solid('camera') } /></FormLabel> : '' }
                 <input type= "file" name= "photo" id= "photo" style= {{ width: '0.1px', height: '0.1px', opacity: 0, overflow: 'hidden', position: 'absolute', zIndex: -1 }}
                     onChange= { async (e) => {
                         setError('photo', { message: '' });

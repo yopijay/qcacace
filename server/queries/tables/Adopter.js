@@ -7,7 +7,7 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Adopt {
-    specific = async (id) => { return (await new Builder(`tbl_adopter`).select().condition(`WHERE id= ${id}`).build()).rows; }
+    specific = async (id) => { return (await new Builder(`tbl_furr_parent`).select().condition(`WHERE id= ${id}`).build()).rows; }
 
     save = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
@@ -17,8 +17,8 @@ class Adopt {
         let id = null;
         let code = null;
 
-        if(!((await new Builder(`tbl_adopter`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0)) {
-            let usr = (await new Builder(`tbl_adopter`)
+        if(!((await new Builder(`tbl_furr_parent`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0)) {
+            let usr = (await new Builder(`tbl_furr_parent`)
                                                 .insert({ columns: `series_no, email, code, date_created`, 
                                                                 values: `'${global.randomizer(7)}', '${data.email}', '${global.randomizer(6)}', CURRENT_TIMESTAMP` })
                                                 .condition(`RETURNING id, code`)
@@ -27,7 +27,7 @@ class Adopt {
             code = usr.code;
         }
         else {
-            let usr = (await new Builder(`tbl_adopter`).update(`code= '${global.randomizer(6)}'`).condition(`WHERE email= '${data.email}' RETURNING id, code`).build()).rows[0];
+            let usr = (await new Builder(`tbl_furr_parent`).update(`code= '${global.randomizer(6)}'`).condition(`WHERE email= '${data.email}' RETURNING id, code`).build()).rows[0];
 
             id = usr.id;
             code = usr.code;
@@ -52,7 +52,7 @@ class Adopt {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        let usr = (await new Builder(`tbl_adopter`).update(`code= '${global.randomizer(6)}'`).condition(`WHERE email= '${data.email}' RETURNING id, code`).build()).rows[0];
+        let usr = (await new Builder(`tbl_furr_parent`).update(`code= '${global.randomizer(6)}'`).condition(`WHERE email= '${data.email}' RETURNING id, code`).build()).rows[0];
 
         let mail = generator.generate({
             body: {
@@ -69,36 +69,36 @@ class Adopt {
     }
 
     verifying = async (data) => { 
-        if((await new Builder(`tbl_adopter`).select().condition(`WHERE id= ${data.id} AND code= '${(data.code).toUpperCase()}'`).build()).rowCount > 0) {
+        if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE id= ${data.id} AND code= '${(data.code).toUpperCase()}'`).build()).rowCount > 0) {
             return { result: 'success', message: 'Email verification successfully', id: data.id }
         }
         else {  return { result: 'error', errors: [{ name: 'code', message: 'Verification doesn`t match!' }] } }
     }
 
     update = async (data) => {
-        let usr = (await new Builder(`tbl_adopter`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
+        let usr = (await new Builder(`tbl_furr_parent`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
         let errors = [];
 
         if(global.compare(usr.fname, data.fname)) {
-            if((await new Builder(`tbl_adopter`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
+            if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
                 errors.push({ name: 'lname', message: 'Name alreeady exist! Change your first name or last name to proceed!' });
             }
         }
 
         if(global.compare(usr.lname, data.lname)) {
-            if((await new Builder(`tbl_adopter`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
+            if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
                 errors.push({ name: 'lname', message: 'Name alreeady exist! Change your first name or last name to proceed!' });
             }
         }
 
         if(global.compare(usr.contact_no, data.contact_no)) {
-            if((await new Builder(`tbl_adopter`).select().condition(`WHERE contact_no= '${data.contact_no}'`).build()).rowCount > 0) {
+            if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE contact_no= '${data.contact_no}'`).build()).rowCount > 0) {
                 errors.push({ name: 'contact_no', message: 'Contact no. already used!' });
             }
         }
 
         if(!(errors.length > 0)) {
-            await new Builder(`tbl_adopter`)
+            await new Builder(`tbl_furr_parent`)
                                 .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
                                                 lname= '${(data.lname).toUpperCase()}', gender= '${data.gender}', contact_no= '${data.contact_no}',
                                                 address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, date_updated= CURRENT_TIMESTAMP`)

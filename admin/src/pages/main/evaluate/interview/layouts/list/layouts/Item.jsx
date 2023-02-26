@@ -38,12 +38,12 @@ const Item = () => {
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                         { data.status === 'pending' ? 
                             <Typography sx= { approve } 
-                                onClick= { () => approval({ table: 'tbl_adopter_schedule', type: 'approve', data: { id: data.id, schedule_id: data.schedule_id, email: data.email } }) }>
+                                onClick= { () => approval({ table: 'tbl_schedule', type: 'approve', data: { id: data.id, schedule_id: data.schedule_id, email: data.email } }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
                         { data.status === 'pending' ? 
                             <Typography sx= { disapprove }
-                                onClick= { () => reject({ table: 'tbl_adopter_schedule', 
+                                onClick= { () => reject({ table: 'tbl_schedule', 
                                                                         type: 'reject', 
                                                                         data: { id: data.id, 
                                                                                     adopter_id: data.adopter_id, 

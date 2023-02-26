@@ -6,7 +6,7 @@ class Pets {
     specific = async (id) => { 
         return (await new Builder(`tbl_pets AS pet`)
                                         .select(`pet.id, pet.series_no, pet.category_id, ctg.name AS category, pet.breed_id, brd.name AS breed, pet.coat_id, coat.name AS coat, 
-                                                        pet.life_stages_id, ls.name AS stage, pet.gender, pet.sterilization, pet.energy_level, pet.weight, pet.color, pet.tags, pet.photo`)
+                                                        pet.life_stages_id, ls.name AS stage, pet.gender, pet.sterilization, pet.energy_level, pet.weight, pet.color, pet.tags, pet.photo, pet.is_adopt`)
                                         .join({ table: `tbl_category AS ctg`, condition: `pet.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pet.breed_id = brd.id`, type: 'LEFT' })
                                         .join({ table: `tbl_coat AS coat`, condition: `pet.coat_id = coat.id`, type: `LEFT` })

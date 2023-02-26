@@ -55,11 +55,15 @@ export const btnicon = {
 }
 
 export const item = {
-    backgroundColor: '#ffffff',
-    overflow: 'hidden',
-    border: 'solid 1px #919eab40',
-    padding: '20px 16px',
-    borderRadius: '8px'
+    backgroundColor: '#FFFFFF', 
+    padding: '10px 20px', 
+    border: 'solid 1px #F3F3F3', 
+    borderRadius: '10px',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: '#444444',
+    transition: 'all 0.2s ease-in-out',
+    '&:hover': { backgroundColor: '#EFEFEF' }
 }
 
 export const icons = {
@@ -71,4 +75,10 @@ export const icons = {
         transform: 'scale(1.1)', 
         transition: 'transform .2s' 
     }
+}
+
+export const label = {
+    whiteSpace: 'nowrap', 
+    overflow: 'hidden', 
+    textOverflow: 'ellipsis'
 }

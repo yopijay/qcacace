@@ -23,7 +23,7 @@ import Condition from "./layouts/Condition";
 const Index = () => {
     const { type, id } = useParams();
     const navigate = useNavigate();
-    const { setValidation, handleSubmit, setValue, setError } = useContext(FormCntxt);
+    const { setValidation, handleSubmit, setValue, setError, getValues } = useContext(FormCntxt);
     const { refetch, isFetching: fetching } = 
         useGet({ key: ['pet_specific'], fetch: specific({ table: 'tbl_pets', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
             onSuccess: (data) => { 
@@ -76,7 +76,7 @@ const Index = () => {
                     </Grid>
                 </Grid>
             </Stack>
-            { type !== 'view' ?
+            { getValues()?.is_adopt !== 1 ?
                 <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center">
                     <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
                         <Box sx= { btntxt } onClick= { handleSubmit(data => {

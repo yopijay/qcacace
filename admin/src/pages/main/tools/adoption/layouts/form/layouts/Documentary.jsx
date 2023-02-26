@@ -14,7 +14,7 @@ const Documentary = () => {
     const [ ownerpicture, setOwnerpicture ] = useState('Choose a file');
     const [ area, setArea ] = useState('Choose a file');
     const { register, getValues } = useContext(FormCntxt);
-    const { refetch } = useGet(['docs_specific'], get({ table: 'tbl_adopt_documents', type: 'specific', query: getValues()?.documents_id ?? null }), { enabled: type !== 'apply', refetchOnWindowFocus: false }, 
+    const { refetch } = useGet(['docs_specific'], get({ table: 'tbl_services_documents', type: 'specific', query: getValues()?.documents_id ?? null }), { enabled: type !== 'apply', refetchOnWindowFocus: false }, 
         (data) => { console.log(data) });
 
     useEffect(() => { if(getValues() !== undefined) { refetch() } }, [ getValues, refetch ]);

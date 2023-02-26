@@ -76,11 +76,3 @@ export const icons = {
         transition: 'transform .2s' 
     }
 }
-
-export const card = {
-    width: '100%',
-    padding: '20px',
-    backgroundColor: '#FFFFFF',
-    boxShadow: 1,
-    borderRadius: '13px'
-}
