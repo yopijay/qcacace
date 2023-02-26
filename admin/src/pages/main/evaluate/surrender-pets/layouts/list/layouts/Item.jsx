@@ -60,7 +60,7 @@ const Item = () => {
                                 data.status === 'failed' ? 
                                     <Chip variant= "default" size= "small" label= "Failed" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
                                     <Chip variant= "default" size= "small" label= "Cancelled" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' }
-                        <Typography sx= { icons } component= { Link } to= { `/evaluate/surrender-pets/form/view/${data.docu_id}/${btoa(data.email)}` }>
+                        <Typography sx= { icons } component= { Link } to= { `/evaluate/surrender-pets/form/view/${data.id}` }>
                             <FontAwesomeIcon icon= { solid('eye') } size= "lg" />
                         </Typography>
                     </Stack>

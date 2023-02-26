@@ -7,6 +7,8 @@ const global = require('../../functions/global');
 const Builder = require("../../functions/builder");
 
 class Surrender {
+    specific = async (id) => { return (await new Builder(`tbl_surrender`).select().condition(`WHERE id= ${id}`).build()).rows; }
+
     list = async () => {
         return (await new Builder(`tbl_surrender AS surr`)
                                         .select(`surr.id, surr.series_no, surr.photo, ls.name AS life_stage, CONCAT(lname, ', ', fname, ' ', mname) AS owner_name,

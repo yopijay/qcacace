@@ -1,10 +1,13 @@
 // Libraries
 import { Box, Container, Grid, Stack, ThemeProvider, Typography } from "@mui/material";
 import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Core
 import { theme } from "core/global/theme/index.style"; // Theme
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { successToast, usePost } from "core/global/function/index.func"; // Function
+import { save } from "core/api/index.func"; // API
 
 // Layouts
 import Photo from "./surrender/Photo";
@@ -13,14 +16,10 @@ import PetCondition from "./surrender/PetCondition";
 import OwnerInformation from "./surrender/OwnerInformation";
 import Email from "./surrender/Email";
 import ValidId from "./surrender/documents/ValidId";
-import Payment from "./surrender/Payment";
 
 // Constants
 import { validation } from "./surrender/index.validation"; //  Validation
 import { btntxt } from "../index.style"; // Styles
-import { successToast, usePost } from "core/global/function/index.func";
-import { save } from "core/api/index.func";
-import { useNavigate } from "react-router-dom";
 const input = {
     MuiInput: {
         styleOverrides: {
@@ -78,12 +77,6 @@ const Surrender = () => {
                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 2 }>
                                     <Grid item xs= { 12 } md= { 6 } lg= { 4 }><ValidId /></Grid>
                                 </Grid>
-                            </Stack>
-                        </Grid>
-                        <Grid item>
-                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} gutterBottom>Payment</Typography>
-                                <Payment />
                             </Stack>
                         </Grid>
                     </Grid>

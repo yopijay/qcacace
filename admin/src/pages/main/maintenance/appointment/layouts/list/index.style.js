@@ -58,7 +58,12 @@ export const item = {
     backgroundColor: '#FFFFFF', 
     padding: '10px 20px', 
     border: 'solid 1px #F3F3F3', 
-    borderRadius: '10px'
+    borderRadius: '10px',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: '#444444',
+    transition: 'all 0.2s ease-in-out',
+    '&:hover': { backgroundColor: '#EFEFEF' }
 }
 
 export const icons = {
@@ -70,4 +75,12 @@ export const icons = {
         transform: 'scale(1.1)', 
         transition: 'transform .2s' 
     }
+}
+
+export const card = {
+    width: '100%',
+    padding: '20px',
+    backgroundColor: '#FFFFFF',
+    boxShadow: 1,
+    borderRadius: '13px'
 }

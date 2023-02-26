@@ -1,6 +1,6 @@
 // Libraries
 import { Autocomplete, Box, Grid, Stack, TextField, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
@@ -13,7 +13,7 @@ import { select } from "../index.style"; // Styles
 
 const AppointmentDate = () => {
     const { type } = useParams();
-    const [ day, setDay ] = useState(days());
+    const [ day, setDay ] = useState(days(new Date().getMonth() + 1, new Date().getFullYear()));
     const { control, getValues } = useContext(FormCntxt);
     
     return (
