@@ -1,6 +1,4 @@
 // Libraries
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Link } from "react-router-dom";
 import { Avatar, Grid, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
@@ -9,7 +7,7 @@ import { useContext } from "react";
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
 
 // Constants
-import { icons, item, label } from "../index.style"; // Design
+import { item, label } from "../index.style"; // Design
 
 const Item = () => {
     const { list } = useContext(ListCntxt);
