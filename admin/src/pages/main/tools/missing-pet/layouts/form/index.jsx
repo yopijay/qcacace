@@ -9,16 +9,29 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { save, specific, update } from "core/api/index.func"; // APIs
 import { successToast, useGet, usePost } from "core/global/function/index.func"; // Function
-import { input } from "core/global/theme/index.style"; // Theme
-
-// Constants
-import { btnicon, card, btntxt } from "./index.style"; // Styles
-import { validation } from "./index.validation"; // Validation
+import { theme } from "core/global/theme/index.style"; // Theme
 
 // Layouts
 import Photo from "./layouts/Photo";
 import Classification from "./layouts/Classification";
 import OtherDetails from "./layouts/OtherDetails";
+
+// Constants
+import { btnicon, card, btntxt } from "./index.style"; // Styles
+import { validation } from "./index.validation"; // Validation
+const input = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { textTransform: 'uppercase' }
+        }
+    }
+}
 
 const Index = () => {
     const { type, id } = useParams();
@@ -65,13 +78,13 @@ const Index = () => {
                     <Grid item>
                         <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
                             <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} variant= "body1" gutterBottom>Pet Classification</Typography>
-                            <ThemeProvider theme= { input }><Classification fetching= { fetching } /></ThemeProvider>
+                            <ThemeProvider theme= { theme(input) }><Classification fetching= { fetching } /></ThemeProvider>
                         </Stack>
                     </Grid>
                     <Grid item>
                         <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
                             <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} variant= "body1" gutterBottom>Other</Typography>
-                            <ThemeProvider theme= { input }><OtherDetails fetching= { fetching } /></ThemeProvider>
+                            <ThemeProvider theme= { theme(input) }><OtherDetails fetching= { fetching } /></ThemeProvider>
                         </Stack>
                     </Grid>
                 </Grid>

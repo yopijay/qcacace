@@ -11,9 +11,7 @@ import { look, records } from "core/api/index.func"; // APIs
 
 // Constants
 import { search } from "./index.style"; // Styles
-
-// Layouts
-import Item from "./layouts/Item";
+import Item from "./layouts/Item"; // Layout
 
 const Index = () => {
     const { setList } = useContext(ListCntxt);

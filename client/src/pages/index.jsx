@@ -1,5 +1,5 @@
 // Libraries
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 
 // Core

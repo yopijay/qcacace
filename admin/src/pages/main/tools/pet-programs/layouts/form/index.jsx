@@ -1,7 +1,7 @@
 // Libraries
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Box, Grid, Stack, TextField, ThemeProvider, Typography } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -13,6 +13,7 @@ import { Controller } from "react-hook-form";
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { save, specific, update } from "core/api/index.func"; // APIs
 import { successToast, useGet, usePost } from "core/global/function/index.func"; // Function
+import { theme } from "core/global/theme/index.style"; // Theme
 
 // Constants
 import { btnicon, card, btntxt, date } from "./index.style"; // Styles
@@ -21,6 +22,20 @@ import { validation } from "./index.validation"; // Validation
 // Layouts
 import Photo from "./layouts/Photo";
 import Details from "./layouts/Details";
+
+const input = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { textTransform: 'uppercase' }
+        }
+    }
+}
 
 const Index = () => {
     const { type, id } = useParams();
@@ -62,17 +77,19 @@ const Index = () => {
                 <Typography sx= { btnicon } component= { Link } to= "/tools/petprogram" ><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
             </Stack>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stertch" sx= { card } spacing= { 2 }>
-                <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">
-                    <Box sx= { date }>
-                        <Controller control= { control } name= "date" defaultValue= { `${dayjs(new Date()).year()}-${dayjs(new Date()).month() + 1}-${dayjs(new Date()).date()}` }
-                            render= { ({ field: { onChange, value } }) => (
-                                <LocalizationProvider dateAdapter= { AdapterDayjs }>
-                                    <DatePicker value= { value } renderInput= { (params) => <TextField { ...params } variant= "standard" size= "small" fullWidth /> }
-                                        onChange= { e => { onChange(`${dayjs(e).year()}-${dayjs(e).month() + 1}-${dayjs(e).date()}`); } } />
-                                </LocalizationProvider> ) }>
-                        </Controller>
-                    </Box>
-                </Stack>
+                <ThemeProvider theme= { theme(input) }>
+                    <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">
+                        <Box sx= { date }>
+                            <Controller control= { control } name= "date" defaultValue= { `${dayjs(new Date()).year()}-${dayjs(new Date()).month() + 1}-${dayjs(new Date()).date()}` }
+                                render= { ({ field: { onChange, value } }) => (
+                                    <LocalizationProvider dateAdapter= { AdapterDayjs }>
+                                        <DatePicker value= { value } renderInput= { (params) => <TextField { ...params } variant= "standard" size= "small" fullWidth /> }
+                                            onChange= { e => { onChange(`${dayjs(e).year()}-${dayjs(e).month() + 1}-${dayjs(e).date()}`); } } />
+                                    </LocalizationProvider> ) }>
+                            </Controller>
+                        </Box>
+                    </Stack>
+                </ThemeProvider>
                 <Photo fetching= { fetching } />
                 <Details fetching= { fetching } />
             </Stack>

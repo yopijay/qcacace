@@ -1,7 +1,6 @@
 // Libraries
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from '@emotion/react';
 
 // Layout
@@ -27,7 +26,6 @@ const App = () => {
                             <Route path= "/payment/:id" element= { <FormPrvdr><Payment /></FormPrvdr> } />
                         </Routes>
                     </GlobalPrvdr>
-                    {/* <ReactQueryDevtools initialIsOpen= { false } position= "bottom-right" /> */}
                 </QueryClientProvider>
             </Router>
         </ThemeProvider>

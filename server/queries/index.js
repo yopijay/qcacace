@@ -7,11 +7,11 @@ const Tags = require('./tables/Tags');
 const Pets = require('./tables/Pets');
 const Users = require('./tables/Users');
 const Appointment = require('./tables/Appointment');
-const Adopt = require('./tables/Adopt');
+const Services = require('./tables/Services');
 const Adopter = require('./tables/Adopter');
-const AdopterDocuments = require('./tables/AdopterDocuments');
-const AdopterSchedule = require('./tables/AdopterSchedule');
-const AdopterPayment = require('./tables/AdopterPayment');
+const Documents = require('./tables/Documents');
+const Schedule = require('./tables/Schedule');
+const Payment = require('./tables/Payment');
 const Programs = require('./tables/Programs');
 const Subscribers = require('./tables/Subscribers');
 const MissingPets = require('./tables/MissingPets');
@@ -26,7 +26,7 @@ const resend = async (data) => { return await new Adopter().resend(data); }
 const verifying = async (data) => { return await new Adopter().verifying(data); }
 
 const availabledates = async (data) => { return await new Appointment().availabeldates(data); }
-const pay = async (data) => { return await new AdopterPayment().pay(data); }
+const pay = async (data) => { return await new Payment().pay(data); }
 
 const dashboard = (table) => {
     return new Promise(async resolve => {
@@ -42,19 +42,19 @@ const evaluate = (table, type, data) => {
         switch(type) {
             case 'approve':
                 switch(table) {
-                    case 'tbl_documents': resolve(await new AdopterDocuments().approve(data)); break;
-                    case 'tbl_schedule': resolve(await new AdopterSchedule().approve(data)); break;
-                    case 'tbl_payments': resolve(await new AdopterPayment().approve(data)); break;
-                    case 'tbl_services': resolve(await new Adopt().approve(data)); break;
+                    case 'tbl_documents': resolve(await new Documents().approve(data)); break;
+                    case 'tbl_schedule': resolve(await new Schedule().approve(data)); break;
+                    case 'tbl_payments': resolve(await new Payment().approve(data)); break;
+                    case 'tbl_services': resolve(await new Services().approve(data)); break;
                     case 'tbl_surrender': resolve(await new Surrender().approve(data)); break;
                 }
             break;
             case 'reject':
                 switch(table) {
-                    case 'tbl_documents': resolve(await new AdopterDocuments().reject(data)); break;
-                    case 'tbl_schedule': resolve(await new AdopterSchedule().reject(data)); break;
-                    case 'tbl_payments': resolve(await new AdopterPayment().reject(data)); break;
-                    case 'tbl_services': resolve(await new Adopt().reject(data)); break;
+                    case 'tbl_documents': resolve(await new Documents().reject(data)); break;
+                    case 'tbl_schedule': resolve(await new Schedule().reject(data)); break;
+                    case 'tbl_payments': resolve(await new Payment().reject(data)); break;
+                    case 'tbl_services': resolve(await new Services().reject(data)); break;
                     case 'tbl_surrender': resolve(await new Surrender().reject(data)); break;
                 }
             break;
@@ -72,10 +72,10 @@ const search = (table, data) => {
             case 'tbl_tags': resolve(await new Tags().search(data)); break;
             case 'tbl_pets': resolve(await new Pets().search(data)); break;
             case 'tbl_users': resolve(await new Users().search(data)); break;
-            case 'tbl_services': resolve(await new Adopt().search(data)); break;
-            case 'tbl_documents': resolve(await new AdopterDocuments().search(data)); break;
-            case 'tbl_schedule': resolve(await new AdopterSchedule().search(data)); break;
-            case 'tbl_payments': resolve(await new AdopterPayment().search(data)); break;
+            case 'tbl_services': resolve(await new Services().search(data)); break;
+            case 'tbl_documents': resolve(await new Documents().search(data)); break;
+            case 'tbl_schedule': resolve(await new Schedule().search(data)); break;
+            case 'tbl_payments': resolve(await new Payment().search(data)); break;
             case 'tbl_programs': resolve(await new Programs().search(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().search(data)); break;
             case 'tbl_subscribers': resolve(await new Subscribers().search(data)); break;
@@ -95,10 +95,10 @@ const list = (table, data) => {
             case 'tbl_pets': resolve(await new Pets().list(data)); break;
             case 'tbl_appointments': resolve(await new Appointment().list()); break;
             case 'tbl_users': resolve(await new Users().list(data)); break;
-            case 'tbl_services': resolve(await new Adopt().list()); break;
-            case 'tbl_documents': resolve(await new AdopterDocuments().list()); break;
-            case 'tbl_schedule': resolve(await new AdopterSchedule().list()); break;
-            case 'tbl_payments': resolve(await new AdopterPayment().list()); break;
+            case 'tbl_services': resolve(await new Services().list()); break;
+            case 'tbl_documents': resolve(await new Documents().list()); break;
+            case 'tbl_schedule': resolve(await new Schedule().list()); break;
+            case 'tbl_payments': resolve(await new Payment().list()); break;
             case 'tbl_programs': resolve(await new Programs().list(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().list()); break;
             case 'tbl_subscribers': resolve(await new Subscribers().list()); break;
@@ -118,9 +118,9 @@ const specific = (table, id) => {
             case 'tbl_pets': resolve(await new Pets().specific(id)); break;
             case 'tbl_appointments': resolve(await new Appointment().specific(id)); break;
             case 'tbl_users': resolve(await new Users().specific(id)); break;
-            case 'tbl_services': resolve(await new Adopt().specific(id)); break;
+            case 'tbl_services': resolve(await new Services().specific(id)); break;
             case 'tbl_furr_parent': resolve(await new Adopter().specific(id)); break;
-            case 'tbl_documents': resolve(await new AdopterDocuments().specific(id)); break;
+            case 'tbl_documents': resolve(await new Documents().specific(id)); break;
             case 'tbl_programs': resolve(await new Programs().specific(id)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().specific(id)); break;
             case 'tbl_surrender': resolve(await new Surrender().specific(id)); break;
@@ -140,8 +140,8 @@ const save = (table, data) => {
             case 'tbl_appointments': resolve(await new Appointment().save(data)); break;
             case 'tbl_users': resolve(await new Users().save(data)); break;
             case 'tbl_furr_parent': resolve(await new Adopter().save(data)); break;
-            case 'tbl_documents': resolve(await new AdopterDocuments().save(data)); break;
-            case 'tbl_schedule': resolve(await new AdopterSchedule().save(data)); break;
+            case 'tbl_documents': resolve(await new Documents().save(data)); break;
+            case 'tbl_schedule': resolve(await new Schedule().save(data)); break;
             case 'tbl_programs': resolve(await new Programs().save(data)); break;
             case 'tbl_subscribers': resolve(await new Subscribers().save(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().save(data)); break;

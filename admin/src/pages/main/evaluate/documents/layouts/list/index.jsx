@@ -17,7 +17,7 @@ const Index = () => {
     const { setList } = useContext(ListCntxt);
     const { mutate: find, isLoading: finding } = usePost({ fetch: look, onSuccess: data => setList(data) });
     const { isFetching: fetching } = 
-        useGet({ key: ['cred_list'], fetch: records({ table: 'tbl_documents', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: data => setList(data) });
+        useGet({ key: ['docu_list'], fetch: records({ table: 'tbl_documents', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: data => setList(data) });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 3 }>
