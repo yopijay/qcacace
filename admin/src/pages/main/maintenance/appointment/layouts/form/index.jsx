@@ -9,12 +9,25 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { save, specific, update } from "core/api/index.func"; // APIs
 import { randomizer, successToast, useGet, usePost } from "core/global/function/index.func"; // Functions
-import { input as theme } from "core/global/theme/index.style"; // Theme
+import { theme } from "core/global/theme/index.style"; // Theme
 
 // Constants
 import { btnicon, card, btntxt, input } from "./index.style"; // Styles
 import { validation } from "./index.validation"; // Validation
 import AppointmentDate from "./layout/AppointmentDate"; // Layout
+const dflt = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { textTransform: 'uppercase' }
+        }
+    }
+}
 
 const Index = () => {
     const { type, id } = useParams();
@@ -57,7 +70,7 @@ const Index = () => {
                 <Typography sx= { btnicon } component= { Link } to= "/maintenance/appointment"><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
             </Stack>
             <Box sx= { card }>
-                <ThemeProvider theme= { theme }>
+                <ThemeProvider theme= { theme(dflt) }>
                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
                         <Grid item xs= { 12 } sm= { 7 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
