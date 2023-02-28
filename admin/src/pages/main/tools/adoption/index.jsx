@@ -1,36 +1,43 @@
 // Libraries
-import { Stack, ThemeProvider } from "@mui/material";
-import { Route, Routes } from "react-router-dom";
-
-// Core
-import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
-import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
-import { input } from "core/global/theme/index.style"; // Theme
+import { Stack, Typography } from "@mui/material";
+import { FormPrvdr } from "core/context/FormCntxt.func";
+import { Link, Route, Routes } from "react-router-dom";
 
 // Layouts
-import List from './layouts/list';
-import Form from './layouts/form';
+import Form from './form';
 
 // Custom styles
 const container = {
-    padding: {
-        xs: '80px 0 20px 0',
-        md: '80px 0 20px 0',
-        lg: '80px 40px 20px 40px' 
-    },
     overflow: 'scroll',
     width: '100%',
     height: '100%',
     '&::-webkit-scrollbar': { display: 'none' }
 }
 
+export const btntxt = { 
+    textDecoration: 'none',
+    cursor: 'pointer',
+    backgroundColor: '#204c6f',
+    color: '#ffffff',
+    borderRadius: '20px',
+    padding: '7px 35px',
+    transition: 'all 0.2s ease-in-out',
+    '&:hover': { backgroundColor: '#1b405d' }
+}
+
 const Index = () => {
+
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" sx= { container }>
             <Routes>
-                <Route exact path= "/" element= { <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } />
-                <Route exact path= "/form/:type" element= { <FormPrvdr><Form /></FormPrvdr> } />
-                <Route exact path= "/form/:type/:id" element= { <FormPrvdr><Form /></FormPrvdr> } />
+                <Route exact path= "/" element= { 
+                    <Stack direction= "column" justifyContent= "center" alignItems= "center" sx= {{ width: '100%', height: '100%' }} spacing= { 1 }>
+                        <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#3C4048' }}>Adopt a pet</Typography>
+                        <Typography component= { Link } to= "/tools/adopt/personal-information" sx= { btntxt }>Procced</Typography>
+                    </Stack>
+                } />
+                <Route exact path= "/:steps" element= { <FormPrvdr><Form /></FormPrvdr> } />
+                <Route exact path= "/:steps/:id" element= { <FormPrvdr><Form /></FormPrvdr> } />
             </Routes>
         </Stack>
     );

@@ -1,30 +1,7 @@
-export const btnicon = {
-    color: '#ffffff',
-    backgroundColor: '#d1d1d1',
-    borderRadius: '7px',
-    padding: {
-        xs: '5px 12px',
-        md: '4px 10px'
-    },
-    transition: 'all 0.2s ease-in-out',
-    '&:hover': { backgroundColor: '#adadad' }
-}
-
-export const title = {
-    fontSize: {
-        xs: '1.2rem',
-        md: '1.3rem'
-    },
-    fontFamily: 'Gilroy Bold',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    transition: 'all 0.2s ease-in-out'
-}
-
 export const card = {
-    padding: '10px 0',
+    padding: '30px 15px',
     flexGrow: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#FFFFFF',
     borderRadius: '8px',
     border: 'solid 1px #919eab40',
     overflowY: 'scroll',
@@ -32,6 +9,7 @@ export const card = {
 }
 
 export const input = {
+    backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',
     padding: {
         xs: '6px 8px',
@@ -41,11 +19,8 @@ export const input = {
     borderRadius: '5px'
 }
 
-export const error = {
-    color: '#e84118'
-}
-
 export const select = {
+    backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',
     padding: {
         xs: '9px 8px',
@@ -56,6 +31,7 @@ export const select = {
 }
 
 export const textarea = {
+    backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',
     borderRadius: '5px',
     fontFamily: 'Gilroy Light',
@@ -74,6 +50,7 @@ export const btntxt = {
     alignItems: 'center',
     backgroundColor: '#204c6f',
     color: '#ffffff',
+    textDecoration: 'none',
     borderRadius: '7px',
     padding: '7px 0',
     transition: 'all 0.2s ease-in-out',

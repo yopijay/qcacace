@@ -32,14 +32,18 @@ class Services {
     }
 
     specific = async (id) => {
-        // return (await new Builder(`tbl_services AS adpt`)
-        //                                 .select(`adpt.id, adpt.series_no, adpt.adopter_id, adptr.email, adptr.fname, adptr.lname, pet.photo, pet.series_no AS pet_series, stage.name AS stage,
-        //                                                 pet.gender, pet.tags`)
-        //                                 .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-        //                                 .join({ table: `tbl_pets AS pet`, condition: `adpt.pet_id = pet.id`, type: `LEFT` })
-        //                                 .join({ table: `tbl_life_stages AS stage`, condition: `pet.life_stages_id = stage.id`, type: `LEFT` })
-        //                                 .condition(`WHERE adpt.id = ${id}`)
-        //                                 .build()).rows;
+        return (await new Builder(`tbl_services AS srvc`)
+                                        .select(`srvc.id, srvc.series_no, fp.email, fp.fname, fp.mname, fp.lname, fp.contact_no, fp.gender, fp.address, pet.series_no, pet.category_id, pet.breed_id,
+                                                        pet.coat_id, pet.life_stages_id, pet.gender AS pet_gender, pet.sterilization, pet.energy_level, pet.weight, pet.color, pet.tags, pet.photo, docs.valid_id, docs.picture, 
+                                                        docs.pet_cage, pay.method, pay.transaction_no, app.month, app.day, app.year`)
+                                        .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                                        .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                                        .join({ table: `tbl_documents AS docs`, condition: `srvc.docu_id = docs.id`, type: `LEFT` })
+                                        .join({ table: `tbl_payments AS pay`, condition: `srvc.payment_id = pay.id`, type: `LEFT` })
+                                        .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
+                                        .join({ table: `tbl_appointments AS app`, condition: `sched.appointment_id = app.id`, type: `LEFT` })
+                                        .condition(`WHERE srvc.id= ${id}`)
+                                        .build()).rows;
     }
 
     approve = async (data) => {

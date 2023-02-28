@@ -8,7 +8,7 @@ const Pets = require('./tables/Pets');
 const Users = require('./tables/Users');
 const Appointment = require('./tables/Appointment');
 const Services = require('./tables/Services');
-const Adopter = require('./tables/Adopter');
+const FurrParent = require('./tables/FurrParent');
 const Documents = require('./tables/Documents');
 const Schedule = require('./tables/Schedule');
 const Payment = require('./tables/Payment');
@@ -22,8 +22,8 @@ const logout = async (data) => { return await new Users().logout(data); }
 const profile = async (id) => { return await new Users().profile(id); }
 const top = async (data) => { return await new Pets().top(data); }
 const recommend = async (data) => { return await new Pets().recommend(data); }
-const resend = async (data) => { return await new Adopter().resend(data); }
-const verifying = async (data) => { return await new Adopter().verifying(data); }
+const resend = async (data) => { return await new FurrParent().resend(data); }
+const verifying = async (data) => { return await new FurrParent().verifying(data); }
 
 const availabledates = async (data) => { return await new Appointment().availabeldates(data); }
 const pay = async (data) => { return await new Payment().pay(data); }
@@ -119,7 +119,7 @@ const specific = (table, id) => {
             case 'tbl_appointments': resolve(await new Appointment().specific(id)); break;
             case 'tbl_users': resolve(await new Users().specific(id)); break;
             case 'tbl_services': resolve(await new Services().specific(id)); break;
-            case 'tbl_furr_parent': resolve(await new Adopter().specific(id)); break;
+            case 'tbl_furr_parent': resolve(await new FurrParent().specific(id)); break;
             case 'tbl_documents': resolve(await new Documents().specific(id)); break;
             case 'tbl_programs': resolve(await new Programs().specific(id)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().specific(id)); break;
@@ -139,7 +139,7 @@ const save = (table, data) => {
             case 'tbl_pets': resolve(await new Pets().save(data)); break;
             case 'tbl_appointments': resolve(await new Appointment().save(data)); break;
             case 'tbl_users': resolve(await new Users().save(data)); break;
-            case 'tbl_furr_parent': resolve(await new Adopter().save(data)); break;
+            case 'tbl_furr_parent': resolve(await new FurrParent().save(data)); break;
             case 'tbl_documents': resolve(await new Documents().save(data)); break;
             case 'tbl_schedule': resolve(await new Schedule().save(data)); break;
             case 'tbl_programs': resolve(await new Programs().save(data)); break;
@@ -161,7 +161,7 @@ const update = (table, data) => {
             case 'tbl_pets': resolve(await new Pets().update(data)); break;
             case 'tbl_appointments': resolve(await new Appointment().update(data)); break;
             case 'tbl_users': resolve(await new Users().update(data)); break;
-            case 'tbl_furr_parent': resolve(await new Adopter().update(data)); break;
+            case 'tbl_furr_parent': resolve(await new FurrParent().update(data)); break;
             case 'tbl_programs': resolve(await new Programs().update(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().update(data)); break;
         }
