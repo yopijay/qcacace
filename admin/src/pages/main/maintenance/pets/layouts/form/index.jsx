@@ -1,14 +1,14 @@
 // Libraries
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Divider, Grid, Stack, ThemeProvider, Typography } from "@mui/material";
-import { useContext, useEffect } from "react";
+import { Avatar, Box, Divider, Grid, Stack, ThemeProvider, Typography } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { save, specific, update } from "core/api/index.func"; // APIs
-import { successToast, useGet, usePost } from "core/global/function/index.func"; // Function
+import { generateQR, successToast, useGet, usePost } from "core/global/function/index.func"; // Function
 import { theme } from "core/global/theme/index.style"; // Theme
 
 // Constants
@@ -36,6 +36,7 @@ const dflt = {
 const Index = () => {
     const { type, id } = useParams();
     const navigate = useNavigate();
+    const [ qr, setQR ] = useState();
     const { setValidation, handleSubmit, setValue, setError, getValues } = useContext(FormCntxt);
     const { refetch, isFetching: fetching } = 
         useGet({ key: ['pet_specific'], fetch: specific({ table: 'tbl_pets', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
@@ -64,7 +65,7 @@ const Index = () => {
                 else { successToast(data.message, 3000, navigate('/maintenance/pet', { replace: true })); } 
             } });
         
-    useEffect(() => { setValidation(validation()); if(id !== undefined) { refetch() } }, [ setValidation, id, refetch ]);
+    useEffect(() => { setValidation(validation()); if(id !== undefined) { refetch(); generateQR({ id: id, set: setQR }) } }, [ setValidation, id, refetch, getValues ]);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%', paddingBottom: '20px' }} spacing= { 3 }>
@@ -87,6 +88,12 @@ const Index = () => {
                             <ThemeProvider theme= { theme(dflt) }><Condition fetching= { fetching } /></ThemeProvider>
                         </Stack>
                     </Grid>
+                    { type === 'update' && getValues()?.is_adopt === 0 ? 
+                        <Grid item>
+                            <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ width: '100%' }}>
+                                <Avatar src= { qr } alt= "QR Code" sx= {{ width: '200px', height: '200px' }} />
+                            </Stack>
+                        </Grid> : '' }
                 </Grid>
             </Stack>
             { getValues()?.is_adopt !== 1 ?

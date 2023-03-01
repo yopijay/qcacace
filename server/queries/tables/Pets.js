@@ -3,7 +3,7 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Pets {
-    specific = async (id) => { 
+    specific = async (id) => {
         return (await new Builder(`tbl_pets AS pet`)
                                         .select(`pet.id, pet.series_no, pet.category_id, ctg.name AS category, pet.breed_id, brd.name AS breed, pet.coat_id, coat.name AS coat, 
                                                         pet.life_stages_id, ls.name AS stage, pet.gender, pet.sterilization, pet.energy_level, pet.weight, pet.color, pet.tags, pet.photo, pet.is_adopt`)

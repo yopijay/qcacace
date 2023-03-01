@@ -79,7 +79,7 @@ const Index = () => {
             <Box sx= { card }>
                 <ThemeProvider theme= { theme(dflt) }>
                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
-                        <Grid item xs= { 12 } sm= { 7 }>
+                        <Grid item xs= { 12 } sm= { 7 }> 
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography gutterBottom color= "text.secondary" variant= "body2">Series No.</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
