@@ -1,5 +1,5 @@
 // Libraries
-import { Autocomplete, Box, Grid, Stack, TextareaAutosize, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Grid, Skeleton, Stack, TextareaAutosize, TextField, Typography } from "@mui/material";
 import { useContext } from "react";
 import { Controller } from "react-hook-form";
 
@@ -10,7 +10,7 @@ import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { input, select, textarea } from "../../../index.style";
 const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }]; // Gender
 
-const Info = () => {
+const Info = ({ fetching }) => {
     const { register, errors, getValues, control } = useContext(FormCntxt);
 
     return (
@@ -47,6 +47,7 @@ const Info = () => {
                 <Grid item xs= { 12 } sm= { 5 }>
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                         <Typography gutterBottom color= "text.secondary" variant= "body2">Gender</Typography>
+                        { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
                             <Box sx= { select }>
                                 <Controller control= { control } name= "gender" defaultValue= "male"
                                         render= { ({ field: { onChange, value } }) => (
@@ -56,7 +57,7 @@ const Info = () => {
                                                 onChange= { (e, item) => { onChange(item.id); } }
                                                 value= { gender.find(data => { return data.id === (getValues().gender !== undefined ? getValues().gender : value) }) } />
                                         ) } />
-                            </Box>
+                            </Box> }
                         <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.gender?.message }</Typography>
                     </Stack>
                 </Grid>

@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { theme } from "core/global/theme/index.style"; // Theme
 import { successToast, useGet, usePost } from "core/global/function/index.func"; // Function
-import { save, specific } from "core/api/index.func"; // API
+import { save, specific, update } from "core/api/index.func"; // API
 
 // Layouts
 import Email from "./personal-information/Email";
@@ -35,19 +35,27 @@ const PersonalInformation = () => {
     const navigate = useNavigate();
     const { handleSubmit, setValidation, setError, setValue } = useContext(FormCntxt);
     const { refetch, isFetching: fetching } =
-        useGet({ key: ['adpt_specific'], fetch: specific({ table: 'tbl_services', id: atob(id) ?? null }), options: { enabled: false, refetchOnWindowFocus: false },
+        useGet({ key: ['adpt_specific'], fetch: specific({ table: 'tbl_services', id: id !== undefined ? atob(id) : null }), options: { enabled: false, refetchOnWindowFocus: false },
             onSuccess: data => {
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
                         let _name = Object.keys(data[0])[count];
                         setValue(_name, data[0][_name] !== null ? data[0][_name] : ''); 
-                    } 
+                    }
                 }
             }
         });
 
     const { mutate: saving } = 
         usePost({ fetch: save,
+            onSuccess: data => {
+                if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
+                else { successToast(data.message, 3000, navigate(`/tools/adopt/pet-information/${btoa(data.id)}`, { replace: true })); }
+            }
+        });
+
+    const { mutate: updating } = 
+        usePost({ fetch: update,
             onSuccess: data => {
                 if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
                 else { successToast(data.message, 3000, navigate(`/tools/adopt/pet-information/${btoa(data.id)}`, { replace: true })); }
@@ -72,7 +80,11 @@ const PersonalInformation = () => {
                 <Grid item xs= { 12 } md= { 5 } lg= { 3 }>
                     <Box sx= { btntxt } onClick= { handleSubmit(data => { 
                         data['application_type'] = 'walk-in';
-                        saving({ table: 'tbl_furr_parent', data: data });
+                        data['id'] = id !== undefined ? atob(id) : undefined;
+                        
+                        if(data.id === undefined) { saving({ table: 'tbl_furr_parent', data: data }); }
+                        else { updating({ table: 'tbl_furr_parent', data: data }); }
+
                     }) }>Next</Box>
                 </Grid>
             </Grid>

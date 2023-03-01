@@ -13,19 +13,18 @@ class FurrParent {
         switch(data.application_type) {
             case 'walk-in':
                 let errors = [];
-
                 if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0) {
                     let furr_parent = (await new Builder(`tbl_furr_parent`).select().condition(`WHERE email= '${data.email}'`).build()).rows[0];
 
                     if(global.compare(furr_parent.fname, data.fname)) {
-                        if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}'`).build()).rowCount > 0) {
-                            errors.push({ name: 'lname', message: 'Name already exist!' });
+                        if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
+                            errors.push({ name: 'lname', message: 'Name already used!' });
                         }
                     }
 
                     if(global.compare(furr_parent.lname, data.lname)) {
-                        if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
-                            errors.push({ name: 'lname', message: 'Name already exist!' });
+                        if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE lname= '${(data.lname).toUpperCase()}' AND fname= '${(data.fname).toUpperCase()}'`).build()).rowCount > 0) {
+                            errors.push({ name: 'lname', message: 'Name already used!' });
                         }
                     }
 
@@ -37,31 +36,31 @@ class FurrParent {
 
                     if(!(errors.length > 0)) {
                         await new Builder(`tbl_furr_parent`)
-                                            .update(`email= '${data.email}', fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
-                                                            lname= '${(data.lname).toUpperCase()}', gender= '${data.gender}', address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null},
-                                                            contact_no= '${data.contact_no}', date_updated= CURRENT_TIMESTAMP`)
+                                            .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
+                                                            lname= '${(data.lname).toUpperCase()}', contact_no= '${data.contact_no}', gender= '${data.gender}', 
+                                                            address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, date_updated= CURRENT_TIMESTAMP`)
                                             .condition(`WHERE id= ${furr_parent.id}`)
                                             .build();
-    
+                        
                         let adopt = (await new Builder(`tbl_services`)
                                                                 .insert({ columns: `series_no, furr_parent_id, type, status, date_filed`, 
-                                                                                values: `'${global.randomizer(7)}', ${furr_parent.id}, 'adopt', 'pending', CURRENT_TIMESTAMP` })
+                                                                                values: `'${global.randomizer(7)}', ${furr_parent.id}, 'adoption', 'pending', CURRENT_TIMESTAMP` })
                                                                 .condition(`RETURNING id`)
                                                                 .build()).rows[0];
-    
+
                         return { result: 'success', message: 'Successfully saved!', id: adopt.id }
                     }
                     else { return { result: 'error', error: errors } }
                 }
                 else {
-                    if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}'`).build()).rowCount > 0) {
-                        errors.push({ name: 'lname', message: 'Name already exist!' });
+                    if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
+                        errors.push({ name: 'lname', message: 'Name already used!' });
                     }
 
-                    if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
-                        errors.push({ name: 'lname', message: 'Name already exist!' });
+                    if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE lname= '${(data.lname).toUpperCase()}' AND fname= '${(data.fname).toUpperCase()}'`).build()).rowCount > 0) {
+                        errors.push({ name: 'lname', message: 'Name already used!' });
                     }
-                    
+
                     if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE contact_no= '${data.contact_no}'`).build()).rowCount > 0) {
                         errors.push({ name: 'contact_no', message: 'Contact no already used!' });
                     }
@@ -69,23 +68,25 @@ class FurrParent {
                     if(!(errors.length > 0)) {
                         let furr_parent = (await new Builder(`tbl_furr_parent`)
                                                                         .insert({ columns: `series_no, email, fname, mname, lname, gender, address, contact_no, date_created`, 
-                                                                                        values: `'${global.randomizer(7)}', '${data.email}', '${(data.fname).toUpperCase()}', 
+                                                                                        values: `'${global.randomizer(7)}', '${data.email}', '${(data.fname).toUpperCase()}',
                                                                                                         ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}, '${(data.lname).toUpperCase()}',
-                                                                                                        '${data.gender}', ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, '${data.contact_no}', CURRENT_TIMESTAMP` })
+                                                                                                        '${data.gender}', ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null},
+                                                                                                        '${data.contact_no}', CURRENT_TIMESTAMP` })
                                                                         .condition(`RETURNING id`)
                                                                         .build()).rows[0];
-    
+                        
                         let adopt = (await new Builder(`tbl_services`)
                                                                 .insert({ columns: `series_no, furr_parent_id, type, status, date_filed`, 
-                                                                                values: `'${global.randomizer(7)}', ${furr_parent.id}, 'adopt', 'pending', CURRENT_TIMESTAMP` })
+                                                                                values: `'${global.randomizer(7)}', ${furr_parent.id}, 'adoption', 'pending', CURRENT_TIMESTAMP` })
                                                                 .condition(`RETURNING id`)
                                                                 .build()).rows[0];
-    
+
                         return { result: 'success', message: 'Successfully saved!', id: adopt.id }
                     }
                     else { return { result: 'error', error: errors } }
                 }
             default:
+                console.log(data);
         }
         // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         // let transporter = nodemailer.createTransport(config);
@@ -153,6 +154,43 @@ class FurrParent {
     }
 
     update = async (data) => {
+        switch(data.application_type) {
+            case 'walk-in':
+                let errors = [];
+                let adopt = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
+                let furr_parent = (await new Builder(`tbl_furr_parent`).select().condition(`WHERE id= ${adopt.furr_parent_id}`).build()).rows[0];
+
+                if(global.compare(furr_parent.fname, data.fname)) {
+                    if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
+                        errors.push({ name: 'lname', message: 'Name already used!' });
+                    }
+                }
+
+                if(global.compare(furr_parent.lname, data.lname)) {
+                    if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
+                        errors.push({ name: 'lname', message: 'Name already used!' });
+                    }
+                }
+
+                if(global.compare(furr_parent.contact_no, data.contact_no)) {
+                    if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE contact_no= '${data.contact_no}'`).build()).rowCount > 0) {
+                        errors.push({ name: 'contact_no', message: 'Contact no. already used!' });
+                    }
+                }
+
+                if(!(errors.length > 0)) {
+                    await new Builder(`tbl_furr_parent`)
+                                        .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
+                                                        lname= '${(data.lname).toUpperCase()}', contact_no= '${data.contact_no}', gender= '${data.gender}', 
+                                                        address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, date_updated= CURRENT_TIMESTAMP`)
+                                        .condition(`WHERE id= ${furr_parent.id}`)
+                                        .build();
+
+                    return { result: 'success', message: 'Successfully updated!', id: adopt.id }
+                }
+                else { return { result: 'error', error: errors } }
+            default:
+        }
         // let usr = (await new Builder(`tbl_furr_parent`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
         // let errors = [];
 

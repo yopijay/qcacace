@@ -15,7 +15,7 @@ const PetInformation = () => {
     const navigate = useNavigate();
     const { handleSubmit, setValidation, setError, getValues, setValue } = useContext(FormCntxt);
     const { refetch, isFetching: fetching } =
-        useGet({ key: ['adpt_specific'], fetch: specific({ table: 'tbl_services', id: atob(id) ?? null }), options: { enabled: false, refetchOnWindowFocus: false },
+        useGet({ key: ['adpt_specific'], fetch: specific({ table: 'tbl_services', id: id !== undefined ? atob(id) : null }), options: { enabled: false, refetchOnWindowFocus: false },
             onSuccess: data => {
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
@@ -30,7 +30,7 @@ const PetInformation = () => {
         usePost({ fetch: save,
             onSuccess: data => {
                 if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
-                else { successToast(data.message, 3000, navigate(`/tools/adopt/documentary-requirement/${btoa(data.id)}`, { replace: true })); }
+                // else { successToast(data.message, 3000, navigate(`/tools/adopt/documentary-requirement/${btoa(data.id)}`, { replace: true })); }
             }
         });
 
