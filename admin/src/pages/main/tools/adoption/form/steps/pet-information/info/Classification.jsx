@@ -20,11 +20,11 @@ const Classification = ({ pet, pet_fetching, srvc_fetching }) => {
 
     useEffect(() => { 
         if(!pet_fetching && !srvc_fetching) {
-            // if(pet !== null) {
+            if(getValues()?.category_id !== '') {
                 setbreeds({ table: 'tbl_breed', data: { id: getValues().category_id } }); 
                 setcoat({ table: 'tbl_coat', data: { id: getValues().category_id } });
                 setlifestages({ table: 'tbl_life_stages', data: { id: getValues().category_id } });
-            // }
+            }
         }
     }, [ pet_fetching, srvc_fetching, pet, setbreeds, setcoat, setlifestages, getValues ]);
 

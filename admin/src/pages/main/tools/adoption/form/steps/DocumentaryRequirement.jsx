@@ -21,7 +21,7 @@ const DocumentaryRequirement = () => {
     const navigate = useNavigate();
     const { handleSubmit, setValue, setError } = useContext(FormCntxt);
     const { refetch: docu_specific, isFetching: docu_fetching } =
-        useGet({ key: ['docu_specific'], fetch: specific({ table: 'tbl_services', id: atob(id) }), options: { enabled: true, refetchOnWindowFocus: false },
+        useGet({ key: ['docu_specific'], fetch: specific({ table: 'tbl_services', id: id !== undefined ? atob(id) : null }), options: { enabled: true, refetchOnWindowFocus: false },
             onSuccess: data => {
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 

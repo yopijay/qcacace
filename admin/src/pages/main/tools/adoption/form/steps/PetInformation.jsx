@@ -10,10 +10,12 @@ import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { errorToast, successToast, useGet, usePost } from "core/global/function/index.func"; // Function
 import { specific, update } from "core/api/index.func"; // API
 
-// Constants
-import { btntxt, card, scanner } from "../../index.style"; // Constants
+// Layouts
 import Scanner from "./pet-information/Scanner";
 import Info from "./pet-information/Info";
+
+// Constants
+import { btntxt, card, scanner } from "../../index.style"; // Constants
 
 const PetInformation = () => {
     const { id } = useParams();
@@ -22,7 +24,7 @@ const PetInformation = () => {
     const [ isscan, setIsscan ] = useState(false);
     const { handleSubmit, setValue } = useContext(FormCntxt);
     const { refetch: srvc_specific, isFetching: srvc_fetching } =
-        useGet({ key: ['srvc_specific'], fetch: specific({ table: 'tbl_services', id: atob(id) }), options: { enabled: true, refetchOnWindowFocus: false },
+        useGet({ key: ['srvc_specific'], fetch: specific({ table: 'tbl_services', id: id !== undefined ? atob(id) : null }), options: { enabled: true, refetchOnWindowFocus: false },
             onSuccess: data => {
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 

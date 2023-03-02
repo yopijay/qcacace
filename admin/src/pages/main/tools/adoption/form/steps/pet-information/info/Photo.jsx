@@ -9,7 +9,7 @@ const Photo = ({ pet, pet_fetching, srvc_fetching }) => {
     const { getValues } = useContext(FormCntxt);
     const [ pic, setPic ] = useState('#');
 
-    useEffect(() => { if(!pet_fetching && !srvc_fetching) { setPic(getValues().photo !== undefined ? JSON.parse(getValues().photo) : '#'); } }, [ pet_fetching, srvc_fetching, pet, getValues ]);
+    useEffect(() => { if(!pet_fetching && !srvc_fetching) { setPic(getValues().photo !== '' ? JSON.parse(getValues().photo) : '#'); } }, [ pet_fetching, srvc_fetching, pet, getValues ]);
 
     return (
         <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ marginBottom: '50px' }}>

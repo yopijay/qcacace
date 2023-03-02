@@ -20,7 +20,7 @@ const Payment = () => {
     const navigate = useNavigate();
     const [ method, setMethod ] = useState('gcash');
     const { handleSubmit, setError, setValue, register, getValues } = useContext(FormCntxt);
-    useGet({ key: ['srvc_specific'], fetch: specific({ table: 'tbl_services', id: atob(id) }), options: { enabled: true, refetchOnWindowFocus: false },
+    useGet({ key: ['srvc_specific'], fetch: specific({ table: 'tbl_services', id: id !== undefined ? atob(id) : null }), options: { enabled: true, refetchOnWindowFocus: false },
             onSuccess: data => {
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
