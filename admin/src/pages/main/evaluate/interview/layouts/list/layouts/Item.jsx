@@ -53,7 +53,7 @@ const Item = () => {
                                 <FontAwesomeIcon icon= { solid('square-xmark') } size= "xl" />
                             </Typography> : '' }
                         { data.status !== 'pending' ? 
-                            data.status === 'passed' ? 
+                            data.status === 'approved' ? 
                                 <Chip variant= "default" size= "small" label= "Passed" sx= {{ backgroundColor: '#4cd137', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
                                 data.status === 'failed' ? 
                                     <Chip variant= "default" size= "small" label= "Failed" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' : '' }

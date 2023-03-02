@@ -9,7 +9,7 @@ import { FormPrvdr } from "core/context/FormCntxt.func"; // Context
 
 // Layouts
 import List from "./layouts/list";
-// import Form from "./layouts/form"
+import Form from "./layouts/form"
 
 //Custom styles
 const container = {
@@ -38,8 +38,8 @@ const Index = () => {
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" sx= { container }>
             <Routes>
                 <Route exact path= "/" element= { <ThemeProvider theme= { theme(input) }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } />
-                {/* <Route exact path= "/form/:type" element= { <FormPrvdr><Form /></FormPrvdr> } />
-                <Route exact path= "/form/:type/:id/:email" element= { <FormPrvdr><Form /></FormPrvdr> } /> */}
+                <Route exact path= "/form/:type" element= { <FormPrvdr><Form /></FormPrvdr> } />
+                <Route exact path= "/form/:type/:id/:email" element= { <FormPrvdr><Form /></FormPrvdr> } />
             </Routes>
         </Stack>
     );
