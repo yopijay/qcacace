@@ -19,7 +19,7 @@ const Payment = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [ method, setMethod ] = useState('gcash');
-    const { handleSubmit, setError, setValue, register, getValues } = useContext(FormCntxt);
+    const { handleSubmit, setError, setValue, register } = useContext(FormCntxt);
     useGet({ key: ['srvc_specific'], fetch: specific({ table: 'tbl_services', id: id !== undefined ? atob(id) : null }), options: { enabled: true, refetchOnWindowFocus: false },
             onSuccess: data => {
                 if(Array.isArray(data)) { 
@@ -27,6 +27,7 @@ const Payment = () => {
                         let _name = Object.keys(data[0])[count]; 
                         setValue(_name, data[0][_name] !== null ? data[0][_name] : '');
                     } 
+                    setMethod(data[0].method !== null ? data[0].method : 'gcash');
                 } 
             }
         });
@@ -38,8 +39,7 @@ const Payment = () => {
                 else { successToast(data.message, 3000, navigate(`/tools/adopt/released/${btoa(data.id)}`, { replace: true })); }
             }
         });
-    
-    useEffect(() => { setMethod(getValues().transaction_no !== '' ? 'gcash' : 'cash'); setValue('payment', method) }, [ getValues, setValue, method ]);
+        
     useEffect(() => { register('payment', { value: method }); }, [ register, method ]);
 
     return (

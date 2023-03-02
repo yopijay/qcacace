@@ -29,7 +29,7 @@ const PetInformation = () => {
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
                         let _name = Object.keys(data[0])[count]; 
-                        setValue(_name, data[0][_name] !== null ? _name === 'tags' ? JSON.parse(data[0][_name]) : data[0][_name] : ''); 
+                        setValue(_name, data[0][_name] !== null ? _name === 'tags' ? JSON.stringify(data[0][_name]) : data[0][_name] : ''); 
                     } 
                 } 
             }
@@ -41,7 +41,7 @@ const PetInformation = () => {
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
                         let _name = Object.keys(data[0])[count]; 
-                        setValue(_name, data[0][_name] !== null ? _name === 'tags' ? JSON.parse(data[0][_name]) : data[0][_name] : ''); 
+                        setValue(_name, data[0][_name] !== null ? _name === 'tags' ? JSON.stringify(data[0][_name]) : data[0][_name] : ''); 
                     } 
                 } 
             }

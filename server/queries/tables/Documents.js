@@ -141,9 +141,15 @@ class Documents {
                                                                             values: `'${global.randomizer(7)}', ${adopt.furr_parent_id}, '${data.valid_id}', '${data.picture}', '${data.pet_cage}',
                                                                                             ${data.evaluated_by}, 'approved', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP` })
                                                             .condition(`RETURNING id`)
-                                                            .build()).rows;
+                                                            .build()).rows[0];
                     
-                    await new Builder(`tbl_services`).update(`docu_id= ${docu.id}`).condition(`WHERE id= ${adopt.id}`).build();
+                    let sched = (await new Builder(`tbl_schedule`)
+                                                            .insert({ columns: `series_no, furr_parent_id, evaluated_by, status, date_filed, date_evaluated`, 
+                                                                            values: `'${global.randomizer(7)}', ${adopt.furr_parent_id}, ${data.evaluated_by}, 'approved', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP` })
+                                                            .condition(`RETURNING id`)
+                                                            .build()).rows[0];
+                                                    
+                    await new Builder(`tbl_services`).update(`docu_id= ${docu.id}, schedule_id= ${sched.id}`).condition(`WHERE id= ${adopt.id}`).build();
                 }
 
                 return { result: 'success', message: 'Successfully saved!', id: adopt.id }
