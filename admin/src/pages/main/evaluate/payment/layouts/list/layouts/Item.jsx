@@ -42,7 +42,7 @@ const Item = () => {
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                         { data.status === 'pending' ? 
                             <Typography sx= { approve } 
-                                onClick= { () => approval({ table: 'tbl_payments', type: 'approve', data: { id: data.payment_id, email: data.email } }) }>
+                                onClick= { () => approval({ table: 'tbl_payments', type: 'approve', data: { evaluated_by: atob(localStorage.getItem('token')), id: data.payment_id, email: data.email } }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
                         { data.status === 'pending' ? 
@@ -50,6 +50,7 @@ const Item = () => {
                                 onClick= { () => reject({ table: 'tbl_payments', 
                                                                         type: 'reject', 
                                                                         data: { id: data.id, 
+                                                                                    evaluated_by: atob(localStorage.getItem('token')), 
                                                                                     adopter_id: data.adopter_id, 
                                                                                     pet_id: data.pet_id,
                                                                                     payment_id: data.payment_id,

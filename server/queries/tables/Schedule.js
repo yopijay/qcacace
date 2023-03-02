@@ -34,77 +34,77 @@ class Schedule {
     }
 
     approve = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        // await new Builder(`tbl_schedule`).update(`status= 'passed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
+        await new Builder(`tbl_schedule`).update(`status= 'approved', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
 
-        // let list = (await new Builder(`tbl_services AS adpt`)
-        //                                     .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
-        //                                                     adptr.email, adptr.fname, adptr.lname, sched.appointment_id, sched.status, sched.date_created`)
-        //                                     .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-        //                                     .join({ table: `tbl_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
-        //                                     .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
-        //                                     .condition(`ORDER BY 13 DESC`)
-        //                                     .build()).rows;
+        let list = (await new Builder(`tbl_services AS adpt`)
+                                            .select(`adpt.id, adpt.furr_parent_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
+                                                            fp.email, fp.fname, fp.lname, sched.appointment_id, sched.status, sched.date_filed`)
+                                            .join({ table: `tbl_furr_parent AS fp`, condition: `adpt.furr_parent_id = fp.id`, type: `LEFT` })
+                                            .join({ table: `tbl_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                            .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
+                                            .condition(`ORDER BY 13 DESC`)
+                                            .build()).rows;
 
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `Thank you for taking the time to be interviewed as part of the pet adoption process. 
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `Thank you for taking the time to be interviewed as part of the pet adoption process. 
 
-        //                 We are pleased to inform you that you <b>PASSED</b> the interview. You can now proceed for the next phase by clicking the button below for the payment details.
-        //         `,
-        //         action: {
-        //             button: {
-        //                 text: 'Pay here',
-        //                 link: `http://localhost:3000/payment/${btoa(data.id)}`
-        //             }
-        //         },
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
+                        We are pleased to inform you that you <b>PASSED</b> the interview. You can now proceed for the next phase by clicking the button below for the payment details.
+                `,
+                action: {
+                    button: {
+                        text: 'Pay here',
+                        link: `http://localhost:3000/payment/${btoa(data.id)}`
+                    }
+                },
+                outro: 'Please contact me for additional help.'
+            }
+        });
 
         // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Interview Status`, html: mail });
-        // return { result: 'success', message: 'Interview passed!', list: list }
+        return { result: 'success', message: 'Interview passed!', list: list }
     }
 
     reject = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        // let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
-        // let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
+        let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
+        let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
         
-        // await new Builder(`tbl_schedule`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
-        // await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
-        // await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
-        // await new Builder(`tbl_services`).update(`status= 'cancelled', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        await new Builder(`tbl_schedule`).update(`status= 'failed', date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
+        await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
+        await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
+        await new Builder(`tbl_services`).update(`status= 'cancelled', date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
-        // let list = (await new Builder(`tbl_services AS adpt`)
-        //                                     .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
-        //                                                     adptr.email, adptr.fname, adptr.lname, sched.appointment_id, sched.status, sched.date_created`)
-        //                                     .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-        //                                     .join({ table: `tbl_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
-        //                                     .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
-        //                                     .condition(`ORDER BY 13 DESC`)
-        //                                     .build()).rows
+        let list = (await new Builder(`tbl_services AS srvc`)
+                                            .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.docu_id, srvc.payment_id, srvc.schedule_id, sched.series_no, 
+                                                            fp.email, fp.fname, fp.lname, sched.appointment_id, sched.status, sched.date_evaluated`)
+                                            .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                                            .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
+                                            .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
+                                            .condition(`ORDER BY 13 DESC`)
+                                            .build()).rows
 
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `We really appreciate you taking the time to come in for an interview regarding your application to adopt a pet from the QC Animal Care and Adoption Center. 
-        //         It was a pleasure to us to meet and thank you for your interest in adopting our pets. Unfortunately, 
-        //         we are sorry to inform you that you failed the interview. `,
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `We really appreciate you taking the time to come in for an interview regarding your application to adopt a pet from the QC Animal Care and Adoption Center. 
+                It was a pleasure to us to meet and thank you for your interest in adopting our pets. Unfortunately, 
+                we are sorry to inform you that you failed the interview. `,
                 
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
+                outro: 'Please contact me for additional help.'
+            }
+        });
 
         // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
-        // return { result: 'success', message: 'Interview failed!', list: list }
+        return { result: 'success', message: 'Interview failed!', list: list }
     }
 
     save = async (data) => {

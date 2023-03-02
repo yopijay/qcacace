@@ -31,65 +31,65 @@ class Payment {
     }
 
     approve = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        // await new Builder(`tbl_payments`).update(`status= 'paid', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        await new Builder(`tbl_payments`).update(`status= 'paid', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
-        // let list = (await new Builder(`tbl_services AS adpt`)
-        //                                 .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.payment_id, adpt.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
-        //                                                 pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
-        //                                 .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-        //                                 .join({ table: `tbl_payments AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
-        //                                 .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
-        //                                 .build()).rows;
+        let list = (await new Builder(`tbl_services AS srvc`)
+                                        .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
+                                                        pymnt.date_evaluated, fp.email, fp.fname, fp.lname`)
+                                        .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                                        .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
+                                        .except(`WHERE srvc.payment_id IS NULL ORDER BY 9 DESC`)
+                                        .build()).rows;
 
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `Good day! We would like to inform you that your payment has been validated by QC Animal Care and Adoption Center's evaluator. 
-        //         You can now proceed to the last part of the pet adoption process which is the releasing of pets. Thank you!.`,
-        //         outro: 'If you have any concerns, Please contact me for additional help.'
-        //     }
-        // });
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `Good day! We would like to inform you that your payment has been validated by QC Animal Care and Adoption Center's evaluator. 
+                You can now proceed to the last part of the pet adoption process which is the releasing of pets. Thank you!.`,
+                outro: 'If you have any concerns, Please contact me for additional help.'
+            }
+        });
 
         // transporter.sendMail({ from: global.USER, to: data.email, subject: `Payment Received`, html: mail });
-        // return { result: 'success', message: 'Payment confirmed!', list: list }
+        return { result: 'success', message: 'Payment confirmed!', list: list }
     }
 
     reject = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
 
-        // let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
-        // let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
+        let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
+        let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
 
-        // await new Builder(`tbl_payments`).update(`status= 'failed', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.payment_id}`).build();
-        // await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
-        // await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
-        // await new Builder(`tbl_services`).update(`status= 'cancelled', date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        await new Builder(`tbl_payments`).update(`status= 'failed', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.payment_id}`).build();
+        await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
+        await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
+        await new Builder(`tbl_services`).update(`status= 'cancelled', date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
-        // let list = (await new Builder(`tbl_services AS adpt`)
-        //                                 .select(`adpt.id, adpt.adopter_id, adpt.pet_id, adpt.payment_id, adpt.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
-        //                                                 pymnt.date_created, adptr.email, adptr.fname, adptr.lname`)
-        //                                 .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-        //                                 .join({ table: `tbl_payments AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
-        //                                 .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
-        //                                 .build()).rows;
+        let list = (await new Builder(`tbl_services AS adpt`)
+                                        .select(`adpt.id, adpt.furr_parent_id, adpt.pet_id, adpt.payment_id, adpt.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
+                                                        pymnt.date_filed, fp.email, fp.fname, fp.lname`)
+                                        .join({ table: `tbl_furr_parent AS fp`, condition: `adpt.furr_parent_id = fp.id`, type: `LEFT` })
+                                        .join({ table: `tbl_payments AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
+                                        .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
+                                        .build()).rows;
 
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `<b>FAILED</b>. Notify natin si user na lumipas na yung 3 days na palugit natin para makapag bayad sya`,
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `<b>FAILED</b>. Notify natin si user na lumipas na yung 3 days na palugit natin para makapag bayad sya`,
                 
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
+                outro: 'Please contact me for additional help.'
+            }
+        });
 
         // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
-        // return { result: 'success', message: 'Payment failed!', list: list }
+        return { result: 'success', message: 'Payment failed!', list: list }
     }
 
     pay = async (data) => {

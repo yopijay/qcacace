@@ -91,7 +91,7 @@ const Index = () => {
                     { type === 'update' && getValues()?.is_adopt === 0 ? 
                         <Grid item>
                             <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ width: '100%' }}>
-                                <Avatar src= { qr } alt= "QR Code" sx= {{ width: '200px', height: '200px' }} />
+                                <a href= { qr } download><Avatar src= { qr } alt= "QR Code" sx= {{ width: '200px', height: '200px' }} /></a>
                             </Stack>
                         </Grid> : '' }
                 </Grid>
