@@ -58,7 +58,7 @@ const Documents = () => {
                         if(data.valid_id === undefined) { _errors.push(true); setError('valid_id', { message: 'This field is required!' }); }
                         if(data.picture=== undefined) { _errors.push(true); setError('picture', { message: 'This field is required!' }); }
                         if(data.pet_cage=== undefined) { _errors.push(true); setError('pet_cage', { message: 'This field is required!' }); }
-
+                        
                         if(!(_errors.length > 0)) { saving({ table: 'tbl_documents', data: data }); }
                     })}>Next</Box>
                 </Grid>

@@ -26,7 +26,7 @@ const Registration = () => {
         }
     });
 
-    useEffect(() => { setValidation(verification()); }, [ setValidation ]);
+    useEffect(() => { register('application_type', { value: 'online' }); setValidation(verification()); }, [ register, setValidation ]);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 5 } sx= {{ padding: { xs: 0, sm: '0 30px' }, height: '100%' }}>
