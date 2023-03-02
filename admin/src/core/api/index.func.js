@@ -16,3 +16,4 @@ export const update = async ({ table, data }) => { return await api({ url: `${En
 export const dropdown = async({ table, data}) => { return await api({ url: `${Env[env].url}/dropdown/${table}`, method: 'post', data: data }).then(res => _dropdown.concat(res.data)); }
 export const look = async ({ table, data }) => { return await api({ url: `${Env[env].url}/search/${table}`, method: 'post', data: data }).then(res => res.data); }
 export const evaluate = async ({ table, type, data }) => { return await api({ url: `${Env[env].url}/evaluate/${table}/${type}`, method: 'post', data: data }).then(res => res.data); }
+export const payment = async (data) => { return await api({ url: `${Env[env].url}/pay`, method: 'post', data: data }).then(res => res.data); }

@@ -70,3 +70,17 @@ export const scanner = {
 
     '&:hover': { backgroundColor: '#dfe4ea' }
 }
+
+export const mthd = {
+    border: 'solid 1px #1b4168', 
+    borderRadius: '6px', 
+    padding: '10px 17px',
+    cursor: 'pointer'
+}
+
+export const mthdactive = {
+    backgroundColor: '#1b4168', 
+    borderRadius: '6px', 
+    padding: '10px 17px',
+    cursor: 'pointer'
+}

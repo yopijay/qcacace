@@ -125,6 +125,30 @@ class Documents {
     }
 
     save = async (data) => {
+        switch(data.application_type) {
+            case 'walk-in':
+                let adopt = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
+                if(adopt.docu_id !== null) {
+                    await new Builder(`tbl_documents`)
+                                        .update(`valid_id= '${data.valid_id}', picture= '${data.picture}', pet_cage= '${data.pet_cage}', 
+                                                        evaluated_by= ${data.evaluated_by}, status= 'approved', date_evaluated= CURRENT_TIMESTAMP`)
+                                        .condition(`WHERE id= ${adopt.docu_id}`)
+                                        .build();
+                }
+                else {
+                    let docu = (await new Builder(`tbl_documents`)
+                                                            .insert({ columns: `series_no, furr_parent_id, valid_id, picture, pet_cage, evaluated_by, status, date_filed, date_evaluated`, 
+                                                                            values: `'${global.randomizer(7)}', ${adopt.furr_parent_id}, '${data.valid_id}', '${data.picture}', '${data.pet_cage}',
+                                                                                            ${data.evaluated_by}, 'approved', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP` })
+                                                            .condition(`RETURNING id`)
+                                                            .build()).rows;
+                    
+                    await new Builder(`tbl_services`).update(`docu_id= ${docu.id}`).condition(`WHERE id= ${adopt.id}`).build();
+                }
+
+                return { result: 'success', message: 'Successfully saved!', id: adopt.id }
+            default:
+        }
     //     if((await new Builder(`tbl_documents`).select().condition(`WHERE adopter_id= ${data.id}`).build()).rowCount > 0) {
     //         let docu = (await new Builder(`tbl_documents`).select().condition(`WHERE adopter_id= ${data.id}`).build()).rows[0];
 

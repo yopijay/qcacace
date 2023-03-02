@@ -159,7 +159,7 @@ class FurrParent {
                 let errors = [];
                 let adopt = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
                 let furr_parent = (await new Builder(`tbl_furr_parent`).select().condition(`WHERE id= ${adopt.furr_parent_id}`).build()).rows[0];
-
+                
                 if(global.compare(furr_parent.fname, data.fname)) {
                     if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
                         errors.push({ name: 'lname', message: 'Name already used!' });

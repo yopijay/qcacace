@@ -15,8 +15,8 @@ const sterilization = [{ id: 'yes', name: 'YES' }, { id: 'no', name: 'NO' }]; //
 const energy = [{ id: 'high', name: 'HIGH ENERGY' }, { id: 'low', name: 'LOW ENERGY' }]; // Energy
 const weight = [{ id: 'underweight', name: 'UNDERWEIGHT' }, { id: 'ideal', name: 'IDEAL' }, { id: 'overweight', name: 'OVERWEIGHT' }]; // Weight
 
-const Condition = ({ fetching }) => {
-    const { control, getValues } = useContext(FormCntxt);
+const Condition = ({ pet_fetching }) => {
+    const { control, getValues, register } = useContext(FormCntxt);
     const { data: tags, isFetching: tagfetching } = useGet({ key: ['tag_dropdown'], fetch: dropdown({ table: 'tbl_tags', data: {} }) });
 
     return (
@@ -84,8 +84,8 @@ const Condition = ({ fetching }) => {
             <Grid item xs= { 12 } sm= { 7 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography gutterBottom color= "text.secondary" variant= "body2">*Color</Typography>
-                    { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
-                        <TextField name= "color" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
+                    { pet_fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
+                        <TextField { ...register('color') } name= "color" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
                 </Stack>
             </Grid>
             <Grid item xs= { 12 }>

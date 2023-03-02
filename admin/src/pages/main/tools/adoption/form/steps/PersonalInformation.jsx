@@ -77,14 +77,13 @@ const PersonalInformation = () => {
                 </form>
             </Box>
             <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ paddingTop: '20px' }}>
-                <Grid item xs= { 12 } md= { 5 } lg= { 3 }>
+                <Grid item xs= { 5 } sm= { 3 }>
                     <Box sx= { btntxt } onClick= { handleSubmit(data => { 
                         data['application_type'] = 'walk-in';
                         data['id'] = id !== undefined ? atob(id) : undefined;
                         
                         if(data.id === undefined) { saving({ table: 'tbl_furr_parent', data: data }); }
                         else { updating({ table: 'tbl_furr_parent', data: data }); }
-
                     }) }>Next</Box>
                 </Grid>
             </Grid>

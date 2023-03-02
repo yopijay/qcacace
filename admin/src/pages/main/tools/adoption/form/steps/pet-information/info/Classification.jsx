@@ -11,7 +11,7 @@ import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 // Constants
 import { select } from "../../../../index.style";
 
-const Classification = ({ pet, fetching }) => {
+const Classification = ({ pet, pet_fetching, srvc_fetching }) => {
     const { getValues, control } = useContext(FormCntxt);
     const { data: category, isFetching: categoryfetching } = useGet({ key: ['ctg_dropdown'], fetch: dropdown({ table: 'tbl_category', data: {} }) });
     const { data: breed, mutate: setbreeds, isLoading: breedloading } = usePost({ fetch: dropdown });
@@ -19,14 +19,14 @@ const Classification = ({ pet, fetching }) => {
     const { data: lifestages, mutate: setlifestages, isLoading: lifestagesloading } = usePost({ fetch: dropdown });
 
     useEffect(() => { 
-        if(!fetching) {
-            if(pet !== null) {
+        if(!pet_fetching && !srvc_fetching) {
+            // if(pet !== null) {
                 setbreeds({ table: 'tbl_breed', data: { id: getValues().category_id } }); 
                 setcoat({ table: 'tbl_coat', data: { id: getValues().category_id } });
                 setlifestages({ table: 'tbl_life_stages', data: { id: getValues().category_id } });
-            }
+            // }
         }
-    }, [ fetching, pet, setbreeds, setcoat, setlifestages, getValues ]);
+    }, [ pet_fetching, srvc_fetching, pet, setbreeds, setcoat, setlifestages, getValues ]);
 
     return (
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>

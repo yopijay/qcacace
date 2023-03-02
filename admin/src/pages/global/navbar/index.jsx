@@ -33,7 +33,7 @@ const Index = () => {
                     </Stack>
                     <Typography sx= {{ transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.1)' }, display: { xs: 'block', lg: 'none' } }} 
                         onClick= { drawerToggle(!open.left) }>
-                        <FontAwesomeIcon icon= { solid('bars-staggered') } />
+                        <FontAwesomeIcon icon= { solid('bars-staggered') } color= "#FFFFFF" />
                     </Typography>
                 </Stack>
             </Container>

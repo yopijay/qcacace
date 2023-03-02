@@ -93,6 +93,35 @@ class Payment {
     }
 
     pay = async (data) => {
+        switch(data.application_type) {
+            case 'walk-in':
+                let errors = [];
+                let adopt = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
+
+                if(adopt.payment_id === null) {
+                    if(data.payment === 'gcash') {
+                        if((await new Builder(`tbl_payments`).select().condition(`WHERE transaction_no= '${data.transaction_no}'`).build()).rowCount > 0) {
+                            errors.push({ name: 'transaction_no', message: 'Transaction number already used!' });
+                        }
+                    }
+    
+                    if(!(errors.length > 0)) {
+                        let payment = (await new Builder(`tbl_payments`)
+                                                                    .insert({ columns: `series_no, furr_parent_id, method, transaction_no, evaluated_by, status, date_filed, date_evaluated`, 
+                                                                                    values: `'${global.randomizer(7)}', ${adopt.furr_parent_id}, '${data.payment}',
+                                                                                                    ${data.payment === 'gcash' ? `'${(data.transaction_no).toUpperCase()}'` : null},
+                                                                                                    ${data.evaluated_by}, 'paid', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP` })
+                                                                    .condition(`RETURNING id`)
+                                                                    .build()).rows[0];
+                        
+                        await new Builder(`tbl_services`).update(`payment_id= ${[payment.id]}, status= 'released'`).condition(`WHERE id= ${adopt.id}`).build();
+                        return { result: 'success', message: 'Successfully paid!', id: adopt.id }
+                    }
+                    else { return { result: 'error', error: errors } }
+                }
+                else { return { result: 'success', message: 'Successfully paid!', id: adopt.id } }
+            default:
+        }
         // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         // let transporter = nodemailer.createTransport(config);
         // let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });

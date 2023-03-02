@@ -164,6 +164,7 @@ const update = (table, data) => {
             case 'tbl_furr_parent': resolve(await new FurrParent().update(data)); break;
             case 'tbl_programs': resolve(await new Programs().update(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().update(data)); break;
+            case 'tbl_services': resolve(await new Services().update(data)); break;
         }
     });
 }

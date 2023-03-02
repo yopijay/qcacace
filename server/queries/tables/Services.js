@@ -115,6 +115,19 @@ class Services {
         // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
         // return { result: 'success', message: 'Payment failed!', list: list }
     }
+
+    update = async (data) => {
+        let adopt = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
+
+        if(!((await new Builder(`tbl_pets`).select().condition(`WHERE id= ${data.pet_id} AND is_adopt = 1`).build()).rowCount > 0)) {
+            if(adopt.pet_id !== null) { await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${adopt.pet_id}`).build(); }
+            await new Builder(`tbl_services`).update(`pet_id= ${data.pet_id}`).condition(`WHERE id= ${adopt.id}`).build();
+            await new Builder(`tbl_pets`).update(`is_adopt= 1`).condition(`WHERE id= ${data.pet_id}`).build();
+
+            return { result: 'success', message: 'Successfully saved!', id: adopt.id }
+        }
+        else { return { result: 'error', message: 'Pet already adopted' } }
+    }
 }
 
 module.exports = Services;

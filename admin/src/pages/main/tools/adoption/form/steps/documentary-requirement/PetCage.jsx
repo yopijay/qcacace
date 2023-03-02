@@ -14,7 +14,7 @@ const PetCage = ({ fetching }) => {
 
     useEffect(() => { 
         register('pet_cage'); 
-        if(!fetching) { setPetcage(getValues().pet_cage !== undefined ? JSON.parse(getValues().pet_cage) : pet_cage); }
+        if(!fetching) { setPetcage(getValues().pet_cage !== '' ? JSON.parse(getValues().pet_cage) : pet_cage); }
     }, [ register, getValues, pet_cage, fetching ]);
 
     return (
