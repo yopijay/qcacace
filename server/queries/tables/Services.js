@@ -14,6 +14,7 @@ class Services {
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
+                                        .condition(`WHERE srvc.payment_id IS NOT NULL`)
                                         .except(`WHERE (pymnt.status IS NULL OR pymnt.status = 'pending') AND srvc.status = 'pending' ORDER BY 12 DESC`)
                                         .build()).rows;
     }
@@ -25,8 +26,8 @@ class Services {
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
-                                        .condition(`WHERE srvc.series_no LIKE '%${data.condition}%' OR fp.email LIKE '%${(data.condition).toLowerCase()}%' OR 
-                                                                fp.fname LIKE '%${data.condition}%' OR fp.lname LIKE '%${data.condition}%'`)
+                                        .condition(`WHERE (srvc.series_no LIKE '%${data.condition}%' OR fp.email LIKE '%${(data.condition).toLowerCase()}%' OR 
+                                                                fp.fname LIKE '%${data.condition}%' OR fp.lname LIKE '%${data.condition}%') AND srvc.payment IS NOT NULL`)
                                         .except(`WHERE (pymnt.status IS NULL OR pymnt.status = 'pending') AND srvc.status = 'pending' ORDER BY 12 DESC`)
                                         .build()).rows;
     }
@@ -60,6 +61,7 @@ class Services {
                                             .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFt` })
                                             .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                                            .condition(`WHERE srvc.payment_id IS NOT NULL`)
                                             .except(`WHERE pymnt.status = 'pending' ORDER BY 12 DESC`)
                                             .build()).rows;
 
@@ -100,6 +102,7 @@ class Services {
                                             .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFt` })
                                             .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                                            .condition(`WHERE srvc.payment_id IS NOT NULL`)
                                             .except(`WHERE pymnt.status = 'pending' ORDER BY 12 DESC`)
                                             .build()).rows;
 

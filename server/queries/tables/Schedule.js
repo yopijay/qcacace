@@ -41,13 +41,13 @@ class Schedule {
 
         await new Builder(`tbl_schedule`).update(`status= 'approved', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
 
-        let list = (await new Builder(`tbl_services AS adpt`)
-                                            .select(`adpt.id, adpt.furr_parent_id, adpt.pet_id, adpt.docu_id, adpt.payment_id, adpt.schedule_id, sched.series_no, 
+        let list = (await new Builder(`tbl_services AS srvc`)
+                                            .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.docu_id, srvc.payment_id, srvc.schedule_id, sched.series_no, 
                                                             fp.email, fp.fname, fp.lname, sched.appointment_id, sched.status, sched.date_filed`)
-                                            .join({ table: `tbl_furr_parent AS fp`, condition: `adpt.furr_parent_id = fp.id`, type: `LEFT` })
-                                            .join({ table: `tbl_schedule AS sched`, condition: `adpt.schedule_id = sched.id`, type: `LEFT` })
+                                            .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                                            .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
-                                            .condition(`ORDER BY 13 DESC`)
+                                            .condition(`WHERE srvc.schedule_id IS NOT NULL ORDER BY 13 DESC`)
                                             .build()).rows;
 
         let mail = generator.generate({
@@ -90,7 +90,7 @@ class Schedule {
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                             .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
-                                            .condition(`ORDER BY 13 DESC`)
+                                            .condition(`WHERE srvc.schedule_id IS NOT NULL ORDER BY 13 DESC`)
                                             .build()).rows
 
         let mail = generator.generate({

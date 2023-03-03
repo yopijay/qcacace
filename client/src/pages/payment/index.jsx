@@ -83,6 +83,7 @@ const Index = () => {
                                         <Grid item xs= { 5 } sm= { 4 } md= { 5 } lg= { 3 }>
                                             <Box sx= { btntxt } onClick= { handleSubmit(data => { 
                                                 data['id'] = atob(id);
+                                                data['application_type'] = 'online';
                                                 if(data.payment === 'gcash' && data.transaction_no === '') { setError('transaction_no', { message: 'This field is required!' }); }
                                                 else { pay(data); }
                                             })}>Pay</Box>

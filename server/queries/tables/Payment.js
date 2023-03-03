@@ -71,12 +71,12 @@ class Payment {
         await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
         await new Builder(`tbl_services`).update(`status= 'cancelled', date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
-        let list = (await new Builder(`tbl_services AS adpt`)
-                                        .select(`adpt.id, adpt.furr_parent_id, adpt.pet_id, adpt.payment_id, adpt.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
+        let list = (await new Builder(`tbl_services AS srvc`)
+                                        .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
                                                         pymnt.date_filed, fp.email, fp.fname, fp.lname`)
-                                        .join({ table: `tbl_furr_parent AS fp`, condition: `adpt.furr_parent_id = fp.id`, type: `LEFT` })
-                                        .join({ table: `tbl_payments AS pymnt`, condition: `adpt.payment_id = pymnt.id`, type: `LEFT` })
-                                        .except(`WHERE adpt.payment_id IS NULL ORDER BY 9 DESC`)
+                                        .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                                        .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
+                                        .except(`WHERE srvc.payment_id IS NULL ORDER BY 9 DESC`)
                                         .build()).rows;
 
         let mail = generator.generate({
@@ -93,9 +93,9 @@ class Payment {
     }
 
     pay = async (data) => {
+        let errors = [];
         switch(data.application_type) {
             case 'walk-in':
-                let errors = [];
                 let adopt = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
 
                 if(adopt.payment_id === null) {
@@ -121,51 +121,50 @@ class Payment {
                 }
                 else { return { result: 'success', message: 'Successfully paid!', id: adopt.id } }
             default:
+                let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+                let transporter = nodemailer.createTransport(config);
+                let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        
+                let adpt = (await new Builder(`tbl_services AS srvc`)
+                                                    .select()
+                                                    .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                                                    .condition(`WHERE srvc.id= ${data.id}`)
+                                                    .build()).rows[0];
+        
+                if(data.payment === 'gcash') {
+                    if((await new Builder(`tbl_payments`).select().condition(`WHERE transaction_no= '${data.transaction_no}'`).build()).rowCount > 0) {
+                        errors.push({ name: 'transaction_no', message: 'Transaction number already used!' });
+                    }
+                }
+        
+                if(!(errors.length > 0)) {
+                    let payment = (await new Builder(`tbl_payments`)
+                                                                .insert({ columns: `series_no, furr_parent_id, method, transaction_no, status, date_filed`, 
+                                                                                values: `'${global.randomizer(7)}', ${adpt.furr_parent_id}, '${data.payment}', ${data.payment === 'gcash' ? `'${data.transaction_no}'` : null},
+                                                                                                'pending', CURRENT_TIMESTAMP` })
+                                                                .condition(`RETURNING id`)
+                                                                .build()).rows[0];
+        
+                    await new Builder(`tbl_services`).update(`payment_id= ${payment.id}, date_filed= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        
+                    let mail = generator.generate({
+                        body: {
+                            name: 'Fur Mom/Dad',
+                            intro: `Good day! We would like to inform you that your payment has been sent. 
+                                        Please wait within 48 hours for the validation email of your payment. 
+                                        If you don't receive an email within the specified time limit, you can go directly to our center located at 
+                                        Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines and bring the transaction number of your payment 
+                                        for the validation.`,
+                            
+                            outro: 'Please contact me for additional help.'
+                        }
+                    });
+        
+                    // transporter.sendMail({ from: global.USER, to: adpt.email, subject: `Payment Status`, html: mail });
+                    return { result: 'success', message: 'Payment sent!' }
+                }
+                else { return { result: 'error', errors: errors } }
         }
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
-
-        // let adpt = (await new Builder(`tbl_services AS adpt`)
-        //                                     .select(`adptr.id, adptr.email`)
-        //                                     .join({ table: `tbl_furr_parent AS adptr`, condition: `adpt.adopter_id = adptr.id`, type: `LEFT` })
-        //                                     .condition(`WHERE adpt.id= ${data.id}`)
-        //                                     .build()).rows[0];
-        // let errors = [];
-
-        // if(data.payment === 'gcash') {
-        //     if((await new Builder(`tbl_payments`).select().condition(`WHERE transaction_no= '${data.transaction_no}'`).build()).rowCount > 0) {
-        //         errors.push({ name: 'transaction_no', message: 'Transaction number already used!' });
-        //     }
-        // }
-
-        // if(!(errors.length > 0)) {
-        //     let payment = (await new Builder(`tbl_payments`)
-        //                                                 .insert({ columns: `series_no, adopter_id, method, amount, transaction_no, status, date_created`, 
-        //                                                                 values: `'${global.randomizer(7)}', ${adpt.id}, '${data.payment}', '250', ${data.payment === 'gcash' ? `'${data.transaction_no}'` : null},
-        //                                                                                 'pending', CURRENT_TIMESTAMP` })
-        //                                                 .condition(`RETURNING id`)
-        //                                                 .build()).rows[0];
-
-        //     await new Builder(`tbl_services`).update(`payment_id= ${payment.id}, date_created= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
-
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `Good day! We would like to inform you that your payment has been sent. 
-        //                     Please wait within 48 hours for the validation email of your payment. 
-        //                     If you don't receive an email within the specified time limit, you can go directly to our center located at 
-        //                     Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines and bring the transaction number of your payment 
-        //                     for the validation.`,
-                
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
-
-        // transporter.sendMail({ from: global.USER, to: adpt.email, subject: `Payment Status`, html: mail });
-        //     return { result: 'success', message: 'Payment sent!' }
-        // }
-        // else { return { result: 'error', errors: errors } }
     }
 }
 

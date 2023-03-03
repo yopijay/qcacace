@@ -62,7 +62,7 @@ class Documents {
                                                             MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed`)
                                             .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                            .condition(`GROUP BY srvc.docu_id ORDER BY date_filed DESC`)
+                                            .condition(`WHERE srvc.docu_id IS NOT NULL GROUP BY srvc.docu_id ORDER BY date_filed DESC`)
                                             .build()).rows;
 
         let mail = generator.generate({
@@ -103,7 +103,7 @@ class Documents {
                                                             MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed`)
                                             .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                            .condition(`GROUP BY srvc.docu_id ORDER BY date_filed DESC`)
+                                            .condition(`WHERE srvc.docu_id IS NOT NULL GROUP BY srvc.docu_id ORDER BY date_filed DESC`)
                                             .build()).rows;
 
         let mail = generator.generate({

@@ -68,6 +68,11 @@ class Pets {
     }
     
     save = async (data) => {
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let emails = (await new Builder(`tbl_subscribers`).select(`email`).build()).rows;
+
         await new Builder(`tbl_pets`)
                             .insert({ columns: `series_no, category_id, breed_id, coat_id, life_stages_id, gender, sterilization, energy_level, weight,
                                             color, tags, photo, is_adopt, status, created_by ,date_created`, 
@@ -76,6 +81,16 @@ class Pets {
                                                             '${JSON.stringify(data.tags)}', '${data.photo}', 0, 1, ${data.created_by}, CURRENT_TIMESTAMP` })
                             .build();
 
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `Inform natin si subscriber about sa missing pet na ni-post natin if meron syang nakita or what,`,
+                
+                outro: 'Please contact me for additional help.'
+            }
+        });
+
+        //emails.forEach(data => transporter.sendMail({ from: global.USER, to: data.email, subject: `Missing Pets`, html: mail }));
         return { result: 'success', message: 'Successfully saved!' }
     }
 
