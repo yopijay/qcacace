@@ -25,8 +25,8 @@ class Documents {
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_users_info AS eb`, condition: `docu.evaluated_by = eb.user_id`, type: `LEFT` })
-                                        .condition(`WHERE docu.series_no LIKE '%${data.condition}%' OR fp.email LIKE '%${(data.condition).toLowerCase()}%'
-                                                                OR fp.fname LIKE '%${data.condition}%' OR fp.lname LIKE '%${data.condition}%'
+                                        .condition(`WHERE (docu.series_no LIKE '%${data.condition}%' OR fp.email LIKE '%${(data.condition).toLowerCase()}%'
+                                                                OR fp.fname LIKE '%${data.condition}%' OR fp.lname LIKE '%${data.condition}%') AND srvc.docu_id IS NOT NULL
                                                                 GROUP BY srvc.docu_id ORDER BY date_filed DESC`)
                                         .build()).rows;
     }
@@ -41,7 +41,7 @@ class Documents {
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_users_info AS eb`, condition: `docu.evaluated_by = eb.user_id`, type: `LEFT` })
-                                        .condition(`GROUP BY srvc.docu_id ORDER BY date_filed DESC`)
+                                        .condition(`WHERE srvc.docu_id IS NOT NULL GROUP BY srvc.docu_id ORDER BY date_filed DESC`)
                                         .build()).rows;
     }
 

@@ -15,6 +15,7 @@ class Schedule {
                                         .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                         .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
+                                        .condition(`WHERE srvc.schedule_id IS NOT NULL`)
                                         .except(`WHERE docu.status = 'pending' AND sched.status = 'pending' ORDER BY 15 DESC`)
                                         .build()).rows;
     }
@@ -27,8 +28,8 @@ class Schedule {
                                         .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                         .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
-                                        .condition(`WHERE sched.series_no LIKE '%${data.condition}%' OR fp.email LIKE '%${(data.condition).toLowerCase()}%' OR
-                                                            fp.fname LIKE '%${data.condition}%' OR fp.lname LIKE '%${data.condition}%'`)
+                                        .condition(`WHERE (sched.series_no LIKE '%${data.condition}%' OR fp.email LIKE '%${(data.condition).toLowerCase()}%' OR
+                                                            fp.fname LIKE '%${data.condition}%' OR fp.lname LIKE '%${data.condition}%') AND srvc.schedule_id IS NOT NULL`)
                                         .except(`WHERE docu.status = 'pending' AND sched.status = 'pending' ORDER BY 15 DESC`)
                                         .build()).rows;
     }
