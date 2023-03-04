@@ -33,7 +33,7 @@ const Index = () => {
     const navigate = useNavigate();
     const [ method, setMethod ] = useState('gcash');
     const { handleSubmit, register, setValue, setError } = useContext(FormCntxt);
-    const { data: adopt } = useGet({ key: ['adopt_specific'], fetch: specific({ table: 'tbl_services', id: atob(id) }) });
+    const { data: srvc } = useGet({ key: ['srvc_specific'], fetch: specific({ table: 'tbl_services', id: atob(id) }) });
     const { mutate: pay } = 
         usePost({ fetch: payment, 
             onSuccess: data => {
@@ -51,32 +51,33 @@ const Index = () => {
                     <Grid item xs= { 12 }>
                         <Box sx= { card }>
                             <Grid container direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start', md: 'space-evenly' }} alignItems= "stretch" spacing= { 5 }>
-                                <Grid item xs= { 12 } md= { 4 } lg= { 3 }><PetInfo data= { adopt } /></Grid>
+                                <Grid item xs= { 12 } md= { 4 } lg= { 3 }><PetInfo data= { srvc } /></Grid>
                                 <Grid item xs= { 12 } md= { 6 } lg= { 5 }>
                                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx= {{ marginBottom: '30px' }}>
                                         <Typography variant= "h5">Payment</Typography>
-                                        <Grid container direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                                            <Grid item xs= { 6 }>
-                                                <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } 
-                                                    onClick= { () => { setMethod('gcash'); setValue('payment', 'gcash') } }
-                                                    sx= { method === 'gcash' ? mthdactive : mthd }>
-                                                    <Typography variant= "h6" sx= {{ fontFamily: 'Tommy Bold', color: method === 'gcash' ? '#FFFFFF' : '#1b4168' }}>G-Cash</Typography>
-                                                    <Typography variant= "caption" sx= {{ color: method === 'gcash' ? '#FFFFFF' : '#1b4168' }}>
-                                                        Gcash is a mobile wallet and mobile payment </Typography>
-                                                </Stack>
-                                            </Grid>
-                                            <Grid item xs= { 6 }>
-                                                <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } 
-                                                    onClick= { () => { setMethod('cash'); setValue('payment', 'cash') } }
-                                                    sx= { method === 'cash' ? mthdactive : mthd }>
-                                                    <Typography variant= "h6" sx= {{ fontFamily: 'Tommy Bold', color: method === 'cash' ? '#FFFFFF' : '#1b4168' }}>Cash</Typography>
-                                                    <Typography variant= "caption" sx= {{ color: method === 'cash' ? '#FFFFFF' : '#1b4168' }}>
-                                                    You can pay with cash directly at the office. </Typography>
-                                                </Stack>
-                                            </Grid>
-                                        </Grid>
+                                        { srvc?.[0]?.type !== 'surrender' ? 
+                                            <Grid container direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
+                                                <Grid item xs= { 6 }>
+                                                    <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } 
+                                                        onClick= { () => { setMethod('gcash'); setValue('payment', 'gcash') } }
+                                                        sx= { method === 'gcash' ? mthdactive : mthd }>
+                                                        <Typography variant= "h6" sx= {{ fontFamily: 'Tommy Bold', color: method === 'gcash' ? '#FFFFFF' : '#1b4168' }}>G-Cash</Typography>
+                                                        <Typography variant= "caption" sx= {{ color: method === 'gcash' ? '#FFFFFF' : '#1b4168' }}>
+                                                            Gcash is a mobile wallet and mobile payment </Typography>
+                                                    </Stack>
+                                                </Grid>
+                                                <Grid item xs= { 6 }>
+                                                    <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } 
+                                                        onClick= { () => { setMethod('cash'); setValue('payment', 'cash') } }
+                                                        sx= { method === 'cash' ? mthdactive : mthd }>
+                                                        <Typography variant= "h6" sx= {{ fontFamily: 'Tommy Bold', color: method === 'cash' ? '#FFFFFF' : '#1b4168' }}>Cash</Typography>
+                                                        <Typography variant= "caption" sx= {{ color: method === 'cash' ? '#FFFFFF' : '#1b4168' }}>
+                                                        You can pay with cash directly at the office. </Typography>
+                                                    </Stack>
+                                                </Grid>
+                                            </Grid> : '' }
                                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                            { method === 'gcash' ? <Gcash /> : <Cash /> }
+                                            { method === 'gcash' ? <Gcash type= { srvc?.[0]?.type } /> : <Cash /> }
                                         </Stack>
                                     </Stack>
                                     <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center">
@@ -84,6 +85,7 @@ const Index = () => {
                                             <Box sx= { btntxt } onClick= { handleSubmit(data => { 
                                                 data['id'] = atob(id);
                                                 data['application_type'] = 'online';
+                                                data['type'] = srvc?.[0]?.type;
                                                 if(data.payment === 'gcash' && data.transaction_no === '') { setError('transaction_no', { message: 'This field is required!' }); }
                                                 else { pay(data); }
                                             })}>Pay</Box>

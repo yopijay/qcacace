@@ -37,7 +37,10 @@ const input = {
 const Surrender = () => {
     const navigate = useNavigate();
     const { handleSubmit, setValidation, setError } = useContext(FormCntxt);
-    const { mutate: saving } = usePost({ fetch: save, onSuccess: data => successToast(data.message, 3000, navigate('/services/pet-program', { replace: true })) });
+    const { mutate: saving } = usePost({ fetch: save, onSuccess: data => {
+        if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
+        else { successToast(data.message, 3000, navigate('/services/pet-program', { replace: true })); }
+    } });
 
     useEffect(() => { setValidation(validation()); }, [ setValidation ]);
 
@@ -83,6 +86,8 @@ const Surrender = () => {
                     <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ width: '100%' }}>
                         <Box sx= { btntxt } onClick= { handleSubmit(data => {
                             let errors = [];
+                            data['type'] = 'surrender';
+                            data['application_type'] = 'online';
 
                             if(data.photo === undefined) { errors.push({ name: 'photo', message: 'This field is required' }); }
                             if(data.category_id === 0 || data.category_id === undefined) { errors.push({ name: 'category_id', message: 'This field is required' }); }
@@ -90,11 +95,10 @@ const Surrender = () => {
                             if(data.coat_id === 0 || data.coat_id === undefined) { errors.push({ name: 'coat_id', message: 'This field is required' }); }
                             if(data.life_stages_id === 0 || data.life_stages_id === undefined) { errors.push({ name: 'life_stages_id', message: 'This field is required' }); }
                             if((data.tags).length === 0) { errors.push({ name: 'tags', message: 'This field is required' }); }
-                            if(data.valid_id === undefined) { errors.push({ name: 'valid_id', message: 'This field is required!' }); }
+                            if(data.valid_id === undefined || data.valid_id === '') { errors.push({ name: 'valid_id', message: 'This field is required!' }); }
 
-                            if(!(errors.length > 0)) { saving({ table: 'tbl_surrender', data: data }); }
-                            else { errors.forEach(err => setError(err.name, { message: err.message })); }
-
+                            if(!(errors.length > 0)) { saving({ table: 'tbl_services', data: data }); }
+                            else { errors.forEach(err => setError(err.name, { message: err.message })); } 
                         })}>Submit</Box>
                     </Stack>
                 </Stack>

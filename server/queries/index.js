@@ -15,7 +15,7 @@ const Payment = require('./tables/Payment');
 const Programs = require('./tables/Programs');
 const Subscribers = require('./tables/Subscribers');
 const MissingPets = require('./tables/MissingPets');
-const Surrender = require('./tables/Surrender');
+// const Surrender = require('./tables/Surrender');
 
 const login = async (data) => { return await new Users().login(data); }
 const logout = async (data) => { return await new Users().logout(data); }
@@ -46,7 +46,7 @@ const evaluate = (table, type, data) => {
                     case 'tbl_schedule': resolve(await new Schedule().approve(data)); break;
                     case 'tbl_payments': resolve(await new Payment().approve(data)); break;
                     case 'tbl_services': resolve(await new Services().approve(data)); break;
-                    case 'tbl_surrender': resolve(await new Surrender().approve(data)); break;
+                    // case 'tbl_surrender': resolve(await new Surrender().approve(data)); break;
                 }
             break;
             case 'reject':
@@ -55,7 +55,7 @@ const evaluate = (table, type, data) => {
                     case 'tbl_schedule': resolve(await new Schedule().reject(data)); break;
                     case 'tbl_payments': resolve(await new Payment().reject(data)); break;
                     case 'tbl_services': resolve(await new Services().reject(data)); break;
-                    case 'tbl_surrender': resolve(await new Surrender().reject(data)); break;
+                    // case 'tbl_surrender': resolve(await new Surrender().reject(data)); break;
                 }
             break;
         }
@@ -79,7 +79,7 @@ const search = (table, data) => {
             case 'tbl_programs': resolve(await new Programs().search(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().search(data)); break;
             case 'tbl_subscribers': resolve(await new Subscribers().search(data)); break;
-            case 'tbl_surender': resolve(await new Surrender().search(data)); break;
+            // case 'tbl_surender': resolve(await new Surrender().search(data)); break;
         }
     });
 }
@@ -102,7 +102,7 @@ const list = (table, data) => {
             case 'tbl_programs': resolve(await new Programs().list(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().list()); break;
             case 'tbl_subscribers': resolve(await new Subscribers().list()); break;
-            case 'tbl_surrender': resolve(await new Surrender().list()); break;
+            // case 'tbl_surrender': resolve(await new Surrender().list()); break;
         }
     });
 }
@@ -123,7 +123,7 @@ const specific = (table, id) => {
             case 'tbl_documents': resolve(await new Documents().specific(id)); break;
             case 'tbl_programs': resolve(await new Programs().specific(id)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().specific(id)); break;
-            case 'tbl_surrender': resolve(await new Surrender().specific(id)); break;
+            // case 'tbl_surrender': resolve(await new Surrender().specific(id)); break;
         }
     });
 }
@@ -145,7 +145,7 @@ const save = (table, data) => {
             case 'tbl_programs': resolve(await new Programs().save(data)); break;
             case 'tbl_subscribers': resolve(await new Subscribers().save(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().save(data)); break;
-            case 'tbl_surrender': resolve(await new Surrender().save(data)); break;
+            case 'tbl_services': resolve(await new Services().save(data)); break;
         }
     });
 }

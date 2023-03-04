@@ -10,7 +10,7 @@ class Schedule {
     list = async () => {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.docu_id, srvc.payment_id, srvc.schedule_id, sched.series_no, fp.contact_no,
-                                                        fp.email, fp.fname, fp.lname, sched.appointment_id, sched.evaluated_by, sched.status, sched.date_filed, sched.date_evaluated`)
+                                                        fp.email, fp.fname, fp.lname, sched.appointment_id, sched.evaluated_by, sched.status, sched.date_filed, sched.date_evaluated, srvc.type`)
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: ` LEFT` })
                                         .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
@@ -23,7 +23,7 @@ class Schedule {
     search = async (data) => {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.docu_id, srvc.payment_id, srvc.schedule_id, sched.series_no, fp.contact_no,
-                                                        fp.email, fp.fname, fp.lname, sched.appointment_id, sched.evaluated_by, sched.status, sched.date_filed, sched.date_evaluated`)
+                                                        fp.email, fp.fname, fp.lname, sched.appointment_id, sched.evaluated_by, sched.status, sched.date_filed, sched.date_evaluated, srvc.type`)
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: ` LEFT` })
                                         .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
@@ -39,11 +39,14 @@ class Schedule {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
 
-        await new Builder(`tbl_schedule`).update(`status= 'approved', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
+        await new Builder(`tbl_schedule`)
+                            .update(`status= 'approved', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`)
+                            .condition(`WHERE id= ${data.schedule_id}`)
+                            .build();
 
         let list = (await new Builder(`tbl_services AS srvc`)
                                             .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.docu_id, srvc.payment_id, srvc.schedule_id, sched.series_no, 
-                                                            fp.email, fp.fname, fp.lname, sched.appointment_id, sched.status, sched.date_filed`)
+                                                            fp.email, fp.fname, fp.lname, sched.appointment_id, sched.status, sched.date_filed, srvc.type`)
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                             .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
@@ -86,7 +89,7 @@ class Schedule {
 
         let list = (await new Builder(`tbl_services AS srvc`)
                                             .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.docu_id, srvc.payment_id, srvc.schedule_id, sched.series_no, 
-                                                            fp.email, fp.fname, fp.lname, sched.appointment_id, sched.status, sched.date_evaluated`)
+                                                            fp.email, fp.fname, fp.lname, sched.appointment_id, sched.status, sched.date_evaluated, srvc.type`)
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                             .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })

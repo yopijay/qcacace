@@ -10,7 +10,8 @@ class Payment {
     list = async () => {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method,
-                                                        fp.email, fp.fname, fp.lname, CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname) AS evaluated_by, pymnt.status, pymnt.date_filed, pymnt.date_evaluated`)
+                                                        fp.email, fp.fname, fp.lname, CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname) AS evaluated_by, pymnt.status, 
+                                                        pymnt.date_filed, pymnt.date_evaluated, srvc.type`)
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
                                         .join({ table: `tbl_users_info AS eb`, condition: `pymnt.evaluated_by = eb.user_id`, type: `LEFT` })
@@ -21,7 +22,7 @@ class Payment {
     search = async (data) => {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method,
-                                                        fp.email, fp.fname, CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname) AS evaluated_by, pymnt.date_filed, pymnt.date_evaluated`)
+                                                        fp.email, fp.fname, CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname) AS evaluated_by, pymnt.date_filed, pymnt.date_evaluated, srvc.type`)
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
                                         .join({ table: `tbl_users_info AS eb`, condition: `pymnt.evaluated_by = eb.user_id`, type: `LEFT` })
@@ -39,7 +40,7 @@ class Payment {
 
         let list = (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
-                                                        pymnt.date_evaluated, fp.email, fp.fname, fp.lname`)
+                                                        pymnt.date_evaluated, fp.email, fp.fname, fp.lname, srvc.type`)
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
                                         .except(`WHERE srvc.payment_id IS NULL ORDER BY 9 DESC`)
@@ -73,7 +74,7 @@ class Payment {
 
         let list = (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
-                                                        pymnt.date_filed, fp.email, fp.fname, fp.lname`)
+                                                        pymnt.date_filed, fp.email, fp.fname, fp.lname, srvc.type`)
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
                                         .except(`WHERE srvc.payment_id IS NULL ORDER BY 9 DESC`)
@@ -108,7 +109,8 @@ class Payment {
                     if(!(errors.length > 0)) {
                         let payment = (await new Builder(`tbl_payments`)
                                                                     .insert({ columns: `series_no, furr_parent_id, method, transaction_no, evaluated_by, status, date_filed, date_evaluated`, 
-                                                                                    values: `'${global.randomizer(7)}', ${adopt.furr_parent_id}, '${data.payment}',
+                                                                                    values: `'${global.randomizer(7)}', ${adopt.furr_parent_id}, 
+                                                                                                    ${data.type !== 'surrender' ? `'${data.payment}'` : null}, 
                                                                                                     ${data.payment === 'gcash' ? `'${(data.transaction_no).toUpperCase()}'` : null},
                                                                                                     ${data.evaluated_by}, 'paid', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP` })
                                                                     .condition(`RETURNING id`)
@@ -140,7 +142,9 @@ class Payment {
                 if(!(errors.length > 0)) {
                     let payment = (await new Builder(`tbl_payments`)
                                                                 .insert({ columns: `series_no, furr_parent_id, method, transaction_no, status, date_filed`, 
-                                                                                values: `'${global.randomizer(7)}', ${adpt.furr_parent_id}, '${data.payment}', ${data.payment === 'gcash' ? `'${data.transaction_no}'` : null},
+                                                                                values: `'${global.randomizer(7)}', ${adpt.furr_parent_id}, 
+                                                                                                ${data.type !== 'surrender' ? `'${data.payment}'` : null}, 
+                                                                                                ${data.payment === 'gcash' ? `'${data.transaction_no}'` : null},
                                                                                                 'pending', CURRENT_TIMESTAMP` })
                                                                 .condition(`RETURNING id`)
                                                                 .build()).rows[0];

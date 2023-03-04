@@ -33,13 +33,14 @@ const Item = () => {
                             <Typography variant= "body1" sx= {{ fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>#{ data.series_no }</Typography>
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.email }</Typography>
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.lname }, { data.fname }</Typography>
+                            <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Type: <b>{ (data.type).toUpperCase() }</b></Typography>
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.date_created }</Typography>
                         </Stack>
                     </Stack>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                         { data.status === 'pending' ? 
                             <Typography sx= { approve } 
-                                onClick= { () => approval({ table: 'tbl_services', type: 'approve', data: { id: data.id, email: data.email } }) }>
+                                onClick= { () => approval({ table: 'tbl_services', type: 'approve', data: { id: data.id, email: data.email, type: data.type } }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
                         { data.status === 'pending' ? 
@@ -48,6 +49,7 @@ const Item = () => {
                                                                         type: 'reject', 
                                                                         data: { id: data.id, 
                                                                                     pet_id: data.pet_id,
+                                                                                    type: data.type,
                                                                                     schedule_id: data.schedule_id,
                                                                                     email: data.email } }) }>
                                 <FontAwesomeIcon icon= { solid('square-xmark') } size= "xl" />
@@ -55,8 +57,10 @@ const Item = () => {
                         { data.status !== 'pending' ? 
                             data.status === 'released' ? 
                                 <Chip variant= "default" size= "small" label= "Released" sx= {{ backgroundColor: '#4cd137', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
-                                data.status === 'failed' ? 
-                                    <Chip variant= "default" size= "small" label= "Failed" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
+                                data.status === 'surrendered' ? 
+                                    <Chip variant= "default" size= "small" label= "Surrendered" sx= {{ backgroundColor: '#4cd137', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
+                                    data.status === 'failed' ? 
+                                        <Chip variant= "default" size= "small" label= "Failed" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
                                     <Chip variant= "default" size= "small" label= "Cancelled" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' }
                     </Stack>
                 </Stack>

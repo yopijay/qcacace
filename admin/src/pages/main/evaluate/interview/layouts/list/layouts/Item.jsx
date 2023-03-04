@@ -32,6 +32,7 @@ const Item = () => {
                             <Typography variant= "body1" sx= {{ fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>#{ data.series_no }</Typography>
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.email }</Typography>
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.lname }, { data.fname }</Typography>
+                            <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Type: <b>{ (data.type).toUpperCase() }</b></Typography>
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.contact_no }</Typography>
                         </Stack>
                     </Stack>
@@ -39,7 +40,8 @@ const Item = () => {
                         { data.status === 'pending' ? 
                             <Typography sx= { approve } 
                                 onClick= { () => 
-                                    approval({ table: 'tbl_schedule', type: 'approve', data: { evaluated_by: atob(localStorage.getItem('token')), id: data.id, schedule_id: data.schedule_id, email: data.email } }) }>
+                                    approval({ table: 'tbl_schedule', type: 'approve', 
+                                        data: { evaluated_by: atob(localStorage.getItem('token')), id: data.id, schedule_id: data.schedule_id, email: data.email } }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
                         { data.status === 'pending' ? 
