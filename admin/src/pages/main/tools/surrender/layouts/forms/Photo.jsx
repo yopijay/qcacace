@@ -30,20 +30,20 @@ const Photo = () => {
 
     return (
         <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ marginBottom: '50px' }}>
-            <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-end">
-                <Avatar src= { pic } sx= {{ width: '145px', height: '145px', border: 'solid 5px #DFE4EA' }} />
-                <FormLabel htmlFor= "photo" sx= { btn }><FontAwesomeIcon icon= { solid('camera') } /></FormLabel>
-                <input type= "file" name= "photo" id= "photo" style= {{ width: '0.1px', height: '0.1px', opacity: 0, overflow: 'hidden', zIndex: -1 }}
-                    onChange= { async (e) => {
-                        setError('photo', { message: '' });
-                        let file = e.target.files[0];
-                        let image = await base64(file);
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-end">
+            <Avatar src= { pic } sx= {{ width: '145px', height: '145px', border: 'solid 5px #DFE4EA' }} />
+            <FormLabel htmlFor= "photo" sx= { btn }><FontAwesomeIcon icon= { solid('camera') } /></FormLabel>
+            <input type= "file" name= "photo" id= "photo" style= {{ width: '0.1px', height: '0.1px', opacity: 0, overflow: 'hidden', zIndex: -1 }}
+                onChange= { async (e) => {
+                    setError('photo', { message: '' });
+                    let file = e.target.files[0];
+                    let image = await base64(file);
 
-                        setPic(image);
-                        setValue('photo', JSON.stringify(image));
-                    }} />
-                <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.photo?.message }</Typography>
-            </Stack>
+                    setPic(image);
+                    setValue('photo', JSON.stringify(image));
+                }} />
+            <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.photo?.message }</Typography>
+        </Stack>
         </Stack>
     );
 }

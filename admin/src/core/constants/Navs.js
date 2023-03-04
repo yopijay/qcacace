@@ -6,6 +6,7 @@ const PetProgram = React.lazy(() => import('pages/main/tools/pet-programs'));
 const MissingPet = React.lazy(() => import('pages/main/tools/missing-pet'));
 const Subscribers = React.lazy(() => import('pages/main/tools/subscribers'));
 const Adopt = React.lazy(() => import('pages/main/tools/adoption'));
+const Surrender = React.lazy(() => import('pages/main/tools/surrender'));
 
 // // Maintenance
 const Appointment = React.lazy(() => import('pages/main/maintenance/appointment'));
@@ -35,7 +36,7 @@ export const Navs = () => ([
             { path: '/tools/missing', label: 'Missing Pets', name: 'missing-pets', component: <MissingPet /> },
             { path: '/tools/subscription', label: 'Subscription', name: 'subscription', component: <Subscribers /> },
             { path: '/tools/adopt', label: 'Adopt Pet', name: 'adopt-pet', component: <Adopt /> },
-            { path: '/tools/surrender-pet', label: 'Surrender Pet', name: 'surrender-pet', component: 'SURRENDER PET' },
+            { path: '/tools/surrender-pet', label: 'Surrender Pet', name: 'surrender-pet', component: <Surrender /> },
         ]
     },
     {

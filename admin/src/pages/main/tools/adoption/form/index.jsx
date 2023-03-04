@@ -13,7 +13,7 @@ const Index = () => {
     const { steps } = useParams();
 
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%', paddinBottom: '20px' }}>
+        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%', paddingBottom: '20px' }}>
             { steps === 'personal-information' ? <PersonalInformation /> : 
                 steps === 'pet-information' ? <PetInformation /> : 
                     steps === 'documentary-requirement' ? <DocumentaryRequirement /> :
