@@ -56,10 +56,18 @@ class Services {
                             .update(`status= ${data.type === 'surrender' ? `'surrendered'` : `'released'`}, date_evaluated= CURRENT_TIMESTAMP`)
                             .condition(`WHERE id= ${data.id}`)
                             .build();
+
+        if(data.type === 'surrender') {
+            await new Builder(`tbl_pets`)
+                                .update(`status= 1, created_by= ${data.evaluated_by}, updated_by= ${data.evaluated_by}, date_created= CURRENT_TIMESTAMP,
+                                                date_updated= CURRENT_TIMESTAMP`)
+                                .condition(`WHERE id= ${data.pet_id}`)
+                                .build();
+        }
         
         let list = (await new Builder(`tbl_services AS srvc`)
                                             .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status, 
-                                                            sched.status AS sched_status, srvc.date_filed, pymnt.status AS payment_status`)
+                                                            sched.status AS sched_status, srvc.date_filed, pymnt.status AS payment_status, srvc.type`)
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                             .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFt` })
@@ -100,7 +108,7 @@ class Services {
 
         let list = (await new Builder(`tbl_services AS srvc`)
                                             .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status, 
-                                                            sched.status AS sched_status, srvc.date_filed, pymnt.status AS payment_status`)
+                                                            sched.status AS sched_status, srvc.date_filed, pymnt.status AS payment_status, srvc.type`)
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                             .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
                                             .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFt` })
