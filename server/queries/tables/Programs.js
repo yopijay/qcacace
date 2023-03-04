@@ -26,17 +26,18 @@ class Programs {
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
         let emails = (await new Builder(`tbl_subscribers`).select(`email`).build()).rows;
         
-        await new Builder(`tbl_programs`)
+        let program = (await new Builder(`tbl_programs`)
                             .insert({ columns: `series_no, title, subtitle, date, description, photo, status, created_by, date_created`, 
                                             values: `'${global.randomizer(7)}', '${data.title}', ${data.subtitle !== '' ? `'${data.subtitle}'` : null}, '${data.date}', 
                                                             '${data.description}', ${data.photo !== undefined ?  `'${data.photo}'` : null}, ${data.status ? 1 : 0},
                                                             ${data.created_by}, CURRENT_TIMESTAMP` })
-                            .build();
+                            .condition(`RETURNING title`)
+                            .build()).rows[0];
 
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Inform natin si subscriber about sa missing pet na ni-post natin if meron syang nakita or what,`,
+                intro: `Inform natin si subscriber about sa program natin, tapos ito yung title: ${program.title}`,
                 
                 outro: 'Please contact me for additional help.'
             }

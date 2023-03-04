@@ -73,18 +73,19 @@ class Pets {
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
         let emails = (await new Builder(`tbl_subscribers`).select(`email`).build()).rows;
 
-        await new Builder(`tbl_pets`)
+        let pet = (await new Builder(`tbl_pets`)
                             .insert({ columns: `series_no, category_id, breed_id, coat_id, life_stages_id, gender, sterilization, energy_level, weight,
                                             color, tags, photo, is_adopt, status, created_by ,date_created`, 
                                             values: `'${global.randomizer(7)}', ${data.category_id}, ${data.breed_id}, ${data.coat_id}, ${data.life_stages_id},
                                                             '${data.gender}', '${data.sterilization}', '${data.energy_level}', '${data.weight}', '${(data.color).toUpperCase()}',
                                                             '${JSON.stringify(data.tags)}', '${data.photo}', 0, 1, ${data.created_by}, CURRENT_TIMESTAMP` })
-                            .build();
+                            .condition(`RETURNING series_no`)
+                            .build()).rows[0];
 
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Inform natin si subscriber about sa missing pet na ni-post natin if meron syang nakita or what,`,
+                intro: `Inform natin si subscriber about sa bagong pet na ni-post natin, then ito yung Pet # nya ${pet.series_no}`,
                 
                 outro: 'Please contact me for additional help.'
             }
