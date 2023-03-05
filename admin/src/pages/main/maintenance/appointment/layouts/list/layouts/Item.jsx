@@ -1,49 +1,34 @@
 // Libraries
 import { useContext } from "react";
-import { Stack, Typography } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Grid, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
 
 // Constants
-import { icons, item } from "../index.style"; // Styles
+import { item } from "../index.style"; // Styles
 import { months } from "core/constants/Date.const";
 
 const Item = () => {
     const { list } = useContext(ListCntxt);
 
     return (
-        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx= {{ padding: '0 0 40px 0', overflowY: 'scroll', '&::-webkit-scrollbar': { display: 'none' } }}>
+        <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start">
             { list?.length > 0 ?
                 list?.map((data, index) => (
-                    <Stack direction= "row" justifyContent= "sapce-between" alignItems= "center" key= { index } sx= { item }>
-                        <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ flexGrow: 1 }} spacing= { 1 }>
-                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start">
-                                <Typography variant= "caption" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>#{ data.series_no }</Typography>
-                                <Typography variant= "body1" 
-                                    sx= {{ fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                    { months()[parseInt(data.month) - 1].name } { data.day }, { data.year }
-                                </Typography>
-                                <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Slot: { data.slot}</Typography>
-                            </Stack>
+                    <Grid item xs= { 6 } sm= { 3 } md= { 2 } sx= {{ padding: '10px 8px' }} key= { index }>
+                        <Stack direction= "column" justifyContent= "center" alignItems= "center" sx= { item } component= { Link } to= { `/maintenance/appointment/form/update/${data.id}` }>
+                            <Typography variant= "h4">{ data.day }</Typography>
+                            <Typography variant= "body2">{ months()[parseInt(data.month) - 1].name }, { data.year }</Typography>
                         </Stack>
-                        <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 2 }>
-                            <Typography sx= { icons } component= { Link } to= { `/maintenance/appointment/form/update/${data.id}` }>
-                                <FontAwesomeIcon icon= { solid('pencil') } size= "lg" />
-                            </Typography>
-                            <Typography sx= { icons } component= { Link } to= { `/maintenance/appointment/form/view/${data.id}` }>
-                                <FontAwesomeIcon icon= { solid('eye') } size= "lg" />
-                            </Typography>
-                        </Stack>
-                    </Stack>
+                    </Grid>
                 )) : 
-                <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ backgroundColor: '#FFFFFF', padding: '10px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }}>
-                    <Typography>No record/s found!</Typography>
-                </Stack> }
-        </Stack>
+                <Grid item xs= { 12 } sx= {{ padding: '10px 8px' }}>
+                    <Typography variant= "caption" component= { Stack } direction= "row" justifyContent= "center" alignItems= "center" 
+                        sx= {{ backgroundColor: '#FFFFFF', boxShadow: 1, borderRadius: '7px', padding: '10px 0' }}>No record/s found!</Typography>
+                </Grid> }
+        </Grid>
     );
 }
 

@@ -2,7 +2,6 @@
 import { Autocomplete, Box, Grid, Skeleton, Stack, TextField, Typography } from "@mui/material";
 import { useContext } from "react";
 import { Controller } from "react-hook-form";
-import { useParams } from "react-router-dom";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
@@ -17,7 +16,6 @@ const energy = [{ id: 'high', name: 'HIGH ENERGY' }, { id: 'low', name: 'LOW ENE
 const weight = [{ id: 'underweight', name: 'UNDERWEIGHT' }, { id: 'ideal', name: 'IDEAL' }, { id: 'overweight', name: 'OVERWEIGHT' }]; // Weight
 
 const Condition = ({ fetching }) => {
-    const { type } = useParams();
     const { control, getValues, errors, register } = useContext(FormCntxt);
     const { data: tags, isFetching: tagfetching } = useGet({ key: ['tag_dropdown'], fetch: dropdown({ table: 'tbl_tags', data: {} }) });
 
@@ -29,7 +27,7 @@ const Condition = ({ fetching }) => {
                     <Box sx= { select }>
                         <Controller control= { control } name= "gender" defaultValue= "male"
                             render= { ({ field: { onChange, value } }) => (
-                                <Autocomplete options= { gender } disableClearable getOptionLabel= { opt => opt.name || opt.id } disabled= { type === 'view' }
+                                <Autocomplete options= { gender } disableClearable getOptionLabel= { opt => opt.name || opt.id } disabled= { !(getValues()?.is_adopt !== 1) }
                                     noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                     renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
                                     onChange= { (e, item) => { onChange(item.id); } }
@@ -44,7 +42,7 @@ const Condition = ({ fetching }) => {
                     <Box sx= { select }>
                         <Controller control= { control } name= "energy_level" defaultValue= "high"
                                 render= { ({ field: { onChange, value } }) => (
-                                    <Autocomplete options= { energy } disableClearable getOptionLabel= { opt => opt.name || opt.id } disabled= { type === 'view' }
+                                    <Autocomplete options= { energy } disableClearable getOptionLabel= { opt => opt.name || opt.id } disabled= { !(getValues()?.is_adopt !== 1) }
                                         noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                         renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
                                         onChange= { (e, item) => { onChange(item.id); } }
@@ -59,7 +57,7 @@ const Condition = ({ fetching }) => {
                     <Box sx= { select }>
                         <Controller control= { control } name= "sterilization" defaultValue= "no"
                                 render= { ({ field: { onChange, value } }) => (
-                                    <Autocomplete options= { sterilization } disableClearable getOptionLabel= { opt => opt.name || opt.id } disabled= { type === 'view' }
+                                    <Autocomplete options= { sterilization } disableClearable getOptionLabel= { opt => opt.name || opt.id } disabled= { !(getValues()?.is_adopt !== 1) }
                                         noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                         renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
                                         onChange= { (e, item) => { onChange(item.id); } }
@@ -74,7 +72,7 @@ const Condition = ({ fetching }) => {
                     <Box sx= { select }>
                         <Controller control= { control } name= "weight" defaultValue= "ideal"
                                 render= { ({ field: { onChange, value } }) => (
-                                    <Autocomplete options= { weight } disableClearable getOptionLabel= { opt => opt.name || opt.id } disabled= { type === 'view' }
+                                    <Autocomplete options= { weight } disableClearable getOptionLabel= { opt => opt.name || opt.id } disabled= { !(getValues()?.is_adopt !== 1) }
                                         noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                         renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
                                         onChange= { (e, item) => { onChange(item.id); } }
@@ -87,7 +85,7 @@ const Condition = ({ fetching }) => {
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography gutterBottom color= "text.secondary" variant= "body2">*Color</Typography>
                     { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
-                        <TextField { ...register('color') } name= "color" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { type === 'view' } sx= { input } /> }
+                        <TextField { ...register('color') } name= "color" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { !(getValues()?.is_adopt !== 1) } sx= { input } /> }
                 </Stack>
             </Grid>
             <Grid item xs= { 12 }>
@@ -97,7 +95,7 @@ const Condition = ({ fetching }) => {
                         <Box sx= { select }>
                             <Controller control= { control } name= "tags" defaultValue= { [] }
                                 render= { ({ field: { onChange, value } }) => (
-                                    <Autocomplete options= { tags } multiple disableClearable disabled= { type === 'view' }
+                                    <Autocomplete options= { tags } multiple disableClearable disabled= { !(getValues()?.is_adopt !== 1) }
                                         getOptionLabel= { tags => tags.name || tags.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                         isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                         onChange= { (e, item) => { onChange(item); } }

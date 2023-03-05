@@ -1,5 +1,5 @@
 // Libraries
-import { Box, Container, Grid, Skeleton, Stack, TextField, Typography } from "@mui/material";
+import { Box, Grid, Skeleton, Stack, TextField, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useEffect } from "react";
@@ -11,7 +11,7 @@ import { btnrecommend, petcontainer, search } from "./index.style"; // Styles
 import Items from "./layouts/Items"; // Items
 import Recommended from "./layouts/Recommended"; // Recommend
 
-const Index = ({ setDialog, list, fetching, recommended, recommendation, recommending, find, finding }) => {
+const Index = ({ setDialog, fetching, recommended, recommendation, recommending, find, finding }) => {
     useEffect(() => { if(localStorage.getItem('recommend') !== null) recommendation(JSON.parse(localStorage.getItem('recommend'))) }, [ recommendation ]);
     
     return (
@@ -34,9 +34,9 @@ const Index = ({ setDialog, list, fetching, recommended, recommendation, recomme
                 </form>
             </Stack>
             { !fetching && !finding ? <Items /> : 
-                <Grid container direction= "row" justifyContent= "center" alignItems= "flex-start" spacing= { 2 } sx= {{ padding: '20px' }}>
+                <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" sx= {{ padding: '0 0 40px 0' }}>
                     { [0, 1, 2].map(index => (
-                        <Grid item xs= { 12 } md= { 6 } lg= { 4 } key= { index }>
+                        <Grid item xs= { 12 } md= { 6 } lg= { 4 } key= { index } sx= {{ padding: '10px 8px' }}>
                             <Stack direction= {{ xs: 'column', sm: 'row' }} justifyContent= "flex-start" alignItems= "start" sx= { petcontainer } spacing= { 2 }>
                                 <Stack direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start' }} alignItems= "center" sx= {{ width: { xs: '100%', sm: '40%', md: '50%' } }}>
                                     <Skeleton variant= "rounded" sx= {{ width: '100%', height: '200px', borderRadius: '20px' }} />

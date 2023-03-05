@@ -6,11 +6,10 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useContext } from "react";
 
 // Core
-import { GlobalCntxt } from "core/context/GlobalCntxt.func";
+import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
 
-// Assets
-import Logo from 'assets/images/logo.png';
-
+// Constants
+import Logo from 'assets/images/logo.png'; // Assets
 // Custom styles
 const appbar = {
     boxShadow: 'none',
@@ -34,7 +33,7 @@ const Index = () => {
                     </Stack>
                     <Typography sx= {{ transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.1)' }, display: { xs: 'block', lg: 'none' } }} 
                         onClick= { drawerToggle(!open.left) }>
-                        <FontAwesomeIcon icon= { solid('bars-staggered') } />
+                        <FontAwesomeIcon icon= { solid('bars-staggered') } color= "#FFFFFF" />
                     </Typography>
                 </Stack>
             </Container>

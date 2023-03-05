@@ -58,7 +58,12 @@ export const item = {
     backgroundColor: '#FFFFFF', 
     padding: '10px 20px', 
     border: 'solid 1px #F3F3F3', 
-    borderRadius: '10px'
+    borderRadius: '10px',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: '#444444',
+    transition: 'all 0.2s ease-in-out',
+    '&:hover': { backgroundColor: '#EFEFEF' }
 }
 
 export const icons = {

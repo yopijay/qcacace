@@ -8,25 +8,38 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { save, specific, update } from "core/api/index.func"; // APIs
-import { randomizer, successToast, useGet, usePost } from "core/global/function/index.func"; // Custom react query
-import { input as theme } from "core/global/theme/index.style"; // Theme
+import { randomizer, successToast, useGet, usePost } from "core/global/function/index.func"; // Functions
+import { theme } from "core/global/theme/index.style"; // Theme
 
 // Constants
-import { btnicon, card, btntxt, error, input } from "./index.style"; // Styles
+import { btnicon, card, btntxt, input } from "./index.style"; // Styles
 import { validation } from "./index.validation"; // Validation
 import AppointmentDate from "./layout/AppointmentDate"; // Layout
+const dflt = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { textTransform: 'uppercase' }
+        }
+    }
+}
 
 const Index = () => {
     const { type, id } = useParams();
     const navigate = useNavigate();
     const { setValidation, handleSubmit, setValue, setError, register, errors, getValues, setCheck, check } = useContext(FormCntxt);
+
     const { refetch, isFetching: fetching } = 
         useGet({ key: ['app_specific'], fetch: specific({ table: 'tbl_appointments', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
             onSuccess: (data) => { 
                 if(Array.isArray(data)) { 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
-                        let _name = Object.keys(data[0])[count]; setValue(_name, data[0][_name] !== null ? data[0][_name] : ''); 
-                    } 
+                        let _name = Object.keys(data[0])[count]; setValue(_name, data[0][_name] !== null ? data[0][_name] : '');  }
                 } 
             } 
         });
@@ -57,7 +70,7 @@ const Index = () => {
                 <Typography sx= { btnicon } component= { Link } to= "/maintenance/appointment"><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
             </Stack>
             <Box sx= { card }>
-                <ThemeProvider theme= { theme }>
+                <ThemeProvider theme= { theme(dflt) }>
                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
                         <Grid item xs= { 12 } sm= { 7 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
@@ -72,7 +85,7 @@ const Index = () => {
                                 <Typography gutterBottom color= "text.secondary">*Slot</Typography>
                                 <TextField { ...register('slot') } type= "number" defaultValue= "5" name= "slot" variant= "standard" 
                                     InputProps= {{ disableUnderline: true }} disabled= { type === 'view' } sx= { input } />
-                                <Typography variant= "body2" sx= { error } gutterBottom>{ errors.slot?.message }</Typography>
+                                <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.slot?.message }</Typography>
                             </Stack>
                         </Grid>
                         <Grid item xs= { 12 }>

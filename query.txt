@@ -135,7 +135,7 @@ CREATE TABLE tbl_pets(
     FOREIGN KEY (deleted_by) REFERENCES tbl_users(id)
 );
 
-CREATE TABLE tbl_adopt_documents(
+CREATE TABLE tbl_services_documents(
     id SERIAL PRIMARY KEY,
     series_no VARCHAR(50),
     valid_id BYTEA,
@@ -147,7 +147,7 @@ CREATE TABLE tbl_adopt_documents(
     FOREIGN KEY (submitted_by) REFERENCES tbl_guest(id)
 );
 
-CREATE TABLE tbl_adopt(
+CREATE TABLE tbl_services(
     id SERIAL PRIMARY KEY,
     series_no VARCHAR(50),
     documents_id INT,
@@ -158,7 +158,7 @@ CREATE TABLE tbl_adopt(
     date_requested TIMESTAMPTZ,
     date_approved TIMESTAMPTZ,
 
-    FOREIGN KEY (documents_id) REFERENCES tbl_adopt_documents(id),
+    FOREIGN KEY (documents_id) REFERENCES tbl_services_documents(id),
     FOREIGN KEY (requested_by) REFERENCES tbl_guest(id),
     FOREIGN KEY (pet_id) REFERENCES tbl_pets(id),
     FOREIGN KEY (approved_by) REFERENCES tbl_users(id)

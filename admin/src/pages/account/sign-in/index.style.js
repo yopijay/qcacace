@@ -35,10 +35,6 @@ export const link = {
     textDecoration: 'none' 
 }
 
-export const error = {
-    color: '#e84118'
-}
-
 export const btn = { 
     display: 'flex',
     cursor: 'pointer',

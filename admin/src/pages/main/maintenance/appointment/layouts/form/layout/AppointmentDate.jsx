@@ -1,14 +1,19 @@
+// Libraries
 import { Autocomplete, Box, Grid, Stack, TextField, Typography } from "@mui/material";
-import { days, months, years } from "core/constants/Date.const";
-import { FormCntxt } from "core/context/FormCntxt.func";
 import { useContext, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { select } from "../index.style";
+
+// Core
+import { days, months, years } from "core/constants/Date.const"; // Constants
+import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+
+// Constants
+import { select } from "../index.style"; // Styles
 
 const AppointmentDate = () => {
     const { type } = useParams();
-    const [ day, setDay ] = useState(days());
+    const [ day, setDay ] = useState(days(new Date().getMonth() + 1, new Date().getFullYear()));
     const { control, getValues } = useContext(FormCntxt);
     
     return (

@@ -2,6 +2,12 @@
 import axios from "axios";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
+import QRCode from 'qrcode';
+
+export const usePost = ({ fetch, onSuccess, onError }) => { return useMutation(fetch, { onSuccess, onError}); }
+export const useGet = ({ key, fetch, options, onSuccess, onError }) => { return useQuery(key, () => fetch, { onSuccess, onError, ...options }); }
+export const pad = (num, size) => { var s = "0000000" + num; return s.substr(s.length-size); }
+export const generateQR = async ({ id, set  }) => { set(await QRCode.toDataURL(id)); }
 
 export const api = ({ url, method, data = null }) => {
     const config= {
@@ -19,9 +25,6 @@ export const api = ({ url, method, data = null }) => {
     return axios(config);
 }
 
-export const usePost = ({ fetch, onSuccess, onError }) => { return useMutation(fetch, { onSuccess, onError}); }
-export const useGet = ({ key, fetch, options, onSuccess, onError }) => { return useQuery(key, () => fetch, { onSuccess, onError, ...options }); }
-
 export const getDate = (date) => {
     const year = date.getFullYear();
     const month = `${ (date.getMonth() + 1) >= 10 ? '' : '0' }${ date.getMonth() + 1 }`;
@@ -37,11 +40,6 @@ export const getDate = (date) => {
         today: `${year}-${month}-${day}`,
         label: `${hr > 12 ? 'PM' : 'AM'}`
     }
-}
-
-export const pad = (num, size) => {
-    var s = "0000000" + num;
-    return s.substr(s.length-size);
 }
 
 export const successToast = (message, duration = 3000, navigate) => {

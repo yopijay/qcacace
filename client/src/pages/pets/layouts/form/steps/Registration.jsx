@@ -26,7 +26,7 @@ const Registration = () => {
         }
     });
 
-    useEffect(() => { setValidation(verification()); }, [ setValidation ]);
+    useEffect(() => { register('application_type', { value: 'online' }); setValidation(verification()); }, [ register, setValidation ]);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 5 } sx= {{ padding: { xs: 0, sm: '0 30px' }, height: '100%' }}>
@@ -43,7 +43,7 @@ const Registration = () => {
                 </form>
                 <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center">
                     <Grid item xs= { 6 } sm= { 4 } md= { 5 } lg= { 3 }>
-                        { getValues().email === '' ? <Box sx= { btntxt } onClick= { handleSubmit((data) => saving({ table: 'tbl_adopter', data: data }) )}>Verify</Box> :
+                        { getValues().email === '' ? <Box sx= { btntxt } onClick= { handleSubmit((data) => saving({ table: 'tbl_furr_parent', data: data }) )}>Verify</Box> :
                             <Box sx= { btntxt } component= { Link } to= { `/pets/${id}/adopt/${getValues().id}/verify` }>Verify</Box> }
                     </Grid>
                 </Grid> 

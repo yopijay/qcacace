@@ -1,7 +1,14 @@
 // Libraries
 import React from 'react';
 
-// Maintenance
+// Tools
+const PetProgram = React.lazy(() => import('pages/main/tools/pet-programs'));
+const MissingPet = React.lazy(() => import('pages/main/tools/missing-pet'));
+const Subscribers = React.lazy(() => import('pages/main/tools/subscribers'));
+const Adopt = React.lazy(() => import('pages/main/tools/adoption'));
+const Surrender = React.lazy(() => import('pages/main/tools/surrender'));
+
+// // Maintenance
 const Appointment = React.lazy(() => import('pages/main/maintenance/appointment'));
 const Category = React.lazy(() => import('pages/main/maintenance/category'));
 const Breed = React.lazy(() => import('pages/main/maintenance/breed'));
@@ -11,7 +18,7 @@ const Tags = React.lazy(() => import('pages/main/maintenance/tags'));
 const Pets = React.lazy(() => import('pages/main/maintenance/pets'));
 const Users = React.lazy(() => import('pages/main/maintenance/users'));
 
-// Evaluate
+// // Evaluate
 const Documents = React.lazy(() => import('pages/main/evaluate/documents'));
 const Interview = React.lazy(() => import('pages/main/evaluate/interview'));
 const Payment = React.lazy(() => import('pages/main/evaluate/payment'));
@@ -25,9 +32,11 @@ export const Navs = () => ([
     },
     {
         title: 'Tools', access: [ 'superadmin', 'admin', 'evaluator' ], nav: [
-            { path: '/tools/announcement', label: 'Announcements', name: 'announcement', component: 'ANNOUNCEMENT' },
-            { path: '/tools/missing', label: 'Missing Pets', name: 'missing-pets', component: 'MISSING PETS' },
-            { path: '/tools/adopt', label: 'Adopt Pet', name: 'adopt-pet', component: 'ADOPT PET' }
+            { path: '/tools/petprogram', label: 'Pet Program', name: 'petprogram', component: <PetProgram /> },
+            { path: '/tools/missing', label: 'Missing Pets', name: 'missing-pets', component: <MissingPet /> },
+            { path: '/tools/subscription', label: 'Subscription', name: 'subscription', component: <Subscribers /> },
+            { path: '/tools/adopt', label: 'Adopt Pet', name: 'adopt-pet', component: <Adopt /> },
+            { path: '/tools/surrender-pet', label: 'Surrender Pet', name: 'surrender-pet', component: <Surrender /> },
         ]
     },
     {
@@ -35,7 +44,7 @@ export const Navs = () => ([
             { path: '/evaluate/documents', label: 'Documents', name: 'documents', component: <Documents /> },
             { path: '/evaluate/interview', label: 'Interview', name: 'interview', component: <Interview /> },
             { path: '/evaluate/payment', label: 'Payment', name: 'payment', component: <Payment /> },
-            { path: '/evaluate/releasing', label: 'Releasing', name: 'releasing', component: <Releasing /> }
+            { path: '/evaluate/releasing', label: 'Finish', name: 'releasing', component: <Releasing /> }
         ]
     },
     {

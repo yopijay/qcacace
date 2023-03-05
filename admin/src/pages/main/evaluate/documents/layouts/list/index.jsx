@@ -17,7 +17,7 @@ const Index = () => {
     const { setList } = useContext(ListCntxt);
     const { mutate: find, isLoading: finding } = usePost({ fetch: look, onSuccess: data => setList(data) });
     const { isFetching: fetching } = 
-        useGet({ key: ['cred_list'], fetch: records({ table: 'tbl_adopter_documents', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: data => setList(data) });
+        useGet({ key: ['docu_list'], fetch: records({ table: 'tbl_documents', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: data => setList(data) });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 3 }>
@@ -28,7 +28,7 @@ const Index = () => {
                         <Box sx= { search }>
                             <FontAwesomeIcon icon= { solid('magnifying-glass') } size= "sm" style= {{ margin: '8px' }} />
                             <TextField variant= "standard" size= "small" fullWidth InputProps= {{ disableUnderline: true }} placeholder= "Search..." sx= {{ padding: '5px 0 0 0' }}
-                                onChange= { e => { find({ table: 'tbl_adopter_documents', data: { condition: e.target.value !== '' ? (e.target.value).toUpperCase() : e.target.value } }); } } />
+                                onChange= { e => { find({ table: 'tbl_documents', data: { condition: e.target.value !== '' ? (e.target.value).toUpperCase() : e.target.value } }); } } />
                         </Box>
                     </form>
                 </Stack>

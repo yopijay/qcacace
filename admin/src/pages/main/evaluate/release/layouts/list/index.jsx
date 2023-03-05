@@ -6,18 +6,20 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
-import { look, records } from "core/api/index.func"; // API
-import { useGet, usePost } from "core/global/function/index.func"; // Function
+import { look, records } from "core/api/index.func"; // APIs
+import { useGet, usePost } from "core/global/function/index.func"; // Functions
+
+// Constants
+import { search } from "./index.style"; // Styles
 
 // Layouts
 import Item from "./layouts/Item";
-import { search } from "./index.style";
 
 const Index = () => {
     const { setList } = useContext(ListCntxt);
     const { mutate: find, isLoading: finding } = usePost({ fetch: look, onSuccess: data => setList(data) });
     const { isFetching: fetching } = 
-        useGet({ key: ['adpt_list'], fetch: records({ table: 'tbl_adopt', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: data => setList(data) });
+        useGet({ key: ['srvc_list'], fetch: records({ table: 'tbl_services', data: {} }), options: { refetchOnWindowFocus: false }, onSuccess: data => setList(data) });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 3 }>
@@ -28,7 +30,7 @@ const Index = () => {
                         <Box sx= { search }>
                             <FontAwesomeIcon icon= { solid('magnifying-glass') } size= "sm" style= {{ margin: '8px' }} />
                             <TextField variant= "standard" size= "small" fullWidth InputProps= {{ disableUnderline: true }} placeholder= "Search..." sx= {{ padding: '5px 0 0 0' }}
-                                onChange= { e => { find({ table: 'tbl_adopt', data: { condition: e.target.value !== '' ? (e.target.value).toUpperCase() : e.target.value } }); } } />
+                                onChange= { e => { find({ table: 'tbl_services', data: { condition: e.target.value !== '' ? (e.target.value).toUpperCase() : e.target.value } }); } } />
                         </Box>
                     </form>
                 </Stack>

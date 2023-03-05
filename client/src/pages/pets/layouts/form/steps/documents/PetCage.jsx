@@ -8,8 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { base64 } from "core/global/function/index.func"; // Function
 
-
-const ValidId = ({ fetching }) => {
+const PetCage = ({ fetching }) => {
     const [ pet_cage, setPetcage ] = useState('#');
     const { setError, register, setValue, getValues, errors } = useContext(FormCntxt);
 
@@ -50,4 +49,4 @@ const ValidId = ({ fetching }) => {
     );
 }
 
-export default ValidId;
+export default PetCage;

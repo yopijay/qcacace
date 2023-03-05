@@ -2,6 +2,7 @@
 import { Autocomplete, Box, Grid, Skeleton, Stack, TextField, Typography } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Controller } from "react-hook-form";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
@@ -10,7 +11,6 @@ import { dropdown } from "core/api/index.func"; // API
 
 // Constants
 import { error, input, select } from "../index.style"; // Styles
-import { Controller } from "react-hook-form";
 
 const Classification = ({ fetching }) => {
     const { type } = useParams();
@@ -47,7 +47,7 @@ const Classification = ({ fetching }) => {
                         <Box sx= { select }>
                             <Controller control= { control } name= "category_id" defaultValue= { 0 }
                                 render= { ({ field: { onChange, value } }) => (
-                                    <Autocomplete options= { category } disableClearable disabled= { type === 'view' }
+                                    <Autocomplete options= { category } disableClearable disabled= { !(getValues()?.is_adopt !== 1) }
                                         getOptionLabel= { category => category.name || category.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                         isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                         onChange= { (e, item) => { 
@@ -70,7 +70,7 @@ const Classification = ({ fetching }) => {
                             breed.length > 0 ?
                                 <Controller control= { control } name= "breed_id" defaultValue= { 0 }
                                     render= { ({ field: { onChange, value } }) => (
-                                        <Autocomplete options= { breed } disabled= { type === 'view' } disableClearable
+                                        <Autocomplete options= { breed } disabled= { !(getValues()?.is_adopt !== 1) } disableClearable
                                             getOptionLabel= { breed => breed.name || breed.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                             isOptionEqualToValue= { (option, value) => option.name === value.name || breed.id === value.id }
                                             onChange= { (e, item) => { onChange(item.id); } } renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
@@ -82,7 +82,7 @@ const Classification = ({ fetching }) => {
                             : <Typography variant= "body1" sx= {{ padding: '4px 0' }} color= "text.disabled">Please select a pet category first!</Typography>
                         : <Typography variant= "body1" sx= {{ padding: '4px 0' }} color= "text.disabled">Loading...</Typography> }
                     </Box> }
-                    <Typography variant= "body2" sx= { error } gutterBottom>{ errors.category_id?.message }</Typography>
+                    <Typography variant= "body2" sx= { error } gutterBottom>{ errors.breed_id?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
@@ -94,7 +94,7 @@ const Classification = ({ fetching }) => {
                             coat.length > 0 ?
                                 <Controller control= { control } name= "coat_id" defaultValue= { 0 }
                                     render= { ({ field: { onChange, value } }) => (
-                                        <Autocomplete options= { coat } disabled= { type === 'view' } disableClearable
+                                        <Autocomplete options= { coat } disabled= { !(getValues()?.is_adopt !== 1) } disableClearable
                                             getOptionLabel= { coat => coat.name || coat.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                             isOptionEqualToValue= { (option, value) => option.name === value.name || coat.id === value.id }
                                             onChange= { (e, item) => { onChange(item.id); } } renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
@@ -118,7 +118,7 @@ const Classification = ({ fetching }) => {
                             lifestages.length > 0 ?
                                 <Controller control= { control } name= "life_stages_id" defaultValue= { 0 }
                                     render= { ({ field: { onChange, value } }) => (
-                                        <Autocomplete options= { lifestages } disabled= { type === 'view' } disableClearable
+                                        <Autocomplete options= { lifestages } disabled= { !(getValues()?.is_adopt !== 1) } disableClearable
                                             getOptionLabel= { lifestages => lifestages.name || lifestages.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                             isOptionEqualToValue= { (option, value) => option.name === value.name || lifestages.id === value.id }
                                             onChange= { (e, item) => { onChange(item.id); } } renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 

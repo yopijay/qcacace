@@ -4,6 +4,6 @@ export const validation = () => (
     Yup.object({
         // age: Yup.string().required('This field is required!'),
         // size: Yup.string().required('This field is required!'),
-        // color: Yup.string().required('This field is required!'),
+        color: Yup.string().required('This field is required!'),
     })
 )

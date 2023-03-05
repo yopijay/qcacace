@@ -6,19 +6,32 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect } from "react";
 
 // Core
-import { input } from "core/global/theme/index.style"; // Theme
+import { theme } from "core/global/theme/index.style"; // Theme
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { successToast, useGet, usePost } from "core/global/function/index.func"; // Custom react query
 import { save, specific, update } from "core/api/index.func"; // APIs
-
-// Constants
-import { btnicon, btntxt, card } from "./index.style"; // Styles 
-import { validation } from "./index.validation"; // Validation
 
 // Layouts
 import Account from "./layouts/Account";
 import OtherInfo from "./layouts/OtherInfo";
 import Profile from "./layouts/Profile";
+
+// Constants
+import { btnicon, btntxt, card } from "./index.style"; // Styles 
+import { validation } from "./index.validation"; // Validation
+const dflt = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { textTransform: 'uppercase' }
+        }
+    }
+}
 
 const Index = () => {
     const { type, id } = useParams();
@@ -70,7 +83,7 @@ const Index = () => {
                         </Stack>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                             <Typography variant= "body1" sx= {{ fontWeight: 'bold', marginBottom: '15px', color: '#142F4B' }}>Other Information</Typography>
-                            <ThemeProvider theme= { input }><OtherInfo fetching= { isFetching } /></ThemeProvider>
+                            <ThemeProvider theme= { theme(dflt) }><OtherInfo fetching= { isFetching } /></ThemeProvider>
                         </Stack>
                     </Stack>
                 </form>

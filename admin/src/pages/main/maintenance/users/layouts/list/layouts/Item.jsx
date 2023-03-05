@@ -23,7 +23,8 @@ const Item = () => {
                             <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ flexGrow: 1 }} spacing= { 1 }>
                                 <Avatar src= { JSON.parse(data.avatar) } sx= {{ width: 55, height: 55, border: 'solid 5px #dfe4ea' }} />
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start">
-                                    <Typography variant= "body1" sx= {{ fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.lname }, { data.fname } { data.mname } { data.suffix }</Typography>
+                                    <Typography variant= "body1" sx= {{ fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                        { data.lname }, { data.fname } { data.mname } { data.suffix }</Typography>
                                     <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>#{ data.series_no }</Typography>
                                     <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ (data.user_level).toUpperCase() }</Typography>
                                 </Stack>

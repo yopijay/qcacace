@@ -10,10 +10,7 @@ export const GlobalPrvdr = (props) => {
     const [ isActive, setIsActive ] = useState(localStorage.getItem('nav'));
     
     const drawerToggle = (open) => (event) => {
-        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-        
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) { return; }
         setOpen({ left: open });
     }
     

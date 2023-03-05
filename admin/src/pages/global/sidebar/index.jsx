@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 // Core
 import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
 import { usePost } from "core/global/function/index.func"; // Function
-import { logout } from "core/api/index.func"; // API
+import { logout } from "core/api/index.func"; // APIs
 
 // Layouts
 import Navs from "./layouts/Navs";
@@ -18,13 +18,7 @@ import { link, swipe } from "./index.style"; // Styles
 export const Index = () => {
     const { open, drawerToggle, container, setIsActive } = useContext(GlobalCntxt);
     const [ elem, setElem ] = useState(null);
-
-    const { mutate: signout } = 
-    usePost({ fetch: logout, 
-        onSuccess: (data) => { 
-            if(data.result === 'success') { localStorage.removeItem('token'); window.location.href= '/'; } 
-        }
-    });
+    const { mutate: signout } = usePost({ fetch: logout, onSuccess: (data) => { if(data.result === 'success') { localStorage.removeItem('token'); window.location.href= '/'; } } });
 
     const pop = Boolean(elem);
     const id = pop ? 'simple-popover' : undefined;
@@ -51,7 +45,9 @@ export const Index = () => {
                         <Typography gutterBottom variant= "body1" component= { Link } to= "" sx= { link } 
                             onClick= { () => { setElem(null); localStorage.setItem('nav', 'settings'); setIsActive('settings'); } }>Settings</Typography>
                     </Stack>
-                    <Box sx= {{ padding: '10px 20px' }}><Typography variant= "body1" onClick= { () => signout({ id: atob(localStorage.getItem('token')) }) } sx= { link }>Logout</Typography></Box>
+                    <Box sx= {{ padding: '10px 20px' }}>
+                        <Typography variant= "body1" onClick= { () => signout({ id: atob(localStorage.getItem('token')) }) } sx= { link }>Logout</Typography>
+                    </Box>
                 </Stack>
             </Popover>
         </Stack>

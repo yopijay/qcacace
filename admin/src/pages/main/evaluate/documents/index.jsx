@@ -3,7 +3,7 @@ import { Stack, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 
 // Core
-import { input } from "core/global/theme/index.style"; // Theme
+import { theme } from "core/global/theme/index.style"; // Theme
 import { ListPrvdr } from "core/context/ListCntxt.func"; // Context
 import { FormPrvdr } from "core/context/FormCntxt.func"; // Context
 
@@ -19,11 +19,25 @@ const container = {
     '&::-webkit-scrollbar': { display: 'none' }
 }
 
+const input = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { textTransform: 'uppercase' }
+        }
+    }
+}
+
 const Index = () => {
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" sx= { container }>
             <Routes>
-                <Route exact path= "/" element= { <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } />
+                <Route exact path= "/" element= { <ThemeProvider theme= { theme(input) }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } />
                 <Route exact path= "/form/:type" element= { <FormPrvdr><Form /></FormPrvdr> } />
                 <Route exact path= "/form/:type/:id/:email" element= { <FormPrvdr><Form /></FormPrvdr> } />
             </Routes>

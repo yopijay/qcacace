@@ -47,7 +47,7 @@ const Index = () => {
                 } />
                 <Route exact path= "/:id/adopt/*" element= { <FormPrvdr><Form /></FormPrvdr> } />
             </Routes>
-            <Footer />
+            <FormPrvdr><Footer /></FormPrvdr>
         </Stack>
     );
 }

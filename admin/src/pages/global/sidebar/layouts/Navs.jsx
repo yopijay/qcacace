@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 // Core
 import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
-import { Navs as links } from "core/constants/Navs"; // Navs
+import { Navs as links } from "core/constants/Navs"; // Constasnts
 import { ProfileCntxt } from "core/context/ProfileCntxt.func"; // Context
 
 // Custom styles

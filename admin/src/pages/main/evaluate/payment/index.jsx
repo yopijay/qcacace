@@ -3,8 +3,8 @@ import { Stack, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 
 // Core
-import { input } from "core/global/theme/index.style"; // Theme
-import { ListPrvdr } from "core/context/ListCntxt.func"; // Context
+import { theme } from "core/global/theme/index.style"; // Theme
+import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
 
 // Layouts
 import List from "./layouts/list";
@@ -17,12 +17,24 @@ const container = {
     '&::-webkit-scrollbar': { display: 'none' }
 }
 
+const input = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { textTransform: 'uppercase' }
+        }
+    }
+}
+
 const Index = () => {
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start" sx= { container }>
-            <Routes>
-                <Route exact path= "/" element= { <ThemeProvider theme= { input }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } />
-            </Routes>
+            <Routes><Route exact path= "/" element= { <ThemeProvider theme= { theme(input) }><ListPrvdr><List /></ListPrvdr></ThemeProvider> } /></Routes>
         </Stack>
     );
 }

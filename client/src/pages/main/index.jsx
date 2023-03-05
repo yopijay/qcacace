@@ -3,6 +3,7 @@ import { Stack } from "@mui/material";
 
 // Core
 import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
+import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
 
 // Layouts
 import Intro from './intro';
@@ -23,6 +24,7 @@ const container = {
 
 const Index = () => {
     localStorage.setItem('nav', 'home');
+    
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx= { container }>
             <Intro />
@@ -30,7 +32,7 @@ const Index = () => {
             <ListPrvdr><Pets /></ListPrvdr>
             <Services />
             <Feedback />
-            <Footer />
+            <FormPrvdr><Footer /></FormPrvdr>
         </Stack>
     );
 }

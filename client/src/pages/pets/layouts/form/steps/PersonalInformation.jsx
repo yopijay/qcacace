@@ -19,7 +19,7 @@ const PersonalInformation = () => {
     const navigate = useNavigate();
     const { register, errors, getValues, control, handleSubmit, setValidation, setValue, setError } = useContext(FormCntxt);
     const { isFetching: fetching } = 
-        useGet({ key: ['usr_specific'], fetch: specific({ table: 'tbl_adopter', id: atob(userid) }), options: { refetchOnWindowFocus: false },
+        useGet({ key: ['fp_specific'], fetch: specific({ table: 'tbl_furr_parent', id: atob(userid) }), options: { refetchOnWindowFocus: false },
             onSuccess: (data) => {
                 if(Array.isArray(data)) 
                     for(let count = 0; count < Object.keys(data[0]).length; count++) { 
@@ -37,7 +37,7 @@ const PersonalInformation = () => {
             }
         });
     
-    useEffect(() => { setValidation(personalinformation()); }, [ setValidation ]);
+    useEffect(() => { register('application_type', { value: 'online' }); setValidation(personalinformation()); }, [ setValidation, register ]);
 
     return (
         <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" spacing= { 1 } sx= {{ height: '100%' }}>
@@ -107,7 +107,7 @@ const PersonalInformation = () => {
                 <Grid item xs= { 12 }>
                     <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" sx= {{ paddingTop: '20px' }}>
                         <Grid item xs= { 12 } md= { 5 } lg= { 3 }>
-                            <Box sx= { btntxt } onClick= { handleSubmit(data => { data['id'] = atob(userid); updating({ table: 'tbl_adopter', data: data }); }) }>Next</Box>
+                            <Box sx= { btntxt } onClick= { handleSubmit(data => { data['id'] = atob(userid); updating({ table: 'tbl_furr_parent', data: data }); }) }>Next</Box>
                         </Grid>
                     </Grid>
                 </Grid>
