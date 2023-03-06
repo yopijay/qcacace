@@ -90,7 +90,8 @@ class Services {
             }
         });
 
-        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Congratulations, You now own the pet`, html: mail });
+        transporter.sendMail
+({ from: global.USER, to: data.email, subject: `Congratulations, You now own the pet`, html: mail });
         return { result: 'success', message: 'Adoption complete!', list: list }
     }
 
@@ -126,7 +127,8 @@ class Services {
             }
         });
 
-        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail
+({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
         return { result: 'success', message: 'Payment failed!', list: list }
     }
 
@@ -235,7 +237,8 @@ class Services {
                                     }
                                 });
     
-                                // transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                transporter.sendMail
+({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
                             else { return { result: 'error', error: errors } }
@@ -295,7 +298,8 @@ class Services {
                                     }
                                 });
     
-                                // transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                transporter.sendMail
+({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
@@ -383,7 +387,8 @@ class Services {
                                     }
                                 });
     
-                                // transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                transporter.sendMail
+({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
                             else { return { result: 'error', error: errors } }
@@ -443,7 +448,8 @@ class Services {
                                     }
                                 });
     
-                                // transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                transporter.sendMail
+({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
                             else { return { result: 'error', error: errors } }
