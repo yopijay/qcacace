@@ -70,8 +70,7 @@ class Schedule {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Application Interview Status`, html: mail });
+        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Interview Status`, html: mail });
         return { result: 'success', message: 'Interview passed!', list: list }
     }
 
@@ -108,8 +107,7 @@ class Schedule {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
+        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
         return { result: 'success', message: 'Interview failed!', list: list }
     }
 
@@ -144,8 +142,7 @@ class Schedule {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Appointment Schedule`, html: mail });
+        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Appointment Schedule`, html: mail });
         return { result: 'success', message: 'Successfully saved!' }
     }
 }
