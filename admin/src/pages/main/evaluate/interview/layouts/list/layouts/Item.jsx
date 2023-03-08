@@ -17,10 +17,14 @@ const Item = () => {
     const { list, setList } = useContext(ListCntxt);
     const navigate = useNavigate();
     const { mutate: approval } = 
-        usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { successToast(data.message, 3000, navigate('/evaluate/interview', { replace: true })); setList(data.list); } } });
+        usePost({ fetch: evaluate, onSuccess: data => { 
+            if(data.result === 'success') { successToast(data.message, 3000, navigate('/evaluate/interview', { replace: true })); setList(data.list); } 
+        } });
         
     const { mutate: reject } = 
-        usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { errorToast(data.message, 3000, navigate('/evaluate/interview', { replace: true })); setList(data.list); } } });
+        usePost({ fetch: evaluate, onSuccess: data => { 
+            if(data.result === 'success') { errorToast(data.message, 3000, navigate('/evaluate/interview', { replace: true })); setList(data.list); } 
+        } });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx=  {{ padding: '0 0 40px 0', overflowY: 'scroll', '&::-webkit-scrollbar': { display: 'none' } }}>
@@ -38,22 +42,11 @@ const Item = () => {
                     </Stack>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                         { data.status === 'pending' ? 
-                            <Typography sx= { approve } 
-                                onClick= { () => 
-                                    approval({ table: 'tbl_schedule', type: 'approve', 
-                                        data: { evaluated_by: atob(localStorage.getItem('token')), id: data.id, schedule_id: data.schedule_id, email: data.email } }) }>
+                            <Typography sx= { approve } onClick= { () => approval({ table: 'tbl_schedule', type: 'approve', data: data }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
                         { data.status === 'pending' ? 
-                            <Typography sx= { disapprove }
-                                onClick= { () => reject({ table: 'tbl_schedule', 
-                                                                        type: 'reject', 
-                                                                        data: { id: data.id, 
-                                                                                    evaluated_by: atob(localStorage.getItem('token')), 
-                                                                                    adopter_id: data.adopter_id, 
-                                                                                    pet_id: data.pet_id, 
-                                                                                    schedule_id: data.schedule_id,
-                                                                                    email: data.email } }) }>
+                            <Typography sx= { disapprove } onClick= { () => reject({ table: 'tbl_schedule', type: 'reject', data: data }) }>
                                 <FontAwesomeIcon icon= { solid('square-xmark') } size= "xl" />
                             </Typography> : '' }
                         { data.status !== 'pending' ? 

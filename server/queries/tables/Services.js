@@ -51,6 +51,7 @@ class Services {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let _intro = '';
 
         await new Builder(`tbl_services`)
                             .update(`status= ${data.type === 'surrender' ? `'surrendered'` : `'released'`}, date_evaluated= CURRENT_TIMESTAMP`)
@@ -59,33 +60,39 @@ class Services {
 
         if(data.type === 'surrender') {
             await new Builder(`tbl_pets`)
-                                .update(`status= 1, created_by= ${data.evaluated_by}, updated_by= ${data.evaluated_by}, date_created= CURRENT_TIMESTAMP,
+                                .update(`status= 1, created_by= ${data.evaluator}, updated_by= ${data.evaluator}, date_created= CURRENT_TIMESTAMP,
                                                 date_updated= CURRENT_TIMESTAMP`)
                                 .condition(`WHERE id= ${data.pet_id}`)
                                 .build();
         }
         
         let list = (await new Builder(`tbl_services AS srvc`)
-                                            .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status, 
-                                                            sched.status AS sched_status, srvc.date_filed, pymnt.status AS payment_status, srvc.type`)
+                                            .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,
+                                                            srvc.type, srvc.date_filed, srvc.date_evaluated, srvc.type`)
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                            .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
-                                            .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFt` })
                                             .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                                            .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
                                             .condition(`WHERE srvc.payment_id IS NOT NULL`)
                                             .except(`WHERE pymnt.status = 'pending' ORDER BY 12 DESC`)
                                             .build()).rows;
 
+        if(data.type === 'adoption') {
+            _intro = `Good day! We would like to inform that you can now get your adopted pet at QC Animal Care and Adoption Center  
+                            located at Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines. 
+
+                            To help your pet get released quickly, please bring the following items:
+                            
+                            1. Cage or Pet carrier (depends on the size of pet)
+                            2. Leash and Collar`;
+        }
+        else {
+            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+        }
+                                    
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Good day! We would like to inform that you can now get your adopted pet at QC Animal Care and Adoption Center  
-                located at Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines. 
-
-                To help your pet get released quickly, please bring the following items:
-                
-                1. Cage or Pet carrier (depends on the size of pet)
-                2. Leash and Collar`,
+                intro: _intro,
                 outro: 'Please contact me for additional help.'
             }
         });
@@ -98,30 +105,39 @@ class Services {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let _intro = '';
 
         let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
         let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
 
         await new Builder(`tbl_services`).update(`status= 'cancelled', date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
-        await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
-        await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
+
+        if(data.type === 'adoption') {
+            await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
+            await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
+        }
 
         let list = (await new Builder(`tbl_services AS srvc`)
-                                            .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status, 
-                                                            sched.status AS sched_status, srvc.date_filed, pymnt.status AS payment_status, srvc.type`)
+                                            .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,
+                                                            srvc.type, srvc.date_filed, srvc.date_evaluated, srvc.type`)
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                            .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
-                                            .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFt` })
                                             .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                                            .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
                                             .condition(`WHERE srvc.payment_id IS NOT NULL`)
                                             .except(`WHERE pymnt.status = 'pending' ORDER BY 12 DESC`)
                                             .build()).rows;
 
+        if(data.type === 'adoption') {
+            _intro = `<b>CANCELLED</b>. Notify natin si user na cancelled na yung transaction nya!`;
+        }
+        else {
+            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+        }
+
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `<b>CANCELLED</b>. Notify natin si user na cancelled na yung transaction nya!`,
-                
+                intro: _intro,
                 outro: 'Please contact me for additional help.'
             }
         });
