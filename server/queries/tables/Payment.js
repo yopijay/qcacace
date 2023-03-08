@@ -15,19 +15,20 @@ class Payment {
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
                                         .join({ table: `tbl_users_info AS eb`, condition: `pymnt.evaluated_by = eb.user_id`, type: `LEFT` })
-                                        .except(`WHERE srvc.payment_id IS NULL ORDER BY 12 DESC `)
+                                        .except(`WHERE srvc.payment_id IS NULL ORDER BY 14 DESC `)
                                         .build()).rows;
     }
     
     search = async (data) => {
         return (await new Builder(`tbl_services AS srvc`)
-                                        .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method,
-                                                        fp.email, fp.fname, CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname) AS evaluated_by, pymnt.date_filed, pymnt.date_evaluated, srvc.type`)
+                                            .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method,
+                                                            fp.email, fp.fname, fp.lname, CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname) AS evaluated_by, pymnt.status, 
+                                                            pymnt.date_filed, pymnt.date_evaluated, srvc.type`)
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
                                         .join({ table: `tbl_users_info AS eb`, condition: `pymnt.evaluated_by = eb.user_id`, type: `LEFT` })
                                         .condition(`WHERE pymnt.transaction_no LIKE '%${data.condition}%' OR pymnt.series_no LIKE '%${data.condition}%'`)
-                                        .except(`WHERE srvc.payment_id IS NULL ORDER BY 12 DESC `)
+                                        .except(`WHERE srvc.payment_id IS NULL ORDER BY 14 DESC `)
                                         .build()).rows;
     }
 
@@ -35,22 +36,32 @@ class Payment {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let _intro = '';
 
-        await new Builder(`tbl_payments`).update(`status= 'paid', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
+        await new Builder(`tbl_payments`).update(`status= 'paid', evaluated_by= ${data.evaluator}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.payment_id}`).build();
 
         let list = (await new Builder(`tbl_services AS srvc`)
-                                        .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
-                                                        pymnt.date_evaluated, fp.email, fp.fname, fp.lname, srvc.type`)
+                                        .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method,
+                                                        fp.email, fp.fname, fp.lname, CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname) AS evaluated_by, pymnt.status, 
+                                                        pymnt.date_filed, pymnt.date_evaluated, srvc.type`)
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
-                                        .except(`WHERE srvc.payment_id IS NULL ORDER BY 9 DESC`)
+                                        .join({ table: `tbl_users_info AS eb`, condition: `pymnt.evaluated_by = eb.user_id`, type: `LEFT` })
+                                        .except(`WHERE srvc.payment_id IS NULL ORDER BY 14 DESC`)
                                         .build()).rows;
+
+        if(data.type === 'adoption') {
+            _intro = `Good day! We would like to inform you that your payment has been validated by QC Animal Care and Adoption Center's evaluator. 
+                            You can now proceed to the last part of the pet adoption process which is the releasing of pets. Thank you!.`;
+        }
+        else {
+            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+        }
 
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Good day! We would like to inform you that your payment has been validated by QC Animal Care and Adoption Center's evaluator. 
-                You can now proceed to the last part of the pet adoption process which is the releasing of pets. Thank you!.`,
+                intro: _intro,
                 outro: 'If you have any concerns, Please contact me for additional help.'
             }
         });
@@ -63,28 +74,41 @@ class Payment {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let _intro = '';
 
         let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
         let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
 
-        await new Builder(`tbl_payments`).update(`status= 'failed', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.payment_id}`).build();
-        await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
-        await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
+        await new Builder(`tbl_payments`).update(`status= 'failed', evaluated_by= ${data.evaluator}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.payment_id}`).build();
+
+        if(data.type === 'adoption') {
+            await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
+            await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
+        }
+
         await new Builder(`tbl_services`).update(`status= 'cancelled', date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
         let list = (await new Builder(`tbl_services AS srvc`)
-                                        .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method, pymnt.status,
-                                                        pymnt.date_filed, fp.email, fp.fname, fp.lname, srvc.type`)
+                                        .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method,
+                                                        fp.email, fp.fname, fp.lname, CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname) AS evaluated_by, pymnt.status, 
+                                                        pymnt.date_filed, pymnt.date_evaluated, srvc.type`)
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
-                                        .except(`WHERE srvc.payment_id IS NULL ORDER BY 9 DESC`)
+                                        .join({ table: `tbl_users_info AS eb`, condition: `pymnt.evaluated_by = eb.user_id`, type: `LEFT` })
+                                        .except(`WHERE srvc.payment_id IS NULL ORDER BY 14 DESC`)
                                         .build()).rows;
+
+        if(data.type === 'adoption') {
+            _intro = `<b>FAILED</b>. Notify natin si user na lumipas na yung 3 days na palugit natin para makapag bayad sya`
+        }
+        else {
+            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+        }
 
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `<b>FAILED</b>. Notify natin si user na lumipas na yung 3 days na palugit natin para makapag bayad sya`,
-                
+                intro: _intro,
                 outro: 'Please contact me for additional help.'
             }
         });

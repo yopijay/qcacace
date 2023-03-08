@@ -39,21 +39,11 @@ const Item = () => {
                     </Stack>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                         { data.status === 'pending' ? 
-                            <Typography sx= { approve } 
-                                onClick= { () => approval({ table: 'tbl_services', type: 'approve', 
-                                                                data: { id: data.id, email: data.email, pet_id: data.pet_id, type: data.type, evaluated_by: atob(localStorage.getItem('token')) } }) }>
+                            <Typography sx= { approve } onClick= { () => approval({ table: 'tbl_services', type: 'approve', data: data }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
                         { data.status === 'pending' ? 
-                            <Typography sx= { disapprove }
-                                onClick= { () => reject({ table: 'tbl_services', 
-                                                                        type: 'reject', 
-                                                                        data: { id: data.id, 
-                                                                                    pet_id: data.pet_id,
-                                                                                    type: data.type,
-                                                                                    schedule_id: data.schedule_id,
-                                                                                    evaluated_by: atob(localStorage.getItem('token')),
-                                                                                    email: data.email } }) }>
+                            <Typography sx= { disapprove } onClick= { () => reject({ table: 'tbl_services', type: 'reject', data: data }) }>
                                 <FontAwesomeIcon icon= { solid('square-xmark') } size= "xl" />
                             </Typography> : '' }
                         { data.status !== 'pending' ? 

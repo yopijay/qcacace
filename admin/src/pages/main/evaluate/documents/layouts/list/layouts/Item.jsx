@@ -37,21 +37,11 @@ const Item = () => {
                     </Stack>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
                         { data.status === 'pending' ? 
-                            <Typography sx= { approve } 
-                                onClick= { () => approval({ table: 'tbl_documents', type: 'approve', data: { evaluated_by: atob(localStorage.getItem('token')), docu_id: data.docu_id, email: data.email } }) }>
+                            <Typography sx= { approve } onClick= { () => approval({ table: 'tbl_documents', type: 'approve', data: data }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
                         { data.status === 'pending' ? 
-                            <Typography sx= { disapprove }
-                                onClick= { () => reject({ table: 'tbl_documents', 
-                                                                        type: 'reject', 
-                                                                        data: { id: data.id, 
-                                                                                    evaluated_by: atob(localStorage.getItem('token')), 
-                                                                                    adopter_id: data.adopter_id, 
-                                                                                    pet_id: data.pet_id, 
-                                                                                    docu_id: data.docu_id, 
-                                                                                    schedule_id: data.schedule_id,
-                                                                                    email: data.email } }) }>
+                            <Typography sx= { disapprove } onClick= { () => reject({ table: 'tbl_documents', type: 'reject', data: data }) }>
                                 <FontAwesomeIcon icon= { solid('square-xmark') } size= "xl" />
                             </Typography> : '' }
                         { data.status !== 'pending' ? 
