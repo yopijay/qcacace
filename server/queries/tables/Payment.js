@@ -55,7 +55,9 @@ class Payment {
                             You can now proceed to the last part of the pet adoption process which is the releasing of pets. Thank you!.`;
         }
         else {
-            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+            _intro = `Good day! We would like to inform you that your payment has been validated by 
+            QC Animal Care and Adoption Center's evaluator. You can now proceed to the last part of the pet 
+            surrender process which is the pick up of the pet. Please wait for our email for our pick up schedule. Thank you!`;
         }
 
         let mail = generator.generate({
@@ -66,15 +68,14 @@ class Payment {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Payment Received`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Payment Received`, html: mail });
         return { result: 'success', message: 'Payment confirmed!', list: list }
     }
 
     reject = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
         let _intro = '';
 
         let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
@@ -100,10 +101,10 @@ class Payment {
                                         .build()).rows;
 
         if(data.type === 'adoption') {
-            _intro = `<b>FAILED</b>. Notify natin si user na lumipas na yung 3 days na palugit natin para makapag bayad sya`
+            _intro = `<b>FAILED</b>. Good day! Unfortunately, your transaction has been canceled due to the failure of payment within 3 days.`
         }
         else {
-            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+            _intro = `Sorry your referrence number is invalid, Please contact the Quezon City Treasurer's Office to clarify your payment. Thank you!`;
         }
 
         let mail = generator.generate({
@@ -114,8 +115,7 @@ class Payment {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Payment Reject`, html: mail });
         return { result: 'success', message: 'Payment failed!', list: list }
     }
 
@@ -181,17 +181,17 @@ class Payment {
                         body: {
                             name: 'Fur Mom/Dad',
                             intro: `Good day! We would like to inform you that your payment has been sent. 
-                                        Please wait within 48 hours for the validation email of your payment. 
-                                        If you don't receive an email within the specified time limit, you can go directly to our center located at 
-                                        Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines and bring the transaction number of your payment 
-                                        for the validation.`,
+                            Please wait within 48 hours for the validation email of your payment. 
+                            If you don't receive an email within the specified time limit, you can go directly to our center 
+                            located at Clemente St.,Lupang Pangako, Payatas, Quezon City, Philippines and bring the transaction number of your payment for the validation.
+
+                            `,
                             
                             outro: 'Please contact me for additional help.'
                         }
                     });
         
-                    transporter.sendMail
-({ from: global.USER, to: adpt.email, subject: `Payment Status`, html: mail });
+                    transporter.sendMail({ from: global.USER, to: adpt.email, subject: `Payment Status`, html: mail });
                     return { result: 'success', message: 'Payment sent!' }
                 }
                 else { return { result: 'error', errors: errors } }

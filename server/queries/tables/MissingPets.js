@@ -52,13 +52,18 @@ class MissingPets {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Inform natin si subscriber about sa missing pet na ni-post natin if meron syang nakita or what,`,
+                intro: `HELP! Our friend needs it! Let's make sure our missing pets find their way home. 
+                To learn more about how to return a pet to its family, please get in touch with us or visit qcacaceservices.com for more details. Thank you!<br><br>
+
+                Note: You can also report a missing pet through sending the details here. Once verified, 
+                we will post it on the website to easily reach people who can help bring them back.  We are pleased to assist you in finding your missing pet.
+                `,
                 
                 outro: 'Please contact me for additional help.'
             }
         });
 
-        emails.forEach(data => transporter.sendMail({ from: global.USER, to: data.email, subject: `Missing Pets`, html: mail }));
+        emails.forEach(data => transporter.sendMail({ from: global.USER, to: data.email, subject: `QC ACAC: Missing Pets`, html: mail }));
         return { result: 'success', message: 'Successfully saved!' }
     }
 

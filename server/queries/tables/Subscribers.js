@@ -22,8 +22,9 @@ class Subscribers {
                 let mail = generator.generate({
                     body: {
                         name: 'Fur Mom/Dad',
-                        intro: `Thank you message para sa pag re-subscribe and inform natin si user na everytime na may bago tayong pet, programs, and missing pets ay i-e-email natin sya
-                                    just in case na interested sya ganon.`,
+                        intro: `I just wanted to reach out and say thank you for subscribing to our QC ACAC E-Services! <br><br>
+                        We're thrilled to have you on board and can't wait to share more Pets with you. We really appreciate your support and hope that you find our QC ACAC valuable. <br><br>
+                        If you have any feedback or suggestions, we'd love to hear them.`,
                         
                         outro: 'Please contact me for additional help.'
                     }
@@ -39,8 +40,9 @@ class Subscribers {
             let mail = generator.generate({
                 body: {
                     name: 'Fur Mom/Dad',
-                    intro: `Thank you message para sa pagsubscribe and inform natin si user na everytime na may bago tayong pet, programs, and missing pets ay i-e-email natin sya
-                                just in case na interested sya ganon.`,
+                    intro: `I just wanted to reach out and say thank you for subscribing to our QC ACAC E-Services! <br><br>
+                    We're thrilled to have you on board and can't wait to share more Pets with you. We really appreciate your support and hope that you find our QC ACAC valuable. <br><br>
+                    If you have any feedback or suggestions, we'd love to hear them.`,
                     
                     outro: 'Please contact me for additional help.'
                 }
@@ -49,7 +51,7 @@ class Subscribers {
                                 .insert({ columns: `series_no, email, is_subscribe, date_subscribe`, values: `'${global.randomizer(7)}', '${data.email}', 1, CURRENT_TIMESTAMP` })
                                 .build();
 
-            transporter.sendMail({ from: global.USER, to: data.email, subject: `Re-subscription`, html: mail });
+            transporter.sendMail({ from: global.USER, to: data.email, subject: `Subscription`, html: mail });
             return { result: 'success', message: 'Thank you for subscribing!' }
         }
     }

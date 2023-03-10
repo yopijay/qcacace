@@ -1,3 +1,7 @@
+// Libraires
+const nodemailer = require('nodemailer');
+const mailgen = require('mailgen');
+
 // Custom functions
 const global = require('../../functions/global');
 const Builder = require('../../functions/builder');

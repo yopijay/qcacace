@@ -78,15 +78,15 @@ class Services {
 
         if(data.type === 'adoption') {
             _intro = `Good day! We would like to inform that you can now get your adopted pet at QC Animal Care and Adoption Center  
-                            located at Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines. 
+                            located at Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines. <br><br>
 
-                            To help your pet get released quickly, please bring the following items:
+                            To help your pet get released quickly, please bring the following items:<br><br>
                             
-                            1. Cage or Pet carrier (depends on the size of pet)
+                            1. Cage or Pet carrier (depends on the size of pet)<br><br>
                             2. Leash and Collar`;
         }
         else {
-            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+            _intro = `Good day! We would like to inform you. We will call you once we are near the pick up location. Thank you!`;
         }
                                     
         let mail = generator.generate({
@@ -97,15 +97,14 @@ class Services {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Congratulations, You now own the pet`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Congratulations`, html: mail });
         return { result: 'success', message: 'Adoption complete!', list: list }
     }
 
     reject = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'Mailgen', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
         let _intro = '';
 
         let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
@@ -129,10 +128,12 @@ class Services {
                                             .build()).rows;
 
         if(data.type === 'adoption') {
-            _intro = `<b>CANCELLED</b>. Notify natin si user na cancelled na yung transaction nya!`;
+            _intro = `<b>CANCELLED</b>. Good day! We are sorry to inform you that the releasing of the pet has been canceled. Please wait for our call regarding the reason/s, and refund of payment. Thank you!
+            `;
         }
         else {
-            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+            _intro = `Good day! We are sorry to inform you that the pick up of the pet has been canceled. Please wait for our call regarding the reason/s, and refund of payment. Thank you!
+            `;
         }
 
         let mail = generator.generate({
@@ -143,8 +144,7 @@ class Services {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Application status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Released Failed`, html: mail });
         return { result: 'success', message: 'Payment failed!', list: list }
     }
 
@@ -253,8 +253,7 @@ class Services {
                                     }
                                 });
     
-                                transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                //transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
                             else { return { result: 'error', error: errors } }
@@ -314,8 +313,7 @@ class Services {
                                     }
                                 });
     
-                                transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                //transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
@@ -403,8 +401,7 @@ class Services {
                                     }
                                 });
     
-                                transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                //transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
                             else { return { result: 'error', error: errors } }
@@ -464,8 +461,7 @@ class Services {
                                     }
                                 });
     
-                                transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                //transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
                             else { return { result: 'error', error: errors } }

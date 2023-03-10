@@ -69,14 +69,17 @@ class Documents {
                                             .build()).rows;
         
         if(data.type === 'adoption') {
-            _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center.
+            _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center.<br><br>
 
                             We have reviewed your application and submitted documents, and we want to inform you that you are pre-qualified for 
                             the next phase of the adoption process. You may proceed for the on site interview located at Clemente St., Lupang Pangako, 
                             Payatas, Quezon City, Philippines.Please reply to this email if you have any questions or need to reschedule. We look forward to seeing you.`;
         }
         else {
-            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+            _intro = `Good day! We have received  your application and submitted documents for the surrendering of your pet. 
+            Please take note that we do not encourage pet owners to surrender their pet. However, to know the reasons for your application, 
+            we would like to do an interview with you through phone call or google meet. Please wait for the next phase of the surrendering process after the interview. Thank you!
+            `;
         }
 
         let mail = generator.generate({
@@ -87,8 +90,7 @@ class Documents {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Application Document Status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Document Status`, html: mail });
         return { result: 'success', message: 'Documents approved!', list: list }
     }
 
@@ -124,18 +126,19 @@ class Documents {
                                             .build()).rows;
 
         if(data.type === 'adoption') {
-            _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center. 
+            _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center. <br>
 
-                                We have reviewed your application and submitted documents, and we are sorry to inform you that your application has been rejected by the evaluator.
+                                We have reviewed your application and submitted documents, and we are sorry to inform you that your application has been rejected by the evaluator.<br>
                                 
-                                The reason could be one of the following:
+                                The reason could be one of the following:<br><br>
                                 
-                                1. Blurred or unreadable documents
-                                2. Fake or incorrect details
+                                1. Blurred or unreadable documents<br>
+                                2. Fake or incorrect details<br>
                                 3. Not eligible to adopt pet due to house environment`;
         }
         else {
-            _intro = `Dito nyo lagay yungeqw message para sa surrendering ng pets`;
+            _intro = `Good day! We are sorry to inform you that you surrender application transaction has been canceled. 
+            Due to many reason. Please take note that we do not encourage pet owners to surrender their pet. Thank you!.`;
         }
 
         let mail = generator.generate({
@@ -146,8 +149,7 @@ class Documents {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
         return { result: 'success', message: 'Documents rejected!', list: list }
     }
 

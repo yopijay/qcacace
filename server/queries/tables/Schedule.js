@@ -59,7 +59,8 @@ class Schedule {
                             We are pleased to inform you that you <b>PASSED</b> the interview. You can now proceed for the next phase by clicking the button below for the payment details.`;
         }
         else {
-            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+            _intro = `Thank you for taking the time to be interviewed as part of the pet surrender process. 
+            We are pleased to inform you that you <b>PASSED</b> the interview. You can now proceed for the next phase by clicking the button below for the payment details.`;
         }
 
         let mail = generator.generate({
@@ -71,8 +72,7 @@ class Schedule {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Application Interview Status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Interview Status`, html: mail });
         return { result: 'success', message: 'Interview passed!', list: list }
     }
 
@@ -109,7 +109,9 @@ class Schedule {
                                 we are sorry to inform you that you failed the interview. `;
         }
         else {
-            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+            _intro = `Good day! We are sorry to inform you that your surrender interview has been canceled 
+            because you did not clarify the reason why you want to surrender your animal. 
+            Please take note that we do not encourage pet owners to surrender their pet. Thank you!`;
         }
 
         let mail = generator.generate({
@@ -120,8 +122,7 @@ class Schedule {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
         return { result: 'success', message: 'Interview failed!', list: list }
     }
 
@@ -156,8 +157,7 @@ class Schedule {
             }
         });
 
-        transporter.sendMail
-({ from: global.USER, to: data.email, subject: `Appointment Schedule`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Appointment Schedule`, html: mail });
         return { result: 'success', message: 'Successfully saved!' }
     }
 }

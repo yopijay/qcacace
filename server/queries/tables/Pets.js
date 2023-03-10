@@ -92,13 +92,15 @@ class Pets {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Inform natin si subscriber about sa bagong pet na ni-post natin, then ito yung Pet # nya ${pet.series_no}`,
+                intro: `Good news! We have a new friend that is in need of your love and care. Let's welcome Pet <b># ${pet.series_no} </b>. 
+                <br><br>To see more about our new pet, please visit  qcacaceservices.com. Thank you!
+                `,
                 
                 outro: 'Please contact me for additional help.'
             }
         });
 
-        emails.forEach(data => transporter.sendMail({ from: global.USER, to: data.email, subject: `Missing Pets`, html: mail }));
+        emails.forEach(data => transporter.sendMail({ from: global.USER, to: data.email, subject: `QC ACAC: Pet Posted`, html: mail }));
         return { result: 'success', message: 'Successfully saved!' }
     }
 
