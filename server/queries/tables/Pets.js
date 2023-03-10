@@ -1,3 +1,7 @@
+// Libraires
+const nodemailer = require('nodemailer');
+const mailgen = require('mailgen');
+
 // Custom functions
 const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
@@ -94,7 +98,7 @@ class Pets {
             }
         });
 
-        //emails.forEach(data => transporter.sendMail({ from: global.USER, to: data.email, subject: `Missing Pets`, html: mail }));
+        emails.forEach(data => transporter.sendMail({ from: global.USER, to: data.email, subject: `Missing Pets`, html: mail }));
         return { result: 'success', message: 'Successfully saved!' }
     }
 

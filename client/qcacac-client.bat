@@ -1,6 +1,6 @@
 TIMEOUT 3
 C:
-cd C:\Users\Paul John\Desktop\Dev\Projects\qcacace\client
+cd C:\Users\Taong Grasa\Documents\GitHub\qcacace\client
 npm start
 
 cmd /k

@@ -49,7 +49,7 @@ const Item = () => {
                                 <Chip variant= "default" size= "small" label= "Approved" sx= {{ backgroundColor: '#4cd137', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
                                 data.status === 'reject' ? 
                                     <Chip variant= "default" size= "small" label= "Reject" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' : '' }
-                        <Typography sx= { icons } component= { Link } to= { `/evaluate/documents/form/view/${data.docu_id}/${btoa(data.email)}` }>
+                        <Typography sx= { icons } component= { Link } to= { `/evaluate/documents/form/view/${data.id}/${btoa(data.email)}` }>
                             <FontAwesomeIcon icon= { solid('eye') } size= "lg" />
                         </Typography>
                     </Stack>

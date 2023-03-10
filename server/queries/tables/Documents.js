@@ -87,7 +87,8 @@ class Documents {
             }
         });
 
-        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Document Status`, html: mail });
+        transporter.sendMail
+({ from: global.USER, to: data.email, subject: `Application Document Status`, html: mail });
         return { result: 'success', message: 'Documents approved!', list: list }
     }
 
@@ -134,7 +135,7 @@ class Documents {
                                 3. Not eligible to adopt pet due to house environment`;
         }
         else {
-            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+            _intro = `Dito nyo lagay yungeqw message para sa surrendering ng pets`;
         }
 
         let mail = generator.generate({
@@ -145,7 +146,8 @@ class Documents {
             }
         });
 
-        // transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
+        transporter.sendMail
+({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
         return { result: 'success', message: 'Documents rejected!', list: list }
     }
 
