@@ -21,7 +21,7 @@ class Documents {
                                                         MAX(srvc.schedule_id) AS schedule_id, MAX(docu.series_no) AS series_no, MAX(docu.valid_id) AS valid_id, MAX(docu.picture) AS picture,
                                                         MAX(docu.pet_cage) AS pet_cage, MAX(fp.email) AS email, MAX(fp.fname) AS fname, MAX(fp.lname) AS lname,
                                                         MAX(CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname)) AS evaluated_by,
-                                                        MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed, MAX(docu.date_evaluated) AS date_evaluated`)
+                                                        MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed, MAX(docu.date_evaluated) AS date_evaluated, MAX(srvc.type) AS type`)
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_users_info AS eb`, condition: `docu.evaluated_by = eb.user_id`, type: `LEFT` })
@@ -37,7 +37,7 @@ class Documents {
                                                         MAX(srvc.schedule_id) AS schedule_id, MAX(docu.series_no) AS series_no, MAX(docu.valid_id) AS valid_id, MAX(docu.picture) AS picture,
                                                         MAX(docu.pet_cage) AS pet_cage, MAX(fp.email) AS email, MAX(fp.fname) AS fname, MAX(fp.lname) AS lname,
                                                         MAX(CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname)) AS evaluated_by,
-                                                        MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed, MAX(docu.date_evaluated) AS date_evaluated`)
+                                                        MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed, MAX(docu.date_evaluated) AS date_evaluated, MAX(srvc.type) AS type`)
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_users_info AS eb`, condition: `docu.evaluated_by = eb.user_id`, type: `LEFT` })
@@ -49,31 +49,40 @@ class Documents {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let _intro = '';
 
         await new Builder(`tbl_documents`)
-                            .update(`status= 'approved', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`)
+                            .update(`status= 'approved', evaluated_by= ${data.evaluator}, date_evaluated= CURRENT_TIMESTAMP`)
                             .condition(`WHERE id= ${data.docu_id}`)
                             .build();
 
         let list = (await new Builder(`tbl_services AS srvc`)
-                                            .select(`MAX(srvc.id) AS id, MAX(srvc.furr_parent_id) AS furr_parent_id, MAX(srvc.pet_id) AS pet_id, srvc.docu_id, MAX(srvc.payment_id) AS payment_id, 
-                                                            MAX(srvc.schedule_id) AS schedule_id, MAX(docu.series_no) AS series_no, MAX(docu.valid_id) AS valid_id, MAX(docu.picture) AS picture, 
+                                            .select(`MAX(srvc.id) AS id, MAX(srvc.furr_parent_id) AS furr_parent_id, MAX(srvc.pet_id) AS pet_id, srvc.docu_id,
+                                                            MAX(srvc.schedule_id) AS schedule_id, MAX(docu.series_no) AS series_no, MAX(docu.valid_id) AS valid_id, MAX(docu.picture) AS picture,
                                                             MAX(docu.pet_cage) AS pet_cage, MAX(fp.email) AS email, MAX(fp.fname) AS fname, MAX(fp.lname) AS lname,
-                                                            MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed`)
+                                                            MAX(CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname)) AS evaluated_by,
+                                                            MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed, MAX(docu.date_evaluated) AS date_evaluated, MAX(srvc.type) AS type`)
                                             .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                                            .join({ table: `tbl_users_info AS eb`, condition: `docu.evaluated_by = eb.user_id`, type: `LEFT` })
                                             .condition(`WHERE srvc.docu_id IS NOT NULL GROUP BY srvc.docu_id ORDER BY date_filed DESC`)
                                             .build()).rows;
+        
+        if(data.type === 'adoption') {
+            _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center.
+
+                            We have reviewed your application and submitted documents, and we want to inform you that you are pre-qualified for 
+                            the next phase of the adoption process. You may proceed for the on site interview located at Clemente St., Lupang Pangako, 
+                            Payatas, Quezon City, Philippines.Please reply to this email if you have any questions or need to reschedule. We look forward to seeing you.`;
+        }
+        else {
+            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+        }
 
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center.
-
-                We have reviewed your application and submitted documents, and we want to inform you that you are pre-qualified for 
-                the next phase of the adoption process. You may proceed for the on site interview located at Clemente St., Lupang Pangako, 
-                Payatas, Quezon City, Philippines.Please reply to this email if you have any questions or need to reschedule. We look forward to seeing you.`,
-                
+                intro: _intro,
                 outro: 'Please contact me for additional help.'
             }
         });
@@ -86,39 +95,52 @@ class Documents {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let _intro = '';
 
         let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
         let appnt = (await new Builder(`tbl_appointments`).select().condition(`WHERE id= ${sched.appointment_id}`).build()).rows[0];
 
-        await new Builder(`tbl_documents`).update(`status= 'reject', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.docu_id}`).build();
-        await new Builder(`tbl_schedule`).update(`status= 'failed', evaluated_by= ${data.evaluated_by}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
-        await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
-        await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
+        await new Builder(`tbl_documents`).update(`status= 'reject', evaluated_by= ${data.evaluator}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.docu_id}`).build();
+        await new Builder(`tbl_schedule`).update(`status= 'failed', evaluated_by= ${data.evaluator}, date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.schedule_id}`).build();
+        
+        if(data.type === 'adoption') {
+            await new Builder(`tbl_appointments`).update(`slot= ${parseInt(appnt.slot) + 1}`).condition(`WHERE id= ${sched.appointment_id}`).build();
+            await new Builder(`tbl_pets`).update(`is_adopt= 0`).condition(`WHERE id= ${data.pet_id}`).build();
+        }
+
         await new Builder(`tbl_services`).update(`status= 'cancelled', date_evaluated= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
 
         let list = (await new Builder(`tbl_services AS srvc`)
-                                            .select(`MAX(srvc.id) AS id, MAX(srvc.furr_parent_id) AS furr_parent_id, MAX(srvc.pet_id) AS pet_id, srvc.docu_id, MAX(srvc.payment_id) AS payment_id, 
-                                                            MAX(srvc.schedule_id) AS schedule_id, MAX(docu.series_no) AS series_no, MAX(docu.valid_id) AS valid_id, MAX(docu.picture) AS picture, 
+                                            .select(`MAX(srvc.id) AS id, MAX(srvc.furr_parent_id) AS furr_parent_id, MAX(srvc.pet_id) AS pet_id, srvc.docu_id,
+                                                            MAX(srvc.schedule_id) AS schedule_id, MAX(docu.series_no) AS series_no, MAX(docu.valid_id) AS valid_id, MAX(docu.picture) AS picture,
                                                             MAX(docu.pet_cage) AS pet_cage, MAX(fp.email) AS email, MAX(fp.fname) AS fname, MAX(fp.lname) AS lname,
-                                                            MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed`)
+                                                            MAX(CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname)) AS evaluated_by,
+                                                            MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed, MAX(docu.date_evaluated) AS date_evaluated, MAX(srvc.type) AS type`)
                                             .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                             .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                                            .join({ table: `tbl_users_info AS eb`, condition: `docu.evaluated_by = eb.user_id`, type: `LEFT` })
                                             .condition(`WHERE srvc.docu_id IS NOT NULL GROUP BY srvc.docu_id ORDER BY date_filed DESC`)
                                             .build()).rows;
+
+        if(data.type === 'adoption') {
+            _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center. 
+
+                                We have reviewed your application and submitted documents, and we are sorry to inform you that your application has been rejected by the evaluator.
+                                
+                                The reason could be one of the following:
+                                
+                                1. Blurred or unreadable documents
+                                2. Fake or incorrect details
+                                3. Not eligible to adopt pet due to house environment`;
+        }
+        else {
+            _intro = `Dito nyo lagay yung message para sa surrendering ng pets`;
+        }
 
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center. 
-
-                We have reviewed your application and submitted documents, and we are sorry to inform you that your application has been rejected by the evaluator.
-                
-                The reason could be one of the following:
-                
-                1. Blurred or unreadable documents
-                2. Fake or incorrect details
-                3. Not eligible to adopt pet due to house environment`,
-                
+                intro: _intro,
                 outro: 'If you think this is a mistake,Please contact me for additional help.'
             }
         });
@@ -168,7 +190,6 @@ class Documents {
                 }
 
                 return { result: 'success', message: 'Successfully saved!', id: adopt.id }
-                return
             default:
                 if((await new Builder(`tbl_documents`).select().condition(`WHERE furr_parent_id= ${data.id}`).build()).rowCount > 0) {
                     let docu = (await new Builder(`tbl_documents`).select().condition(`WHERE furr_parent_id= ${data.id}`).build()).rows[0];
