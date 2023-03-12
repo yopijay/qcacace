@@ -15,6 +15,7 @@ const Payment = require('./tables/Payment');
 const Programs = require('./tables/Programs');
 const Subscribers = require('./tables/Subscribers');
 const MissingPets = require('./tables/MissingPets');
+const AnimalCare = require('./tables/AnimalCare');
 
 const login = async (data) => { return await new Users().login(data); }
 const logout = async (data) => { return await new Users().logout(data); }
@@ -74,6 +75,7 @@ const search = (table, data) => {
             case 'tbl_schedule': resolve(await new Schedule().search(data)); break;
             case 'tbl_payments': resolve(await new Payment().search(data)); break;
             case 'tbl_programs': resolve(await new Programs().search(data)); break;
+            case 'tbl_animal_care': resolve(await new AnimalCare().search(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().search(data)); break;
             case 'tbl_subscribers': resolve(await new Subscribers().search(data)); break;
         }
@@ -96,6 +98,7 @@ const list = (table, data) => {
             case 'tbl_schedule': resolve(await new Schedule().list()); break;
             case 'tbl_payments': resolve(await new Payment().list()); break;
             case 'tbl_programs': resolve(await new Programs().list(data)); break;
+            case 'tbl_animal_care': resolve(await new AnimalCare().list(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().list()); break;
             case 'tbl_subscribers': resolve(await new Subscribers().list()); break;
         }
@@ -117,6 +120,7 @@ const specific = (table, id) => {
             case 'tbl_furr_parent': resolve(await new FurrParent().specific(id)); break;
             case 'tbl_documents': resolve(await new Documents().specific(id)); break;
             case 'tbl_programs': resolve(await new Programs().specific(id)); break;
+            case 'tbl_animal_care': resolve(await new AnimalCare().specific(id)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().specific(id)); break;
         }
     });
@@ -137,6 +141,7 @@ const save = (table, data) => {
             case 'tbl_documents': resolve(await new Documents().save(data)); break;
             case 'tbl_schedule': resolve(await new Schedule().save(data)); break;
             case 'tbl_programs': resolve(await new Programs().save(data)); break;
+            case 'tbl_animal_care': resolve(await new AnimalCare().save(data)); break;
             case 'tbl_subscribers': resolve(await new Subscribers().save(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().save(data)); break;
             case 'tbl_services': resolve(await new Services().save(data)); break;
@@ -157,6 +162,7 @@ const update = (table, data) => {
             case 'tbl_users': resolve(await new Users().update(data)); break;
             case 'tbl_furr_parent': resolve(await new FurrParent().update(data)); break;
             case 'tbl_programs': resolve(await new Programs().update(data)); break;
+            case 'tbl_animal_care': resolve(await new AnimalCare().update(data)); break;
             case 'tbl_missing_pets': resolve(await new MissingPets().update(data)); break;
             case 'tbl_services': resolve(await new Services().update(data)); break;
         }

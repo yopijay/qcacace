@@ -31,7 +31,7 @@ const Index = () => {
                 </Stack>
             </Container>
             { srvc === 'pet-program' ? <ListPrvdr><PetProgram /></ListPrvdr> :
-                srvc === 'animal-care' ? <AnimalCare /> :
+                srvc === 'animal-care' ? <ListPrvdr><AnimalCare /></ListPrvdr> :
                 srvc === 'missing-pets' ? <ListPrvdr><MissingPets /></ListPrvdr> :
                 srvc === 'surrender' ? <FormPrvdr><Surrender /></FormPrvdr> : '' }
         </Stack>
