@@ -11,7 +11,7 @@ const Email = () => {
     
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-            <Typography variant= 'body2' gutterBottom>*Email</Typography>
+            <Typography variant= 'body2' gutterBottom sx={{ fontWeight:'600', color:'black'}}>*Email</Typography>
             <TextField { ...register('email') } name= "email" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
             <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.email?.message }</Typography>
         </Stack>

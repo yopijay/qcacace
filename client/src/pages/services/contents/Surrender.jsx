@@ -58,26 +58,26 @@ const Surrender = () => {
                             <Grid item><Photo /></Grid>
                             <Grid item>
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                    <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} gutterBottom>Pet Classification</Typography>
+                                    <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }} gutterBottom>Pet Classification</Typography>
                                     <ThemeProvider theme= { theme(input) }><PetClassification /></ThemeProvider>
                                 </Stack>
                             </Grid>
                             <Grid item>
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                    <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }}gutterBottom>Other information</Typography>
+                                    <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Other information</Typography>
                                     <ThemeProvider theme= { theme(input) }><PetCondition /></ThemeProvider>
                                 </Stack>
                             </Grid>
                             <Grid item>
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                    <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }}gutterBottom>Owner information</Typography>
+                                    <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Owner information</Typography>
                                     <Email />
                                     <ThemeProvider theme= { theme(input) }><OwnerInformation /></ThemeProvider>
                                 </Stack>
                             </Grid>
                             <Grid item>
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                    <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }}gutterBottom>Documentary requirements</Typography>
+                                    <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Documentary requirements</Typography>
                                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 2 }>
                                         <Grid item xs= { 12 } md= { 6 } lg= { 4 }><ValidId /></Grid>
                                     </Grid>

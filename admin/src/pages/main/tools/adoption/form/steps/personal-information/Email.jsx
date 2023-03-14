@@ -24,7 +24,7 @@ const Email = () => {
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start">
             <Grid item xs= { 12 } sm= { 8 } lg= { 6}>
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start">
-                        <Typography variant= "body2" gutterBottom>*Email</Typography>
+                        <Typography variant= "body2" gutterBottom sx={{ fontWeight:'600', fontSize:'15px'}}>*Email</Typography>
                         <TextField { ...(register('email')) } name= "email" variant= "standard" InputProps= {{ disableUnderline: true }} fullWidth sx= { input } />
                         <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.email?.message }</Typography>
                     </Stack>

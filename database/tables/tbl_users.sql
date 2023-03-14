@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : freelance
+ Source Server         : qcu
  Source Server Type    : PostgreSQL
  Source Server Version : 150001
  Source Host           : localhost:5432
@@ -12,21 +12,8 @@
  Target Server Version : 150001
  File Encoding         : 65001
 
- Date: 02/03/2023 06:30:21
+ Date: 14/03/2023 20:05:27
 */
-
-
--- ----------------------------
--- Sequence for tbl_users
--- ----------------------------
-CREATE SEQUENCE "public"."tbl_users_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-
-SELECT setval('"public"."tbl_users_id_seq"', 1, true);
 
 
 -- ----------------------------
@@ -57,7 +44,10 @@ CREATE TABLE "public"."tbl_users" (
 -- ----------------------------
 -- Records of tbl_users
 -- ----------------------------
-INSERT INTO "public"."tbl_users" VALUES (1, '0000000', 'superadmin@qcacac.com.ph', 'QFN1cGVyYWRtaW4wMDAw', NULL, 1, 1, 'superadmin', 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."tbl_users" VALUES (2, '3RCRB99', 'jhon.renel.fabula@gmail.com', 'ZmZmYWFhYmJi', NULL, 1, NULL, 'admin', 0, '0N47O5', 1, 1, 1, NULL, '2023-03-10 22:51:40.245732+08', '2023-03-10 22:52:12.573844+08', NULL);
+INSERT INTO "public"."tbl_users" VALUES (1, '0000000', 'superadmin@qcacac.com.ph', 'QFN1cGVyYWRtaW4wMDAw', NULL, 1, 1, 'superadmin', 0, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."tbl_users" VALUES (3, 'XTFQ3HK', 'devie.mercado11132000@gmail.com', 'ZGRkZWVlYmJi', NULL, 1, NULL, 'evaluator', 0, '4L1XKB', 1, 1, 1, NULL, '2023-03-10 22:52:53.411886+08', '2023-03-10 22:53:43.398748+08', NULL);
+INSERT INTO "public"."tbl_users" VALUES (4, 'EGWBZZK', 'eugenetamidles@gmail.com', 'ZXVnZW5lcG9naTIxMw==', NULL, 1, NULL, 'admin', 1, 'S1WKOP', 1, 1, 1, NULL, '2023-03-10 22:53:28.350562+08', '2023-03-10 22:53:47.837174+08', NULL);
 
 -- ----------------------------
 -- Primary Key structure for table tbl_users

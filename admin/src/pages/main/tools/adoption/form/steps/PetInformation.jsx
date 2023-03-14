@@ -64,7 +64,7 @@ const PetInformation = () => {
             <Box sx= { card }>
                 <form autoComplete= "off">
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-                        <Typography variant= "body1" sx= {{ fontWeight: 'bold', marginBottom: '15px', color: '#142F48' }}>Pet Information</Typography>
+                        <Typography variant= "body1" sx= {{ fontWeight: 'bold', marginBottom: '15px', color: '#142F48', fontSize:'20px' }}>Pet Information</Typography>
                         <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">
                             <Typography sx= { scanner } onClick= { () => setIsscan(!isscan) }>
                                 <FontAwesomeIcon icon= { solid('qrcode') } />

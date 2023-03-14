@@ -10,6 +10,7 @@ import { ProfileCntxt } from "core/context/ProfileCntxt.func"; // Context
 
 // Custom styles
 const linkNormal = {
+    fontWeight:'bold',
     textDecoration: 'none', 
     padding: '11px 15px', 
     borderRadius: '7px', 
@@ -18,10 +19,13 @@ const linkNormal = {
 }
 
 const linkActive = {
+    color:'#3C4048',
+    fontSize: '23px',
+    fontWeight:'bold',
     textDecoration: 'none', 
     padding: '11px 15px', 
     borderRadius: '7px', 
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#f9f9f9'
 }
 
 const container = {

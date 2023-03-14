@@ -31,13 +31,13 @@ const Info = ({ pet, srvc_fetching, pet_fetching }) => {
             <Grid item><Photo pet= { pet } pet_fetching= { pet_fetching } srvc_fetching= { srvc_fetching } /></Grid>
             <Grid item>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} variant= "body1" gutterBottom>Pet Classification</Typography>
+                    <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase', fontSize:'20px' }} variant= "body1" gutterBottom>Pet Classification</Typography>
                     <ThemeProvider theme= { theme(dflt) }><Classification pet= { pet } pet_fetching= { pet_fetching } srvc_fetching= { srvc_fetching } /></ThemeProvider>
                 </Stack>
             </Grid>
             <Grid item>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }} variant= "body1" gutterBottom>Condition</Typography>
+                    <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase', fontSize:'20px' }} variant= "body1" gutterBottom>Condition</Typography>
                     <ThemeProvider theme= { theme(dflt) }><Condition pet_fetching= { pet_fetching } srvc_fetching= { srvc_fetching } /></ThemeProvider>
                 </Stack>
             </Grid>

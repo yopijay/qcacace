@@ -18,35 +18,35 @@ const Info = ({ fetching }) => {
             <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
                 <Grid item xs= { 12 } md= { 4 }>
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                        <Typography variant= "body2" gutterBottom>*First name</Typography>
+                        <Typography variant= "body2" gutterBottom sx={{ fontWeight:'600', fontSize:'15px'}}>*First name</Typography>
                         <TextField { ...register('fname') } name= "fname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
                         <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.fname?.message }</Typography>
                     </Stack>
                 </Grid>
                 <Grid item xs= { 12 } md= { 4 }>
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                        <Typography variant= "body2" gutterBottom>Middle name</Typography>
+                        <Typography variant= "body2" gutterBottom sx={{ fontWeight:'600', fontSize:'15px'}}>Middle name</Typography>
                         <TextField { ...register('mname') } name= "mname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
                         <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.mname?.message }</Typography>
                     </Stack>
                 </Grid>
                 <Grid item xs= { 12 } md= { 4 }>
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                        <Typography variant= "body2" gutterBottom>*Last name</Typography>
+                        <Typography variant= "body2" gutterBottom sx={{ fontWeight:'600', fontSize:'15px'}}>*Last name</Typography>
                         <TextField { ...register('lname') } name= "lname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
                         <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.lname?.message }</Typography>
                     </Stack>
                 </Grid>
                 <Grid item xs= { 12 } md= { 7 }>
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                        <Typography variant= "body2" gutterBottom>*Contact no.</Typography>
+                        <Typography variant= "body2" gutterBottom sx={{ fontWeight:'600', fontSize:'15px'}}>*Contact no.</Typography>
                         <TextField { ...register('contact_no') } name= "contact_no" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
                         <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.contact_no?.message }</Typography>
                     </Stack>
                 </Grid>
                 <Grid item xs= { 12 } sm= { 5 }>
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                        <Typography gutterBottom color= "text.secondary" variant= "body2">Gender</Typography>
+                        <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', fontSize:'15px', color:'black'}}>Gender</Typography>
                         { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
                             <Box sx= { select }>
                                 <Controller control= { control } name= "gender" defaultValue= "male"
@@ -63,7 +63,7 @@ const Info = ({ fetching }) => {
                 </Grid>
                 <Grid item xs= { 12 }>
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                        <Typography gutterBottom color= "text.secondary" variant= "body2">Address</Typography>
+                        <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', fontSize:'15px', color:'black'}}>Address</Typography>
                         <TextareaAutosize name= "address" { ...register('address') } minRows= { 4 } maxRows= { 4 } style= { textarea } />
                     </Stack>
                 </Grid>
