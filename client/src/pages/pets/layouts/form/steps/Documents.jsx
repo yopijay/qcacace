@@ -41,7 +41,7 @@ const Documents = () => {
     return (
         <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" spacing= { 3 } sx= {{ height: '100%' }}>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 }>
-                <Typography variant= "h5">Documentary Requirements</Typography>
+                <Typography variant= "h5" sx={{ fontWeight:'600'}}>Documentary Requirements</Typography>
                 <ValidId fetching= { fetching } />
                 <Picture fetching= { fetching } />
                 <PetCage fetching= { fetching } />

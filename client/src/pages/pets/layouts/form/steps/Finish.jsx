@@ -11,8 +11,8 @@ const Finish = () => {
         <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" spacing= { 5 } sx= {{ height: '100%' }}>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 2 }>
                 <Avatar src= { Logo } sx= {{ width: 160, height: 160 }} />
-                <Typography variant= "h4">Thank You!</Typography>
-                <Typography sx= {{ textAlign: 'center' }}>Your application was successfully submitted.
+                <Typography variant= "h4" sx={{ fontWeight:'bold'}}>Thank You!</Typography>
+                <Typography sx= {{ textAlign: 'center', fontWeight:'600' }}>Your application was successfully submitted.
                     Please check your email inbox for the updates of your application.</Typography>
             </Stack>
             <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center">
