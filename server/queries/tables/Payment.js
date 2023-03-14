@@ -7,6 +7,15 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Payment {
+    dashboard = async () => {
+        return {
+            total: (await new Builder(`tbl_payments`).select().build()).rowCount,
+            paid: (await new Builder(`tbl_payments`).select().condition(`WHERE status= 'paid'`).build()).rowCount,
+            pending: (await new Builder(`tbl_payments`).select().condition(`WHERE status= 'pending'`).build()).rowCount,
+            failed: (await new Builder(`tbl_payments`).select().condition(`WHERE status= 'failed'`).build()).rowCount,
+        }
+    }
+
     list = async () => {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method,

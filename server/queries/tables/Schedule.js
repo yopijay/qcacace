@@ -7,6 +7,15 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Schedule {
+    dashboard = async () => {
+        return {
+            total: (await new Builder(`tbl_schedule`).select().build()).rowCount,
+            approved: (await new Builder(`tbl_schedule`).select().condition(`WHERE status= 'approved'`).build()).rowCount,
+            pending: (await new Builder(`tbl_schedule`).select().condition(`WHERE status= 'pending'`).build()).rowCount,
+            failed: (await new Builder(`tbl_schedule`).select().condition(`WHERE status= 'failed'`).build()).rowCount,
+        }
+    }
+
     list = async () => {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.docu_id, srvc.payment_id, srvc.schedule_id, sched.series_no, fp.contact_no,

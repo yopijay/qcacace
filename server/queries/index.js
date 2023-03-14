@@ -33,6 +33,11 @@ const dashboard = (table) => {
         switch(table) {
             case 'tbl_breed': resolve(await new Breed().dashboard()); break;
             case 'tbl_users': resolve(await new Users().dashboard()); break;
+            case 'tbl_documents': resolve(await new Documents().dashboard()); break;
+            case 'tbl_schedule': resolve(await new Schedule().dashboard()); break;
+            case 'tbl_payments': resolve(await new Payment().dashboard()); break;
+            case 'tbl_services': resolve(await new Services().dashboard()); break;
+            case 'tbl_pets': resolve(await new Pets().dashboard()); break;
         }
     });
 }

@@ -7,6 +7,15 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Services {
+    dashboard = async () => {
+        return {
+            total: (await new Builder(`tbl_services`).select().build()).rowCount,
+            released: (await new Builder(`tbl_services`).select().condition(`WHERE status= 'released'`).build()).rowCount,
+            surrendered: (await new Builder(`tbl_services`).select().condition(`WHERE status= 'surrendered'`).build()).rowCount,
+            failed: (await new Builder(`tbl_services`).select().condition(`WHERE status= 'failed'`).build()).rowCount,
+        }
+    }
+
     list = async () => {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,

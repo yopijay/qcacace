@@ -15,6 +15,15 @@ class Documents {
                                         .build()).rows;
     }
 
+    dashboard = async () => {
+        return {
+            total: (await new Builder(`tbl_documents`).select().build()).rowCount,
+            approved: (await new Builder(`tbl_documents`).select().condition(`WHERE status= 'approved'`).build()).rowCount,
+            pending: (await new Builder(`tbl_documents`).select().condition(`WHERE status= 'pending'`).build()).rowCount,
+            reject: (await new Builder(`tbl_documents`).select().condition(`WHERE status= 'reject'`).build()).rowCount,
+        }
+    }
+
     search = async (data) => {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`MAX(srvc.id) AS id, MAX(srvc.furr_parent_id) AS furr_parent_id, MAX(srvc.pet_id) AS pet_id, srvc.docu_id,

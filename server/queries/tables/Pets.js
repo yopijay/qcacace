@@ -7,6 +7,13 @@ const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
 class Pets {
+    dashboard = async () => {
+        return {
+            total: (await new Builder(`tbl_pets`).select().condition(`WHERE status= 1`).build()).rowCount,
+            adopted: (await new Builder(`tbl_pets`).select().condition(`WHERE is_adopt= 1`).build()).rowCount
+        }
+    }
+
     specific = async (id) => {
         return (await new Builder(`tbl_pets AS pet`)
                                         .select(`pet.id, pet.series_no, pet.category_id, ctg.name AS category, pet.breed_id, brd.name AS breed, pet.coat_id, coat.name AS coat, 
