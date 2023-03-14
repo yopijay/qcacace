@@ -113,14 +113,14 @@ class FurrParent {
                     body: {
                         name: 'Fur Mom/Dad',
                         intro: `Thank you for your interest in adopting our loveable pets! To complete your profile and continue your application, 
-                        you'll need to verify your email address. Your verification code is: <b>${code}</b>`,
+                        you'll need to verify your email address.Your verification code is: <br><center><b><span style="color: black; font-size: 40px;">${code}</span></b></center>`,
                         
                         outro: 'Please contact me for additional help.'
                     }
                 });
         
                 transporter.sendMail({ from: global.USER, to: data.email, subject: `Email verification`, html: mail });
-                return { result: 'success', message: 'Email verification sent!', id: id }
+                return { result: 'success', message: 'Email verification sent, Please check your Email. Thank you!', id: id }
         }
     }
 
@@ -147,7 +147,7 @@ class FurrParent {
 
     verifying = async (data) => { 
         if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE id= ${data.id} AND code= '${(data.code).toUpperCase()}'`).build()).rowCount > 0) {
-            return { result: 'success', message: 'Email verification successfully', id: data.id }
+            return { result: 'success', message: 'Input your Personal Information', id: data.id }
         }
         else {  return { result: 'error', errors: [{ name: 'code', message: 'Verification doesn`t match!' }] } }
     }
@@ -218,7 +218,7 @@ class FurrParent {
                                         .condition(`WHERE id= ${furr_parent.id}`)
                                         .build();
 
-                    return { result: 'success', message: 'Successfully updated!' }
+                    return { result: 'success', message: 'Next, Upload your Documents. Thank you!' }
                 }
                 else { return { result: 'error', error: errors } }
         }

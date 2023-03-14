@@ -15,7 +15,7 @@ const Energy = () => {
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-            <Typography variant= "body2">*Are you looking for a pet with a certain energy level?</Typography>
+            <Typography variant= "body2" sx={{ fontWeight:'bold', color:'black', fontSize:'15px'}}>*Are you looking for a pet with a certain energy level?</Typography>
             <Box sx= { select }>
                 <Controller control= { control } name= "energy_level" defaultValue= "high"
                     render= { ({ field: { onChange, value } }) => (

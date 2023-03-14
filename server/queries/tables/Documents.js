@@ -82,7 +82,7 @@ class Documents {
 
                             We have reviewed your application and submitted documents, and we want to inform you that you are pre-qualified for 
                             the next phase of the adoption process. You may proceed for the on site interview located at Clemente St., Lupang Pangako, 
-                            Payatas, Quezon City, Philippines.Please reply to this email if you have any questions or need to reschedule. We look forward to seeing you.`;
+                            Payatas, Quezon City, Philippines. <br> Please reply to this email if you have any questions or need to reschedule. We look forward to seeing you.`;
         }
         else {
             _intro = `Good day! We have received  your application and submitted documents for the surrendering of your pet. 

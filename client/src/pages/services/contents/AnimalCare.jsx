@@ -23,7 +23,7 @@ const AnimalCare = () => {
             <Container maxWidth= "lg" sx= {{ overflowY: 'scroll', height: '100%', '&::-webkit-scrollbar': { display: 'none' } }}>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                     <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#444444' }}>Animal Care</Typography>
-                    <Typography>Being A Pet Owner Comes With Responsibilities. It Is Not Just For Other Purposes But Mainly To Bring Love And Care To The Animals. 
+                    <Typography sx= {{ fontWeight:'600'}}>Being A Pet Owner Comes With Responsibilities. It Is Not Just For Other Purposes But Mainly To Bring Love And Care To The Animals. 
                         One Of The Duties Of A Responsible Pet Owner Is Knowing How To Take Care Of Their Pet. Here Are Some Of The Things A Pet Owner Must Know. Be One Of Us</Typography>
                 </Stack>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } sx= {{ marginTop: '20px' }}>
@@ -52,7 +52,7 @@ const AnimalCare = () => {
                                     <Typography sx= {{ fontFamily: 'Gilroy Light', color: '#555555' }}>{ data.description }</Typography>
                                 </Stack>
                             )) :
-                            <Stack direction= "row" justifyContent= "center" alignItems= "center"><Typography>No animal care  available!</Typography></Stack> :
+                            <Stack direction= "row" justifyContent= "center" alignItems= "center"><Typography sx= {{ fontWeight:'600'}}>No animal care  available!</Typography></Stack> :
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { item }>
                                 <Stack direction= "row" justifyContent= "flex-end" alignItems= "center"><Skeleton variant= "text" sx= {{ fontSize: '1rem', width: '20%' }} /></Stack>
                                 <Skeleton variant= "rounded" sx= {{ width: '100%', height: '250px', margin: '10px 0 20px 0' }} />

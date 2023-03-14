@@ -55,7 +55,7 @@ const Index = () => {
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                         <Photo fetching= { fetching } />
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                            <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase' }}>Pet Classification</Typography>
+                            <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase'}}>Pet Classification</Typography>
                             <ThemeProvider theme= { input }><PetClassification fetching= { fetching } /></ThemeProvider>
                         </Stack>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">

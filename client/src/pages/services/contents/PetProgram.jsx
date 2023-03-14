@@ -23,7 +23,7 @@ const PetProgram = () => {
             <Container maxWidth= "lg" sx= {{ overflowY: 'scroll', height: '100%', '&::-webkit-scrollbar': { display: 'none' } }}>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                     <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#444444' }}>Pet Programs</Typography>
-                    <Typography>We Offer Free Vaccination To Our Beloved Pets. Help Them Be Free From Sickness And Continue To Wag Their Tail With Energy 
+                    <Typography sx= {{ fontWeight:'600'}}>We Offer Free Vaccination To Our Beloved Pets. Help Them Be Free From Sickness And Continue To Wag Their Tail With Energy 
                         And Happiness. Slide Learn More For More Details.</Typography>
                 </Stack>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } sx= {{ marginTop: '20px' }}>
@@ -52,7 +52,7 @@ const PetProgram = () => {
                                     <Typography sx= {{ fontFamily: 'Gilroy Light', color: '#555555' }}>{ data.description }</Typography>
                                 </Stack>
                             )) :
-                            <Stack direction= "row" justifyContent= "center" alignItems= "center"><Typography>No programs available!</Typography></Stack> :
+                            <Stack direction= "row" justifyContent= "center" alignItems= "center"><Typography sx={{fontWeight:'600'}}>No programs available!</Typography></Stack> :
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { item }>
                                 <Stack direction= "row" justifyContent= "flex-end" alignItems= "center"><Skeleton variant= "text" sx= {{ fontSize: '1rem', width: '20%' }} /></Stack>
                                 <Skeleton variant= "rounded" sx= {{ width: '100%', height: '250px', margin: '10px 0 20px 0' }} />

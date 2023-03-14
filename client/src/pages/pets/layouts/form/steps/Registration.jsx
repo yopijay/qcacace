@@ -36,7 +36,7 @@ const Registration = () => {
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx= {{ width: '100%', height: '100%' }}>
                 <form autoComplete= "off">
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                        <Typography variant= "h6">Enter your email address</Typography>
+                        <Typography variant= "h6" sx={{ fontWeight:'600'}}>Enter your email address</Typography>
                         <TextField { ...(register('email')) } name= "email" variant= "standard" InputProps= {{ disableUnderline: true }} fullWidth sx= { inputemail } />
                         <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.email?.message }</Typography>
                     </Stack>

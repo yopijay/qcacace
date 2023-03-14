@@ -23,42 +23,42 @@ const Condition = ({ pet_fetching, srvc_fetching }) => {
         <Grid container direction= "row" justifyContent= 'flex-start' alignItems= "flex-start" spacing= { 1 }>
             <Grid item xs= { 12 } sm= { 5 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Gender</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Gender</Typography>
                     { pet_fetching && srvc_fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
                         <TextField { ...register('gender') } name= "gender" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 5 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Energy level</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Energy level</Typography>
                     { pet_fetching && srvc_fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
                         <TextField { ...register('energy_level') } name= "energy_level" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 2 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Spayed or neutered</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Spayed or neutered</Typography>
                     { pet_fetching && srvc_fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
                         <TextField { ...register('sterilization') } name= "sterilization" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 5 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Weight</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Weight</Typography>
                     { pet_fetching && srvc_fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
                         <TextField { ...register('weight') } name= "weight" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 7 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Color</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Color</Typography>
                     { pet_fetching && srvc_fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
                         <TextField { ...register('color') } name= "color" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
                 </Stack>
             </Grid>
             <Grid item xs= { 12 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Tags</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Tags</Typography>
                     { pet_fetching && srvc_fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
                         <TextField { ...register('tags') } name= "tags" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { true } sx= { input } /> }
                 </Stack>

@@ -36,10 +36,9 @@ const Index = () => {
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                             <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 2 }>
                                 <Avatar src= { Logo } alt= "logo" sx= {{ width: 40, height: 40 }} />
-                                <Typography sx= { brand }>QCACAC E - Services</Typography>
+                                <Typography sx= { brand }>QC ACAC E - Services</Typography>
                             </Stack>
-                            <Typography sx= { brandinfo }>The Quezon City Animal Care and Adoption Center E-Services provides services that makes adoption, surrendering, 
-                                and reporting missing animals easier. 
+                            <Typography sx= { brandinfo }>The Quezon City Animal Care and Adoption Center E-Services provides services that makes adoption, surrendering, and reporting missing animals easier. 
                                 It also provides information about Quezon City Animals including latest announcements to keep you updated. 
                                 Here in QC ACAC, we offer love and care to the animals!.</Typography>
                             <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>

@@ -1,8 +1,8 @@
 export const subtitle = {
     fontWeight: 'bold',
     fontSize: {
-        xs: '120%',
-        md: '150%'
+       xs: '120%',
+       md: '150%'
     },
     color: '#728ca1'
 }
@@ -30,7 +30,8 @@ export const itemText = {
         xs: '100%',
         md: '112%'
     },
-    color: '#371313'
+    color: '#371313',
+    fontWeight: '600'
 }
 
 export const itemLink = {

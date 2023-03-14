@@ -37,7 +37,7 @@ const Verifying = () => {
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 4 }>
                     <form autoComplete= "off">
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                            <Typography variant= "h6">Enter verification code</Typography>
+                            <Typography variant= "h6" sx={{ fontWeight:'600'}}>Enter verification code</Typography>
                             <Grid container direction= "row" justifyContent= "center" alignItems= "center">
                                 { ([1, 2, 3, 4, 5, 6]).map(item => (
                                     <Grid item xs= { 2 } sx= {{ padding: item === 1 ? '0 2.5px 0 5px' : item === 6 ? '0 5px 0 2.5px' : '0 2.5px' }} key= { item }>

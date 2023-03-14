@@ -15,7 +15,7 @@ const LifeStages = (props) => {
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-            <Typography variant= "body2" color= "text.secondary">*What type of pet are you interested in adopting?</Typography>
+            <Typography variant= "body2" color= "text.secondary" sx={{ fontWeight:'bold', color:'black', fontSize:'15px'}}>*What type of life stage are you interested.</Typography>
             <Box sx= { select }>
             { !lifestagesloading ?
                 lifestages !== undefined ?

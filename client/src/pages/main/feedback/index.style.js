@@ -21,7 +21,8 @@ export const caption = {
     fontSize: {
         md: '100%'
     },
-    color: '#371313'
+    color: '#371313',
+    fontWeight: '600'
 }
 
 export const cardquote = {
@@ -57,5 +58,6 @@ export const cardmessage = {
     marginTop: '20px',
     color: '#371313',
     fontSize: '95%',
-    textAlign: 'justify'
+    textAlign: 'justify',
+    fontWeight: '600'
 }

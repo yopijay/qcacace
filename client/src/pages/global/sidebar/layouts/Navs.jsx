@@ -15,7 +15,8 @@ const Navs = () => {
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { navcontainer } spacing= { 2 }>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-                <Typography variant= "body2" sx= {{ fontWeight: 'bold', color: 'rgb(200, 200, 200)' }}>Menu</Typography>
+                <Typography variant= "body2" sx= {{ fontWeight: 'bold', color: '#204c6f', fontSize: '20px' }}>Hello Furr, Looking for pet?</Typography><br></br>
+                <Typography variant= "body2" sx= {{ fontWeight: 'bold', color: '#64a93e' }}>Menu</Typography>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography variant= "body1" component= { Link } to= "/" color= "text.secondary" 
                         onClick= { () => { setOpen({ left: false }); localStorage.setItem('nav', 'home'); setIsActive('home'); } } sx= { isActive === 'home' ? activeLink : link }>Home</Typography>

@@ -24,9 +24,11 @@ export const link = {
     textDecoration: 'none', 
     padding: '11px 15px', 
     borderRadius: '7px', 
-    '&:hover': { backgroundColor: '#F5F5F5' }, 
+    color:'#204c6f',
+    '&:hover': { backgroundColor: '#F1F1F1' }, 
     transition: 'all 0.2s ease-in-out',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    
 }
 
 export const activeLink = {

@@ -15,7 +15,7 @@ const Gender = () => {
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-            <Typography variant= "body2">*What gender of pet do you prefer to adopt?</Typography>
+            <Typography variant= "body2" sx={{ fontWeight:'bold', color:'black', fontSize:'15px'}}>*What gender of pet do you prefer to adopt?</Typography>
             <Box sx= { select }>
                 <Controller control= { control } name= "gender" defaultValue= "male"
                     render= { ({ field: { onChange, value } }) => (

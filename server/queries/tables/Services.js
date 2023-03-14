@@ -206,7 +206,7 @@ class Services {
                             if(global.compare(fp.contact_no, fp.contact_no)) {
                                 if((await new Builder(`tbl_furr_parent`).select().condition(`WHERE contact_no= '${data.contact_no}'`).build()).rowCount > 0) {
                                     errors.push({ name: 'contact_no', message: 'Contact number already taken!' });
-                                }
+                                } 
                             }
 
                             if(!(errors.length > 0)) {
@@ -235,11 +235,11 @@ class Services {
                                 }
                                 else {
                                     docu = (await new Builder(`tbl_documents`)
-                                                                        .insert({ columns: `series_no, furr_parent_id, valid_id, status, date_filed`, 
-                                                                                        values: `'${global.randomizer(7)}', ${fp.id}, '${data.valid_id}', 'approved', CURRENT_TIMESTAMP` })
-                                                                        .condition(`RETURNING id`)
-                                                                        .build()).rows[0];
-                                }
+                                                        .insert({ columns: `series_no, furr_parent_id, valid_id, status, date_filed`, 
+                                                                        values: `'${global.randomizer(7)}', ${fp.id}, '${data.valid_id}', 'approved', CURRENT_TIMESTAMP` })
+                                                        .condition(`RETURNING id`)
+                                                        .build()).rows[0];
+                                } 
 
                                 let sched = (await new Builder(`tbl_schedule`)
                                                                         .insert({ columns: `series_no, furr_parent_id, status, date_filed`, values: `'${global.randomizer(7)}', ${fp.id}, 'pending', CURRENT_TIMESTAMP` })

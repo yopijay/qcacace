@@ -52,8 +52,8 @@ const Index = ({ timer, setTimer }) => {
 
     return (
         <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-            <Typography>Didn`t get the code?</Typography>
-            { timer !== '00:00' ? <Typography sx= {{ textDecoration: 'none', color: '#1b4168', cursor: 'pointer' }}>{ timer }</Typography> : 
+            <Typography sx={{ fontWeight:'600'}}>Didn`t get the code?</Typography>
+            { timer !== '00:00' ? <Typography sx= {{ textDecoration: 'none', color: '#1b4168', cursor: 'pointer', fontWeight:'600' }}>{ timer }</Typography> : 
                 <Typography sx= {{ textDecoration: 'none', color: '#1b4168', cursor: 'pointer' }} onClick= { handleSubmit(data => rsnd(data) ) }>Resend</Typography>}
         </Stack>
     );

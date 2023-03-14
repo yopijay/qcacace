@@ -9,7 +9,7 @@ import Logo from 'assets/images/logo.png';
 // Custom styles
 export const brand = {
     letterSpacing: 1,
-    color: '#919eab'
+    color: '#204c6f'
 }
 
 export const brandinfo = {
