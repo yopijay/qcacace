@@ -15,7 +15,7 @@ const Tags = (props) => {
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-            <Typography variant= "body2" color= "text.secondary">*What personalities of a pet you want to adopt?</Typography>
+            <Typography variant= "body2" color= "text.secondary" sx={{ fontWeight:'bold', color:'black', fontSize:'15px'}}>*What personalities of a pet you want to adopt?</Typography>
             <Box sx= { select }>
                 <Controller control= { control } name= "tags" defaultValue= { [] }
                     render= { ({ field: { onChange, value } }) => (

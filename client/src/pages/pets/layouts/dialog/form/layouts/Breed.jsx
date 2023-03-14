@@ -15,7 +15,7 @@ const Coat = (props) => {
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-            <Typography variant= "body2" color= "text.secondary">*What is your prefer breed type for a pet?</Typography>
+            <Typography variant= "body2" color= "text.secondary" sx={{ fontWeight:'bold', color:'black', fontSize:'15px'}}>*What is your prefer breed type for a pet?</Typography>
             <Box sx= { select }>
             { !breedloading ?
                 breed !== undefined ?

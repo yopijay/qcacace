@@ -13,7 +13,7 @@ const Color = () => {
     
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-            <Typography variant= "body2">*What is your prefer color of a pet?</Typography>
+            <Typography variant= "body2" sx={{ fontWeight:'bold', color:'black', fontSize:'15px'}}>*What is your prefer color of a pet?</Typography>
             <TextField { ...register('color') } variant= "standard" size= "small" InputProps= {{ disableUnderline: true }} sx= { input } />
         </Stack>
     )

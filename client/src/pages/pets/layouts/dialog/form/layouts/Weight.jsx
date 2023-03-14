@@ -15,7 +15,7 @@ const Weight = () => {
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-            <Typography variant= "body2">*What is your prefer weight of a pet?</Typography>
+            <Typography variant= "body2" sx={{ fontWeight:'bold', color:'black', fontSize:'15px'}}>*What is your prefer weight of a pet?</Typography>
             <Box sx= { select }>
                 <Controller control= { control } name= "weight" defaultValue= "ideal"
                     render= { ({ field: { onChange, value } }) => (

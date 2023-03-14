@@ -25,7 +25,7 @@ const Category = (props) => {
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-            <Typography variant= "body2" color= "text.secondary">*What type of pet are you interested in adopting?</Typography>
+            <Typography variant= "body2" color= "text.secondary" sx={{ fontWeight:'bold', color:'black', fontSize:'15px'}}>*What type of pet are you interested in adopting?</Typography>
             <Box sx= { select }>
                 <Controller control= { control } name= "category_id" defaultValue= { 0 }
                     render= { ({ field: { onChange, value } }) => (
