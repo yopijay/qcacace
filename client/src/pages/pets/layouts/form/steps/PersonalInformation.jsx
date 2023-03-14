@@ -42,12 +42,12 @@ const PersonalInformation = () => {
     return (
         <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" spacing= { 1 } sx= {{ height: '100%' }}>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-                <Typography variant= "h5">Personal Information</Typography>
+                <Typography variant= "h5" sx={{fontWeight:'600'}} >Personal Information</Typography>
                 <form autoComplete= "off">
                     <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
                         <Grid item xs= { 12 } sm= { 6 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                <Typography>*First name</Typography>
+                                <Typography sx={{fontWeight:'600'}}>*First name</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
                                     <TextField { ...register('fname') } name= "fname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } /> }
                                 <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.fname?.message }</Typography>
@@ -55,14 +55,14 @@ const PersonalInformation = () => {
                         </Grid>
                         <Grid item xs= { 12 } sm= { 6 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                <Typography>Middle name</Typography>
+                                <Typography sx={{fontWeight:'600'}}>Middle name</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
                                     <TextField { ...register('mname') } name= "mname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } /> }
                             </Stack>
                         </Grid>
                         <Grid item xs= { 12 } sm= { 6 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                <Typography>*Last name</Typography>
+                                <Typography sx={{fontWeight:'600'}}>*Last name</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
                                     <TextField { ...register('lname') } name= "lname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } /> }
                                 <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.lname?.message }</Typography>
@@ -70,7 +70,7 @@ const PersonalInformation = () => {
                         </Grid>
                         <Grid item xs= { 12 } sm= { 7 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                <Typography>*Contact no.</Typography>
+                                <Typography sx={{fontWeight:'600'}}>*Contact no.</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
                                     <TextField { ...register('contact_no') } name= "contact_no" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } /> }
                                 <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.contact_no?.message }</Typography>
@@ -78,7 +78,7 @@ const PersonalInformation = () => {
                         </Grid>
                         <Grid item xs= { 12 } sm= { 5 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                <Typography gutterBottom color= "text.secondary" variant= "body2">*Gender</Typography>
+                                <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{fontWeight:'600', color:'black', fontSize:'15px'}}>*Gender</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
                                     <Box sx= { select }>
                                         <Controller control= { control } name= "gender" defaultValue= "male"
@@ -95,7 +95,7 @@ const PersonalInformation = () => {
                         </Grid>
                         <Grid item xs= { 12 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                                <Typography gutterBottom color= "text.secondary" variant= "body2">Address</Typography>
+                                <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{fontWeight:'600', color:'black', fontSize:'15px'}}>Address</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "50px" /> :
                                     <TextareaAutosize name= "address" { ...register('address') } minRows= { 4 } maxRows= { 4 } style= { textarea } /> }
                             </Stack>

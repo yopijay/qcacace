@@ -23,6 +23,7 @@ export const tab = {
     transition: 'all 0.2s ease-in-out',
     borderRadius: '8px',
     color: '#444444',
+    fontWeight:'600',
     '&:hover': {
         backgroundColor: '#1b4168c2',
         color: '#ffffff'

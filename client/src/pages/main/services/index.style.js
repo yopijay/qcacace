@@ -14,6 +14,7 @@ export const title = {
         md: '190%'
     },
     color: '#204c6f',
+    fontWeight: 'bold'
 }
 
 export const itemTitle = {
@@ -32,5 +33,6 @@ export const itemText = {
         xs: '100%',
         md: '112%'
     },
-    color: '#371313'
+    color: '#371313',
+    fontWeight: '600'
 }

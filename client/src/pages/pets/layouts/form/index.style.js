@@ -91,6 +91,7 @@ export const pettag = {
 
 export const instruction = {
     textAlign: 'center',
+    fontWeight:'600',
     fontSize: {
         xs: '97%',
         sm: '102%',

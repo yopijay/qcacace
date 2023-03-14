@@ -54,7 +54,7 @@ export const petdesc = {
 
 export const pettag = {
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: '#204c6f',
     backgroundColor: '#c9c9c9',
     padding: '2px 10px',
     margin: '8px 2px',

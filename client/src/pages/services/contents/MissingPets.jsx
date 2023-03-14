@@ -23,7 +23,7 @@ const MissingPets = () => {
             <Container maxWidth= "lg" sx= {{ overflowY: 'scroll', height: '100%', '&::-webkit-scrollbar': { display: 'none' } }}>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                     <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#444444' }}>Missing Pets</Typography>
-                    <Typography>Our Pet Is One Of Our Family Members And Being Away From Them Is An Awful Feeling. We At QC Animal Care And Adoption Center Are 
+                    <Typography sx= {{ fontWeight:'600'}}>Our Pet Is One Of Our Family Members And Being Away From Them Is An Awful Feeling. We At QC Animal Care And Adoption Center Are 
                         Willing To Help The Pet Owners To Find Their Fur Baby. Let's All Help The Pet To Find Their Way Back To Their Home.</Typography>
                 </Stack>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } sx= {{ marginTop: '20px' }}>
@@ -61,7 +61,7 @@ const MissingPets = () => {
                                 </Grid>
                             )) : 
                                 <Grid item xs= { 12 }>
-                                    <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= { item }><Typography>No missing pet/s available.</Typography></Stack>
+                                    <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= { item }><Typography sx= {{ fontWeight:'600'}}>No missing pet/s available.</Typography></Stack>
                                 </Grid> :
                             <Grid item xs= { 12 } sm= { 4 } md= { 3 }>
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { item } spacing= { 1 }>

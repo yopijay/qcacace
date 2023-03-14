@@ -92,7 +92,7 @@ class Pets {
         let mail = generator.generate({
             body: {
                 name: 'Fur Mom/Dad',
-                intro: `Good news! We have a new friend that is in need of your love and care. Let's welcome Pet <b># ${pet.series_no} </b>. 
+                intro: `Hello, Good news! We have a new friend that is in need of your love and care. Let's welcome Pet <b># ${pet.series_no} </b>. 
                 <br><br>To see more about our new pet, please visit  qcacaceservices.com. Thank you!
                 `,
                 
