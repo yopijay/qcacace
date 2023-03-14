@@ -1,6 +1,6 @@
 // Libraries
 import { Container, Divider, Stack, Typography } from "@mui/material";
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // Core
 import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
@@ -13,7 +13,7 @@ import PetProgram from "./contents/PetProgram";
 import Surrender from "./contents/Surrender";
 
 // Constants
-import { container, tab, tabactive } from "./index.style"; // Styles
+import { tab, tabactive } from "./index.style"; // Styles
 
 const Index = () => {
     const { srvc } = useParams();

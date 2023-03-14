@@ -1,9 +1,13 @@
 // Libraries
 import { Avatar, Stack, Typography } from "@mui/material";
-import { ListCntxt } from "core/context/ListCntxt.func";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { item } from "../index.style";
+
+// Core
+import { ListCntxt } from "core/context/ListCntxt.func"; // Context
+
+// Constants
+import { item } from "../index.style"; // Styles
 
 const Item  = () => {
     const { list } = useContext(ListCntxt);
