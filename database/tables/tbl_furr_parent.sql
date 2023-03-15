@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : freelance
+ Source Server         : qcu
  Source Server Type    : PostgreSQL
  Source Server Version : 150001
  Source Host           : localhost:5432
@@ -12,21 +12,8 @@
  Target Server Version : 150001
  File Encoding         : 65001
 
- Date: 02/03/2023 06:29:02
+ Date: 15/03/2023 19:55:44
 */
-
-
--- ----------------------------
--- Sequence for tbl_furr_parent
--- ----------------------------
-CREATE SEQUENCE "public"."tbl_furr_parent_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-
-SELECT setval('"public"."tbl_furr_parent_id_seq"', 2, true);
 
 
 -- ----------------------------
@@ -52,8 +39,6 @@ CREATE TABLE "public"."tbl_furr_parent" (
 -- ----------------------------
 -- Records of tbl_furr_parent
 -- ----------------------------
-INSERT INTO "public"."tbl_furr_parent" VALUES (1, '0VE0Z6E', 'judan.pauljohn@gmail.com', NULL, 'PAUL JOHN', 'SOLANO', 'JUDAN', 'male', '#364 RIVERA ST. BRGY. SANGANDAAN, QUEZON CITY, 1116', '09502099508', '2023-03-01 23:47:39.467781+08', '2023-03-02 00:16:38.078044+08');
-INSERT INTO "public"."tbl_furr_parent" VALUES (2, 'T27HN49', 'madroniohazel12@gmail.com', NULL, 'HAZEL', 'RANARA', 'MADRONIO', 'female', '#2 DOÑA ADELLA ST. SANTIAGO SUBD., NOVALICHES, QUEZOM CITY', '09503726254', '2023-03-02 01:38:50.725078+08', NULL);
 
 -- ----------------------------
 -- Primary Key structure for table tbl_furr_parent

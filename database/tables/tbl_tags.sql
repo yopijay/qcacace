@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : freelance
+ Source Server         : qcu
  Source Server Type    : PostgreSQL
  Source Server Version : 150001
  Source Host           : localhost:5432
@@ -12,21 +12,8 @@
  Target Server Version : 150001
  File Encoding         : 65001
 
- Date: 02/03/2023 06:30:13
+ Date: 15/03/2023 19:57:02
 */
-
-
--- ----------------------------
--- Sequence for tbl_tags
--- ----------------------------
-CREATE SEQUENCE "public"."tbl_tags_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-
-SELECT setval('"public"."tbl_tags_id_seq"', 3, true);
 
 
 -- ----------------------------
@@ -53,6 +40,11 @@ CREATE TABLE "public"."tbl_tags" (
 INSERT INTO "public"."tbl_tags" VALUES (1, 'MBLEA05', 'CUTE', 1, 1, NULL, NULL, '2023-02-10 20:34:56.28989+08', NULL, NULL);
 INSERT INTO "public"."tbl_tags" VALUES (2, '0Q0VOYM', 'SWEET', 1, 1, NULL, NULL, '2023-02-10 20:35:00.624157+08', NULL, NULL);
 INSERT INTO "public"."tbl_tags" VALUES (3, 'O9UEB3B', 'SMART', 1, 1, NULL, NULL, '2023-02-10 20:35:03.860903+08', NULL, NULL);
+INSERT INTO "public"."tbl_tags" VALUES (4, '2RYC5OF', 'LOYAL', 1, 1, NULL, NULL, '2023-03-10 22:48:37.075713+08', NULL, NULL);
+INSERT INTO "public"."tbl_tags" VALUES (5, 'YAK99O1', 'FRIENDLY', 1, 1, NULL, NULL, '2023-03-10 22:48:41.367475+08', NULL, NULL);
+INSERT INTO "public"."tbl_tags" VALUES (6, '9NHFD48', 'FUNNY', 1, 1, NULL, NULL, '2023-03-10 22:48:46.400106+08', NULL, NULL);
+INSERT INTO "public"."tbl_tags" VALUES (7, 'ZTX9SL9', 'CLINGY', 1, 1, NULL, NULL, '2023-03-10 22:48:51.863127+08', NULL, NULL);
+INSERT INTO "public"."tbl_tags" VALUES (8, 'KF1DRBT', 'ADORABLE', 1, 1, NULL, NULL, '2023-03-10 22:49:02.713642+08', NULL, NULL);
 
 -- ----------------------------
 -- Primary Key structure for table tbl_tags

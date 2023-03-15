@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : freelance
+ Source Server         : qcu
  Source Server Type    : PostgreSQL
  Source Server Version : 150001
  Source Host           : localhost:5432
@@ -12,21 +12,8 @@
  Target Server Version : 150001
  File Encoding         : 65001
 
- Date: 02/03/2023 06:29:58
+ Date: 15/03/2023 19:56:53
 */
-
-
--- ----------------------------
--- Sequence for tbl_subscribers
--- ----------------------------
-CREATE SEQUENCE "public"."tbl_subscribers_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-
-SELECT setval('"public"."tbl_subscribers_id_seq"', 1, true);
 
 
 -- ----------------------------
@@ -46,6 +33,8 @@ CREATE TABLE "public"."tbl_subscribers" (
 -- ----------------------------
 -- Records of tbl_subscribers
 -- ----------------------------
+INSERT INTO "public"."tbl_subscribers" VALUES (3, 'WHT3E84', 'conane108@gmail.com', 1, '2023-03-10 22:08:07.584095+08', NULL);
+INSERT INTO "public"."tbl_subscribers" VALUES (4, 'HXGNLMC', 'eugene.laganzo.tamidles@gmail.com', 1, '2023-03-11 08:47:15.694502+08', NULL);
 
 -- ----------------------------
 -- Primary Key structure for table tbl_subscribers

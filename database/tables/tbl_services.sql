@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : freelance
+ Source Server         : qcu
  Source Server Type    : PostgreSQL
  Source Server Version : 150001
  Source Host           : localhost:5432
@@ -12,21 +12,8 @@
  Target Server Version : 150001
  File Encoding         : 65001
 
- Date: 02/03/2023 06:29:52
+ Date: 15/03/2023 19:56:45
 */
-
-
--- ----------------------------
--- Sequence for tbl_services
--- ----------------------------
-CREATE SEQUENCE "public"."tbl_services_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-
-SELECT setval('"public"."tbl_services_id_seq"', 2, true);
 
 
 -- ----------------------------
@@ -51,8 +38,6 @@ CREATE TABLE "public"."tbl_services" (
 -- ----------------------------
 -- Records of tbl_services
 -- ----------------------------
-INSERT INTO "public"."tbl_services" VALUES (1, 'NH92YB7', 1, NULL, NULL, NULL, NULL, 'adoption', 'pending', '2023-03-01 23:47:39.476051+08', NULL);
-INSERT INTO "public"."tbl_services" VALUES (2, 'TSEWSO1', 2, NULL, NULL, NULL, NULL, 'adoption', 'pending', '2023-03-02 01:38:50.727773+08', NULL);
 
 -- ----------------------------
 -- Primary Key structure for table tbl_services

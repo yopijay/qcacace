@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : freelance
+ Source Server         : qcu
  Source Server Type    : PostgreSQL
  Source Server Version : 150001
  Source Host           : localhost:5432
@@ -12,21 +12,8 @@
  Target Server Version : 150001
  File Encoding         : 65001
 
- Date: 02/03/2023 06:29:08
+ Date: 15/03/2023 19:55:53
 */
-
-
--- ----------------------------
--- Sequence for tbl_life_stages
--- ----------------------------
-CREATE SEQUENCE "public"."tbl_life_stages_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-
-SELECT setval('"public"."tbl_life_stages_id_seq"', 7, true);
 
 
 -- ----------------------------

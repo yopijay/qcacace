@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : freelance
+ Source Server         : qcu
  Source Server Type    : PostgreSQL
  Source Server Version : 150001
  Source Host           : localhost:5432
@@ -12,21 +12,8 @@
  Target Server Version : 150001
  File Encoding         : 65001
 
- Date: 02/03/2023 06:28:53
+ Date: 15/03/2023 19:55:35
 */
-
-
--- ----------------------------
--- Sequence for tbl_documents
--- ----------------------------
-CREATE SEQUENCE "public"."tbl_documents_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-
-SELECT setval('"public"."tbl_documents_id_seq"', 1, false);
 
 
 -- ----------------------------
@@ -60,4 +47,3 @@ ALTER TABLE "public"."tbl_documents" ADD CONSTRAINT "tbl_documents_pkey" PRIMARY
 -- Foreign Keys structure for table tbl_documents
 -- ----------------------------
 ALTER TABLE "public"."tbl_documents" ADD CONSTRAINT "tbl_documents_evaluated_by_fkey" FOREIGN KEY ("evaluated_by") REFERENCES "public"."tbl_users" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."tbl_documents" ADD CONSTRAINT "tbl_documents_furr_parent_id_fkey" FOREIGN KEY ("furr_parent_id") REFERENCES "public"."tbl_furr_parent" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
