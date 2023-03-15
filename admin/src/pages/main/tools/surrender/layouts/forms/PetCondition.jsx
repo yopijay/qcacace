@@ -23,7 +23,7 @@ const PetCondition = () => {
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Gender</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Gender</Typography>
                     <Box sx= { select }>
                         <Controller control= { control } name= "gender" defaultValue= "male"
                             render= { ({ field: { onChange, value } }) => (
@@ -38,7 +38,7 @@ const PetCondition = () => {
             </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Energy</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Energy</Typography>
                     <Box sx= { select }>
                         <Controller control= { control } name= "energy_level" defaultValue= "high"
                                 render= { ({ field: { onChange, value } }) => (
@@ -68,7 +68,7 @@ const PetCondition = () => {
             </Grid>
             <Grid item xs= { 12 } sm= { 4 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Weight</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Weight</Typography>
                     <Box sx= { select }>
                         <Controller control= { control } name= "weight" defaultValue= "ideal"
                                 render= { ({ field: { onChange, value } }) => (
@@ -83,14 +83,14 @@ const PetCondition = () => {
             </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Color</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Color</Typography>
                     <TextField { ...register('color') } name= "color" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
                     <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.color?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Tags</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Tags</Typography>
                     { tagfetching ? <Skeleton variant= "rectangular" height= "35px" sx= {{ borderRadius: '5px' }} /> : tags?.length > 0 ?
                         <Box sx= { select }>
                             <Controller control= { control } name= "tags" defaultValue= { [] }

@@ -135,6 +135,7 @@ export const textarea = {
 }
 
 export const inputemail = {
+    fontWeight:'bold',
     backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',
     fontSize: '150%',

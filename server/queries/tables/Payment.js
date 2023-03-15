@@ -2,7 +2,7 @@
 const nodemailer = require('nodemailer');
 const mailgen = require('mailgen');
 
-// Custom functions
+// Custom functions 
 const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
@@ -110,7 +110,7 @@ class Payment {
                                         .build()).rows;
 
         if(data.type === 'adoption') {
-            _intro = `<b>FAILED</b>. Good day! Unfortunately, your transaction has been canceled due to the failure of payment within 3 days.`
+            _intro = `<b>FAILED</b>. Good day! Unfortunately, your transaction has been canceled due to the failure of payment within 3 days or incorret referrence number.`
         }
         else {
             _intro = `Sorry your referrence number is invalid, Please contact the Quezon City Treasurer's Office to clarify your payment. Thank you!`;

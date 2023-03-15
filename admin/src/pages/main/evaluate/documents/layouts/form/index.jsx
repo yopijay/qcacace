@@ -37,7 +37,7 @@ const Index = () => {
             </Stack>
             <Box sx= { card }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 3 }>
-                    <Typography variant= "h5">Documentary Requirements</Typography>
+                    <Typography variant= "h5" sx={{ fontWeight:'bold'}}>Documentary Requirements</Typography>
                     <ValidId fetching= { fetching } docs= { docs } />
                     <Picture fetching= { fetching } docs= { docs } />
                     <PetCage fetching= { fetching } docs= { docs } />

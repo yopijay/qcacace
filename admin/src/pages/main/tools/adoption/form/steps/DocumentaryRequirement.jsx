@@ -42,7 +42,7 @@ const DocumentaryRequirement = () => {
             <Box sx= { card }>
                 <form autoComplete= "off">
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-                        <Typography variant= "body1" sx= {{ fontWeight: 'bold', marginBottom: '15px', color: '#142F48' }}>Documentary Requirements</Typography>
+                        <Typography variant= "body1" sx= {{ fontWeight: 'bold', marginBottom: '15px', color: '#142F48', fontSize:'20px' }}>Documentary Requirements</Typography>
                         <ValidId fetching= { docu_fetching } />
                         <Picture fetching= { docu_fetching } />
                         <PetCage fetching= { docu_fetching } />

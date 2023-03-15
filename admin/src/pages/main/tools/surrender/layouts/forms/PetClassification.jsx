@@ -22,7 +22,7 @@ const PetClassification = () => {
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Pet Category</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Pet Category</Typography>
                     { categoryfetching ? <Skeleton variant= "rectangular" height= "35px" sx= {{ borderRadius: '5px' }} /> : category?.length > 0 ?
                         <Box sx= { select }>
                             <Controller control= { control } name= "category_id" defaultValue= { 0 }
@@ -43,7 +43,7 @@ const PetClassification = () => {
             </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Breed</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Breed</Typography>
                     { breedloading ? <Skeleton variant= "rectangular" height= "35px" sx= {{ borderRadius: '5px' }} /> : <Box sx= { select }>
                     { !breedloading ?
                         breed !== undefined ?
@@ -67,7 +67,7 @@ const PetClassification = () => {
             </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Coat</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Coat</Typography>
                     { coatloading ? <Skeleton variant= "rectangular" height= "35px" sx= {{ borderRadius: '5px' }} /> : <Box sx= { select }>
                     { !coatloading ?
                         coat !== undefined ?
@@ -91,7 +91,7 @@ const PetClassification = () => {
             </Grid>
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom color= "text.secondary" variant= "body2">*Pet Life Stages</Typography>
+                    <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Pet Life Stages</Typography>
                     { lifestagesloading ? <Skeleton variant= "rectangular" height= "35px" sx= {{ borderRadius: '5px' }} /> : <Box sx= { select }>
                     { !lifestagesloading ?
                         lifestages !== undefined ?

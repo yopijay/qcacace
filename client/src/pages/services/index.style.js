@@ -1,3 +1,5 @@
+import { color } from "@mui/system"
+
 export const search = {
     backgroundColor: '#FFFFFF',
     display: 'flex',

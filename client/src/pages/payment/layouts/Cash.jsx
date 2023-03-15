@@ -3,7 +3,7 @@ import { Stack, Typography } from "@mui/material";
 const Cash = () => {
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "center">
-            <Typography sx= {{ textAlign: 'center', width: '80%'}}>You may also settle your payment at Quezon City Animal Care and Adoption Center located 
+            <Typography sx= {{ textAlign: 'center', width: '80%', fontWeight:'600'}}>You may also settle your payment at Quezon City Animal Care and Adoption Center located 
             at Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines. 
             Please go to the counter where a staff member will assist you with your payment.</Typography>
         </Stack>

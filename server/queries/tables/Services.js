@@ -153,8 +153,8 @@ class Services {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Released Failed`, html: mail });
-        return { result: 'success', message: 'Payment failed!', list: list }
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Release Failed`, html: mail });
+        return { result: 'success', message: 'Release failed!', list: list }
     }
 
     update = async (data) => {

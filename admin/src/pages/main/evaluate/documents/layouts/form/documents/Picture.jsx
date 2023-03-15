@@ -5,7 +5,7 @@ const ValidId = ({ fetching, docs }) => {
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-            <Typography gutterBottom>*Applicant 1X1 picature</Typography>
+            <Typography gutterBottom sx={{ fontWeight:'600'}}>*Applicant 1X1 picture</Typography>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
             { fetching ? <Skeleton variant= "rounded" sx= {{ width: '100%', height: '200px' }} /> :
                 <Stack direction= "row" justifyContent= "center" alignItems= "center" 

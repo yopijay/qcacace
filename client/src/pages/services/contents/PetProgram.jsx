@@ -49,7 +49,7 @@ const PetProgram = () => {
                                         </Stack> : '' }
                                     <Typography variant= "h6" sx= {{ fontFamily: 'Tommy Bolder', color: '#444444' }}>{ data.title }</Typography>
                                     <Typography sx= {{ fontFamily: 'Tommy Bold', color: '#444444' }}>{ data.subtitle }</Typography>
-                                    <Typography sx= {{ fontFamily: 'Gilroy Light', color: '#555555' }}>{ data.description }</Typography>
+                                    <Typography sx= {{ fontFamily: 'Gilroy Light', color: '#555555', fontWeight:'600', fontSize:'16px' }}>{ data.description }</Typography>
                                 </Stack>
                             )) :
                             <Stack direction= "row" justifyContent= "center" alignItems= "center"><Typography sx={{fontWeight:'600'}}>No programs available!</Typography></Stack> :

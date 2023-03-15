@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 const mailgen = require('mailgen');
 
 
-// Custom functions
+// Custom functions hi
 const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
