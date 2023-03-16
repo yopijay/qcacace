@@ -28,7 +28,7 @@ const Index = () => {
                     '&.Mui-disabled:before': { borderBottom: 'none' },
                     '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
                 },
-                input: { fontSize: '120%', textTransform: 'uppercase' }
+                input: { fontSize: '120%', textTransform: 'uppercase', fontWeight:'bold' }
             }
         }
     }
@@ -42,7 +42,7 @@ const Index = () => {
                     '&.Mui-disabled:before': { borderBottom: 'none' },
                     '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
                 },
-                input: { textAlign: 'center', fontSize: '120%' }
+                input: { textAlign: 'center', fontSize: '130%', fontWeight:'bold' }
             }
         }
     }
@@ -56,7 +56,7 @@ const Index = () => {
                     '&.Mui-disabled:before': { borderBottom: 'none' },
                     '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
                 },
-                input: { textAlign: 'center', fontSize: '120%', textTransform: 'uppercase' }
+                input: { textAlign: 'center', fontSize: '120%', textTransform: 'uppercase', fontWeight:'bold' }
             }
         }
     }

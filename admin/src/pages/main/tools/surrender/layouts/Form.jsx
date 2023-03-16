@@ -29,7 +29,7 @@ const input = {
                 '&.Mui-disabled:before': { borderBottom: 'none' },
                 '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
             },
-            input: { textTransform: 'uppercase' }
+            input: { textTransform: 'uppercase', fontWeight:'bold' }
         }
     }
 }

@@ -37,7 +37,7 @@ const Form = () => {
                     '&.Mui-disabled:before': { borderBottom: 'none' },
                     '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
                 },
-                input: { textAlign: 'left', textTransform: 'uppercase' }
+                input: { textAlign: 'left', textTransform: 'uppercase', fontWeight:'bold' }
             }
         }
     }
