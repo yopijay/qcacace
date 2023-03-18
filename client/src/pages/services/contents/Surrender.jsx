@@ -34,6 +34,20 @@ const input = {
     }
 }
 
+const email = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { fontWeight:'bold' }
+        }
+    }
+}
+
 const Surrender = () => {
     const navigate = useNavigate();
     const { handleSubmit, setValidation, setError } = useContext(FormCntxt);
@@ -49,8 +63,8 @@ const Surrender = () => {
             <Container maxWidth= "lg" sx= {{ overflowY: 'scroll', height: '100%', '&::-webkit-scrollbar': { display: 'none' } }}>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                     <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#444444' }}>Surrender</Typography>
-                    <Typography sx= {{ fontWeight:'600'}}>A Pet Deserves To Have A Home Where They Can Feel Safe And Loved. Remember That We Are Not Encouraging The Pet Owners To Surrender Their 
-                        Pets To Our Shelter But If You Have No Other Choice, We Will Always Welcome Them With A Big Hug And Small Kisses.</Typography>
+                    <Typography sx= {{ fontWeight:'600'}}>A Pet Deserves To Have A Home Where They Can Feel Safe And Loved. Remember That We Are Not Encouraging The Pet Owners To 
+                        Surrender Their Pets To Our Shelter But If You Have No Other Choice, We Will Always Welcome Them With A Big Hug And Small Kisses.</Typography>
                 </Stack>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } sx= {{ margin: '30px 0' }}>
                     <form autoComplete= "off">
@@ -71,7 +85,7 @@ const Surrender = () => {
                             <Grid item>
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                     <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Owner information</Typography>
-                                    <Email />
+                                    <ThemeProvider theme= { theme(email) }><Email /></ThemeProvider>
                                     <ThemeProvider theme= { theme(input) }><OwnerInformation /></ThemeProvider>
                                 </Stack>
                             </Grid>

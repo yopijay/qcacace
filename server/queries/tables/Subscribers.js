@@ -10,6 +10,13 @@ class Subscribers {
     list = async () => { return (await new Builder(`tbl_subscribers`).select().build()).rows; }
     search = async (data) => { return (await new Builder(`tbl_subscribers`).select().condition(`WHERE series_no LIKE '%${data.condition}%' OR email LIKE '%${data.condition}%'`).build()).rows ;}
 
+    dashboard = async () => {
+        return {
+            total: (await new Builder(`tbl_subscribers`).select().build()).rowCount,
+            subs: (await new Builder(`tbl_subscribers`).select().condition(`WHERE is_subscribe= 1`).build()).rowCount
+        }
+    }
+
     save = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);

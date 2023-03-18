@@ -52,7 +52,7 @@ const Index = () => {
                             <Typography sx= { links } component= { Link } to= "/" onClick= { () => { localStorage.setItem('nav', 'home'); setIsActive('home'); } }>Home</Typography>
                             <Typography sx= { links } component= { Link } to= "/pets" onClick= { () => { localStorage.setItem('nav', 'pets'); setIsActive('pets'); } }>Pet Gallery</Typography>
                             <Typography sx= { links } component= { Link } to= "/services/pet-program" onClick= { () => { localStorage.setItem('nav', 'services'); setIsActive('services'); } }>Services</Typography>
-                            <Typography sx= { links } component= { Link } to= "/faqs" onClick= { () => { localStorage.setItem('nav', 'faqs'); setIsActive('faqs'); } }>FAQs</Typography>
+                            {/* <Typography sx= { links } component= { Link } to= "/faqs" onClick= { () => { localStorage.setItem('nav', 'faqs'); setIsActive('faqs'); } }>FAQs</Typography> */}
                         </Stack>
                     </Grid>
                     <Grid item xs= { 12 } md= { 6 } lg= { 3 } sx= {{ padding: { xs: '15px 0', md: '0 20px'} }}>

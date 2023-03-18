@@ -10,7 +10,6 @@ export const select = {
 }
 
 export const input = {
-    fontWeight:'bold',
     backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',
     padding: {

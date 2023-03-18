@@ -38,6 +38,7 @@ const dashboard = (table) => {
             case 'tbl_payments': resolve(await new Payment().dashboard()); break;
             case 'tbl_services': resolve(await new Services().dashboard()); break;
             case 'tbl_pets': resolve(await new Pets().dashboard()); break;
+            case 'tbl_subscribers': resolve(await new Subscribers().dashboard()); break;
         }
     });
 }
