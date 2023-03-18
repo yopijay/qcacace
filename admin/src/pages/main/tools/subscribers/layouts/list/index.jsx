@@ -12,6 +12,7 @@ import { look, records } from "core/api/index.func"; // APIs
 // Constants
 import { search } from "./index.style"; // Styles
 import Item from "./layouts/Item"; // Layout
+import Dashboard from "./layouts/Dashboard"; // Layout
 
 const Index = () => {
     const { setList } = useContext(ListCntxt);
@@ -22,6 +23,7 @@ const Index = () => {
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%' }} spacing= { 3 }>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                 <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#3C4048' }}>Subscribers</Typography>
+                <Dashboard />
                 <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
                     <form autoComplete= "off">
                         <Box sx= { search }>

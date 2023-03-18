@@ -34,6 +34,20 @@ const input = {
     }
 }
 
+const email = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { fontWeight:'bold' }
+        }
+    }
+}
+
 const Form = () => {
     const  navigate = useNavigate();
     const { handleSubmit, setValidation, setError } = useContext(FormCntxt);
@@ -66,7 +80,7 @@ const Form = () => {
                         <Grid item>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography sx= {{ fontWeight: 'bold', textTransform: 'uppercase', fontSize:'18px' }}gutterBottom>Owner information</Typography>
-                                <Email />
+                                <ThemeProvider theme= { theme(email) }><Email /></ThemeProvider>
                                 <ThemeProvider theme= { theme(input) }><OwnerInformation /></ThemeProvider>
                             </Stack>
                         </Grid>
