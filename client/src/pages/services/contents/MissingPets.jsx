@@ -61,7 +61,10 @@ const MissingPets = () => {
                                 </Grid>
                             )) : 
                                 <Grid item xs= { 12 }>
-                                    <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= { item }><Typography sx= {{ fontWeight:'600'}}>No missing pet/s available.</Typography></Stack>
+                                    <Stack direction= "row" justifyContent= "center" alignItems= "center" 
+                                        sx= {{ backgroundColor: '#FFFFFF', padding: '10px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }}>
+                                        <Typography>No record/s found!</Typography>
+                                    </Stack>
                                 </Grid> :
                             <Grid item xs= { 12 } sm= { 4 } md= { 3 }>
                                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { item } spacing= { 1 }>

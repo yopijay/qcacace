@@ -52,7 +52,10 @@ const PetProgram = () => {
                                     <Typography sx= {{ fontFamily: 'Gilroy Light', color: '#555555', fontWeight:'600', fontSize:'16px' }}>{ data.description }</Typography>
                                 </Stack>
                             )) :
-                            <Stack direction= "row" justifyContent= "center" alignItems= "center"><Typography sx={{fontWeight:'600'}}>No programs available!</Typography></Stack> :
+                            <Stack direction= "row" justifyContent= "center" alignItems= "center" 
+                                sx= {{ backgroundColor: '#FFFFFF', padding: '10px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }}>
+                                <Typography>No record/s found!</Typography>
+                            </Stack> :
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { item }>
                                 <Stack direction= "row" justifyContent= "flex-end" alignItems= "center"><Skeleton variant= "text" sx= {{ fontSize: '1rem', width: '20%' }} /></Stack>
                                 <Skeleton variant= "rounded" sx= {{ width: '100%', height: '250px', margin: '10px 0 20px 0' }} />

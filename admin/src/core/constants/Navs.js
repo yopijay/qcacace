@@ -36,7 +36,7 @@ export const Navs = () => ([
             { path: '/tools/petprogram', label: 'Pet Program', name: 'petprogram', component: <PetProgram /> },
             { path: '/tools/animalcare', label: 'Animal Care', name: 'animalcare', component: <AnimalCare /> },
             { path: '/tools/missing', label: 'Missing Pets', name: 'missing-pets', component: <MissingPet /> },
-            { path: '/tools/subscription', label: 'Subscription', name: 'subscription', component: <Subscribers /> },
+            { path: '/tools/subscription', label: 'Subscribers', name: 'subscription', component: <Subscribers /> },
             { path: '/tools/adopt', label: 'Adopt Pet', name: 'adopt-pet', component: <Adopt /> },
             { path: '/tools/surrender-pet', label: 'Surrender Pet', name: 'surrender-pet', component: <Surrender /> },
         ]
@@ -46,7 +46,7 @@ export const Navs = () => ([
             { path: '/evaluate/documents', label: 'Documents', name: 'documents', component: <Documents /> },
             { path: '/evaluate/interview', label: 'Interview', name: 'interview', component: <Interview /> },
             { path: '/evaluate/payment', label: 'Payment', name: 'payment', component: <Payment /> },
-            { path: '/evaluate/releasing', label: 'Finish', name: 'releasing', component: <Releasing /> }
+            { path: '/evaluate/releasing', label: 'Releasing', name: 'releasing', component: <Releasing /> }
         ]
     },
     {

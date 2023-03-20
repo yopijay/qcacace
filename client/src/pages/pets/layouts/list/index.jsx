@@ -21,7 +21,7 @@ const Index = ({ setDialog, fetching, recommended, recommendation, recommending,
                 <Typography variant= "h6" sx= { btnrecommend } onClick= { () => setDialog(true) }><FontAwesomeIcon icon= { solid('sliders') } /></Typography>
             </Stack>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                { localStorage.getItem('recommend') !== null ? <Recommended recommended= { recommended } recommending= { recommending } /> : '' }
+                <Recommended recommended= { recommended } recommending= { recommending } />
             </Stack>
             <Stack direction= "row" justifyContent= "space-between" alignItems= "center" spacing= { 1 }>
                 <Typography variant= "h6" sx= {{ fontFamily: 'Tommy Bolder', color: '#1B4168' }}>List</Typography>

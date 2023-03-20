@@ -1,6 +1,6 @@
 // Libraries
 import { Link } from "react-router-dom";
-import { Avatar, Chip, Grid, Stack, Typography } from "@mui/material";
+import { Avatar, Grid, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 
 // Core

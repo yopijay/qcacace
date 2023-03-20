@@ -62,6 +62,7 @@ const OwnerInformation = () => {
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography gutterBottom variant= "body2" sx={{ fontWeight:'600', color:'black'}}>Address</Typography>
                     <TextareaAutosize name= "address" { ...register('address') } minRows= { 4 } maxRows= { 4 } style= { textarea } />
+                    <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.address?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 }>
