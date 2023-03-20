@@ -119,7 +119,7 @@ class FurrParent {
                     }
                 });
         
-                transforter.sendMail({ from: global.USER, to: data.email, subject: `Email verification`, html: mail });
+                transporter.sendMail({ from: global.USER, to: data.email, subject: `Email verification`, html: mail });
                 return { result: 'success', message: 'Email verification sent, Please check your Email. Thank you!', id: id }
         }
     }
@@ -141,7 +141,7 @@ class FurrParent {
             }
         });
 
-        transforter.sendMail({ from: global.USER, to: data.email, subject: `Email verification`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Email verification`, html: mail });
         return { result: 'success', message: 'Email verification sent!', id: usr.id }
     }
 
