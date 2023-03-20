@@ -106,7 +106,7 @@ class Services {
             }
         });
 
-        transforter.sendMail({ from: global.USER, to: data.email, subject: `Congratulations`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Congratulations`, html: mail });
         return { result: 'success', message: 'Adoption complete!', list: list }
     }
 
@@ -153,7 +153,7 @@ class Services {
             }
         });
 
-        transforter.sendMail({ from: global.USER, to: data.email, subject: `Release Failed`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Release Failed`, html: mail });
         return { result: 'success', message: 'Release failed!', list: list }
     }
 
@@ -262,7 +262,7 @@ class Services {
                                     }
                                 });
     
-                                //transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
                             else { return { result: 'error', error: errors } }
@@ -322,7 +322,7 @@ class Services {
                                     }
                                 });
     
-                                //transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
@@ -410,7 +410,7 @@ class Services {
                                     }
                                 });
     
-                                //transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
                             else { return { result: 'error', error: errors } }
@@ -470,7 +470,7 @@ class Services {
                                     }
                                 });
     
-                                //transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
+                                transporter.sendMail({ from: global.USER, to: data.email, subject: `Pet surrendering Application status`, html: mail });
                                 return { result: 'success', message: 'Successfully submitted!' }
                             }
                             else { return { result: 'error', error: errors } }

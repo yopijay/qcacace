@@ -99,7 +99,7 @@ class Documents {
             }
         });
 
-        transforter.sendMail({ from: global.USER, to: data.email, subject: `Application Document Status`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Document Status`, html: mail });
         return { result: 'success', message: 'Documents approved!', list: list }
     }
 
@@ -158,7 +158,7 @@ class Documents {
             }
         });
 
-        transforter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
+        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
         return { result: 'success', message: 'Documents rejected!', list: list }
     }
 
