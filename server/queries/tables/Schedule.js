@@ -66,7 +66,7 @@ class Schedule {
     approve = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
 
         await new Builder(`tbl_schedule`)
@@ -96,7 +96,7 @@ class Schedule {
             body: {
                 name: 'Fur Mom/Dad',
                 intro: _intro,
-                action: { button: { text: 'Pay here', link: `https://qcacace.vercel.app/payment/${btoa(data.id)}` } },
+                action: { button: { text: 'Pay here', link: `https://qcacace.vercel.app/payment/${data.id}` } },
                 outro: 'Please contact me for additional help.'
             }
         });
@@ -108,7 +108,7 @@ class Schedule {
     reject = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
 
         let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
@@ -158,7 +158,7 @@ class Schedule {
     save = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
 
         let appointment = (await new Builder(`tbl_appointments`).select().condition(`WHERE month= ${data.appmonth} AND day= ${data.appday} AND year= ${data.appyear}`).build()).rows[0];
         let adopt = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];

@@ -57,7 +57,7 @@ class Documents {
     approve = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
 
         await new Builder(`tbl_documents`)
@@ -106,7 +106,7 @@ class Documents {
     reject = async (data) => {
         let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
         let transporter = nodemailer.createTransport(config);
-        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://mailgen.js/' } });
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
 
         let sched = (await new Builder(`tbl_schedule`).select().condition(`WHERE id= ${data.schedule_id}`).build()).rows[0];
