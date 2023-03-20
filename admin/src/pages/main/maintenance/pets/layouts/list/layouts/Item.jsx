@@ -1,6 +1,6 @@
 // Libraries
 import { Link } from "react-router-dom";
-import { Avatar, Chip, Grid, Stack, Typography } from "@mui/material";
+import { Avatar, Grid, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 
 // Core
@@ -31,8 +31,9 @@ const Item = () => {
                     </Grid>
                 )) : 
                 <Grid item xs= { 12 } sx= {{ padding: '10px 8px' }}>
-                    <Typography variant= "caption" component= { Stack } direction= "row" justifyContent= "center" alignItems= "center"
-                        sx= {{ backgroundColor: '#FFFFFF', boxShadow: 1, borderRadius: '7px', padding: '10px 0' }}>No record/s found!</Typography>
+                    <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ backgroundColor: '#FFFFFF', padding: '10px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }}>
+                        <Typography>No record/s found!</Typography>
+                    </Stack>
                 </Grid> }
         </Grid>
     );

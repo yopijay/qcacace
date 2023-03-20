@@ -106,7 +106,7 @@ class Services {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Congratulations`, html: mail });
+        transforter.sendMail({ from: global.USER, to: data.email, subject: `Congratulations`, html: mail });
         return { result: 'success', message: 'Adoption complete!', list: list }
     }
 
@@ -153,7 +153,7 @@ class Services {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Release Failed`, html: mail });
+        transforter.sendMail({ from: global.USER, to: data.email, subject: `Release Failed`, html: mail });
         return { result: 'success', message: 'Release failed!', list: list }
     }
 

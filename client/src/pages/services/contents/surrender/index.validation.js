@@ -7,6 +7,7 @@ export const validation = () => (
         fname: Yup.string().required('This field is required!'),
         lname: Yup.string().required('This field is required!'),
         contact_no: Yup.string().required('This field is required!'),
+        address: Yup.string().required(`This field is required!`),
         reason: Yup.string().required('This field is required!'),
     })
 )

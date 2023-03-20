@@ -33,7 +33,7 @@ const Item = () => {
                         </Stack>
                     </Stack>
                 )) :
-                <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= { item }>
+                <Stack direction= "row" justifyContent= "center" alignItems= "center" sx= {{ backgroundColor: '#FFFFFF', padding: '10px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }}>
                     <Typography>No record/s found!</Typography>
                 </Stack>
         }

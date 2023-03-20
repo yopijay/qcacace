@@ -77,7 +77,7 @@ class Payment {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Payment Received`, html: mail });
+        transforter.sendMail({ from: global.USER, to: data.email, subject: `Payment Received`, html: mail });
         return { result: 'success', message: 'Payment confirmed!', list: list }
     }
 
@@ -124,7 +124,7 @@ class Payment {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Payment Reject`, html: mail });
+        transforter.sendMail({ from: global.USER, to: data.email, subject: `Payment Reject`, html: mail });
         return { result: 'success', message: 'Payment failed!', list: list }
     }
 
@@ -200,7 +200,7 @@ class Payment {
                         }
                     });
         
-                    transporter.sendMail({ from: global.USER, to: adpt.email, subject: `Payment Status`, html: mail });
+                    transforter.sendMail({ from: global.USER, to: adpt.email, subject: `Payment Status`, html: mail });
                     return { result: 'success', message: 'Payment sent!' }
                 }
                 else { return { result: 'error', errors: errors } }

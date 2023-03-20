@@ -9,10 +9,30 @@ const Builder = require('../../functions/builder');
 class Schedule {
     dashboard = async () => {
         return {
-            total: (await new Builder(`tbl_schedule`).select().build()).rowCount,
-            approved: (await new Builder(`tbl_schedule`).select().condition(`WHERE status= 'approved'`).build()).rowCount,
-            pending: (await new Builder(`tbl_schedule`).select().condition(`WHERE status= 'pending'`).build()).rowCount,
-            failed: (await new Builder(`tbl_schedule`).select().condition(`WHERE status= 'failed'`).build()).rowCount,
+            total: (await new Builder(`tbl_services AS srvc`)
+                        .select()
+                        .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
+                        .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
+                        .condition(`WHERE docu.status = 'approved'`)
+                        .build()).rowCount,
+            approved: (await new Builder(`tbl_services AS srvc`)
+                                .select()
+                                .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
+                                .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
+                                .condition(`WHERE docu.status = 'approved' AND sched.status = 'approved'`)
+                                .build()).rowCount,
+            pending: (await new Builder(`tbl_services AS srvc`)
+                                .select()
+                                .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
+                                .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
+                                .condition(`WHERE docu.status = 'approved' AND sched.status = 'pending'`)
+                                .build()).rowCount,
+            failed: (await new Builder(`tbl_services AS srvc`)
+                                .select()
+                                .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
+                                .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
+                                .condition(`WHERE docu.status = 'approved' AND sched.status = 'failed'`)
+                                .build()).rowCount,
         }
     }
 
@@ -81,7 +101,7 @@ class Schedule {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Interview Status`, html: mail });
+        transforter.sendMail({ from: global.USER, to: data.email, subject: `Application Interview Status`, html: mail });
         return { result: 'success', message: 'Interview passed!', list: list }
     }
 
@@ -131,7 +151,7 @@ class Schedule {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
+        transforter.sendMail({ from: global.USER, to: data.email, subject: `Application Failed`, html: mail });
         return { result: 'success', message: 'Interview failed!', list: list }
     }
 
@@ -166,7 +186,7 @@ class Schedule {
             }
         });
 
-        transporter.sendMail({ from: global.USER, to: data.email, subject: `Appointment Schedule`, html: mail });
+        transforter.sendMail({ from: global.USER, to: data.email, subject: `Appointment Schedule`, html: mail });
         return { result: 'success', message: 'Successfully saved!' }
     }
 }
