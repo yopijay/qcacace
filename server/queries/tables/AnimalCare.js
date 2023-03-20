@@ -1,4 +1,4 @@
-// Custom functions ss
+// Custom functions
 const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
