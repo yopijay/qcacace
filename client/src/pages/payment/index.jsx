@@ -33,7 +33,7 @@ const Index = () => {
     const navigate = useNavigate();
     const [ method, setMethod ] = useState('gcash');
     const { handleSubmit, register, setValue, setError } = useContext(FormCntxt);
-    const { data: srvc } = useGet({ key: ['srvc_specific'], fetch: specific({ table: 'tbl_services', id: atob(id) }) });
+    const { data: srvc } = useGet({ key: ['srvc_specific'], fetch: specific({ table: 'tbl_services', id: id }) });
     const { mutate: pay } = 
         usePost({ fetch: payment, 
             onSuccess: data => {
@@ -83,7 +83,7 @@ const Index = () => {
                                     <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center">
                                         <Grid item xs= { 5 } sm= { 4 } md= { 5 } lg= { 3 }>
                                             <Box sx= { btntxt } onClick= { handleSubmit(data => { 
-                                                data['id'] = atob(id);
+                                                data['id'] = id;
                                                 data['application_type'] = 'online';
                                                 data['type'] = srvc?.[0]?.type;
                                                 if(data.payment === 'gcash' && data.transaction_no === '') { setError('transaction_no', { message: 'This field is required!' }); }
