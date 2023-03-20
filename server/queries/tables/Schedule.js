@@ -76,7 +76,7 @@ class Schedule {
             body: {
                 name: 'Fur Mom/Dad',
                 intro: _intro,
-                action: { button: { text: 'Pay here', link: `http://localhost:3000/payment/${btoa(data.id)}` } },
+                action: { button: { text: 'Pay here', link: `https://qcacace.vercel.app/payment/${btoa(data.id)}` } },
                 outro: 'Please contact me for additional help.'
             }
         });
