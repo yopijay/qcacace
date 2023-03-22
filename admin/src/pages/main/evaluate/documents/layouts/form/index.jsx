@@ -35,7 +35,7 @@ const input = {
     }
 }
 
-const email = {
+const email_input = {
     MuiInput: {
         styleOverrides: {
             root: {
@@ -87,7 +87,7 @@ const Index = () => {
                         <Grid item>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Owner information</Typography>
-                                <ThemeProvider theme= { theme(email) }><Email fetching= { fetching } docs= { docs } /></ThemeProvider>
+                                <ThemeProvider theme= { theme(email_input) }><Email fetching= { fetching } docs= { docs } /></ThemeProvider>
                                 <ThemeProvider theme= { theme(input) }><OwnerInformation fetching= { fetching } docs= { docs } /></ThemeProvider>
                             </Stack>
                         </Grid>
