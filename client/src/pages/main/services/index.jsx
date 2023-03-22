@@ -24,7 +24,8 @@ const Index = () => {
                                             <Typography sx= { itemTitle }>{ item.title }</Typography>
                                             <Typography sx= { itemText }>{ item.info }</Typography>
                                             <Box sx= {{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                                <Typography component= { Link } to= { item.link } sx= {{ color: '#142F4B' }}>{ `View more >>` }</Typography>
+                                                <Typography component= { Link } to= { item.link } sx= {{ color: '#142F4B' }} 
+                                                    onClick= { () => { localStorage.setItem('nav', item.nav); } }>{ `View more >>` }</Typography>
                                             </Box>
                                         </Stack>
                                     </Grid> )) }

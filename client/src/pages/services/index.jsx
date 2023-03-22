@@ -1,10 +1,12 @@
 // Libraries
 import { Container, Divider, Stack, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
 
 // Core
 import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
 import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
+import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
 
 // Layouts
 import AnimalCare from "./contents/AnimalCare";
@@ -16,8 +18,11 @@ import Surrender from "./contents/Surrender";
 import { tab, tabactive } from "./index.style"; // Styles
 
 const Index = () => {
-    const { srvc } = useParams();
     localStorage.setItem('nav', 'services');
+    const { srvc } = useParams();
+    const { setIsActive } = useContext(GlobalCntxt);
+
+    useEffect(() => { setIsActive(localStorage.getItem('nav')); }, [ setIsActive ]);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } divider={ <Divider orientation="horizontal" flexItem /> } 

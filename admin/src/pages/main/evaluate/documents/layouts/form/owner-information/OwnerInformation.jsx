@@ -7,7 +7,7 @@ import { Controller } from "react-hook-form";
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 
 // Constants
-import { input, select, textarea } from "./surrender.style"; // Styles
+import { input, select, textarea } from "../index.style"; // Styles
 const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }]; // Gender
 
 const OwnerInformation = () => { 

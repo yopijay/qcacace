@@ -1,20 +1,53 @@
 // Libraries
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, ThemeProvider, Typography } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 // Core
 import { evaluate, specific } from "core/api/index.func"; // APIs
 import { errorToast, successToast, useGet, usePost } from "core/global/function/index.func"; // Functions
-
-// Constants
-import { btnicon, btntxt, card } from "./index.style"; // Styles
+import { theme } from "core/global/theme/index.style"; // Theme
 
 // Layouts
+import Photo from "./pet-information/Photo";
+import PetClassification from "./pet-information/PetClassification";
+import PetCondition from "./pet-information/PetCondition";
+import Email from "./owner-information/Email";
+import OwnerInformation from "./owner-information/OwnerInformation";
 import ValidId from "./documents/ValidId";
 import Picture from "./documents/Picture";
 import PetCage from "./documents/PetCage";
+
+// Constants
+import { btnicon, btntxt, card } from "./index.style"; // Styles
+const input = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { textTransform: 'uppercase', fontWeight:'bold' }
+        }
+    }
+}
+
+const email = {
+    MuiInput: {
+        styleOverrides: {
+            root: {
+                '&:before': { borderBottom: 'none' },
+                '&:after': { borderBottom: 'none' },
+                '&.Mui-disabled:before': { borderBottom: 'none' },
+                '&:hover:not(.Mui-disabled):before': { borderBottom: 'none' }
+            },
+            input: { fontWeight:'bold' }
+        }
+    }
+}
 
 const Index = () => {
     const { type, id, email } = useParams();
@@ -36,12 +69,40 @@ const Index = () => {
                 <Typography sx= { btnicon } component= { Link } to= "/evaluate/documents" ><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
             </Stack>
             <Box sx= { card }>
-                <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 3 }>
-                    <Typography variant= "h5" sx={{ fontWeight:'bold'}}>Documentary Requirements</Typography>
-                    <ValidId fetching= { fetching } docs= { docs } />
-                    <Picture fetching= { fetching } docs= { docs } />
-                    <PetCage fetching= { fetching } docs= { docs } />
-                </Stack>
+                <form autoComplete= "off">
+                    <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 3 }>
+                        <Grid item><Photo fetching= { fetching } docs= { docs } /></Grid>
+                        <Grid item>
+                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
+                                    <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }} gutterBottom>Pet Classification</Typography>
+                                    <ThemeProvider theme= { theme(input) }><PetClassification fetching= { fetching } docs= { docs } /></ThemeProvider>
+                            </Stack>
+                        </Grid>
+                        <Grid item>
+                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
+                                <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Other information</Typography>
+                                <ThemeProvider theme= { theme(input) }><PetCondition fetching= { fetching } docs= { docs } /></ThemeProvider>
+                            </Stack>
+                        </Grid>
+                        <Grid item>
+                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
+                                <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Owner information</Typography>
+                                <ThemeProvider theme= { theme(email) }><Email fetching= { fetching } docs= { docs } /></ThemeProvider>
+                                <ThemeProvider theme= { theme(input) }><OwnerInformation fetching= { fetching } docs= { docs } /></ThemeProvider>
+                            </Stack>
+                        </Grid>
+                        <Grid item>
+                            <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
+                                <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Documentary requirements</Typography>
+                                <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-end" spacing= { 2 }>
+                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><ValidId fetching= { fetching } docs= { docs } /></Grid>
+                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><Picture fetching= { fetching } docs= { docs } /></Grid>
+                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><PetCage fetching= { fetching } docs= { docs } /></Grid>
+                                </Grid>
+                            </Stack>
+                        </Grid>
+                      </Grid>
+                </form>
             </Box>
             <Box>
                 { docs?.[0]?.status === 'pending' ?

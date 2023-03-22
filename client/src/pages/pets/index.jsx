@@ -1,11 +1,12 @@
 // Libraries
 import { Container, Stack } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Provider
 import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
+import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
 import { useGet, usePost } from "core/global/function/index.func"; // Function
 import { look, recommend, records } from "core/api/index.func"; // API
 
@@ -21,11 +22,14 @@ import { container } from "./index.style"; // Styles
 const Index = () => {
     localStorage.setItem('nav', 'pets');
     const { list, setList } = useContext(ListCntxt);
+    const { setIsActive } = useContext(GlobalCntxt);
     const [ dialog, setDialog ] = useState(localStorage.getItem('recommend') === null || list.length > 0);
     const { isFetching: fetching } = 
         useGet({ key: ['pet_list'], fetch: records({ table: 'tbl_pets', data: { is_adopt: 0 } }), options: { refetchOnWindowFocus: false }, onSuccess: (data) => setList(data) });
     const { mutate: find, isLoading: finding } = usePost({ fetch: look, onSuccess: (data) => setList(data) });
     const { data: recommended, mutate: recommendation, isLoading: recommending } = usePost({ fetch: recommend });
+
+    useEffect(() => { setIsActive(localStorage.getItem('nav')); }, [ setIsActive ]);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= { container }>
