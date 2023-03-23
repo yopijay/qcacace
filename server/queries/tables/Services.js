@@ -254,10 +254,10 @@ class Services {
                                 let mail = generator.generate({
                                     body: {
                                         name: 'Fur Mom/Dad',
-                                        intro: `Good day! Sabihan natin si user na wait yung tawag natin para sa interview nya for surrendering ng pet, and once na nakapasa, mag-e-email tayo sa kanya
-                                                    together with the link for payment, since hindi sya satin magbabayad, yung nakalagay dun sa link e input box kung san nya ilalagay yung reference number ng
-                                                    payment nya. Then once na-confirm natin yun, another email ulit na magno-notify sa kanya na approved na, and wait nya na lang yung team natin na pumunta
-                                                    sa kanila para kunin yun pet!`,
+                                        intro: `Good day! We have received  your application and submitted documents for the surrendering of your pet. 
+                                        Please take note that we do not encourage pet owners to surrender their pet. However, to know the reasons for your application, 
+                                        we would like to do an interview with you through phone call or google meet. Please wait for the next phase of the surrendering process after the interview. Thank you!
+                                        `,
                                         outro: 'Please contact me for additional help.'
                                     }
                                 });
@@ -314,10 +314,10 @@ class Services {
                                 let mail = generator.generate({
                                     body: {
                                         name: 'Fur Mom/Dad',
-                                        intro: `Good day! Sabihan natin si user na wait yung tawag natin para sa interview nya for surrendering ng pet, and once na nakapasa, mag-e-email tayo sa kanya
-                                                    together with the link for payment, since hindi sya satin magbabayad, yung nakalagay dun sa link e input box kung san nya ilalagay yung reference number ng
-                                                    payment nya. Then once na-confirm natin yun, another email ulit na magno-notify sa kanya na approved na, and wait nya na lang yung team natin na pumunta
-                                                    sa kanila para kunin yun pet!`,
+                                        intro: `Good day! We have received  your application and submitted documents for the surrendering of your pet. 
+                                        Please take note that we do not encourage pet owners to surrender their pet. However, to know the reasons for your application, 
+                                        we would like to do an interview with you through phone call or google meet. Please wait for the next phase of the surrendering process after the interview. Thank you!
+                                        `,
                                         outro: 'Please contact me for additional help.'
                                     }
                                 });
@@ -402,10 +402,10 @@ class Services {
                                 let mail = generator.generate({
                                     body: {
                                         name: 'Fur Mom/Dad',
-                                        intro: `Good day! Sabihan natin si user na wait yung tawag natin para sa interview nya for surrendering ng pet, and once na nakapasa, mag-e-email tayo sa kanya
-                                                    together with the link for payment, since hindi sya satin magbabayad, yung nakalagay dun sa link e input box kung san nya ilalagay yung reference number ng
-                                                    payment nya. Then once na-confirm natin yun, another email ulit na magno-notify sa kanya na approved na, and wait nya na lang yung team natin na pumunta
-                                                    sa kanila para kunin yun pet!`,
+                                        intro: `Good day! We have received  your application and submitted documents for the surrendering of your pet. 
+                                        Please take note that we do not encourage pet owners to surrender their pet. However, to know the reasons for your application, 
+                                        we would like to do an interview with you through phone call or google meet. Please wait for the next phase of the surrendering process after the interview. Thank you!
+                                        `,
                                         outro: 'Please contact me for additional help.'
                                     }
                                 });
@@ -462,10 +462,10 @@ class Services {
                                 let mail = generator.generate({
                                     body: {
                                         name: 'Fur Mom/Dad',
-                                        intro: `Good day! Sabihan natin si user na wait yung tawag natin para sa interview nya for surrendering ng pet, and once na nakapasa, mag-e-email tayo sa kanya
-                                                    together with the link for payment, since hindi sya satin magbabayad, yung nakalagay dun sa link e input box kung san nya ilalagay yung reference number ng
-                                                    payment nya. Then once na-confirm natin yun, another email ulit na magno-notify sa kanya na approved na, and wait nya na lang yung team natin na pumunta
-                                                    sa kanila para kunin yun pet!`,
+                                        intro: `Good day! We have received  your application and submitted documents for the surrendering of your pet. 
+                                        Please take note that we do not encourage pet owners to surrender their pet. However, to know the reasons for your application, 
+                                        we would like to do an interview with you through phone call or google meet. Please wait for the next phase of the surrendering process after the interview. Thank you!
+                                        `,
                                         outro: 'Please contact me for additional help.'
                                     }
                                 });
