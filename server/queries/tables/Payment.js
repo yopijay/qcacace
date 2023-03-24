@@ -20,7 +20,7 @@ class Payment {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.payment_id, srvc.schedule_id, pymnt.series_no, pymnt.transaction_no, pymnt.method,
                                                         fp.email, fp.fname, fp.lname, CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname) AS evaluated_by, pymnt.status, 
-                                                        pymnt.date_filed, pymnt.date_evaluated, srvc.type`)
+                                                        pymnt.date_filed, pymnt.date_evaluated, srvc.type, pymnt.payment_date`)
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
                                         .join({ table: `tbl_users_info AS eb`, condition: `pymnt.evaluated_by = eb.user_id`, type: `LEFT` })
@@ -42,7 +42,7 @@ class Payment {
     }
 
     approve = async (data) => {
-        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS }, tls : { rejectUnauthorized: false } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
@@ -82,7 +82,7 @@ class Payment {
     }
 
     reject = async (data) => {
-        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS }, tls : { rejectUnauthorized: false } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
@@ -158,15 +158,15 @@ class Payment {
                 }
                 else { return { result: 'success', message: 'Successfully paid!', id: adopt.id } }
             default:
-                let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+                let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS }, tls : { rejectUnauthorized: false } }
                 let transporter = nodemailer.createTransport(config);
                 let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         
                 let adpt = (await new Builder(`tbl_services AS srvc`)
-                                                    .select()
-                                                    .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                                    .condition(`WHERE srvc.id= ${data.id}`)
-                                                    .build()).rows[0];
+                                    .select()
+                                    .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                                    .condition(`WHERE srvc.id= ${data.id}`)
+                                    .build()).rows[0];
         
                 if(data.payment === 'gcash') {
                     if((await new Builder(`tbl_payments`).select().condition(`WHERE transaction_no= '${data.transaction_no}'`).build()).rowCount > 0) {
@@ -176,13 +176,11 @@ class Payment {
         
                 if(!(errors.length > 0)) {
                     let payment = (await new Builder(`tbl_payments`)
-                                                                .insert({ columns: `series_no, furr_parent_id, method, transaction_no, status, date_filed`, 
-                                                                                values: `'${global.randomizer(7)}', ${adpt.furr_parent_id}, 
-                                                                                                ${data.type !== 'surrender' ? `'${data.payment}'` : null}, 
-                                                                                                ${data.payment === 'gcash' ? `'${data.transaction_no}'` : null},
-                                                                                                'pending', CURRENT_TIMESTAMP` })
-                                                                .condition(`RETURNING id`)
-                                                                .build()).rows[0];
+                                                .insert({ columns: `series_no, furr_parent_id, method, transaction_no, status, date_filed, payment_date`, 
+                                                                values: `'${global.randomizer(7)}', ${adpt.furr_parent_id}, ${data.type !== 'surrender' ? `'${data.payment}'` : null}, 
+                                                                                ${data.payment === 'gcash' ? `'${data.transaction_no}'` : null}, 'pending', CURRENT_TIMESTAMP, '${data.payment_date}'` })
+                                                .condition(`RETURNING id`)
+                                                .build()).rows[0];
         
                     await new Builder(`tbl_services`).update(`payment_id= ${payment.id}, date_filed= CURRENT_TIMESTAMP`).condition(`WHERE id= ${data.id}`).build();
         

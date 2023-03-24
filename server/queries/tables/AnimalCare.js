@@ -21,10 +21,10 @@ class AnimalCare {
     }
 
     save = async (data) => {
-        // let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
-        // let transporter = nodemailer.createTransport(config);
-        // let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
-        // let emails = (await new Builder(`tbl_subscribers`).select(`email`).build()).rows;
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS }, tls : { rejectUnauthorized: false } }
+        let transporter = nodemailer.createTransport(config);
+        let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
+        let emails = (await new Builder(`tbl_subscribers`).select(`email`).build()).rows;
         
         let program = (await new Builder(`tbl_animal_care`)
                             .insert({ columns: `series_no, title, subtitle, date, description, photo, status, created_by, date_created`, 
@@ -34,16 +34,16 @@ class AnimalCare {
                             .condition(`RETURNING title`)
                             .build()).rows[0]; 
 
-        // let mail = generator.generate({
-        //     body: {
-        //         name: 'Fur Mom/Dad',
-        //         intro: `Inform natin si subscriber about sa program natin, tapos ito yung title: ${program.title}`,
+        let mail = generator.generate({
+            body: {
+                name: 'Fur Mom/Dad',
+                intro: `Inform natin si subscriber about sa program natin, tapos ito yung title: ${program.title}`,
                 
-        //         outro: 'Please contact me for additional help.'
-        //     }
-        // });
+                outro: 'Please contact me for additional help.'
+            }
+        });
 
-        emails.forEach(data => transporter.sendMail({ from: global.USER, to: data.email, subject: `Missing Pets`, html: mail }));
+        emails.forEach(data => transporter.sendMail({ from: global.USER, to: data.email, subject: `Animal Care`, html: mail }));
         return { result: 'success', message: 'Successfully saved!' }
     }
 

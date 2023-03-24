@@ -46,7 +46,7 @@ export const Navs = () => ([
             { path: '/evaluate/documents', label: 'Documents', name: 'documents', component: <Documents /> },
             { path: '/evaluate/interview', label: 'Interview', name: 'interview', component: <Interview /> },
             { path: '/evaluate/payment', label: 'Payment', name: 'payment', component: <Payment /> },
-            { path: '/evaluate/releasing', label: 'Releasing', name: 'releasing', component: <Releasing /> }
+            { path: '/evaluate/releasing', label: 'Releasing / Pick-up ', name: 'releasing', component: <Releasing /> }
         ]
     },
     {

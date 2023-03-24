@@ -8,10 +8,10 @@ const Builder = require('../../functions/builder');
 
 class Users {
     specific = async (id) => { return (await new Builder(`tbl_users AS usr`)
-                                                                            .select()
-                                                                            .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' })
-                                                                            .condition(`WHERE usr.id= ${id}`)
-                                                                            .build()).rows; }
+                                                            .select()
+                                                            .join({ table: `tbl_users_info AS info`, condition: `info.user_id = usr.id`, type: 'LEFT' })
+                                                            .condition(`WHERE usr.id= ${id}`)
+                                                            .build()).rows; }
 
     login = async (data) => {
         let email = await new Builder(`tbl_users`).select().condition(`WHERE email= '${data.email}'`).build();

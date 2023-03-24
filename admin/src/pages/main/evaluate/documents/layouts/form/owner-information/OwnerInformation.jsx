@@ -7,7 +7,7 @@ import { Controller } from "react-hook-form";
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 
 // Constants
-import { input, select, textarea } from "./surrender.style"; // Styles
+import { input, select, textarea } from "../index.style"; // Styles
 const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }]; // Gender
 
 const OwnerInformation = () => { 
@@ -67,13 +67,13 @@ const OwnerInformation = () => {
                     <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.address?.message }</Typography>
                 </Stack>
             </Grid>
-            <Grid item xs= { 12 }>
+            { getValues()?.type !== 'adoption' ? <Grid item xs= { 12 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography gutterBottom variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Reason for surrendering</Typography>
                     <TextareaAutosize name= "reason" { ...register('reason') } minRows= { 4 } maxRows= { 4 } style= { textarea } />
                     <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.reason?.message }</Typography>
                 </Stack>
-            </Grid>
+            </Grid> : '' }
         </Grid>
     );
 }
