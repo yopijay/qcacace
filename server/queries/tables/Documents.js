@@ -9,7 +9,11 @@ const Builder = require('../../functions/builder');
 class Documents {
     specific = async (id) => { 
         return (await new Builder(`tbl_services AS srvc`)
-                                        .select(`srvc.id, docu.valid_id, docu.picture, docu.pet_cage`)
+                                        .select(`srvc.id, pet.photo, pet.category_id, pet.breed_id, pet.coat_id, pet.life_stages_id, pet.gender, pet.sterilization, pet.energy_level, pet.weight,
+                                                        pet.color, pet.tags, fp.email, fp.fname, fp.mname, fp.lname, fp.contact_no, fp.gender, fp.address, docu.valid_id, docu.picture, 
+                                                        docu.pet_cage, srvc.reason, srvc.type`)
+                                        .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                                        .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
                                         .condition(`WHERE srvc.id= ${id}`)
                                         .build()).rows;
@@ -55,7 +59,7 @@ class Documents {
     }
 
     approve = async (data) => {
-        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS }, tls : { rejectUnauthorized: false } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
@@ -104,7 +108,7 @@ class Documents {
     }
 
     reject = async (data) => {
-        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS }, tls : { rejectUnauthorized: false } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';

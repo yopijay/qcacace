@@ -18,72 +18,73 @@ class Services {
 
     list = async () => {
         return (await new Builder(`tbl_services AS srvc`)
-                                        .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,
-                                                        srvc.type, srvc.date_filed, srvc.date_evaluated, srvc.type`)
-                                        .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                        .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
-                                        .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
-                                        .condition(`WHERE srvc.payment_id IS NOT NULL`)
-                                        .except(`WHERE (pymnt.status IS NULL OR pymnt.status = 'pending') AND srvc.status = 'pending' ORDER BY 12 DESC`)
-                                        .build()).rows;
+                        .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,
+                                        srvc.type, srvc.date_filed, srvc.date_evaluated, srvc.type`)
+                        .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                        .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                        .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
+                        .condition(`WHERE srvc.payment_id IS NOT NULL`)
+                        .except(`WHERE (pymnt.status IS NULL OR pymnt.status = 'pending') AND srvc.status = 'pending' ORDER BY 12 DESC`)
+                        .build()).rows;
     }
 
     search = async (data) => {
         return (await new Builder(`tbl_services AS srvc`)
-                                        .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,
-                                                        srvc.type, srvc.date_filed, srvc.date_evaluated, srvc.type`)
-                                        .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                        .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
-                                        .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
-                                        .condition(`WHERE (srvc.series_no LIKE '%${data.condition}%' OR fp.email LIKE '%${(data.condition).toLowerCase()}%' OR 
-                                                                fp.fname LIKE '%${data.condition}%' OR fp.lname LIKE '%${data.condition}%') AND srvc.payment IS NOT NULL`)
-                                        .except(`WHERE (pymnt.status IS NULL OR pymnt.status = 'pending') AND srvc.status = 'pending' ORDER BY 12 DESC`)
-                                        .build()).rows;
+                        .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,
+                                        srvc.type, srvc.date_filed, srvc.date_evaluated, srvc.type`)
+                        .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                        .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                        .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
+                        .condition(`WHERE (srvc.series_no LIKE '%${data.condition}%' OR fp.email LIKE '%${(data.condition).toLowerCase()}%' OR 
+                                                fp.fname LIKE '%${data.condition}%' OR fp.lname LIKE '%${data.condition}%') AND srvc.payment IS NOT NULL`)
+                        .except(`WHERE (pymnt.status IS NULL OR pymnt.status = 'pending') AND srvc.status = 'pending' ORDER BY 12 DESC`)
+                        .build()).rows;
     }
 
     specific = async (id) => {
         return (await new Builder(`tbl_services AS srvc`)
-                                        .select(`srvc.id, srvc.series_no, fp.email, fp.fname, fp.mname, fp.lname, fp.contact_no, fp.gender, fp.address, pet.series_no, pet.category_id, pet.breed_id,
-                                                        pet.coat_id, pet.life_stages_id, pet.gender AS pet_gender, pet.sterilization, pet.energy_level, pet.weight, pet.color, pet.tags, pet.photo, docs.valid_id, 
-                                                        docs.picture, docs.pet_cage, pay.method, pay.transaction_no, app.month, app.day, app.year, srvc.type`)
-                                        .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                        .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
-                                        .join({ table: `tbl_documents AS docs`, condition: `srvc.docu_id = docs.id`, type: `LEFT` })
-                                        .join({ table: `tbl_payments AS pay`, condition: `srvc.payment_id = pay.id`, type: `LEFT` })
-                                        .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
-                                        .join({ table: `tbl_appointments AS app`, condition: `sched.appointment_id = app.id`, type: `LEFT` })
-                                        .condition(`WHERE srvc.id= ${id}`)
-                                        .build()).rows;
+                        .select(`srvc.id, srvc.series_no, fp.email, fp.fname, fp.mname, fp.lname, fp.contact_no, fp.gender, fp.address, pet.series_no, pet.category_id, pet.breed_id,
+                                        pet.coat_id, pet.life_stages_id, pet.gender AS pet_gender, pet.sterilization, pet.energy_level, pet.weight, pet.color, pet.tags, pet.photo, docs.valid_id, 
+                                        docs.picture, docs.pet_cage, pay.method, pay.transaction_no, app.month, app.day, app.year, srvc.type, ls.name AS stage, srvc.reason`)
+                        .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                        .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                        .join({ table: `tbl_life_stages AS ls`, condition: `pet.life_stages_id = ls.id`, type: `LEFT` })
+                        .join({ table: `tbl_documents AS docs`, condition: `srvc.docu_id = docs.id`, type: `LEFT` })
+                        .join({ table: `tbl_payments AS pay`, condition: `srvc.payment_id = pay.id`, type: `LEFT` })
+                        .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
+                        .join({ table: `tbl_appointments AS app`, condition: `sched.appointment_id = app.id`, type: `LEFT` })
+                        .condition(`WHERE srvc.id= ${id}`)
+                        .build()).rows;
     }
 
     approve = async (data) => {
-        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS }, tls : { rejectUnauthorized: false } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
 
         await new Builder(`tbl_services`)
-                            .update(`status= ${data.type === 'surrender' ? `'surrendered'` : `'released'`}, date_evaluated= CURRENT_TIMESTAMP`)
-                            .condition(`WHERE id= ${data.id}`)
-                            .build();
+            .update(`status= ${data.type === 'surrender' ? `'surrendered'` : `'released'`}, date_evaluated= CURRENT_TIMESTAMP`)
+            .condition(`WHERE id= ${data.id}`)
+            .build();
 
         if(data.type === 'surrender') {
             await new Builder(`tbl_pets`)
-                                .update(`status= 1, created_by= ${data.evaluator}, updated_by= ${data.evaluator}, date_created= CURRENT_TIMESTAMP,
-                                                date_updated= CURRENT_TIMESTAMP`)
-                                .condition(`WHERE id= ${data.pet_id}`)
-                                .build();
+                .update(`status= 1, created_by= ${data.evaluator}, updated_by= ${data.evaluator}, date_created= CURRENT_TIMESTAMP,
+                                date_updated= CURRENT_TIMESTAMP`)
+                .condition(`WHERE id= ${data.pet_id}`)
+                .build();
         }
         
         let list = (await new Builder(`tbl_services AS srvc`)
-                                            .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,
-                                                            srvc.type, srvc.date_filed, srvc.date_evaluated, srvc.type`)
-                                            .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                            .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
-                                            .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
-                                            .condition(`WHERE srvc.payment_id IS NOT NULL`)
-                                            .except(`WHERE pymnt.status = 'pending' ORDER BY 12 DESC`)
-                                            .build()).rows;
+                            .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,
+                                            srvc.type, srvc.date_filed, srvc.date_evaluated, srvc.type`)
+                            .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                            .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                            .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
+                            .condition(`WHERE srvc.payment_id IS NOT NULL`)
+                            .except(`WHERE pymnt.status = 'pending' ORDER BY 12 DESC`)
+                            .build()).rows;
 
         if(data.type === 'adoption') {
             _intro = `Good day! We would like to inform that you can now get your adopted pet at QC Animal Care and Adoption Center  
@@ -111,7 +112,7 @@ class Services {
     }
 
     reject = async (data) => {
-        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS }, tls : { rejectUnauthorized: false } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
@@ -127,17 +128,18 @@ class Services {
         }
 
         let list = (await new Builder(`tbl_services AS srvc`)
-                                            .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,
-                                                            srvc.type, srvc.date_filed, srvc.date_evaluated, srvc.type`)
-                                            .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                            .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
-                                            .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
-                                            .condition(`WHERE srvc.payment_id IS NOT NULL`)
-                                            .except(`WHERE pymnt.status = 'pending' ORDER BY 12 DESC`)
-                                            .build()).rows;
+                            .select(`srvc.id, pet.photo, srvc.furr_parent_id, srvc.series_no, srvc.schedule_id, srvc.pet_id, fp.email, fp.fname, fp.lname, srvc.status,
+                                            srvc.type, srvc.date_filed, srvc.date_evaluated, srvc.type`)
+                            .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
+                            .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
+                            .join({ table: `tbl_payments AS pymnt`, condition: `srvc.payment_id = pymnt.id`, type: `LEFT` })
+                            .condition(`WHERE srvc.payment_id IS NOT NULL`)
+                            .except(`WHERE pymnt.status = 'pending' ORDER BY 12 DESC`)
+                            .build()).rows;
 
         if(data.type === 'adoption') {
-            _intro = `<b>CANCELLED</b>. Good day! We are sorry to inform you that the releasing of the pet has been canceled. Please wait for our call regarding the reason/s, and refund of payment. Thank you!
+            _intro = `<b>CANCELLED</b>. Good day! We are sorry to inform you that the releasing of the pet has been canceled. 
+                            Please wait for our call regarding the reason/s, and refund of payment. Thank you!
             `;
         }
         else {
@@ -171,7 +173,7 @@ class Services {
     }
 
     save = async (data) => {
-        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS } }
+        let config = { service: 'gmail', auth: { user: global.USER, pass: global.PASS }, tls : { rejectUnauthorized: false } }
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let errors = [];
@@ -187,18 +189,14 @@ class Services {
 
                             if(global.compare(fp.fname, data.fname)) {
                                 if((await new Builder(`tbl_furr_parent`)
-                                                        .select()
-                                                        .condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`)
-                                                        .build()).rowCount > 0) {
+                                        .select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
                                     errors.push({ name: 'lname', message: 'Name already taken!' });
                                 }
                             }
                             
                             if(global.compare(fp.lname, data.lname)) {
                                 if((await new Builder(`tbl_furr_parent`)
-                                                        .select()
-                                                        .condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`)
-                                                        .build()).rowCount > 0) {
+                                        .select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
                                     errors.push({ name: 'lname', message: 'Name already taken!' });
                                 }
                             }
@@ -211,45 +209,45 @@ class Services {
 
                             if(!(errors.length > 0)) {
                                 await new Builder(`tbl_furr_parent`)
-                                                    .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
-                                                                    lname= '${(data.lname).toUpperCase()}', gender= '${data.gender}',
-                                                                    address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, contact_no= '${data.contact_no}', 
-                                                                    date_updated= CURRENT_TIMESTAMP`)
-                                                    .condition(`WHERE email= '${data.email}'`)
-                                                    .build();
+                                    .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
+                                                    lname= '${(data.lname).toUpperCase()}', gender= '${data.gender}',
+                                                    address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, contact_no= '${data.contact_no}', 
+                                                    date_updated= CURRENT_TIMESTAMP`)
+                                    .condition(`WHERE email= '${data.email}'`)
+                                    .build();
                                                     
                                 let pet = (await new Builder(`tbl_pets`)
-                                                                    .insert({ columns: `series_no, category_id, breed_id, coat_id, life_stages_id, gender, sterilization, energy_level, weight, color,
-                                                                                                    tags, photo, is_adopt, status, date_created`, 
-                                                                                    values: `'${global.randomizer(7)}', ${data.category_id}, ${data.breed_id}, ${data.coat_id}, ${data.life_stages_id}, '${data.gender}',
-                                                                                                    '${data.sterilization}', '${data.energy_level}', '${data.weight}', '${data.color}', '${JSON.stringify(data.tags)}', '${data.photo}',
-                                                                                                    0, 0, CURRENT_TIMESTAMP` })
-                                                                    .condition(`RETURNING id`)
-                                                                    .build()).rows[0];
+                                                    .insert({ columns: `series_no, category_id, breed_id, coat_id, life_stages_id, gender, sterilization, energy_level, weight, color,
+                                                                                    tags, photo, is_adopt, status, date_created`, 
+                                                                    values: `'${global.randomizer(7)}', ${data.category_id}, ${data.breed_id}, ${data.coat_id}, ${data.life_stages_id}, '${data.gender}',
+                                                                                    '${data.sterilization}', '${data.energy_level}', '${data.weight}', '${data.color}', '${JSON.stringify(data.tags)}', '${data.photo}',
+                                                                                    0, 0, CURRENT_TIMESTAMP` })
+                                                    .condition(`RETURNING id`)
+                                                    .build()).rows[0];
 
                                 if((await new Builder(`tbl_documents`).select().condition(`WHERE furr_parent_id= ${fp.id}`).build()).rowCount > 0) {
                                     docu = (await new Builder(`tbl_documents`)
-                                                        .update(`valid_id= '${data.valid_id}', status= 'approved', date_filed= CURRENT_TIMESTAMP`)
-                                                        .condition(`WHERE furr_parent_id= ${fp.id} RETURNING id`)
-                                                        .build()).rows[0];
+                                                    .update(`valid_id= '${data.valid_id}', status= 'approved', date_filed= CURRENT_TIMESTAMP`)
+                                                    .condition(`WHERE furr_parent_id= ${fp.id} RETURNING id`)
+                                                    .build()).rows[0];
                                 }
                                 else {
                                     docu = (await new Builder(`tbl_documents`)
-                                                        .insert({ columns: `series_no, furr_parent_id, valid_id, status, date_filed`, 
-                                                                        values: `'${global.randomizer(7)}', ${fp.id}, '${data.valid_id}', 'approved', CURRENT_TIMESTAMP` })
-                                                        .condition(`RETURNING id`)
-                                                        .build()).rows[0];
+                                                    .insert({ columns: `series_no, furr_parent_id, valid_id, status, date_filed`, 
+                                                                    values: `'${global.randomizer(7)}', ${fp.id}, '${data.valid_id}', 'approved', CURRENT_TIMESTAMP` })
+                                                    .condition(`RETURNING id`)
+                                                    .build()).rows[0];
                                 } 
 
                                 let sched = (await new Builder(`tbl_schedule`)
-                                                                        .insert({ columns: `series_no, furr_parent_id, status, date_filed`, values: `'${global.randomizer(7)}', ${fp.id}, 'pending', CURRENT_TIMESTAMP` })
-                                                                        .condition(`RETURNING id`)
-                                                                        .build()).rows[0];
+                                                        .insert({ columns: `series_no, furr_parent_id, status, date_filed`, values: `'${global.randomizer(7)}', ${fp.id}, 'pending', CURRENT_TIMESTAMP` })
+                                                        .condition(`RETURNING id`)
+                                                        .build()).rows[0];
                                 
                                 await new Builder(`tbl_services`)
-                                                    .insert({ columns: `series_no, furr_parent_id, pet_id, docu_id, schedule_id, type, status, date_filed`, 
-                                                                    values: `'${global.randomizer(7)}', ${fp.id}, ${pet.id}, ${docu.id}, ${sched.id}, '${data.type}', 'pending', CURRENT_TIMESTAMP` })
-                                                    .build();
+                                    .insert({ columns: `series_no, furr_parent_id, pet_id, docu_id, schedule_id, type, status, date_filed`, 
+                                                    values: `'${global.randomizer(7)}', ${fp.id}, ${pet.id}, ${docu.id}, ${sched.id}, '${data.type}', 'pending', CURRENT_TIMESTAMP` })
+                                    .build();
     
                                 let mail = generator.generate({
                                     body: {
@@ -269,9 +267,7 @@ class Services {
                         }
                         else {
                             if((await new Builder(`tbl_furr_parent`)
-                                                    .select()
-                                                    .condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`)
-                                                    .build()).rowCount > 0) {
+                                    .select().condition(`WHERE fname= '${(data.fname).toUpperCase()}' AND lname= '${(data.lname).toUpperCase()}'`).build()).rowCount > 0) {
                                 errors.push({ name: 'lname', message: 'Name already used!' });
                             }
 
@@ -281,35 +277,35 @@ class Services {
 
                             if(!(errors.length > 0)) {
                                 let fp = (await new Builder(`tbl_furr_parent`)
-                                                                    .insert({ columns: `series_no, email, fname, mname, lname, gender, address, contact_no, date_created`, 
-                                                                                    values: `'${global.randomizer(7)}', '${data.email}', '${(data.fname).toUpperCase()}', 
-                                                                                                    ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}, '${(data.lname).toUpperCase()}',
-                                                                                                    '${data.gender}', ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, '${data.contact_no}',
-                                                                                                    CURRENT_TIMESTAMP` })
-                                                                    .condition(`RETURNING id`)
-                                                                    .build()).rows[0];
+                                                .insert({ columns: `series_no, email, fname, mname, lname, gender, address, contact_no, date_created`, 
+                                                                values: `'${global.randomizer(7)}', '${data.email}', '${(data.fname).toUpperCase()}', 
+                                                                                ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}, '${(data.lname).toUpperCase()}',
+                                                                                '${data.gender}', ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, '${data.contact_no}',
+                                                                                CURRENT_TIMESTAMP` })
+                                                .condition(`RETURNING id`)
+                                                .build()).rows[0];
                                 let pet = (await new Builder(`tbl_pets`)
-                                                                    .insert({ columns: `series_no, category_id, breed_id, coat_id, life_stages_id, gender, sterilization, energy_level, weight, color,
-                                                                                                    tags, photo, is_adopt, status, date_created`, 
-                                                                                    values: `'${global.randomizer(7)}', ${data.category_id}, ${data.breed_id}, ${data.coat_id}, ${data.life_stages_id}, '${data.gender}',
-                                                                                                    '${data.sterilization}', '${data.energy_level}', '${data.weight}', '${data.color}', '${JSON.stringify(data.tags)}', '${data.photo}',
-                                                                                                    0, 0, CURRENT_TIMESTAMP` })
-                                                                    .condition(`RETURNING id`)
-                                                                    .build()).rows[0];
+                                                    .insert({ columns: `series_no, category_id, breed_id, coat_id, life_stages_id, gender, sterilization, energy_level, weight, color,
+                                                                                    tags, photo, is_adopt, status, date_created`, 
+                                                                    values: `'${global.randomizer(7)}', ${data.category_id}, ${data.breed_id}, ${data.coat_id}, ${data.life_stages_id}, '${data.gender}',
+                                                                                    '${data.sterilization}', '${data.energy_level}', '${data.weight}', '${data.color}', '${JSON.stringify(data.tags)}', '${data.photo}',
+                                                                                    0, 0, CURRENT_TIMESTAMP` })
+                                                    .condition(`RETURNING id`)
+                                                    .build()).rows[0];
                                 let docu = (await new Builder(`tbl_documents`)
-                                                                        .insert({ columns: `series_no, furr_parent_id, valid_id, status, date_filed`, 
-                                                                                        values: `'${global.randomizer(7)}', ${fp.id}, '${data.valid_id}', 'approved', CURRENT_TIMESTAMP` })
-                                                                        .condition(`RETURNING id`)
-                                                                        .build()).rows[0];
+                                                        .insert({ columns: `series_no, furr_parent_id, valid_id, status, date_filed`, 
+                                                                        values: `'${global.randomizer(7)}', ${fp.id}, '${data.valid_id}', 'approved', CURRENT_TIMESTAMP` })
+                                                        .condition(`RETURNING id`)
+                                                        .build()).rows[0];
                                 let sched = (await new Builder(`tbl_schedule`)
-                                                                        .insert({ columns: `series_no, furr_parent_id, status, date_filed`, values: `'${global.randomizer(7)}', ${fp.id}, 'approved', CURRENT_TIMESTAMP` })
-                                                                        .condition(`RETURNING id`)
-                                                                        .build()).rows[0];
+                                                        .insert({ columns: `series_no, furr_parent_id, status, date_filed`, values: `'${global.randomizer(7)}', ${fp.id}, 'approved', CURRENT_TIMESTAMP` })
+                                                        .condition(`RETURNING id`)
+                                                        .build()).rows[0];
                                 
                                 await new Builder(`tbl_services`)
-                                                    .insert({ columns: `series_no, furr_parent_id, pet_id, docu_id, schedule_id, type, status, date_filed`, 
-                                                                    values: `'${global.randomizer(7)}', ${fp.id}, ${pet.id}, ${docu.id}, ${sched.id}, '${data.type}', 'pending', CURRENT_TIMESTAMP` })
-                                                    .build();
+                                    .insert({ columns: `series_no, furr_parent_id, pet_id, docu_id, schedule_id, type, status, date_filed`, 
+                                                    values: `'${global.randomizer(7)}', ${fp.id}, ${pet.id}, ${docu.id}, ${sched.id}, '${data.type}', 'pending', CURRENT_TIMESTAMP` })
+                                    .build();
     
                                 let mail = generator.generate({
                                     body: {

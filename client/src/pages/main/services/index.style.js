@@ -27,7 +27,7 @@ export const itemTitle = {
 }
 
 export const itemText = {
-    textAlign: 'center',
+    textAlign: 'justify',
     padding: '15px 20px',
     fontSize: {
         xs: '100%',
