@@ -4,8 +4,8 @@ export const verification = () => ( Yup.object({ email: Yup.string().required('T
 
 export const personalinformation = () => (
     Yup.object({
-        fname: Yup.string().required('This field is required!'),
-        lname: Yup.string().required('This field is required!'),
-        contact_no: Yup.number('Numbers only').required('This field is required!').matches(/^[0-9]*$/, 'Numbers only')
+        fname: Yup.string().required('This field is required!').nullable(),
+        lname: Yup.string().required('This field is required!').nullable(),
+        contact_no: Yup.string().required('This field is required!').matches(/^[0-9]*$/, 'Numbers only')
     })
 )

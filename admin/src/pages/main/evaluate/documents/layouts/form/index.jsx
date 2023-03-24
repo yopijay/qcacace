@@ -3,10 +3,12 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Grid, Stack, ThemeProvider, Typography } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
 
 // Core
 import { evaluate, specific } from "core/api/index.func"; // APIs
 import { errorToast, successToast, useGet, usePost } from "core/global/function/index.func"; // Functions
+import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 import { theme } from "core/global/theme/index.style"; // Theme
 
 // Layouts
@@ -52,9 +54,19 @@ const email_input = {
 const Index = () => {
     const { type, id, email } = useParams();
     const navigate = useNavigate();
+    const { setValue } = useContext(FormCntxt);
     
     const { data: docs, isFetching: fetching } = 
-        useGet({ key: ['docs_specific'], fetch: specific({ table: 'tbl_documents', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false } });
+        useGet({ key: ['docs_specific'], fetch: specific({ table: 'tbl_documents', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
+            onSuccess: (data) => { 
+                if(Array.isArray(data)) { 
+                    for(let count = 0; count < Object.keys(data[0]).length; count++) { 
+                        let _name = Object.keys(data[0])[count];
+                        setValue(_name, data[0][_name] !== null ? _name === 'tags' ? JSON.parse(data[0][_name]) : data[0][_name] : ''); 
+                    } 
+                }
+            } 
+    });
 
     const { mutate: approval } = 
         usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { successToast(data.message, 3000, navigate('/evaluate/documents', { replace: true })); }  } });
@@ -71,33 +83,33 @@ const Index = () => {
             <Box sx= { card }>
                 <form autoComplete= "off">
                     <Grid container direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 3 }>
-                        <Grid item><Photo fetching= { fetching } docs= { docs } /></Grid>
+                        <Grid item><Photo fetching= { fetching } /></Grid>
                         <Grid item>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                     <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }} gutterBottom>Pet Classification</Typography>
-                                    <ThemeProvider theme= { theme(input) }><PetClassification fetching= { fetching } docs= { docs } /></ThemeProvider>
+                                    <ThemeProvider theme= { theme(input) }><PetClassification fetching= { fetching } /></ThemeProvider>
                             </Stack>
                         </Grid>
                         <Grid item>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Other information</Typography>
-                                <ThemeProvider theme= { theme(input) }><PetCondition fetching= { fetching } docs= { docs } /></ThemeProvider>
+                                <ThemeProvider theme= { theme(input) }><PetCondition fetching= { fetching } /></ThemeProvider>
                             </Stack>
                         </Grid>
                         <Grid item>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Owner information</Typography>
-                                <ThemeProvider theme= { theme(email_input) }><Email fetching= { fetching } docs= { docs } /></ThemeProvider>
-                                <ThemeProvider theme= { theme(input) }><OwnerInformation fetching= { fetching } docs= { docs } /></ThemeProvider>
+                                <ThemeProvider theme= { theme(email_input) }><Email fetching= { fetching } /></ThemeProvider>
+                                <ThemeProvider theme= { theme(input) }><OwnerInformation fetching= { fetching } /></ThemeProvider>
                             </Stack>
                         </Grid>
                         <Grid item>
                             <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
                                 <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Documentary requirements</Typography>
                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-end" spacing= { 2 }>
-                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><ValidId fetching= { fetching } docs= { docs } /></Grid>
-                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><Picture fetching= { fetching } docs= { docs } /></Grid>
-                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><PetCage fetching= { fetching } docs= { docs } /></Grid>
+                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><ValidId fetching= { fetching } /></Grid>
+                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><Picture fetching= { fetching } /></Grid>
+                                    <Grid item xs= { 12 } md= { 6 } lg= { 4 }><PetCage fetching= { fetching } /></Grid>
                                 </Grid>
                             </Stack>
                         </Grid>

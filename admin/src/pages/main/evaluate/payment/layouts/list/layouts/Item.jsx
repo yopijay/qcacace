@@ -9,6 +9,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
 import { errorToast, successToast, usePost } from "core/global/function/index.func"; // Function
 import { evaluate } from "core/api/index.func"; // API
+import { months } from "core/constants/Date.const"; // Constants
 
 // Constants
 import { approve, disapprove, item } from "../index.style"; // Styles
@@ -36,6 +37,8 @@ const Item = () => {
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>#{ data.series_no }</Typography>
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.email }</Typography>
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.lname }, { data.fname }</Typography>
+                            <Typography variant= "body2" 
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Date paid: { data.type === 'surrender' ? data.payment_date : '-'}</Typography>
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Type: <b>{ (data.type).toUpperCase() }</b></Typography>
                             <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.date_created }</Typography>
                         </Stack>

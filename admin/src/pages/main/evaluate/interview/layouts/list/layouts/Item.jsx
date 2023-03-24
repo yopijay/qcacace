@@ -12,6 +12,7 @@ import { errorToast, successToast, usePost } from "core/global/function/index.fu
 // Constants
 import { approve, disapprove, item } from "../index.style"; // Styles
 import { evaluate } from "core/api/index.func"; // API
+import { months } from "core/constants/Date.const";
 
 const Item = () => {
     const { list, setList } = useContext(ListCntxt);
@@ -40,7 +41,7 @@ const Item = () => {
                             <Typography variant= "body2" 
                                 sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.lname }, { data.fname }</Typography>
                             <Typography variant= "body2" 
-                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Schedule { data.type !== 'surrender' ? `${data.month} / ${data.day} / ${data.year}` : '-'}</Typography>
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Schedule { data.type !== 'surrender' ? `${(months()[data.month - 1]).name} ${data.day}, ${data.year}` : '-'}</Typography>
                             <Typography variant= "body2" 
                                 sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Type: <b>{ (data.type).toUpperCase() }</b></Typography>
                             <Typography variant= "body2" 

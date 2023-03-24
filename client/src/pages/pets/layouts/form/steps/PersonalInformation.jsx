@@ -72,7 +72,7 @@ const PersonalInformation = () => {
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography sx={{fontWeight:'600'}}>*Contact no.</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
-                                    <TextField { ...register('contact_no') } name= "contact_no" variant= "standard" 
+                                    <TextField { ...register('contact_no') } name= "contact_no" variant= "standard"
                                         InputProps= {{ disableUnderline: true, startAdornment: <InputAdornment position="start">+63</InputAdornment>, }}
                                         inputProps= {{ maxLength: 10 }} sx= { input } /> }
                                 <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.contact_no?.message }</Typography>
