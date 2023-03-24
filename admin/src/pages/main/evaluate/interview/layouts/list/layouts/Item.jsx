@@ -12,6 +12,7 @@ import { errorToast, successToast, usePost } from "core/global/function/index.fu
 // Constants
 import { approve, disapprove, item } from "../index.style"; // Styles
 import { evaluate } from "core/api/index.func"; // API
+import { months } from "core/constants/Date.const";
 
 const Item = () => {
     const { list, setList } = useContext(ListCntxt);
@@ -33,11 +34,18 @@ const Item = () => {
                 <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" key= { index } sx= { item }>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ flexGrow: 1 }}>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start">
-                            <Typography variant= "body1" sx= {{ fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>#{ data.series_no }</Typography>
-                            <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.email }</Typography>
-                            <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.lname }, { data.fname }</Typography>
-                            <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Type: <b>{ (data.type).toUpperCase() }</b></Typography>
-                            <Typography variant= "body2" sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.contact_no }</Typography>
+                            <Typography variant= "body1" 
+                                sx= {{ fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>#{ data.series_no }</Typography>
+                            <Typography variant= "body2" 
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.email }</Typography>
+                            <Typography variant= "body2" 
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.lname }, { data.fname }</Typography>
+                            <Typography variant= "body2" 
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Schedule { data.type !== 'surrender' ? `${(months()[data.month - 1]).name} ${data.day}, ${data.year}` : '-'}</Typography>
+                            <Typography variant= "body2" 
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Type: <b>{ (data.type).toUpperCase() }</b></Typography>
+                            <Typography variant= "body2" 
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.contact_no }</Typography>
                         </Stack>
                     </Stack>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
