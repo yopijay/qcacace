@@ -7,7 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
-import { save, specific, update } from "core/api/index.func"; // APIs
+import { remove, save, specific, update } from "core/api/index.func"; // APIs
 import { successToast, useGet, usePost } from "core/global/function/index.func"; // Function
 import { theme } from "core/global/theme/index.style"; // Theme
 
@@ -17,7 +17,7 @@ import Classification from "./layouts/Classification";
 import OtherDetails from "./layouts/OtherDetails";
 
 // Constants
-import { btnicon, card, btntxt } from "./index.style"; // Styles
+import { btnicon, card, btntxt, btndelete } from "./index.style"; // Styles
 import { validation } from "./index.validation"; // Validation
 const input = {
     MuiInput: {
@@ -63,6 +63,8 @@ const Index = () => {
                 if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
                 else { successToast(data.message, 3000, navigate('/tools/missing', { replace: true })); } 
             } });
+
+    const { mutate: removing } = usePost({ fetch: remove, onSuccess: (data) => { successToast(data.message, 3000, navigate('/tools/missing', { replace: true })); } });
         
     useEffect(() => { setValidation(validation()); if(id !== undefined) { refetch() } }, [ setValidation, id, refetch ]);
 
@@ -70,7 +72,10 @@ const Index = () => {
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%', paddingBottom: '20px' }} spacing= { 3 }>
             <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
                 <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#3C4048' }}>Missing Pets</Typography>
-                <Typography sx= { btnicon } component= { Link } to= "/tools/missing" ><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
+                <Stack direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 }>
+                    <Typography sx= { btnicon } component= { Link } to= "/tools/missing" ><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
+                    { type === 'update' ? <Typography sx= { btndelete } onClick= { () => removing({ table: 'tbl_missing_pets', id: id }) }><FontAwesomeIcon icon= { solid('trash') }/></Typography> : '' }
+                </Stack>
             </Stack>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stertch" divider= { <Divider orientation= "horizontal" flexItem /> } sx= { card }>
                 <Grid container direction= "column" justifyContent= 'flex-start' alignItems= "stretch" spacing= { 3 }>

@@ -77,6 +77,11 @@ class MissingPets {
 
         return { result: 'success', message: 'Successfully updated!' }
     }
+
+    remove = async (id) => {
+        await new Builder(`tbl_missing_pets`).remove(id).build();
+        return { result: 'success', message: 'Missing pet deleted!' }
+    }
 }
 
 module.exports = MissingPets

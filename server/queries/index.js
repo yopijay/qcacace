@@ -180,6 +180,12 @@ const remove = (table, id) => {
         switch(table) {
             case 'tbl_programs': resolve(await new Programs().remove(id)); break;
             case 'tbl_animal_care': resolve(await new AnimalCare().remove(id)); break;
+            case 'tbl_missing_pets': resolve(await new MissingPets().remove(id)); break;
+            // case 'tbl_appointments': resolve(await new Appointment().remove(id)); break;
+            // case 'tbl_breed': resolve(await new Breed().remove(id)); break;
+            // case 'tbl_life_stages': resolve(await new LifeStages().remove(id)); break;
+            // case 'tbl_coat': resolve(await new Coat().remove(id));
+            // case 'tbl_tags': resolve(await new Tags().remove(id)); break;
         }
     });
 }
