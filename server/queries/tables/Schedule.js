@@ -99,7 +99,7 @@ class Schedule {
             body: {
                 name: 'Fur Mom/Dad',
                 intro: _intro,
-                action: { button: { text: 'Pay here', link: `http://localhost:3000/payment/${data.id}` } },
+                action: { button: { text: 'Pay here', link: `https://qcacace.vercel.app/payment/${data.id}` } },
                 outro: 'Please contact me for additional help.'
             }
         });
