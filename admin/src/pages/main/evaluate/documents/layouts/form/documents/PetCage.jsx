@@ -7,7 +7,10 @@ const ValidId = ({ fetching }) => {
     const { register, getValues } = useContext(FormCntxt);
     const [ pet_cage, setPetCage ] = useState('#');
 
-    useEffect(() => { register('pet_cage'); if(!fetching) { setPetCage(getValues().pet_cage !== undefined ? JSON.parse(getValues().pet_cage) : '#'); } }, [ fetching, getValues, register ]);
+    useEffect(() => { 
+        register('pet_cage'); 
+        if(!fetching) { setPetCage(getValues().pet_cage !== undefined && getValues().pet_cage !== null && getValues().pet_cage !== '' ? JSON.parse(getValues().pet_cage) : '#'); }
+    }, [ fetching, getValues, register ]);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>

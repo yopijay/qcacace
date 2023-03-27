@@ -17,7 +17,7 @@ class Pets {
     specific = async (id) => {
         return (await new Builder(`tbl_pets AS pet`)
                                         .select(`pet.id, pet.series_no, pet.category_id, ctg.name AS category, pet.breed_id, brd.name AS breed, pet.coat_id, coat.name AS coat, 
-                                                        pet.life_stages_id, ls.name AS stage, pet.gender, pet.sterilization, pet.energy_level, pet.weight, pet.color, pet.tags, pet.photo, pet.is_adopt`)
+                                                        pet.life_stages_id, ls.name AS stage, pet.gender, pet.sterilization, pet.energy_level, pet.weight, pet.color, pet.tags, pet.photo, pet.is_adopt, pet.status`)
                                         .join({ table: `tbl_category AS ctg`, condition: `pet.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pet.breed_id = brd.id`, type: 'LEFT' })
                                         .join({ table: `tbl_coat AS coat`, condition: `pet.coat_id = coat.id`, type: `LEFT` })
@@ -64,8 +64,7 @@ class Pets {
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
-                                        .condition(`${data.is_adopt !== undefined ? `WHERE pts.is_adopt= ${data.is_adopt}` : ''}`)
-                                        .except(`WHERE pts.status = 0 ORDER BY 13 DESC`)
+                                        .condition(`${data.is_adopt !== undefined ? `WHERE pts.is_adopt= ${data.is_adopt} AND pts.status= 1` : ''}`)
                                         .build()).rows;
     }
 
@@ -77,7 +76,7 @@ class Pets {
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
-                                        .condition(`${data.is_adopt !== undefined ? `WHERE pts.is_adopt= ${data.is_adopt}` : ''} ORDER BY pts.date_created DESC LIMIT ${data.limit}`)
+                                        .condition(`${data.is_adopt !== undefined ? `WHERE pts.is_adopt= ${data.is_adopt} AND pts.status = 1` : ''} ORDER BY pts.date_created DESC LIMIT ${data.limit}`)
                                         .build()).rows;
     }
     
@@ -117,7 +116,7 @@ class Pets {
         await new Builder(`tbl_pets`)
                             .update(`category_id= ${data.category_id}, breed_id= ${data.breed_id}, coat_id= ${data.coat_id}, life_stages_id= ${data.life_stages_id}, gender= '${data.gender}', 
                                             sterilization= '${data.sterilization}', energy_level= '${data.energy_level}', weight= '${data.weight}', color= '${(data.color).toUpperCase()}',
-                                            tags= '${JSON.stringify(data.tags)}', photo= '${data.photo}', updated_by= ${data.updated_by}, date_updated= CURRENT_TIMESTAMP`)
+                                            tags= '${JSON.stringify(data.tags)}', photo= '${data.photo}', status= ${data.status}, updated_by= ${data.updated_by}, date_updated= CURRENT_TIMESTAMP`)
                             .condition(`WHERE id= ${pet.id}`)
                             .build();
 

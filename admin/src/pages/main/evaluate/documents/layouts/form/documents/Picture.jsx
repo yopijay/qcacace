@@ -7,7 +7,10 @@ const Picture = ({ fetching }) => {
     const { register, getValues } = useContext(FormCntxt);
     const [ picture, setPicture ] = useState('#');
 
-    useEffect(() => { register('picture'); if(!fetching) { setPicture(getValues().picture !== undefined ? JSON.parse(getValues().picture) : '#'); } }, [ fetching, getValues, register ]);
+    useEffect(() => { 
+        register('picture'); 
+        if(!fetching) { setPicture(getValues().picture !== undefined && getValues().picture !== '' && getValues().picture !== null ? JSON.parse(getValues().picture) : '#'); }
+    }, [ fetching, getValues, register ]);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>

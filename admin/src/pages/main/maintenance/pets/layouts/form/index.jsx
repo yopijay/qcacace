@@ -98,11 +98,26 @@ const Index = () => {
             </Stack>
             { getValues()?.is_adopt !== 1 ?
                 <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center">
-                    <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
+                    { getValues()?.status !== undefined && getValues()?.status === 0 ?
+                        <Grid item xs= { 12 } sm= { 3 } lg= { 2 } sx= {{ padding: '0 5px 0 0' }}>
+                            <Box sx= { btntxt } onClick= { handleSubmit(data => {
+                                data[type === 'new' ? 'created_by' : 'updated_by'] = atob(localStorage.getItem('token'));
+                                data['status'] = 1;
+                                let _errors = [];
+                                
+                                if(data.photo === undefined) { _errors.push({ name: 'photo', message: 'This field is required!' }); }
+                                if(!((data.tags).length > 0)) { _errors.push({ name: 'tags', message: 'This field is requried!' }); }
+
+                                if(!(_errors.length > 0)) { updating({ table: 'tbl_pets', data: data }); }
+                                else { _errors.forEach(err => setError(err.name, { message: err.message }) ); }
+                            }) }>Trained</Box>
+                        </Grid> : '' }
+                    <Grid item xs= { 12 } sm= { 3 } lg= { 2 } sx= {{ padding: '0 0 0 5px' }}>
                         <Box sx= { btntxt } onClick= { handleSubmit(data => {
                             data[type === 'new' ? 'created_by' : 'updated_by'] = atob(localStorage.getItem('token'));
+                            data['status'] = data.status === 0 ? 0 : 1;
                             let _errors = [];
-                            
+
                             if(data.photo === undefined) { _errors.push({ name: 'photo', message: 'This field is required!' }); }
                             if(data.category_id === 0) { _errors.push({ name: 'category_id', message: 'This field is required!' }); }
                             if(data.breed_id === undefined || data.breed_id === 0) { _errors.push({ name: 'breed_id', message: 'This field is required!' }); }

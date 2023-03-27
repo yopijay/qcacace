@@ -1,5 +1,5 @@
 //  Libraries
-import { Autocomplete, Box, Grid, Stack, TextareaAutosize, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Grid, InputAdornment, Stack, TextareaAutosize, TextField, Typography } from "@mui/material";
 import { useContext } from "react";
 import { Controller } from "react-hook-form";
 
@@ -39,7 +39,9 @@ const OwnerInformation = () => {
             <Grid item xs= { 12 } sm= { 7 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography variant= 'body2' gutterBottom sx={{ fontWeight:'600', color:'black'}}>*Contact no.</Typography>
-                    <TextField { ...register('contact_no') } name= "contact_no" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
+                    <TextField { ...register('contact_no') } name= "contact_no" variant= "standard"
+                            InputProps= {{ disableUnderline: true, startAdornment: <InputAdornment position="start">+63</InputAdornment>, }}
+                            inputProps= {{ maxLength: 10 }} sx= { input } />
                     <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.contact_no?.message }</Typography>
                 </Stack>
             </Grid>
@@ -62,6 +64,7 @@ const OwnerInformation = () => {
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography gutterBottom variant= "body2" sx={{ fontWeight:'600', color:'black'}}>Address</Typography>
                     <TextareaAutosize name= "address" { ...register('address') } minRows= { 4 } maxRows= { 4 } style= { textarea } />
+                    <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.address?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 }>

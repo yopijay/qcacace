@@ -24,7 +24,7 @@ const Item = () => {
                                     <Typography variant= "body1" sx= { label } style= {{ fontWeight: 'bold' }}>#{ data.series_no }</Typography>
                                     <Typography variant= "h6" sx= { label }>{ data.stage }</Typography>
                                     <Typography variant= "body2" sx= { label }>{ data.date_created }</Typography>
-                                    <Typography variant= "caption" sx= { label }>Status: <b>{ data.is_adopt === 1 ? 'Adopted' : '-' }</b></Typography>
+                                    <Typography variant= "caption" sx= { label }>Status: <b>{ data.is_adopt === 1 ? 'Adopted' : data.status === 0 ? 'Under go training' : '-' }</b></Typography>
                                 </Stack>
                             </Stack>
                         </Stack>

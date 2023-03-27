@@ -30,7 +30,7 @@ const PetCondition = () => {
                                 <Autocomplete options= { gender } disableClearable getOptionLabel= { opt => opt.name || opt.id }
                                     noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                     renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
-                                    onChange= { (e, item) => { onChange(item.id); } }
+                                    onChange= { (e, item) => { onChange(item.id); } } disabled= { true }
                                     value= { gender.find(data => { return data.id === (getValues().gender !== undefined ? getValues().gender : value) }) } />
                             ) } />
                     </Box>
@@ -45,7 +45,7 @@ const PetCondition = () => {
                                     <Autocomplete options= { energy } disableClearable getOptionLabel= { opt => opt.name || opt.id }
                                         noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                         renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
-                                        onChange= { (e, item) => { onChange(item.id); } }
+                                        onChange= { (e, item) => { onChange(item.id); } } disabled= { true }
                                         value= { energy.find(data => { return data.id === (getValues().energy_level !== undefined ? getValues().energy_level : value) }) } />
                                 ) } />
                     </Box>
@@ -60,7 +60,7 @@ const PetCondition = () => {
                                     <Autocomplete options= { sterilization } disableClearable getOptionLabel= { opt => opt.name || opt.id }
                                         noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                         renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
-                                        onChange= { (e, item) => { onChange(item.id); } }
+                                        onChange= { (e, item) => { onChange(item.id); } } disabled= { true }
                                         value= { sterilization.find(data => { return data.id === (getValues().sterilization !== undefined ? getValues().sterilization : value) }) } />
                                 ) } />
                     </Box>
@@ -75,7 +75,7 @@ const PetCondition = () => {
                                     <Autocomplete options= { weight } disableClearable getOptionLabel= { opt => opt.name || opt.id }
                                         noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
                                         renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } getOptionDisabled= { option => option.id === 0 }
-                                        onChange= { (e, item) => { onChange(item.id); } }
+                                        onChange= { (e, item) => { onChange(item.id); } } disabled= { true }
                                         value= { weight.find(data => { return data.id === (getValues().weight !== undefined ? getValues().weight : value) }) } />
                                 ) } />
                     </Box>
@@ -84,7 +84,7 @@ const PetCondition = () => {
             <Grid item xs= { 12 } sm= { 6 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography gutterBottom color= "text.secondary" variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Color</Typography>
-                    <TextField { ...register('color') } name= "color" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
+                    <TextField { ...register('color') } name= "color" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } disabled= { true } />
                     <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.color?.message }</Typography>
                 </Stack>
             </Grid>
@@ -98,7 +98,7 @@ const PetCondition = () => {
                                     <Autocomplete options= { tags } multiple disableClearable
                                         getOptionLabel= { tags => tags.name || tags.id } noOptionsText= "No results.." getOptionDisabled= { option => option.id === 0 }
                                         isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
-                                        onChange= { (e, item) => { onChange(item); } }
+                                        onChange= { (e, item) => { onChange(item); } } disabled= { true }
                                         renderInput= { params => ( <TextField { ...params } variant= "standard" size= "small" fullWidth= { true } /> ) } 
                                         value= { getValues().tags !== undefined ? (getValues().tags).length > 0 ? getValues().tags : [] : value }
                                         />

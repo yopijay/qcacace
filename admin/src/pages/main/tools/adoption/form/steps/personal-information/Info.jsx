@@ -1,5 +1,5 @@
 // Libraries
-import { Autocomplete, Box, Grid, Skeleton, Stack, TextareaAutosize, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Grid, InputAdornment, Skeleton, Stack, TextareaAutosize, TextField, Typography } from "@mui/material";
 import { useContext } from "react";
 import { Controller } from "react-hook-form";
 
@@ -40,7 +40,9 @@ const Info = ({ fetching }) => {
                 <Grid item xs= { 12 } md= { 7 }>
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                         <Typography variant= "body2" gutterBottom sx={{ fontWeight:'600', fontSize:'15px'}}>*Contact no.</Typography>
-                        <TextField { ...register('contact_no') } name= "contact_no" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
+                        <TextField { ...register('contact_no') } name= "contact_no" variant= "standard"
+                            InputProps= {{ disableUnderline: true, startAdornment: <InputAdornment position="start">+63</InputAdornment>, }}
+                            inputProps= {{ maxLength: 10 }} sx= { input } />
                         <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.contact_no?.message }</Typography>
                     </Stack>
                 </Grid>
