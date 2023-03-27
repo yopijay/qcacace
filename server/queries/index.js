@@ -175,6 +175,15 @@ const update = (table, data) => {
     });
 }
 
+const remove = (table, id) => {
+    return new Promise(async resolve => {
+        switch(table) {
+            case 'tbl_programs': resolve(await new Programs().remove(id)); break;
+            case 'tbl_animal_care': resolve(await new AnimalCare().remove(id)); break;
+        }
+    });
+}
+
 const dropdown = (table, data) => {
     return new Promise(async resolve => {
         switch(table) {
@@ -196,6 +205,7 @@ module.exports = {
     specific,
     save,
     update,
+    remove,
     search,
     dropdown,
     top,

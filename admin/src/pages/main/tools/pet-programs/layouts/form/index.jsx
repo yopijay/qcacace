@@ -11,12 +11,12 @@ import { Controller } from "react-hook-form";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
-import { save, specific, update } from "core/api/index.func"; // APIs
+import { remove, save, specific, update } from "core/api/index.func"; // APIs
 import { successToast, useGet, usePost } from "core/global/function/index.func"; // Function
 import { theme } from "core/global/theme/index.style"; // Theme
 
 // Constants
-import { btnicon, card, btntxt, date } from "./index.style"; // Styles
+import { btnicon, card, btntxt, date, btndelete } from "./index.style"; // Styles
 import { validation } from "./index.validation"; // Validation
 
 // Layouts
@@ -58,7 +58,7 @@ const Index = () => {
             onSuccess: (data) => { 
                 if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
                 else { successToast(data.message, 3000, navigate('/tools/petprogram', { replace: true })); } 
-            } 
+            }
         });
 
     const { mutate: updating } = 
@@ -66,7 +66,10 @@ const Index = () => {
             onSuccess: (data) => {
                 if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
                 else { successToast(data.message, 3000, navigate('/tools/petprogram', { replace: true })); } 
-            } });
+            } 
+        });
+
+    const { mutate: removing } = usePost({ fetch: remove, onSuccess: (data) => { successToast(data.message, 3000, navigate('/tools/petprogram', { replace: true })); } });
         
     useEffect(() => { setValidation(validation()); if(id !== undefined) { refetch() } }, [ setValidation, id, refetch ]);
 
@@ -74,7 +77,10 @@ const Index = () => {
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%', paddingBottom: '20px' }} spacing= { 3 }>
             <Stack direction= "row" justifyContent= "space-between" alignItems= "center">
                 <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#3C4048' }}>Programs</Typography>
-                <Typography sx= { btnicon } component= { Link } to= "/tools/petprogram" ><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
+                <Stack direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 }>
+                    <Typography sx= { btnicon } component= { Link } to= "/tools/petprogram"><FontAwesomeIcon icon= { solid('chevron-left') }/></Typography>
+                    { type === 'update' ? <Typography sx= { btndelete } onClick= { () => removing({ table: 'tbl_programs', id: id }) }><FontAwesomeIcon icon= { solid('trash') }/></Typography> : '' }
+                </Stack>
             </Stack>
             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stertch" sx= { card } spacing= { 2 }>
                 <ThemeProvider theme= { theme(input) }>

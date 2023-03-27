@@ -14,6 +14,7 @@ class Builder {
     select = (columns = '*') => { this._query = `SELECT ${columns} FROM ${this._table}`; return this; }
     insert = ({ columns, values }) => { this._query = `INSERT INTO ${this._table}(${columns}) VALUES(${values})`; return this; }
     update = (data) => { this._query= `UPDATE ${this._table} SET ${data}`; return this; }
+    remove = (id) => { this._query = `DELETE FROM ${this._table} WHERE id= ${id}`; return this; }
     join = ({ table, condition, type }) => { this._join += ` ${type !== undefined ? type.toUpperCase() : 'LEFT' } JOIN ${table} ON ${condition}`; return this; }
     condition = (condition) =>{ this._condition = ` ${condition}`; return this; }
     except = (condition) => { this._except = ` EXCEPT ${this._query}${this._join} ${condition}`; return this; }

@@ -10,6 +10,18 @@ export const btnicon = {
     '&:hover': { backgroundColor: '#adadad' }
 }
 
+export const btndelete = {
+    color: '#ffffff',
+    backgroundColor: '#d63031',
+    borderRadius: '7px',
+    padding: {
+        xs: '5px 12px',
+        md: '4px 10px'
+    },
+    transition: 'all 0.2s ease-in-out',
+    '&:hover': { backgroundColor: '#ff7675' }
+}
+
 export const card = {
     padding: '30px 15px',
     flexGrow: 1,

@@ -2,7 +2,7 @@
 const nodemailer = require('nodemailer');
 const mailgen = require('mailgen');
 
-// Custom functions hi
+// Custom functions
 const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
@@ -61,6 +61,11 @@ class Programs {
                             .build();
         
         return { result: 'success', message: 'Successfully updated!' }
+    }
+
+    remove = async (id) => {
+        await new Builder(`tbl_programs`).remove(id).build();
+        return { result: 'success', message: 'Program deleted!' }
     }
 }
 

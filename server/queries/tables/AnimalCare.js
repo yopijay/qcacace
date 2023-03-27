@@ -1,4 +1,8 @@
-// Custom functions ss
+// Libraires
+const nodemailer = require('nodemailer');
+const mailgen = require('mailgen');
+
+// Custom functions
 const global = require('../../functions/global');
 const Builder = require('../../functions/builder');
 
@@ -56,6 +60,11 @@ class AnimalCare {
                             .build();
         
         return { result: 'success', message: 'Successfully updated!' }
+    }
+
+    remove = async (id) => {
+        await new Builder(`tbl_animal_care`).remove(id).build();
+        return { result: 'success', message: 'Animal care deleted!' }
     }
 }
 
