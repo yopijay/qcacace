@@ -23,8 +23,8 @@ const AnimalCare = () => {
             <Container maxWidth= "lg" sx= {{ overflowY: 'scroll', height: '100%', '&::-webkit-scrollbar': { display: 'none' } }}>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                     <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#444444' }}>Animal Care</Typography>
-                    <Typography sx= {{ fontWeight:'600'}}>Being A Pet Owner Comes With Responsibilities. It Is Not Just For Other Purposes But Mainly To Bring Love And Care To The Animals. 
-                        One Of The Duties Of A Responsible Pet Owner Is Knowing How To Take Care Of Their Pet. Here Are Some Of The Things A Pet Owner Must Know. Be One Of Us</Typography>
+                    <Typography sx= {{ fontWeight:'600'}}>Being a pet owner comes with responsibilities. It is not just for other purposes but mainly to bring love and care to the animals. 
+                        One of the duties of a responsible pet owner is knowing how to take care of their pet. Here are some of the things a pet owner must know. Be one of us</Typography>
                 </Stack>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } sx= {{ marginTop: '20px' }}>
                     <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">

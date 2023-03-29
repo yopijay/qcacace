@@ -1,5 +1,5 @@
 // Libraries
-import { Autocomplete, Box, Grid, Skeleton, Stack, TextareaAutosize, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Grid, InputAdornment, Skeleton, Stack, TextareaAutosize, TextField, Typography } from "@mui/material";
 import { useContext } from "react";
 import { Controller } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -44,7 +44,9 @@ const OtherDetails = ({ fetching }) => {
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography gutterBottom owner_contact_no= "text.secondary" variant= "body2">*Owner Contact No.</Typography>
                     { fetching ? <Skeleton variant= "rounded" height= "35px" /> : 
-                        <TextField { ...register('owner_contact_no') } name= "owner_contact_no" variant= "standard" InputProps= {{ disableUnderline: true }} disabled= { type === 'view' } sx= { input } /> }
+                        <TextField { ...register('owner_contact_no') } name= "owner_contact_no" variant= "standard"
+                            InputProps= {{ disableUnderline: true, startAdornment: <InputAdornment position="start">+63</InputAdornment>, }}
+                            inputProps= {{ maxLength: 10 }} disabled= { type === 'view' } sx= { input } /> }
                 </Stack>
                 <Typography variant= "body2" sx= { error } gutterBottom>{ errors.owner_contact_no?.message }</Typography>
             </Grid>

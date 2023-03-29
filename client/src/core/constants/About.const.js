@@ -11,43 +11,40 @@ export const About = () => (
             img: Vet,
             alt: 'vet',
             title: 'Quezon City Veterinary Department',
-            info: `Conducts Animal Vaccinations, Animal Pounding Operations, Animal Adoption Services And Other Veterinary Services. 
-                        It Promotes And Implements Animal Health, Animal Welfare, Animal Rights And Protection Within The City. 
-                        To Execute Different Policies, Programs And Other Services, Quezon City Veterinary Department Divided It Into Three (3) Divisions 
-                        Which Are Animal Care And Disease Control Division, 
-                        City Pound Division, And Food Hygiene And Regulatory Division.`,
+            info: `Conducts animal vaccinations, animal pounding operations, animal adoption services and other veterinary services. It promotes and implements animal health, animal welfare, 
+                        animal rights and protection within the city. To execute different policies, programs and other services, quezon city veterinary department divided it into three (3) divisions 
+                        which are animal care and disease control division, city pound division, and food hygiene and regulatory division.`,
             link: 'https://www.facebook.com/QCVDgovph/',
         },
         {
             img: Care,
             alt: 'care',
             title: 'Animal Care And Disease Control',
-            info: `Conducts The Mass Registration, Vaccination, Dog Tagging And Spay And Neuter Of Pets`,
+            info: `Conducts the mass registration, vaccination, dog tagging and spay and neuter of pets.`,
             link: 'https://www.facebook.com/QCAnimalCare/',
         },
         {
             img: Pound,
             alt: 'pound',
             title: 'City Pound Division',
-            info: `Are For Animal Impounding, Redemption Of Impounded Animals, Field Control And Disposition Of Unregistered Stray And Unvaccinated Dogs. 
-                        Under This Division Is The Animal Care And Adoption Center Which Conducts The Process Of Animal Adoption.`,
+            info: `Are for animal impounding, redemption of impounded animals, field control and disposition of unregistered stray and unvaccinated dogs. 
+                        Under this division is the animal care and adoption center which conducts the process of animal adoption.`,
             link: 'https://www.facebook.com/QCVDgovph',
         },
         {
             img: Hygiene,
             alt: 'hygiene',
             title: 'Food Hygiene And Regulatory Division',
-            info: `Is Assigned In Meat Inspection, License Meat Handlers, Veterinary Clearance And Meat Transport Vehicle.`,
+            info: `Is assigned in meat inspection, license meat handlers, veterinary clearance and meat transport vehicle.`,
             link: 'https://www.facebook.com/QCAnimalCare/',
         },
         {
             img: Adopt,
             alt: 'adopt',
             title: 'Animal Care And Adoption Center',
-            info: `Under The City Pound Division Provides An Electronic Services (EServices) That Can Help The Citizens To Adopt Easily Through This Website. 
-                        Its Mission Is To Promote Animal Adoption In The City And Help The Animals To Find A New Family. Aside From That, 
-                        QC Animal Care And Adoption Center E-Services Offers Services Such As Surrendering Of Pets, 
-                        Reporting Of Missing Pets And Provides Information About Pet Vaccination And Other Programs For Pets.`,
+            info: `Under the city pound division provides an electronic services (eservices) that can help the citizens to adopt easily through this website. Its mission is to promote animal 
+                        adoption in the city and help the animals to find a new family. Aside from that, qc animal care and adoption center e-services offers services such as surrendering of pets, 
+                        reporting of missing pets and provides information about pet vaccination and other programs for pets.`,
             link: 'https://www.facebook.com/animalcareandadoptioncenter/',
         }
     ]

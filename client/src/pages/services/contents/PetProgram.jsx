@@ -23,8 +23,8 @@ const PetProgram = () => {
             <Container maxWidth= "lg" sx= {{ overflowY: 'scroll', height: '100%', '&::-webkit-scrollbar': { display: 'none' } }}>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                     <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#444444' }}>Pet Programs</Typography>
-                    <Typography sx= {{ fontWeight:'600'}}>We Offer Free Vaccination To Our Beloved Pets. Help Them Be Free From Sickness And Continue To Wag Their Tail With Energy 
-                        And Happiness. Slide Learn More For More Details.</Typography>
+                    <Typography sx= {{ fontWeight:'600'}}>We offer free vaccination to our beloved pets. Help them be free from sickness and continue to wag their tail with energy and happiness. 
+                        Slide learn more for more details.</Typography>
                 </Stack>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } sx= {{ marginTop: '20px' }}>
                     <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">

@@ -23,8 +23,8 @@ const MissingPets = () => {
             <Container maxWidth= "lg" sx= {{ overflowY: 'scroll', height: '100%', '&::-webkit-scrollbar': { display: 'none' } }}>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
                     <Typography variant= "h6" sx= {{ fontFamily: 'Boldstrom', color: '#444444' }}>Missing Pets</Typography>
-                    <Typography sx= {{ fontWeight:'600'}}>Our Pet Is One Of Our Family Members And Being Away From Them Is An Awful Feeling. We At QC Animal Care And Adoption Center Are 
-                        Willing To Help The Pet Owners To Find Their Fur Baby. Let's All Help The Pet To Find Their Way Back To Their Home.</Typography>
+                    <Typography sx= {{ fontWeight:'600'}}>Our pet is one of our family members and being away from them is an awful feeling. We at qc animal care and adoption 
+                        center are willing to help the pet owners to find their fur baby. Let's all help the pet to find their way back to their home.</Typography>
                 </Stack>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } sx= {{ marginTop: '20px' }}>
                     <Stack direction= "row" justifyContent= "flex-end" alignItems= "center">
