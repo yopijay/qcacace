@@ -40,10 +40,8 @@ export const Index = () => {
                 transformOrigin= {{ vertical: 'bottom', horizontal: 'left' }} style= {{ marginTop: '7px', boxShadow: 'none', marginLeft: '15px' }}>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '200px', transition: 'all 0.2s ease-in-out' }}>
                     <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ padding: '10px 20px' }}>
-                        <Typography gutterBottom variant= "body1" component= { Link } to= "" sx= { link } 
+                        <Typography gutterBottom variant= "body1" component= { Link } to= {`/profile/${atob(localStorage.getItem('token'))}`} sx= { link } 
                             onClick= { () => { setElem(null); localStorage.setItem('nav', 'profile'); setIsActive('profile'); } }>Profile</Typography>
-                        <Typography gutterBottom variant= "body1" component= { Link } to= "" sx= { link } 
-                            onClick= { () => { setElem(null); localStorage.setItem('nav', 'settings'); setIsActive('settings'); } }>Settings</Typography>
                     </Stack>
                     <Box sx= {{ padding: '10px 20px' }}>
                         <Typography variant= "body1" onClick= { () => signout({ id: atob(localStorage.getItem('token')) }) } sx= { link }>Logout</Typography>
