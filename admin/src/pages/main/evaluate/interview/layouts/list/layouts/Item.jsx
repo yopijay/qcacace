@@ -34,7 +34,8 @@ const Item = () => {
                 <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" key= { index } sx= { item }>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ flexGrow: 1 }}>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "flex-start">
-                            <Typography variant= "body1" 
+                            { console.lo(data) }
+                            {/* <Typography variant= "body1" 
                                 sx= {{ fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>#{ data.series_no }</Typography>
                             <Typography variant= "body2" 
                                 sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data?.email }</Typography>
@@ -45,11 +46,11 @@ const Item = () => {
                             <Typography variant= "body2" 
                                 sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Type: <b>{ (data?.type).toUpperCase() }</b></Typography>
                             <Typography variant= "body2" 
-                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data?.contact_no }</Typography>
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data?.contact_no }</Typography> */}
                         </Stack>
                     </Stack>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                        { data?.status === 'pending' ? 
+                        {/* { data?.status === 'pending' ? 
                             <Typography sx= { approve } onClick= { () => approval({ table: 'tbl_schedule', type: 'approve', data: data }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
@@ -61,7 +62,7 @@ const Item = () => {
                             data?.status === 'approved' ? 
                                 <Chip variant= "default" size= "small" label= "Passed" sx= {{ backgroundColor: '#4cd137', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
                                 data?.status === 'failed' ? 
-                                    <Chip variant= "default" size= "small" label= "Failed" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' : '' }
+                                    <Chip variant= "default" size= "small" label= "Failed" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' : '' } */}
                     </Stack>
                 </Stack>
                 )) : 
