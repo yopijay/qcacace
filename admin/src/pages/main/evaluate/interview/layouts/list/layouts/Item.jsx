@@ -37,30 +37,30 @@ const Item = () => {
                             <Typography variant= "body1" 
                                 sx= {{ fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>#{ data.series_no }</Typography>
                             <Typography variant= "body2" 
-                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.email }</Typography>
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data?.email }</Typography>
                             <Typography variant= "body2" 
-                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.lname }, { data.fname }</Typography>
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data?.lname }, { data?.fname }</Typography>
                             <Typography variant= "body2" 
-                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Schedule { data.type !== 'surrender' ? `${(months()[data.month - 1]).name} ${data.day}, ${data.year}` : '-'}</Typography>
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Schedule { data?.type !== 'surrender' ? `${(months()[data?.month - 1]).name} ${data?.day}, ${data?.year}` : '-'}</Typography>
                             <Typography variant= "body2" 
-                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Type: <b>{ (data.type).toUpperCase() }</b></Typography>
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Type: <b>{ (data?.type).toUpperCase() }</b></Typography>
                             <Typography variant= "body2" 
-                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data.contact_no }</Typography>
+                                sx= {{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ data?.contact_no }</Typography>
                         </Stack>
                     </Stack>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                        { data.status === 'pending' ? 
+                        { data?.status === 'pending' ? 
                             <Typography sx= { approve } onClick= { () => approval({ table: 'tbl_schedule', type: 'approve', data: data }) }>
                                 <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
                             </Typography> : '' }
-                        { data.status === 'pending' ? 
+                        { data?.status === 'pending' ? 
                             <Typography sx= { disapprove } onClick= { () => reject({ table: 'tbl_schedule', type: 'reject', data: data }) }>
                                 <FontAwesomeIcon icon= { solid('square-xmark') } size= "xl" />
                             </Typography> : '' }
-                        { data.status !== 'pending' ? 
-                            data.status === 'approved' ? 
+                        { data?.status !== 'pending' ? 
+                            data?.status === 'approved' ? 
                                 <Chip variant= "default" size= "small" label= "Passed" sx= {{ backgroundColor: '#4cd137', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
-                                data.status === 'failed' ? 
+                                data?.status === 'failed' ? 
                                     <Chip variant= "default" size= "small" label= "Failed" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' : '' }
                     </Stack>
                 </Stack>

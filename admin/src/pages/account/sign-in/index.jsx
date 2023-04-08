@@ -16,7 +16,7 @@ const Index = () => {
     const { register, formState: { errors }, handleSubmit, setError } = useForm({ resolver: yupResolver(Validation()) });
     const { mutate: signin } = usePost({ fetch: authentication, onSuccess: (data) => {
         if(data.result === 'error') { (data.error).forEach((err, index) => { setError(err.name, { type: index === 0 ? 'focus' : '', message: err.message }, { shouldFocus: index === 0 }); }); }
-        else { localStorage.setItem('token', btoa(data.id)); window.location.href = '/'; }
+        else { localStorage.setItem('token', btoa(data.id)); window.location.href = '/tools/petprogram'; }
     }});
 
     return (

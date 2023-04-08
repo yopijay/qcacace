@@ -26,11 +26,11 @@ const Payment = React.lazy(() => import('pages/main/evaluate/payment'));
 const Releasing = React.lazy(() => import('pages/main/evaluate/release'));
 
 export const Navs = () => ([
-    {
-        title: 'Main', access: [ 'superadmin', 'admin', 'evaluator' ], nav: [
-            { path: '/', label: 'Dashboard', name: 'home', component: 'DASHBOARD'  }
-        ]
-    },
+    // {
+    //     title: 'Main', access: [ 'superadmin', 'admin', 'evaluator' ], nav: [
+    //         { path: '/', label: 'Dashboard', name: 'home', component: 'DASHBOARD'  }
+    //     ]
+    // },
     {
         title: 'Tools', access: [ 'superadmin', 'admin', 'evaluator' ], nav: [
             { path: '/tools/petprogram', label: 'Pet Program', name: 'petprogram', component: <PetProgram /> },
