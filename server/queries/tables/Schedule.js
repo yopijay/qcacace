@@ -87,8 +87,16 @@ class Schedule {
                             .build()).rows;
 
         if(data.type === 'adoption') {  
-            _intro = `Thank you for taking the time to be interviewed as part of the pet adoption process. 
-                            We are pleased to inform you that you <b>PASSED</b> the interview. You can now proceed for the next phase by clicking the button below for the payment details.`;
+            _intro = `Hi Fur Mom/Dad,
+
+                                Thank you for taking the time to be interviewed as part of the pet surrender process.
+                                We are pleased to inform you that you passed the interview. You can now proceed for the next phase by clicking the button below for the payment details.
+                                
+                                Please contact us for additional help.
+                                
+                                Yours truly,
+                                
+                                QC Animal Care and Adoption Center`;
         }
         else {
             _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and

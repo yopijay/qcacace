@@ -28,8 +28,8 @@ class Pets {
 
     search = async (data) => {
         return (await new Builder(`tbl_pets AS pet`)
-                                        .select(`pet.id, pet.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pet.weight, pts.is_adopt,
-                                                        pet.gender, pet.tags, pet.photo, pet.status, pet.date_created`)
+                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, pts.is_adopt,
+                                                        pts.color, pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
                                         .join({ table: `tbl_coat AS coat`, condition: `pet.coat_id = coat.id`, type: `LEFT` })
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pet.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pet.category_id = ctg.id`, type: 'LEFT' })
@@ -43,7 +43,7 @@ class Pets {
     recommend = async (data) => {
         return (await new Builder(`tbl_pets AS pts`)
                                         .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, pts.is_adopt,
-                                                        pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
+                                                        pts.color, pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
                                         .join({ table: `tbl_coat AS coat`, condition: `pts.coat_id = coat.id`, type: `LEFT` })
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
@@ -59,7 +59,7 @@ class Pets {
     list = async (data) => {
         return (await new Builder(`tbl_pets AS pts`)
                                         .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, pts.is_adopt,
-                                                        pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
+                                                        pts.color, pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
                                         .join({ table: `tbl_coat AS coat`, condition: `pts.coat_id = coat.id`, type: `LEFT` })
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
@@ -70,8 +70,8 @@ class Pets {
 
     top = async (data) => { 
         return (await new Builder(`tbl_pets AS pts`)
-                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, 
-                                                        pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
+                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, pts.is_adopt,
+                                                        pts.color, pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
                                         .join({ table: `tbl_coat AS coat`, condition: `pts.coat_id = coat.id`, type: `LEFT` })
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
