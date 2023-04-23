@@ -28,15 +28,15 @@ class Pets {
 
     search = async (data) => {
         return (await new Builder(`tbl_pets AS pet`)
-                                        .select(`pts.id, pts.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pts.weight, pts.is_adopt,
-                                                        pts.color, pts.gender, pts.tags, pts.photo, pts.status, pts.date_created`)
+                                        .select(`pet.id, pet.series_no, ctg.name AS category, brd.name AS breed, coat.name AS coat, ls.name AS stage, pet.weight, pet.is_adopt,
+                                                        pet.color, pet.gender, pet.tags, pet.photo, pet.status, pet.date_created`)
                                         .join({ table: `tbl_coat AS coat`, condition: `pet.coat_id = coat.id`, type: `LEFT` })
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pet.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pet.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pet.breed_id = brd.id`, type: 'LEFT' })
-                                        .condition(`WHERE (pet.series_no LIKE '%${data.condition}%' OR ctg.name LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%')
-                                                            ${data.is_adopt !== undefined ? `AND pet.is_adopt= ${data.is_adopt}` : ''}`)
-                                        .except(`WHERE pts.status = 0 ORDER BY 13 DESC`)
+                                        .condition(`WHERE (pet.series_no LIKE '%${data.condition}%' OR ctg.name LIKE '%${data.condition}%' OR brd.name LIKE '%${data.condition}%'
+                                                            OR pet.tags LIKE '%${data.condition}%') ${data.is_adopt !== undefined ? `AND pet.is_adopt= ${data.is_adopt}` : ''}`)
+                                        .except(`WHERE pet.status = 0 ORDER BY 13 DESC`)
                                         .build()).rows;
     }
 
