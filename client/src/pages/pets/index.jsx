@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 // Core
 import { ListCntxt } from "core/context/ListCntxt.func"; // Provider
 import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
+import { ReminderPrvdr } from "core/context/ReminderCntxt.func"; // Provider
 import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
 import { useGet, usePost } from "core/global/function/index.func"; // Function
 import { look, recommend, records } from "core/api/index.func"; // API
@@ -37,15 +38,13 @@ const Index = () => {
                 <Route exact path= "/" element= {
                     <Container maxWidth= "lg">
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                            <List setDialog= { setDialog } 
-                                list= { list } 
-                                find= { find }
-                                finding= { finding }
-                                fetching= { fetching } 
-                                recommended= { recommended } 
-                                recommendation= { recommendation }   
-                                recommending= { recommending } />
-                            <FormPrvdr><Adopt dialog= { dialog } setDialog= { setDialog } recommendation= { recommendation } /></FormPrvdr> 
+                            <FormPrvdr>
+                                <ReminderPrvdr>
+                                    <List setDialog= { setDialog } find= { find } finding= { finding }
+                                        fetching= { fetching } recommended= { recommended } recommendation= { recommendation } recommending= { recommending } />
+                                </ReminderPrvdr> 
+                            </FormPrvdr>
+                            <FormPrvdr><Adopt dialog= { dialog } setDialog= { setDialog } recommendation= { recommendation } /></FormPrvdr>
                         </Stack>
                     </Container>
                 } />

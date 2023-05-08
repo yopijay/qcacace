@@ -7,9 +7,10 @@ import { useEffect } from "react";
 // Constants
 import { btnrecommend, petcontainer, search } from "./index.style"; // Styles
 
-// Layouts
+// Components
 import Items from "./layouts/Items"; // Items
 import Recommended from "./layouts/Recommended"; // Recommend
+import Condition from "./layouts/Condition"; // Modal
 
 const Index = ({ setDialog, fetching, recommended, recommendation, recommending, find, finding }) => {
     useEffect(() => { if(localStorage.getItem('recommend') !== null) recommendation(JSON.parse(localStorage.getItem('recommend'))) }, [ recommendation ]);
@@ -57,6 +58,7 @@ const Index = ({ setDialog, fetching, recommended, recommendation, recommending,
                         </Grid>
                     )) }
                 </Grid> }
+            <Condition />
         </Stack>
     );
 }

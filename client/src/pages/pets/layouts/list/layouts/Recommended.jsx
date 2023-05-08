@@ -3,11 +3,16 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Grid, Skeleton, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+
+// Core
+import { ReminderCntxt } from "core/context/ReminderCntxt.func"; // Context
 
 // Constants
 import { btnadopt, petcontainer, petdesc, petfemale, petimage, petmale, petseries, pettag } from "../index.style"; // Styles
 
 const Recommended = ({ recommended, recommending }) => {
+    const { setOpen, setLink } = useContext(ReminderCntxt);
 
     return (
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" sx= {{ padding: '0 0 40px 0' }}>
@@ -34,7 +39,7 @@ const Recommended = ({ recommended, recommending }) => {
                                         <Typography>{ (JSON.parse(data.tags)).map((tag, index) => ( <span key= { index } style= { pettag }>#{(tag.name).toLowerCase()}</span> )) }</Typography>
                                     </Stack>
                                     <Stack direction= "row" justifyContent= 'flex-end' alignItems= "center" sx= {{ width: '100%' }}>
-                                        <Typography sx= { btnadopt } component= { Link } to= { `/pets/${btoa(data.id)}/adopt` }>Adopt</Typography>
+                                        <Typography sx= { btnadopt } component= { Link } onClick= { () => { setOpen(true); setLink(`/pets/${btoa(data.id)}/adopt`); } }>Adopt</Typography>
                                     </Stack>
                                 </Stack>
                             </Stack>
