@@ -11,7 +11,7 @@ class Documents {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, pet.photo, pet.series_no, pet.category_id, pet.breed_id, pet.coat_id, pet.life_stages_id, pet.gender, pet.sterilization, pet.energy_level, pet.weight,
                                                         pet.color, pet.tags, fp.email, fp.fname, fp.mname, fp.lname, fp.contact_no, fp.gender, fp.address, docu.valid_id, docu.picture, 
-                                                        docu.pet_cage, srvc.reason, srvc.type`)
+                                                        docu.pet_cage, docu.proof_billing, srvc.reason, srvc.type`)
                                         .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
