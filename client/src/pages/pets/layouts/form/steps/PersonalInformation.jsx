@@ -84,6 +84,7 @@ const PersonalInformation = () => {
                                                 </LocalizationProvider> ) }>
                                         </Controller>
                                     </Box> }
+                                <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.birthdate?.message }</Typography>
                             </Stack>
                         </Grid>
                         <Grid item xs= { 12 } sm= { 7 }>

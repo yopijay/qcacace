@@ -58,6 +58,17 @@ export const petmale = {
     textOverflow: 'ellipsis'
 }
 
+export const datenormal = {
+    padding: '10px 0',
+    cursor: 'pointer',
+    '&:hover': { backgroundColor: '#ebebeb' },
+    transition: 'all 0.2s ease-in-out',
+    width: '100%',
+    textAlign: 'center',
+    borderRadius: '8px',
+    fontWeight: 'bold'
+}
+
 export const petfemale = {
     width: '10%',
     color: '#e76165',
