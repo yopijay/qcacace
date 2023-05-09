@@ -9,9 +9,6 @@ import { Link } from "react-router-dom";
 import { ListCntxt } from "core/context/ListCntxt.func"; // Context
 import { ReminderCntxt } from "core/context/ReminderCntxt.func"; // Context
 
-// Modals
-import Condition from "./Condition";
-
 // Constants
 import { btnadopt, petcontainer, petdesc, petfemale, petimage, petmale, petseries, pettag } from "../index.style"; // Styles
 
@@ -57,7 +54,6 @@ const Items = () => {
                         </Stack>
                     </Grid>}
             </Grid>
-            <Condition />
         </Stack>
     );
 }

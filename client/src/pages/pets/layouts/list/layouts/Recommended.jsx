@@ -7,12 +7,14 @@ import { useContext } from "react";
 
 // Core
 import { ReminderCntxt } from "core/context/ReminderCntxt.func"; // Context
+import { RecommendationCntxt } from "core/context/Recommendation"; // Context
 
 // Constants
 import { btnadopt, petcontainer, petdesc, petfemale, petimage, petmale, petseries, pettag } from "../index.style"; // Styles
 
-const Recommended = ({ recommended, recommending }) => {
+const Recommended = () => {
     const { setOpen, setLink } = useContext(ReminderCntxt);
+    const { recommended, recommending } = useContext(RecommendationCntxt);
 
     return (
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" sx= {{ padding: '0 0 40px 0' }}>
