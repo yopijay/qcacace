@@ -87,17 +87,19 @@ class Schedule {
                             .build()).rows;
 
         if(data.type === 'adoption') {  
-            _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and
-                                Adoption Center.<br><br>
-                                We have reviewed your application and submitted documents, and we want to inform
-                                you that you are pre-qualified for the next phase of the adoption process.
-                                Please wait for the interview via google meet or phone call or you may also proceed for
-                                the onsite interview located at Clemente
-                                St., Lupang Pangako, Payatas, Quezon City, Philippines if you wish to visit the pet. <br>
-                                <br>
-                                Please reply to this email if you have any questions or need to reschedule. We look
-                                forward to seeing you.`;
-        }
+            _intro = `Hi Fur Mom/Dad,
+                        Thank you for taking the time to be interviewed as part of the pet adoption
+                        process.<br><br>
+                        It brings us great pleasure to inform you that your interview has been successful, and
+                        you have PASSED
+                        the necessary criteria. As a result, we are happy to invite you to proceed to the next
+                        phase of the adoption
+                        process by clicking on the button below to obtain the necessary payment
+                        details.<br><br>
+                        Please contact us for additional help.
+                        Yours truly,
+                        QC Animal Care and Adoption Center`;
+                }
         else {
             _intro = `Hi Fur Mom/Dad,
 
@@ -198,8 +200,7 @@ class Schedule {
             body: {
                 name: 'Fur Mom/Dad',
                 intro: `Hi Fur Mom/Dad,
-                We hope this message finds you well. We are writing to confirm your scheduled interview on <b>${appointment.month}/${appointment.day}/${appointment.year}</b>.
-                at the QC Animal Care and Adoption Center. As part of our adoption process, 
+                We hope this message finds you well. We are writing to confirm your scheduled interview at the QC Animal Care and Adoption Center. As part of our adoption process, 
                 our staff will conduct an interview to discuss your application and ensure the best possible match for both you and your potential furry friend.<br><br>
 
                 We would like to bring to your attention that the interview would include psychological questions. Please be assured that these questions are designed to help us 
