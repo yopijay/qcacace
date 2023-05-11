@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 // Core 
-import { GlobalPrvdr } from 'core/context/GlobalCntxt.func';  // Provider
-import { ProfilePrvdr } from 'core/context/ProfileCntxt.func'; // Provider
+import { GlobalPrvdr } from 'core/context/Global';  // Provider
+import { ProfilePrvdr } from 'core/context/Profile'; // Provider
 
 // Layouts
 import Account from './pages/account';

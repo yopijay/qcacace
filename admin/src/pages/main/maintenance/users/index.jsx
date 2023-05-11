@@ -5,8 +5,8 @@ import { Stack, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 
 // Core
-import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
-import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
+import { ListPrvdr } from "core/context/List"; // Provider
+import { FormPrvdr } from "core/context/Form"; // Provider
 import { theme } from "core/global/theme/index.style"; // Theme
 
 // Layouts

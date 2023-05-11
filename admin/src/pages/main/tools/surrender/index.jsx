@@ -2,7 +2,7 @@
 import { Stack } from "@mui/material";
 
 // Core
-import { FormPrvdr } from "core/context/FormCntxt.func"; // Context
+import { FormPrvdr } from "core/context/Form"; // Context
 
 // Layouts
 import Form from "./layouts/Form";

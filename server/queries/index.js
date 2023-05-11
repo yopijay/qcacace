@@ -24,6 +24,7 @@ const top = async (data) => { return await new Pets().top(data); }
 const recommend = async (data) => { return await new Pets().recommend(data); }
 const resend = async (data) => { return await new FurrParent().resend(data); }
 const verifying = async (data) => { return await new FurrParent().verifying(data); }
+const certificate = async data => { return await new Services().certificate(data); }
 
 const availabledates = async (data) => { return await new Appointment().availabeldates(data); }
 const pay = async (data) => { return await new Payment().pay(data); }
@@ -220,5 +221,6 @@ module.exports = {
     verifying,
     availabledates,
     evaluate,
-    pay
+    pay,
+    certificate
 }

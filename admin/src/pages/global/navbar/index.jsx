@@ -6,7 +6,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useContext } from "react";
 
 // Core
-import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
+import { GlobalCntxt } from "core/context/Global"; // Context
 
 // Constants
 import Logo from 'assets/images/logo.png'; // Assets

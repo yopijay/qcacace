@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 
 // Core
-import { ListPrvdr } from "core/context/ListCntxt.func"; // Provider
+import { ListPrvdr } from "core/context/List"; // Provider
 
 // Layouts
 import List from './layouts/list';

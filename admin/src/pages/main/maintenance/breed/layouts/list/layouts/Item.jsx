@@ -6,7 +6,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Link } from "react-router-dom";
 
 // Core
-import { ListCntxt } from "core/context/ListCntxt.func"; // Context
+import { ListCntxt } from "core/context/List"; // Context
 
 // Constants
 import { icons, item } from "../index.style"; // Styles

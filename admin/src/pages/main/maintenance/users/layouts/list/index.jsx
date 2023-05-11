@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 // Core
-import { ListCntxt } from "core/context/ListCntxt.func"; // Context
+import { ListCntxt } from "core/context/List"; // Context
 import { useGet, usePost } from "core/global/function/index.func"; // Function
 import { look, records } from "core/api/index.func"; // API
 

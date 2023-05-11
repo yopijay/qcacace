@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Core
-import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
+import { GlobalCntxt } from "core/context/Global"; // Context
 import { usePost } from "core/global/function/index.func"; // Function
 import { logout } from "core/api/index.func"; // APIs
 

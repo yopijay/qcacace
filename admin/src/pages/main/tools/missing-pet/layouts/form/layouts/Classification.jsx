@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 // Core
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { FormCntxt } from "core/context/Form"; // Context
 import { randomizer, useGet, usePost } from "core/global/function/index.func"; // Function
 import { dropdown } from "core/api/index.func"; // API
 

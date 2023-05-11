@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Controller } from "react-hook-form";
 
 // Core
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { FormCntxt } from "core/context/Form"; // Context
 import { randomizer, useGet, usePost } from "core/global/function/index.func"; // Function
 import { dropdown } from "core/api/index.func"; // API
 

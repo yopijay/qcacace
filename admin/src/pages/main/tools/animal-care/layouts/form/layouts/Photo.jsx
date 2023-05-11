@@ -1,7 +1,7 @@
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, FormLabel, Skeleton, Stack, Typography } from "@mui/material";
-import { FormCntxt } from "core/context/FormCntxt.func";
+import { FormCntxt } from "core/context/Form";
 import { base64 } from "core/global/function/index.func";
 import { useContext, useEffect, useState } from "react";
 

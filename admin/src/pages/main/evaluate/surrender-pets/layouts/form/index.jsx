@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { evaluate, specific } from "core/api/index.func"; // APIs
 import { errorToast, successToast, useGet, usePost } from "core/global/function/index.func"; // Functions
 import { input } from "core/global/theme/index.style"; // Theme
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { FormCntxt } from "core/context/Form"; // Context
 
 // Layouts
 import Photo from "./layouts/Photo";

@@ -46,9 +46,24 @@ export const icons = {
     color: 'rgb(99, 115, 129)', 
     padding: '3px', 
     lineHeight: 0, 
+    cursor: 'pointer',
     transition: 'transform .2s', 
     '&:hover': { 
         transform: 'scale(1.1)', 
         transition: 'transform .2s' 
     }
+}
+
+export const btntxt = { 
+    display: 'flex',
+    cursor: 'pointer',
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: '#204c6f',
+    color: '#ffffff',
+    borderRadius: '7px',
+    padding: '7px 15px',
+    transition: 'all 0.2s ease-in-out',
+    '&:hover': { backgroundColor: '#1b405d' }
 }

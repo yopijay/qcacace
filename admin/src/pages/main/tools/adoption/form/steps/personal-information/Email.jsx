@@ -3,7 +3,7 @@ import { Grid, Stack, TextField, Typography } from "@mui/material";
 import { useContext } from "react";
 
 // Core
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { FormCntxt } from "core/context/Form"; // Context
 
 // Custom style
 const input = {

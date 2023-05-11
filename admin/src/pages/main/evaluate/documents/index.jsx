@@ -4,8 +4,8 @@ import { Route, Routes } from "react-router-dom";
 
 // Core
 import { theme } from "core/global/theme/index.style"; // Theme
-import { ListPrvdr } from "core/context/ListCntxt.func"; // Context
-import { FormPrvdr } from "core/context/FormCntxt.func"; // Context
+import { ListPrvdr } from "core/context/List"; // Context
+import { FormPrvdr } from "core/context/Form"; // Context
 
 // Layouts
 import List from "./layouts/list";

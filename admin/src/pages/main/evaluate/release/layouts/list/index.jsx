@@ -1,11 +1,11 @@
 // Libraries
-import { useContext } from "react";
-import { Box, Skeleton, Stack, TextField, Typography } from "@mui/material";
+import { useContext, useState } from "react";
+import { Box, Dialog, Skeleton, Stack, TextField, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // Core
-import { ListCntxt } from "core/context/ListCntxt.func"; // Context
+import { ListCntxt } from "core/context/List"; // Context
 import { look, records } from "core/api/index.func"; // APIs
 import { useGet, usePost } from "core/global/function/index.func"; // Functions
 
@@ -15,9 +15,12 @@ import Dashboard from "./layouts/Dashboard";
 
 // Constants
 import { search } from "./index.style"; // Styles
+import Certificate from "./layouts/Certificate";
 
 const Index = () => {
     const { setList } = useContext(ListCntxt);
+    const [ open, setOpen ] = useState(false);
+    const [ id, setId ] = useState(null);
     const { mutate: find, isLoading: finding } = usePost({ fetch: look, onSuccess: data => setList(data) });
     const { isFetching: fetching } = 
         useGet({ key: ['srvc_list'], fetch: records({ table: 'tbl_services', data: {} }), options: { refetchOnWindowFocus: false }, 
@@ -47,7 +50,7 @@ const Index = () => {
                     </form>
                 </Stack>
             </Stack>
-            { !fetching && !finding ? <Item /> :
+            { !fetching && !finding ? <Item setOpen= { setOpen } setId= { setId } /> :
                 <Stack direction= "row" justifyContent= "space-between" alignItems= "center" 
                     sx= {{ backgroundColor: '#FFFFFF', padding: '10px 20px', border: 'solid 1px #F3F3F3', borderRadius: '10px' }} spacing= { 2 }>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" sx= {{ flexGrow: 1 }} spacing= { 1 }>
@@ -63,6 +66,7 @@ const Index = () => {
                         <Skeleton variant= "rounded" sx= {{ padding: '15px' }} />
                     </Stack>
                 </Stack> }
+            <Certificate id= { id } open= { open } setOpen= { setOpen } />
         </Stack>
     );
 }

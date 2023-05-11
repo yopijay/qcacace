@@ -3,7 +3,7 @@ import { Avatar, Stack } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 
 // Core
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { FormCntxt } from "core/context/Form"; // Context
 
 const Photo = ({ pet, pet_fetching, srvc_fetching }) => {
     const { getValues } = useContext(FormCntxt);

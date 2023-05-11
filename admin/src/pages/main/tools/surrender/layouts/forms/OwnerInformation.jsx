@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Controller } from "react-hook-form";
 
 // Core
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { FormCntxt } from "core/context/Form"; // Context
 
 // Constants
 import { input, select, textarea } from "../../index.style"; // Styles

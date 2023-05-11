@@ -4,8 +4,8 @@ import { Box, Container, Stack } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 
 // Core
-import { ProfileCntxt } from "core/context/ProfileCntxt.func"; // Context
-import { FormPrvdr } from "core/context/FormCntxt.func"; // Provider
+import { ProfileCntxt } from "core/context/Profile"; // Context
+import { FormPrvdr } from "core/context/Form"; // Provider
 import { useGet } from "core/global/function/index.func"; // Function
 import { profile } from "core/api/index.func"; // APIs
 import { LoaderScreen } from "core/global/layout/loader/Screen"; // Loader

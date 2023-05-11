@@ -4,9 +4,9 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 // Core
-import { GlobalCntxt } from "core/context/GlobalCntxt.func"; // Context
+import { GlobalCntxt } from "core/context/Global"; // Context
 import { Navs as links } from "core/constants/Navs"; // Constasnts
-import { ProfileCntxt } from "core/context/ProfileCntxt.func"; // Context
+import { ProfileCntxt } from "core/context/Profile"; // Context
 
 // Custom styles
 const linkNormal = {

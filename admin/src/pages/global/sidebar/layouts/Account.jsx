@@ -5,7 +5,7 @@ import { Avatar, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 
 // Core
-import { ProfileCntxt } from "core/context/ProfileCntxt.func"; // Context
+import { ProfileCntxt } from "core/context/Profile"; // Context
 
 const Account = ({ setElem }) => {
     const { data } = useContext(ProfileCntxt);

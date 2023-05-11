@@ -7,7 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Controller } from "react-hook-form";
 
 // Core
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { FormCntxt } from "core/context/Form"; // Context
 import { dropdown, save, specific, update } from "core/api/index.func"; // APIs
 import { randomizer, successToast, useGet, usePost } from "core/global/function/index.func"; // Custom react query
 import { theme } from "core/global/theme/index.style"; // Theme

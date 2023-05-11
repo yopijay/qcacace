@@ -6,7 +6,7 @@ import { Controller } from "react-hook-form";
 // Core
 import { dropdown } from "core/api/index.func"; // API
 import { useGet, usePost } from "core/global/function/index.func"; // Function
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { FormCntxt } from "core/context/Form"; // Context
 
 // Constants
 import { select } from "../../../../index.style";

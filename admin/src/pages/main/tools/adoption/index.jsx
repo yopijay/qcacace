@@ -1,6 +1,6 @@
 // Libraries
 import { Stack, Typography } from "@mui/material";
-import { FormPrvdr } from "core/context/FormCntxt.func";
+import { FormPrvdr } from "core/context/Form";
 import { Link, Route, Routes } from "react-router-dom";
 
 // Layouts

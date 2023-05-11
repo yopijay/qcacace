@@ -5,7 +5,7 @@ import { Controller } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
 // Core
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { FormCntxt } from "core/context/Form"; // Context
 
 // Constants
 import { error, input, select, textarea } from "../index.style"; // Styles

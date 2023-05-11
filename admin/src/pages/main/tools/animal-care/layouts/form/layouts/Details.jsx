@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 
 // Core
-import { FormCntxt } from "core/context/FormCntxt.func"; // Context
+import { FormCntxt } from "core/context/Form"; // Context
 
 // Constants
 import { input, textarea } from "../index.style"; // Styles

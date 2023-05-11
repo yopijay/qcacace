@@ -3,7 +3,7 @@ import { Stack, TextField, Typography } from "@mui/material";
 import { useContext } from "react";
 
 // Core
-import { FormCntxt } from "core/context/FormCntxt.func"; // Core
+import { FormCntxt } from "core/context/Form"; // Core
 
 // Constants
 import { input } from "./surrender.style"; // Styles

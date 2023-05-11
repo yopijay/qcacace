@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 
 // Core
-import { ListCntxt } from "core/context/ListCntxt.func"; // Context
+import { ListCntxt } from "core/context/List"; // Context
 
 const Item = () => {
     const { list } = useContext(ListCntxt);

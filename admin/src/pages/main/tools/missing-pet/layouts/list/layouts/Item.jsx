@@ -4,7 +4,7 @@ import { Avatar, Grid, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 
 // Core
-import { ListCntxt } from "core/context/ListCntxt.func"; // Context
+import { ListCntxt } from "core/context/List"; // Context
 
 // Constants
 import { item, label } from "../index.style"; // Design

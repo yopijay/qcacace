@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 // Core
-import { ListCntxt } from "core/context/ListCntxt.func"; // Context
+import { ListCntxt } from "core/context/List"; // Context
 
 // Constants
 import { item } from "../index.style"; // Styles
