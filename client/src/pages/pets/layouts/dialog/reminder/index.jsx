@@ -28,7 +28,7 @@ const Index = () => {
                        <Typography sx= {{ fontWeight: 'bold', fontStyle: 'italic' }}>Reminder:</Typography>
                        <Typography>The adoption process of QCACAC has (4) phases.</Typography>
                        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 }>
-                           <Typography><b>2. Documentary Requirements.</b> After the interview, the adopter needs to pass the document requirements for validation purpose 
+                           <Typography><b>1. Documentary Requirements.</b> After the interview, the adopter needs to pass the document requirements for validation purpose 
                                and contract making such as:</Typography>
                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } sx= {{ paddingLeft: '20px' }}>
                                <Typography sx={{ fontWeight: 'bold'}}>* QC ID or Brgy. ID.</Typography>
@@ -38,13 +38,15 @@ const Index = () => {
                            </Stack>
                        </Stack>
                        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-                           <Typography><b>1. Interview.</b> In the process, we need to confirm if you are eligible to adopt and take care of the pet.
-                               We conduct the interview through google meet or on-site.</Typography>
-                           <Typography variant= "body2" sx= {{ fontStyle: 'italic', fontWeight: 'bold' }}>Note: The QCACAC staff may also conduct a home visit if needed.</Typography>
+                           <Typography><b>2. Interview.</b> If the documents have already been validated, a thorough interview 
+                           process is required to determine the eligibility of the potential adopter to provide adequate care for the pet. 
+                           The interview will be conducted either through Google Meet or on-site.</Typography>
                        </Stack>
                        <Typography><b>3. Adoption Fee.</b> The QCACAC has an adoption fee of <b>Php 500/pet</b>. (Ordinance No. SP-3132-S-2022).</Typography>
                        <Typography><b>4. Releasing of Pet.</b> Once the three steps are done, you may now claim the pet at QCACAC located at Clemente St., 
                            Lupang Pangako, Payatas, Quezon City.</Typography>
+                        <Typography variant= "body2" sx= {{ fontStyle: 'italic', fontWeight: 'bold' }}>Note: The QC ACAC staff may conduct a home visit a month after 
+                        releasing the pet to ensure that the pet has been properly taken care of and to address any concerns or issues that the new pet owner might have.</Typography>
                    </Stack>
                    <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                        <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
