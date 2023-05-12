@@ -90,14 +90,13 @@ class Schedule {
             _intro = `Hi Fur Mom/Dad,
                         Thank you for taking the time to be interviewed as part of the pet adoption
                         process.<br><br>
-                        It brings us great pleasure to inform you that your interview has been successful, and
-                        you have PASSED
-                        the necessary criteria. As a result, we are happy to invite you to proceed to the next
-                        phase of the adoption
-                        process by clicking on the button below to obtain the necessary payment
-                        details.<br><br>
-                        Please contact us for additional help.
-                        Yours truly,
+
+                        It brings us great pleasure to inform you that your interview has been successful, and you have PASSED
+                        the necessary criteria. As a result, we are happy to invite you to proceed to the next phase of the adoption
+                        process by clicking on the button below to obtain the necessary paymentdetails.<br><br>
+
+                        Please contact us for additional help.<br>
+                        Yours truly,<br>
                         QC Animal Care and Adoption Center`;
                 }
         else {
