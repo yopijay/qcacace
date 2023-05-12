@@ -59,9 +59,10 @@ class Services {
 
     certificate = async data => {
         return (await new Builder(`tbl_services AS srvc`)
-                        .select(`pet.series_no, brd.name AS breed, CONCAT(fp.fname, ' ', fp.lname) AS name, srvc.date_evaluated, ls.name AS age, pet.gender, pet.photo`)
+                        .select(`pet.series_no, brd.name AS breed, CONCAT(fp.fname, ' ', fp.lname) AS name, srvc.date_evaluated, ls.name AS age, pet.gender, pet.photo, ctg.name AS category`)
                         .join({ table: `tbl_furr_parent AS fp`, condition: `fp.id = srvc.furr_parent_id`, type: `LEFT` })
                         .join({ table: `tbl_pets AS pet`, condition: `pet.id = srvc.pet_id`, type: `LEFT` })
+                        .join({ table: `tbl_category AS ctg`, condition: `ctg.id = pet.category_id`, type: `LEFT` })
                         .join({ table: `tbl_breed AS brd`, condition: `brd.id = pet.breed_id`, type: `LEFT` })
                         .join({ table: `tbl_life_stages AS ls`, condition: `ls.id = pet.life_stages_id`, type: `LEFT` })
                         .condition(`WHERE srvc.id= ${data.id}`)

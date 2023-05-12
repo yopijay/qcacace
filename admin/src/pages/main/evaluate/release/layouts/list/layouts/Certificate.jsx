@@ -46,7 +46,7 @@ const Certificate = ({ id, open, setOpen }) => {
                             <Typography variant= "h5" sx= {{ fontWeight: 'bold' }}>Certificate of Adoption</Typography>
                         </Stack>
                         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 }>
-                            <Typography sx= {{ paddingLeft: '20px' }}>This certifies that <b>#{ adopter.series_no }</b>, a <b>{ adopter.breed }</b>, 
+                            <Typography sx= {{ paddingLeft: '20px' }}>This certifies that <b>#{ adopter.series_no }</b>, a <b>{ adopter.category }</b>, 
                                 has been adopted by <b>{ adopter.name }</b> on <b>{ adopter.date_evaluated }</b>.</Typography>
                             <Typography><b>#{ adopter.series_no }</b> is a <b>{ adopter.age }</b> <b>{ (adopter.gender)?.toUpperCase() }</b> <b>{ adopter.breed }</b>.
                                 <b>{ adopter.name }</b> has agreed to provide a loving and responsible home for <b>#{ adopter.series_no }</b>. 
