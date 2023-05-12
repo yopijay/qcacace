@@ -199,7 +199,8 @@ class Schedule {
             body: {
                 name: 'Fur Mom/Dad',
                 intro: `Hi Fur Mom/Dad,
-                We hope this message finds you well. We are writing to confirm your scheduled interview at the QC Animal Care and Adoption Center. As part of our adoption process, 
+                We hope this message finds you well. We are writing to confirm your scheduled interview on <b>${appointment.month}/${appointment.day}/${appointment.year}</b>.
+                the QC Animal Care and Adoption Center. As part of our adoption process, 
                 our staff will conduct an interview to discuss your application and ensure the best possible match for both you and your potential furry friend.<br><br>
 
                 We would like to bring to your attention that the interview would include psychological questions. Please be assured that these questions are designed to help us 
