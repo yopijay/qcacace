@@ -82,9 +82,7 @@ class Documents {
                                             .build()).rows;
         
         if(data.type === 'adoption') {
-            _intro = `Hi Fur Mom/Dad,
-
-                         Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center. 
+            _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center. 
                          After reviewing your application and documents, we are pleased to inform you that you have been pre-qualified 
                          for the next stage of the adoption process, which is the interview.<br><br>
 
@@ -215,7 +213,6 @@ class Documents {
                 return { result: 'success', message: 'Successfully saved!', id: adopt.id }
             default:
                 if((await new Builder(`tbl_documents`).select().condition(`WHERE furr_parent_id= ${data.id}`).build()).rowCount > 0) {
-                    console.log('update')
                     let docu = (await new Builder(`tbl_documents`).select().condition(`WHERE furr_parent_id= ${data.id}`).build()).rows[0];
 
                     await new Builder(`tbl_documents`)
@@ -233,7 +230,6 @@ class Documents {
                     return { result: 'success', message: 'Successfully saved!', id: adopt.id }
                 }
                 else {
-                    console.log('new');
                     let docu = (await new Builder(`tbl_documents`)
                                                             .insert({ columns: `series_no, furr_parent_id, valid_id, picture, pet_cage, status, date_filed, proof_billing`, 
                                                                             values: `'${global.randomizer(7)}', ${data.id}, '${data.valid_id}', '${data.picture}', '${data.pet_cage}', 

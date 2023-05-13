@@ -87,8 +87,7 @@ class Schedule {
                             .build()).rows;
 
         if(data.type === 'adoption') {  
-            _intro = `Hi Fur Mom/Dad,
-                        Thank you for taking the time to be interviewed as part of the pet adoption
+            _intro = `Thank you for taking the time to be interviewed as part of the pet adoption
                         process.<br><br>
 
                         It brings us great pleasure to inform you that your interview has been successful, and you have PASSED
@@ -100,9 +99,7 @@ class Schedule {
                         QC Animal Care and Adoption Center`;
                 }
         else {
-            _intro = `Hi Fur Mom/Dad,
-
-                            Thank you for taking the time to be interviewed as part of the pet surrender process.
+            _intro = `Thank you for taking the time to be interviewed as part of the pet surrender process.
                             We are pleased to inform you that you passed the interview. You can now proceed for the next phase by clicking the button below for the payment details.
                             
                             Please contact us for additional help.
