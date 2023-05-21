@@ -181,7 +181,6 @@ class Schedule {
         let appointment = (await new Builder(`tbl_appointments`).select().condition(`WHERE month= ${data.appmonth} AND day= ${data.appday} AND year= ${data.appyear}`).build()).rows[0];
         let adopt = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
 
-        
         let sched = (await new Builder(`tbl_schedule`)
                                 .insert({ columns: `series_no, furr_parent_id, appointment_id, status, date_filed`, 
                                                 values: `'${global.randomizer(7)}', ${data.adopter_id}, ${appointment.id}, 'pending', CURRENT_TIMESTAMP` })
@@ -196,24 +195,19 @@ class Schedule {
             body: {
                 name: 'Fur Mom/Dad',
                 intro: `Hi Fur Mom/Dad,
-                We hope this message finds you well. We are writing to confirm your scheduled interview on <b>${appointment.month}/${appointment.day}/${appointment.year}</b>.
-                the QC Animal Care and Adoption Center. As part of our adoption process, 
-                our staff will conduct an interview to discuss your application and ensure the best possible match for both you and your potential furry friend.<br><br>
+                    We hope this message finds you well. We are writing to confirm your scheduled appointment for the submission of documentary requirements at
+                    our center located at Clemente St., Lupang Pangako, Payatas, Quezon City, Philippines on <b>${appointment.month}/${appointment.day}/${appointment.year}</b>.
+                    Please ensure that you bring the following requirements with you:<br><br>
 
-                We would like to bring to your attention that the interview would include psychological questions. Please be assured that these questions are designed to help us 
-                better understand your lifestyle, living situation, and expectations, and are in no way meant to be intrusive or offensive.<br><br>
-
-                Please be advised that the interview can be conducted online via Google Meet using this 
-                link: <a href= "https://meet.google.com/ysw-mrug-emz">https://meet.google.com/ysw-mrug-emz</a>, or you may visit our center located at 
-                Clemente St., Lupang Pangako, Payatas, Quezon City. To avoid any inconvenience, we kindly ask that you confirm your preferred mode of interview by emailing us before 
-                your scheduled appointment.<br><br> 
-                
-                We value your interest in our adoption program, and we look forward to seeing you soon. However, please be informed that failure to confirm 
-                your appointment with us may result in the rejection of your application.<br><br>
-                
-                Thank you for considering adoption as an option and for taking the time to communicate with us.
-                Yours truly, `,
-                
+                    1. Quezon City ID or Barangay ID.<br>
+                    2. One (1) 1x1 picture.<br>
+                    3. Picture of the house, showing the designate area for the pet.<br>
+                    4. Proof of billing or pay slip. <br><br>
+                    
+                    Please note that once you have completed the requirements on this day, the interview will follow. It may only take a short amount of time.<br><br>
+                    
+                    Thank you for considering adoption as an option and for taking the time to communicate with us. Should you need any additional assistance, please do not hesitate
+                    to contact us.`,
                 outro: 'Please contact me for additional help.'
             }
         });

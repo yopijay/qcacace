@@ -53,7 +53,7 @@ const Verifying = () => {
                     </form>
                     <Grid container direction= "row" justifyContent= "space-between" alignItems= "center">
                         <Grid item xs= { 5 } sm= { 4 } md= { 5 } lg= { 3 }>
-                            <Box sx= { btntxt } component= { Link } to= { `/pets/${id}/adopt` }>Back</Box>
+                            <Box sx= { btntxt } component= { Link } to= { `/pets/${id}/adopt/verification` }>Back</Box>
                         </Grid>
                         <Grid item xs= { 5 } sm= { 4 } md= { 5 } lg= { 3 }>
                             { timer !== '00:00' ?    

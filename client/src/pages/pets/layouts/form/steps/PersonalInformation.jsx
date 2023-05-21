@@ -1,11 +1,8 @@
 // Libraries
-import { Autocomplete, Box, Grid, InputAdornment, Skeleton, Stack, TextareaAutosize, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Grid, InputAdornment, Skeleton, Stack, TextField, Typography } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 
 // Core
 import { FormCntxt } from "core/context/FormCntxt.func"; // Context
@@ -13,7 +10,7 @@ import { successToast, useGet, usePost } from "core/global/function/index.func";
 import { specific, update } from "core/api/index.func"; // API
 
 // Constants
-import { btntxt, date, input, select, textarea } from "../index.style"; // Styles
+import { btntxt, input, select } from "../index.style"; // Styles
 import { personalinformation } from "../index.validation"; // Validation
 const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }]; // Gender
 
@@ -71,7 +68,7 @@ const PersonalInformation = () => {
                                 <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.lname?.message }</Typography>
                             </Stack>
                         </Grid>
-                        <Grid item xs= { 12 } sm= { 6 }>
+                        {/* <Grid item xs= { 12 } sm= { 6 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography sx={{fontWeight:'600'}}>*Birthdate</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
@@ -86,7 +83,7 @@ const PersonalInformation = () => {
                                     </Box> }
                                 <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.birthdate?.message }</Typography>
                             </Stack>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs= { 12 } sm= { 7 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography sx={{fontWeight:'600'}}>*Contact no.</Typography>
@@ -114,13 +111,13 @@ const PersonalInformation = () => {
                                 <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.gender?.message }</Typography>
                             </Stack>
                         </Grid>
-                        <Grid item xs= { 12 }>
+                        {/* <Grid item xs= { 12 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography color= "text.secondary" variant= "body2" sx={{fontWeight:'600', color:'black', fontSize:'15px'}}>Address</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "50px" /> :
                                     <TextareaAutosize name= "address" { ...register('address') } minRows= { 4 } maxRows= { 4 } style= { textarea } /> }
                             </Stack>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </form>
             </Stack>

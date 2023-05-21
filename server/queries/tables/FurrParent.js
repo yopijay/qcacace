@@ -95,15 +95,21 @@ class FurrParent {
         
                 if(!((await new Builder(`tbl_furr_parent`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0)) {
                     let usr = (await new Builder(`tbl_furr_parent`)
-                                                        .insert({ columns: `series_no, email, code, date_created`, 
-                                                                        values: `'${global.randomizer(7)}', '${data.email}', '${global.randomizer(6)}', CURRENT_TIMESTAMP` })
+                                                        .insert({ columns: `series_no, email, code, street, date_created, birthdate, barangay, city`, 
+                                                                        values: `'${global.randomizer(7)}', '${data.email}', '${global.randomizer(6)}', 
+                                                                                        '${(data.street).toUpperCase()}', CURRENT_TIMESTAMP, '${data.birthdate}', '${data.barangay}', 
+                                                                                        'QUEZON CITY'` })
                                                         .condition(`RETURNING id, code`)
                                                         .build()).rows[0];
                     id = usr.id;
                     code = usr.code;
                 }
                 else {
-                    let usr = (await new Builder(`tbl_furr_parent`).update(`code= '${global.randomizer(6)}'`).condition(`WHERE email= '${data.email}' RETURNING id, code`).build()).rows[0];
+                    let usr = (await new Builder(`tbl_furr_parent`)
+                                    .update(`code= '${global.randomizer(6)}', birthdate= '${data.birthdate}', street= '${(data.street).toUpperCase()}', barangay= '${data.barangay}',
+                                                    city= 'QUEZON CITY'`)
+                                    .condition(`WHERE email= '${data.email}' RETURNING id, code`)
+                                    .build()).rows[0];
         
                     id = usr.id;
                     code = usr.code;
@@ -222,7 +228,7 @@ class FurrParent {
                     await new Builder(`tbl_furr_parent`)
                                         .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
                                                         lname= '${(data.lname).toUpperCase()}', contact_no= '${data.contact_no}', gender= '${data.gender}', 
-                                                        address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, date_updated= CURRENT_TIMESTAMP, birthdate= '${data.birthdate}'`)
+                                                        date_updated= CURRENT_TIMESTAMP`)
                                         .condition(`WHERE id= ${furr_parent.id}`)
                                         .build();
 

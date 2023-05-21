@@ -28,8 +28,8 @@ const Index = () => {
                        <Typography sx= {{ fontWeight: 'bold', fontStyle: 'italic' }}>Reminder:</Typography>
                        <Typography>The adoption process of QCACAC has (4) phases.</Typography>
                        <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 }>
-                           <Typography><b>1. Documentary Requirements.</b> After the interview, the adopter needs to pass the document requirements for validation purpose 
-                               and contract making such as:</Typography>
+                           <Typography><b>1. Documentary Requirements.</b> To guarantee the legitimacy of the adopter and their ability to provide proper care for the pet, certain 
+                            documentation is required. The following documents must be presented:</Typography>
                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 1 } sx= {{ paddingLeft: '20px' }}>
                                <Typography sx={{ fontWeight: 'bold'}}>* QC ID or Brgy. ID.</Typography>
                                <Typography sx={{ fontWeight: 'bold'}}>* 1x1 picture.</Typography>

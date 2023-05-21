@@ -14,11 +14,12 @@ export const btnback = {
 
 export const card = {
     padding: '30px 15px',
+    maxHeight: '1200px',
     flexGrow: 1,
     backgroundImage: `url(${BG})`,
     borderRadius: '8px',
     border: 'solid 1px #919eab40',
-    overflowY: 'scroll',
+    overflow: 'hidden',
     '&::-webkit-scrollbar': { display: 'none' }
 }
 

@@ -214,12 +214,7 @@ class Documents {
             default:
                 if((await new Builder(`tbl_documents`).select().condition(`WHERE furr_parent_id= ${data.id}`).build()).rowCount > 0) {
                     let docu = (await new Builder(`tbl_documents`).select().condition(`WHERE furr_parent_id= ${data.id}`).build()).rows[0];
-
-                    await new Builder(`tbl_documents`)
-                                        .update(`valid_id= '${data.valid_id}', picture= '${data.picture}', pet_cage= '${data.pet_cage}', status= 'pending', date_filed= CURRENT_TIMESTAMP,
-                                                        proof_billing= '${data.proof_billing}'`)
-                                        .condition(`WHERE id= ${docu.id}`)
-                                        .build();
+                    await new Builder(`tbl_documents`).update(`status= 'pending', date_filed= CURRENT_TIMESTAMP`).condition(`WHERE id= ${docu.id}`).build();
 
                     let adopt = (await new Builder(`tbl_services`)
                                                             .insert({ columns: `series_no, furr_parent_id, pet_id, docu_id, type, status, date_filed`, 
@@ -231,9 +226,7 @@ class Documents {
                 }
                 else {
                     let docu = (await new Builder(`tbl_documents`)
-                                                            .insert({ columns: `series_no, furr_parent_id, valid_id, picture, pet_cage, status, date_filed, proof_billing`, 
-                                                                            values: `'${global.randomizer(7)}', ${data.id}, '${data.valid_id}', '${data.picture}', '${data.pet_cage}', 
-                                                                                            'pending', CURRENT_TIMESTAMP, '${data.proof_billing}'` })
+                                                            .insert({ columns: `series_no, furr_parent_id, status, date_filed`, values: `'${global.randomizer(7)}', ${data.id}, 'pending', CURRENT_TIMESTAMP` })
                                                             .condition(`RETURNING id`)
                                                             .build()).rows[0];
                                                     

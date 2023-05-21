@@ -33,7 +33,7 @@ const Appointment = () => {
     return (
         <Stack direction= "column" justifyContent= "space-between" alignItems= "stretch" spacing= { 3 } sx= {{ height: '100%' }}>
             <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch" spacing= { 2 }>
-                <Typography variant= "h5" sx={{ fontWeight:'600'}}>Choose appointment schedule</Typography>
+                <Typography variant= "h5" sx={{ fontWeight:'600'}}>Choose appointment schedule for submission of documentary requirements</Typography>
                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
                     <Grid item xs= { 12 } sm= { 6 } md= { 5 }>
                         <Box sx= { select }>

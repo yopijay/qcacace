@@ -11,6 +11,7 @@ import { theme } from "core/global/theme/index.style"; // Theme
 
 // Layouts
 import PetInfo from "./PetInfo";
+import Qualification from "./steps/Qualification";
 import Registration from "./steps/Registration";
 import Verifying from "./steps/Verifying";
 import PersonalInformation from "./steps/PersonalInformation";
@@ -70,9 +71,10 @@ const Index = () => {
                 <Box sx= { card }>
                     <Grid container direction= "row" justifyContent= {{ xs: 'center', sm: 'flex-start', md: 'space-evenly' }} alignItems= "stretch" spacing= { 5 }>
                         <Grid item xs= { 12 } md= { 4 } lg= { 3 }><PetInfo /></Grid>
-                        <Grid item xs= { 12 } md= { 6 } lg= { 5 } sx= {{ height: '100%', overflow: 'hidden' }}>
+                        <Grid item xs= { 12 } md= { 6 } lg= { 5 }>
                             <Routes>
-                                <Route exact path= "/" element= { <ThemeProvider theme= { theme(email) }><Registration /></ThemeProvider> } />
+                                <Route exact path= "/" element= { <ThemeProvider theme= { theme(input) }><Qualification /></ThemeProvider> } />
+                                <Route exact path= "/verification" element= { <ThemeProvider theme= { theme(email) }><Registration /></ThemeProvider> } />
                                 <Route exact path= "/:userid/verify" element= { <ThemeProvider theme= { theme(code) }><Verifying /></ThemeProvider> } />
                                 <Route exact path= "/:userid/personal-information" element= { <ThemeProvider theme= { theme(input) }><PersonalInformation /></ThemeProvider> } />
                                 <Route exact path = "/:userid/documents" element= { <ThemeProvider theme= { theme(input) }><Documents /></ThemeProvider> } />
