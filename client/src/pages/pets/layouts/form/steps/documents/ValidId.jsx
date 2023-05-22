@@ -35,7 +35,7 @@ const ValidId = ({ fetching }) => {
                     </Stack>
                 </Stack>
             </Stack>
-            <input type= "file" name= "valid_id" id= "valid_id" style= {{ width: '0.1px', height: '0.1px', opacity: 0, overflow: 'hidden', position: 'absolute', zIndex: -1 }}
+            <input type= "file" name= "valid_id" id= "valid_id" style= {{ width: '0.1px', height: '0.1px', opacity: 0, overflow: 'hidden', zIndex: -1 }}
                 onChange= { async e => {
                     setError('valid_id', { message: '' });
                     let file = e.target.files[0];

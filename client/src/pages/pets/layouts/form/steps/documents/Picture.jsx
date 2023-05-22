@@ -34,7 +34,7 @@ const Picture = ({ fetching }) => {
                     </Stack>
                 </Stack>
             </Stack>
-            <input type= "file" name= "picture" id= "picture" style= {{ width: '0.1px', height: '0.1px', opacity: 0, overflow: 'hidden', position: 'absolute', zIndex: -1 }}
+            <input type= "file" name= "picture" id= "picture" style= {{ width: '0.1px', height: '0.1px', opacity: 0, overflow: 'hidden', zIndex: -1 }}
                 onChange= { async e => {
                     setError('picture', { message: '' });
                     let file = e.target.files[0];

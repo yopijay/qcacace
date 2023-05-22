@@ -34,7 +34,7 @@ const ProofBilling = ({ fetching }) => {
                     </Stack>
                 </Stack>
             </Stack>
-            <input type= "file" name= "proof_billing" id= "proof_billing" style= {{ width: '0.1px', height: '0.1px', opacity: 0, overflow: 'hidden', position: 'absolute', zIndex: -1 }}
+            <input type= "file" name= "proof_billing" id= "proof_billing" style= {{ width: '0.1px', height: '0.1px', opacity: 0, overflow: 'hidden', zIndex: -1 }}
                 onChange= { async e => {
                     setError('proof_billing', { message: '' });
                     let file = e.target.files[0];

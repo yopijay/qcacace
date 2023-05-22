@@ -20,10 +20,10 @@ import OwnerInformation from "./owner-information/OwnerInformation";
 import ValidId from "./documents/ValidId";
 import Picture from "./documents/Picture";
 import PetCage from "./documents/PetCage";
+import ProofBilling from "./documents/ProofBilling";
 
 // Constants
 import { btnicon, btntxt, card } from "./index.style"; // Styles
-import ProofBilling from "./documents/ProofBilling";
 const input = {
     MuiInput: {
         styleOverrides: {
@@ -55,7 +55,7 @@ const email_input = {
 const Index = () => {
     const { type, id, email } = useParams();
     const navigate = useNavigate();
-    const { setValue, getValues } = useContext(FormCntxt);
+    const { setValue, getValues, handleSubmit } = useContext(FormCntxt);
     
     const { data: docs, isFetching: fetching } = 
         useGet({ key: ['docs_specific'], fetch: specific({ table: 'tbl_documents', id: id ?? null }), options: { enabled: type !== 'new', refetchOnWindowFocus: false },
@@ -70,10 +70,10 @@ const Index = () => {
     });
 
     const { mutate: approval } = 
-        usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { successToast(data.message, 3000, navigate('/evaluate/documents', { replace: true })); }  } });
+        usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { successToast(data.message, 3000, navigate('/evaluate/documents', { replace: true })); } } });
         
-    const { mutate: reject } = 
-        usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { errorToast(data.message, 3000, navigate('/evaluate/documents', { replace: true })); } } });
+    // const { mutate: reject } = 
+    //     usePost({ fetch: evaluate, onSuccess: data => { if(data.result === 'success') { errorToast(data.message, 3000, navigate('/evaluate/documents', { replace: true })); } } });
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" sx= {{ width: '100%', height: '100%', paddingBottom: '20px' }} spacing= { 3 }>
@@ -104,7 +104,7 @@ const Index = () => {
                                 <ThemeProvider theme= { theme(input) }><OwnerInformation fetching= { fetching } /></ThemeProvider>
                             </Stack>
                         </Grid>
-                        {/* <Grid item>
+                        <Grid item>
                             <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
                                 <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Documentary requirements</Typography>
                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-end" spacing= { 2 }>
@@ -114,7 +114,7 @@ const Index = () => {
                                     { getValues()?.type === 'adoption' ? <Grid item xs= { 12 } md= { 6 } lg= { 4 }><ProofBilling fetching= { fetching } /></Grid> : '' }
                                 </Grid>
                             </Stack>
-                        </Grid> */}
+                        </Grid>
                       </Grid>
                 </form>
             </Box>
@@ -123,12 +123,15 @@ const Index = () => {
                     <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 }>
                         <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
                             <Box sx= { btntxt }
-                                onClick= { () => approval({ table: 'tbl_documents', type: 'approve', data: { id: id, email: atob(email) } }) }>Saved</Box>
+                                onClick= { handleSubmit(data => {
+                                    data['email'] = atob(email);
+                                    data['evaluator'] = atob(localStorage.getItem('token'));
+                                    if(data.valid_id === '' || data.picture === '' || data.pet_cage === '' || data.proof_billing === '') { 
+                                        errorToast('Please complete documentary requirements to proceed', 3000); 
+                                    }
+                                    else { approval({ table: 'tbl_documents', type: 'approve', data: data }); }
+                                })}>Save</Box>
                         </Grid>
-                        {/* <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
-                            <Box sx= { btntxt }
-                                onClick= { () => reject({ table: 'tbl_documents', type: 'reject', data: { id: id, email: atob(email) } }) }>Reject</Box>
-                        </Grid> */}
                     </Grid> : '' }
             </Box>
         </Stack>

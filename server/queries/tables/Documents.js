@@ -11,7 +11,7 @@ class Documents {
         return (await new Builder(`tbl_services AS srvc`)
                                         .select(`srvc.id, pet.photo, pet.series_no, pet.category_id, pet.breed_id, pet.coat_id, pet.life_stages_id, pet.gender, pet.sterilization, pet.energy_level, pet.weight,
                                                         pet.color, pet.tags, fp.email, fp.fname, fp.mname, fp.lname, fp.contact_no, fp.gender, fp.street, docu.valid_id, docu.picture, fp.barangay, fp.city,
-                                                        docu.pet_cage, docu.proof_billing, srvc.reason, srvc.type, fp.birthdate`)
+                                                        docu.pet_cage, docu.proof_billing, srvc.reason, srvc.type, fp.birthdate, docu.status`)
                                         .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
                                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                                         .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
@@ -64,33 +64,24 @@ class Documents {
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
 
+        let srvc = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
+        
         await new Builder(`tbl_documents`)
-                            .update(`status= 'approved', evaluated_by= ${data.evaluator}, date_evaluated= CURRENT_TIMESTAMP`)
-                            .condition(`WHERE id= ${data.docu_id}`)
+                            .update(`valid_id= '${data.valid_id}', picture= '${data.picture}', pet_cage= '${data.pet_cage}', proof_billing= '${data.proof_billing}', 
+                                            status= 'approved', evaluated_by= ${data.evaluator}, date_evaluated= CURRENT_TIMESTAMP`)
+                            .condition(`WHERE id= ${srvc.docu_id}`)
                             .build();
-
-        let list = (await new Builder(`tbl_services AS srvc`)
-                                            .select(`MAX(srvc.id) AS id, MAX(srvc.furr_parent_id) AS furr_parent_id, MAX(srvc.pet_id) AS pet_id, srvc.docu_id,
-                                                            MAX(srvc.schedule_id) AS schedule_id, MAX(docu.series_no) AS series_no, MAX(docu.valid_id) AS valid_id, MAX(docu.picture) AS picture,
-                                                            MAX(docu.pet_cage) AS pet_cage, MAX(fp.email) AS email, MAX(fp.fname) AS fname, MAX(fp.lname) AS lname,
-                                                            MAX(CONCAT(eb.lname, ', ', eb.fname, ' ', eb.mname)) AS evaluated_by,
-                                                            MAX(docu.status) AS status, MAX(docu.date_filed) AS date_filed, MAX(docu.date_evaluated) AS date_evaluated, MAX(srvc.type) AS type`)
-                                            .join({ table: `tbl_documents AS docu`, condition: `srvc.docu_id = docu.id`, type: `LEFT` })
-                                            .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                                            .join({ table: `tbl_users_info AS eb`, condition: `docu.evaluated_by = eb.user_id`, type: `LEFT` })
-                                            .condition(`WHERE srvc.docu_id IS NOT NULL GROUP BY srvc.docu_id ORDER BY date_filed DESC`)
-                                            .build()).rows;
         
         if(data.type === 'adoption') {
-            _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center. 
-                         After reviewing your application and documents, we are pleased to inform you that you have been pre-qualified 
-                         for the next stage of the adoption process, which is the interview.<br><br>
-
-                         We have sent you an appointment schedule, which we kindly ask you to confirm before the scheduled date. 
-                         Please note that failure to confirm your appointment with us may result in the rejection of your application. 
-                         The interview can be conducted online via Google Meet using this link: 
-                         <a href= "https://meet.google.com/ysw-mrug-emz">https://meet.google.com/ysw-mrug-emz</a>, or 
-                         you may visit our center located at Clemente St., Lupang Pangako, Payatas, Quezon City.<br><br>`;
+            _intro = `Thank you so much for taking the time to apply for the pet adoption in QC Animal Care and Adoption Center. After reviewing your application and documents, we are pleased
+                            to inform you that you have <b>PASSED</b> and been pre-qualified for the next stage of the adoption process, which is the interview. As part of our adoption
+                            process, our staff wil conduct an interview to discuss your application and ensure the best possible match for both you and your potenatial furry friend. Please be
+                            assured that the interview questions are designed to help us better understand your lifestyle, living situation, and expectations, and are in no way meant
+                            to be intrusive or offensive.<br><br>
+                            
+                            Plese be advised that the interview can be conducted online via google meet using this link: 
+                            <a href= "https://meet.google.com/ysw-mrug-emz">https://meet.google.com/ysw-mrug-emz</a>, or you may visit our center located at Clemente St., Lupang
+                            Pangako, Payatas, Quezon City.`;
         }
         else {
             _intro = `Good day! We have received  your application and submitted documents for the surrendering of your pet. 
@@ -108,7 +99,7 @@ class Documents {
         });
 
         transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Document Status`, html: mail });
-        return { result: 'success', message: 'Documents approved!', list: list }
+        return { result: 'success', message: 'Documents approved!' }
     }
 
     reject = async (data) => {
