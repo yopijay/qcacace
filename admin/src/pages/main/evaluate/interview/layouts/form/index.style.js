@@ -45,7 +45,7 @@ export const select = {
     borderRadius: '5px'
 }
 
-export const input = {
+export const txtfld = {
     backgroundColor: '#ffffff',
     border: 'solid 1px #dfe4ea',
     padding: {

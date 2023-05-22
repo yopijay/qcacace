@@ -70,24 +70,19 @@ class Schedule {
         let transporter = nodemailer.createTransport(config);
         let generator =  new mailgen({ theme: 'default', product: { name: 'QC Animal Care & Adoption Center', link: 'https://qcacace.vercel.app' } });
         let _intro = '';
+        let total = parseInt(data.q1) + parseInt(data.q2) + parseInt(data.q3) + parseInt(data.q4) + parseInt(data.q5);
+        
+        let srvc = (await new Builder(`tbl_services`).select().condition(`WHERE id= ${data.id}`).build()).rows[0];
 
         await new Builder(`tbl_schedule`)
-            .update(`status= 'approved', evaluated_by= ${data.evaluator}, date_evaluated= CURRENT_TIMESTAMP`)
-            .condition(`WHERE id= ${data.schedule_id}`)
+            .update(`status= '${total >= 75 ? 'approved' : 'cancelled'}', evaluated_by= ${data.evaluator}, date_evaluated= CURRENT_TIMESTAMP,
+                                q1= ${data.q1}, q2= ${data.q2}, q3= ${data.q3}, q4= ${data.q4}, q5= ${data.q5}`)
+            .condition(`WHERE id= ${srvc.schedule_id}`)
             .build();
 
-        let list = (await new Builder(`tbl_services AS srvc`)
-                            .select(`srvc.id, srvc.furr_parent_id, srvc.pet_id, srvc.docu_id, srvc.payment_id, srvc.schedule_id, sched.series_no, fp.contact_no,
-                                            fp.email, fp.fname, fp.lname, sched.appointment_id, sched.evaluated_by, sched.status, sched.date_filed, sched.date_evaluated, srvc.type,
-                                            appnt.month, appnt.day, appnt.year`)
-                            .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
-                            .join({ table: `tbl_schedule AS sched`, condition: `srvc.schedule_id = sched.id`, type: `LEFT` })
-                            .join({ table: `tbl_appointments AS appnt`, condition: `sched.appointment_id = appnt.id`, type: `LEFT` })
-                            .condition(`WHERE srvc.schedule_id IS NOT NULL ORDER BY 15 DESC`)
-                            .build()).rows;
-
         if(data.type === 'adoption') {  
-            _intro = `Thank you for taking the time to be interviewed as part of the pet adoption
+            if(total >= 75) {
+                _intro = `Thank you for taking the time to be interviewed as part of the pet adoption
                         process.<br><br>
 
                         It brings us great pleasure to inform you that your interview has been successful, and you have PASSED
@@ -97,7 +92,13 @@ class Schedule {
                         Please contact us for additional help.<br>
                         Yours truly,<br>
                         QC Animal Care and Adoption Center`;
-                }
+            }
+            else {
+                _intro = `We really appreciate you taking the time to come in for an interview regarding your application to adopt a pet from the QC Animal Care and Adoption Center. 
+                                It was a pleasure to us to meet and thank you for your interest in adopting our pets. Unfortunately, 
+                                we are sorry to inform you that you failed the interview. `;
+            }
+        }
         else {
             _intro = `Thank you for taking the time to be interviewed as part of the pet surrender process.
                             We are pleased to inform you that you passed the interview. You can now proceed for the next phase by clicking the button below for the payment details.
@@ -113,13 +114,13 @@ class Schedule {
             body: {
                 name: 'Fur Mom/Dad',
                 intro: _intro,
-                action: { button: { text: 'Pay here', link: `https://qcacace.vercel.app/payment/${data.id}` } },
+                action: total >= 75 ? { button: { text: 'Pay here', link: `https://qcacace.vercel.app/payment/${data.id}` } } : '',
                 outro: 'Please contact me for additional help.'
             }
         });
 
         transporter.sendMail({ from: global.USER, to: data.email, subject: `Application Interview Status`, html: mail });
-        return { result: 'success', message: 'Interview passed!', list: list }
+        return { result: 'success', message: 'Interview done!' }
     }
 
     reject = async (data) => {

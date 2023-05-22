@@ -1,31 +1,19 @@
 // Libraries
 import { useContext } from "react";
 import { Chip, Stack, Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 // Core
 import { ListCntxt } from "core/context/List"; // Context
-import { errorToast, successToast, usePost } from "core/global/function/index.func"; // Function
-import { evaluate } from "core/api/index.func"; // API
 import { months } from "core/constants/Date.const"; // Constants
 
 // Constants
-import { approve, disapprove, icons, item } from "../index.style"; // Styles
+import { icons, item } from "../index.style"; // Styles
 
 const Item = () => {
-    const { list, setList } = useContext(ListCntxt);
-    const navigate = useNavigate();
-    const { mutate: approval } = 
-        usePost({ fetch: evaluate, onSuccess: data => { 
-            if(data.result === 'success') { successToast(data.message, 3000, navigate('/evaluate/interview', { replace: true })); setList(data.list); } 
-        } });
-        
-    const { mutate: reject } = 
-        usePost({ fetch: evaluate, onSuccess: data => { 
-            if(data.result === 'success') { errorToast(data.message, 3000, navigate('/evaluate/interview', { replace: true })); setList(data.list); } 
-        } });
+    const { list } = useContext(ListCntxt);
 
     return (
         <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch" spacing= { 2 } sx=  {{ padding: '0 0 40px 0', overflowY: 'scroll', '&::-webkit-scrollbar': { display: 'none' } }}>
@@ -52,19 +40,14 @@ const Item = () => {
                         </Stack>
                     </Stack>
                     <Stack direction= "row" justifyContent= "flex-start" alignItems= "center" spacing= { 1 }>
-                        { data.status === 'pending' ? 
-                            <Typography sx= { approve } onClick= { () => approval({ table: 'tbl_schedule', type: 'approve', data: data }) }>
-                                <FontAwesomeIcon icon= { solid('square-check') } size= "xl" />
-                            </Typography> : '' }
-                        { data.status === 'pending' ? 
-                            <Typography sx= { disapprove } onClick= { () => reject({ table: 'tbl_schedule', type: 'reject', data: data }) }>
-                                <FontAwesomeIcon icon= { solid('square-xmark') } size= "xl" />
-                            </Typography> : '' }
                         { data.status !== 'pending' ? 
                             data.status === 'approved' ? 
                                 <Chip variant= "default" size= "small" label= "Passed" sx= {{ backgroundColor: '#4cd137', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
                                 data.status === 'failed' ? 
                                     <Chip variant= "default" size= "small" label= "Failed" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' : '' }
+                        { data.status === 'pending' ? <Typography sx= { icons } component= { Link } to= { `/evaluate/interview/form/update/${data.id}` }>
+                            <FontAwesomeIcon icon= { solid('clipboard') } size= "lg" />
+                        </Typography> : '' }
                         <Typography sx= { icons } component= { Link } to= { `/evaluate/interview/form/view/${data.id}` }>
                             <FontAwesomeIcon icon= { solid('eye') } size= "lg" />
                         </Typography>

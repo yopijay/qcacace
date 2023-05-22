@@ -43,9 +43,9 @@ class Services {
 
     specific = async (id) => {
         return (await new Builder(`tbl_services AS srvc`)
-                        .select(`srvc.id, srvc.series_no, fp.email, fp.fname, fp.mname, fp.lname, fp.contact_no, fp.gender, fp.address, pet.series_no, pet.category_id, pet.breed_id,
+                        .select(`srvc.id, srvc.series_no, fp.email, fp.fname, fp.mname, fp.lname, fp.contact_no, fp.gender, fp.street, pet.series_no, pet.category_id, pet.breed_id,
                                         pet.coat_id, pet.life_stages_id, pet.gender AS pet_gender, pet.sterilization, pet.energy_level, pet.weight, pet.color, pet.tags, pet.photo, docs.valid_id, 
-                                        docs.picture, docs.pet_cage, pay.method, pay.transaction_no, app.month, app.day, app.year, srvc.type, ls.name AS stage, srvc.reason`)
+                                        docs.picture, docs.pet_cage, pay.method, pay.transaction_no, app.month, app.day, app.year, srvc.type, ls.name AS stage, srvc.reason, fp.barangay, fp.city`)
                         .join({ table: `tbl_furr_parent AS fp`, condition: `srvc.furr_parent_id = fp.id`, type: `LEFT` })
                         .join({ table: `tbl_pets AS pet`, condition: `srvc.pet_id = pet.id`, type: `LEFT` })
                         .join({ table: `tbl_life_stages AS ls`, condition: `pet.life_stages_id = ls.id`, type: `LEFT` })
