@@ -104,7 +104,7 @@ const Index = () => {
                                 <ThemeProvider theme= { theme(input) }><OwnerInformation fetching= { fetching } /></ThemeProvider>
                             </Stack>
                         </Grid>
-                        <Grid item>
+                        {/* <Grid item>
                             <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
                                 <Typography sx= {{ fontWeight: '600', textTransform: 'uppercase', color:'black', fontSize:'18px' }}gutterBottom>Documentary requirements</Typography>
                                 <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-end" spacing= { 2 }>
@@ -114,7 +114,7 @@ const Index = () => {
                                     { getValues()?.type === 'adoption' ? <Grid item xs= { 12 } md= { 6 } lg= { 4 }><ProofBilling fetching= { fetching } /></Grid> : '' }
                                 </Grid>
                             </Stack>
-                        </Grid>
+                        </Grid> */}
                       </Grid>
                 </form>
             </Box>
@@ -123,12 +123,12 @@ const Index = () => {
                     <Grid container direction= "row" justifyContent= "flex-end" alignItems= "center" spacing= { 1 }>
                         <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
                             <Box sx= { btntxt }
-                                onClick= { () => approval({ table: 'tbl_documents', type: 'approve', data: { id: id, email: atob(email) } }) }>Approved</Box>
+                                onClick= { () => approval({ table: 'tbl_documents', type: 'approve', data: { id: id, email: atob(email) } }) }>Saved</Box>
                         </Grid>
-                        <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
+                        {/* <Grid item xs= { 12 } sm= { 3 } lg= { 2 }>
                             <Box sx= { btntxt }
                                 onClick= { () => reject({ table: 'tbl_documents', type: 'reject', data: { id: id, email: atob(email) } }) }>Reject</Box>
-                        </Grid>
+                        </Grid> */}
                     </Grid> : '' }
             </Box>
         </Stack>

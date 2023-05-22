@@ -10,6 +10,16 @@ export const btnicon = {
     '&:hover': { backgroundColor: '#adadad' }
 }
 
+export const date = {
+    backgroundColor: '#FFFFFF',
+    border: 'solid 1px #dfe4ea',
+    padding: {
+        xs: '8px',
+        md: '10px 10px'
+    },
+    borderRadius: '5px'
+}
+
 export const card = {
     padding: '30px 15px',
     flexGrow: 1,
