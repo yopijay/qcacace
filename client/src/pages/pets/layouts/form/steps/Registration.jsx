@@ -46,7 +46,7 @@ const Registration = () => {
                         <Box sx= { btntxt } component= { Link } to= { `/pets/${id}/adopt` }>Back</Box>
                     </Grid>
                     <Grid item xs= { 6 } sm= { 4 } md= { 5 } lg= { 3 } sx= {{ margin: '0 0 0 10px' }}>
-                        { getValues().email === '' ? <Box sx= { btntxt } onClick= { handleSubmit(data => saving({ table: 'tbl_furr_parent', data: data })) }>Verfiy</Box> :
+                        { getValues().email === '' ? <Box sx= { btntxt } onClick= { handleSubmit(data => saving({ table: 'tbl_furr_parent', data: data })) }>Verify</Box> :
                         <Box sx= { btntxt } component= { Link } to= { `/pets/${id}/adopt/${getValues().id}/verify` }>Verify</Box> }
                     </Grid>
                 </Grid> 
