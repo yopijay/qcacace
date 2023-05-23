@@ -49,7 +49,9 @@ const PersonalInformation = () => {
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography sx={{fontWeight:'600'}}>*First name</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
-                                    <TextField { ...register('fname') } name= "fname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } /> }
+                                    <TextField { ...register('fname') } name= "fname" variant= "standard" 
+                                        onChange= { e => setValue('fname', (e.target.value).replace(/[^a-zA-Z -]/g, '')) }
+                                        InputProps= {{ disableUnderline: true }} sx= { input } /> }
                                 <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.fname?.message }</Typography>
                             </Stack>
                         </Grid>
@@ -57,14 +59,18 @@ const PersonalInformation = () => {
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography sx={{fontWeight:'600'}}>Middle name</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
-                                    <TextField { ...register('mname') } name= "mname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } /> }
+                                    <TextField { ...register('mname') } name= "mname" variant= "standard" 
+                                        onChange= { e => setValue('mname', (e.target.value).replace(/[^a-zA-Z -]/g, '')) }
+                                        InputProps= {{ disableUnderline: true }} sx= { input } /> }
                             </Stack>
                         </Grid>
                         <Grid item xs= { 12 } sm= { 6 }>
                             <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                                 <Typography sx={{fontWeight:'600'}}>*Last name</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
-                                    <TextField { ...register('lname') } name= "lname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } /> }
+                                    <TextField { ...register('lname') } name= "lname" variant= "standard" 
+                                        onChange= { e => setValue('lname', (e.target.value).replace(/[^a-zA-Z -]/g, '')) }
+                                        InputProps= {{ disableUnderline: true }} sx= { input } /> }
                                 <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.lname?.message }</Typography>
                             </Stack>
                         </Grid>
@@ -89,6 +95,7 @@ const PersonalInformation = () => {
                                 <Typography sx={{fontWeight:'600'}}>*Contact no.</Typography>
                                 { fetching ? <Skeleton variant= "rounded" height= "35px" /> :
                                     <TextField { ...register('contact_no') } name= "contact_no" variant= "standard"
+                                        onChange= { e => setValue('contact_no', (e.target.value).replace(/[^\d-]/g, '')) }
                                         InputProps= {{ disableUnderline: true, startAdornment: <InputAdornment position="start">+63</InputAdornment>, }}
                                         inputProps= {{ maxLength: 10 }} sx= { input } /> }
                                 <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.contact_no?.message }</Typography>

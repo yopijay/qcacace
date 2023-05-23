@@ -137,9 +137,8 @@ const Index = () => {
                                     <Grid item xs= { 7 } md= { 9 }>
                                         <Stack direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
                                             <Typography>5.</Typography>
-                                            <Typography sx= {{ flexGrow: 1 }}>How many people live with you in your house? Do you have young children or are there children in your household?
-                                            If yes, are they okay with adopting a dog or cat as a pet? (Ilan ang mga kasama mo sa bahay? May maliliit po ba kayong anak or may kasamang bata sa
-                                            tahanan niyo? Kung mayroon, ayos lang po ba sa kanila ang pag ampon niyo ng alalgang aso o pusa?)</Typography>
+                                            <Typography sx= {{ flexGrow: 1 }}>Are you sure that you can meet the needs of your adopted dog or cat? How do you plan to do this? (Nakakasigurado po ba
+                                            kayong matutulungan niyo ang pangangailangan ng inyong alagang aso o pusa? Sa paanong paraan?)</Typography>
                                         </Stack>
                                     </Grid>
                                     <Grid item xs= { 4 } md= { 2 }>
