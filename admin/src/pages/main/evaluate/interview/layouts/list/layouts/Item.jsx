@@ -43,7 +43,7 @@ const Item = () => {
                         { data.status !== 'pending' ? 
                             data.status === 'approved' ? 
                                 <Chip variant= "default" size= "small" label= "Passed" sx= {{ backgroundColor: '#4cd137', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : 
-                                data.status === 'failed' ? 
+                                data.status === 'cancelled' ? 
                                     <Chip variant= "default" size= "small" label= "Failed" sx= {{ backgroundColor: '#e84118', color: '#FFFFFF', textTransform: 'uppercase', fontWeight: 'bold' }} /> : '' : '' }
                         { data.status === 'pending' ? <Typography sx= { icons } component= { Link } to= { `/evaluate/interview/form/update/${data.id}` }>
                             <FontAwesomeIcon icon= { solid('clipboard') } size= "lg" />
