@@ -9,6 +9,24 @@ import { FormCntxt } from "core/context/FormCntxt.func"; // Context
 // Constants
 import { input, select, textarea } from "./surrender.style"; // Styles
 const gender = [{ id: 'male', name: 'MALE' }, { id: 'female', name: 'FEMALE' }]; // Gender
+const barangays = [
+    { id: '', name: '-- SELECT BARANGAY --' }, 
+    { id: 'alicia', name: 'ALICIA' }, 
+    { id: 'amihan', name: 'AMIHAN' }, 
+    { id: 'bagong_silangan', name: 'BAGONG SILANGAN' }, 
+    { id: 'bahay_toro', name: 'BAHAY TORO' }, 
+    { id: 'batasa_hills', name: 'BATASAN HILLS' }, 
+    { id: 'commonwealth', name: 'COMMONWEALTH' }, 
+    { id: 'fairview', name: 'FAIRVIEW' }, 
+    { id: 'holy_spirit', name: 'HOLY SPIRIT' }, 
+    { id: 'loyola_heights', name: 'LOYOLA HEIGHTS' }, 
+    { id: 'matandang_balara', name: 'MATANDANG BALARA' }, 
+    { id: 'novaliches_proper', name: 'NOVALICHES PROPER' }, 
+    { id: 'pasong_tamo', name: 'PASONG TAMO' }, 
+    { id: 'san_bartolome', name: 'SAN BARTOLOME' }, 
+    { id: 'up_campus', name: 'U.P. CAMPUS' }, 
+    { id: 'white_plains', name: 'WHITE PLAINS' }
+];
 
 const OwnerInformation = () => { 
     const { register, errors, control, getValues } = useContext(FormCntxt);
@@ -62,9 +80,38 @@ const OwnerInformation = () => {
             </Grid>
             <Grid item xs= { 12 }>
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
-                    <Typography gutterBottom variant= "body2" sx={{ fontWeight:'600', color:'black'}}>Address</Typography>
-                    <TextareaAutosize name= "address" { ...register('address') } minRows= { 4 } maxRows= { 4 } style= { textarea } />
-                    <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.address?.message }</Typography>
+                    <Typography gutterBottom variant= "body2" sx={{ fontWeight:'600', color:'black'}}>*Address</Typography>
+                    <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
+                        <Grid item xs= { 12 }>
+                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
+                                <Typography variant= "body2" sx= {{ fontWeight: '600' }} gutterBottom>Street</Typography>
+                                <TextField { ...register('street') } name= "street" fullWidth variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
+                                <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.street?.message }</Typography>
+                            </Stack>
+                        </Grid>
+                        <Grid item xs= { 6 }>
+                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
+                                <Typography variant= "body2" sx= {{ fontWeight: '600' }} gutterBottom>Barangay</Typography>
+                                <Box sx= { select }>
+                                    <Controller control= { control } name= "barangay"
+                                        render= { ({ field: { onChange, value } }) => (
+                                            <Autocomplete options= { barangays } disableClearable getOptionLabel= { brgy => brgy.name || brgy.id }
+                                                noOptionsText= "No results..." isOptionEqualToValue= { (option, value) => option.name === value.name || option.id === value.id }
+                                                renderInput= { params => <TextField { ...params } variant= "standard" size= "small" fullWidth /> }
+                                                getOptionDisabled= { option => option.id === '' } onChange= { (e, item) => { onChange(item.id); } }
+                                                value= { barangays.find(data => { return data.id === (getValues()?.barangay !== undefined ? getValues()?.barangay : '') }) } />
+                                        ) } />
+                                </Box>
+                                <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.barangay?.message }</Typography>
+                            </Stack>
+                        </Grid>
+                        <Grid item xs= { 6 }>
+                            <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
+                                <Typography variant= "body2" sx= {{ fontWeight: '600' }} gutterBottom>City</Typography>
+                                <TextField { ...register('city') } name= "city" fullWidth variant= "standard" value= "Quezon City" disabled InputProps= {{ disableUnderline: true }} sx= { input } />
+                            </Stack>
+                        </Grid>
+                    </Grid>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 }>

@@ -38,7 +38,8 @@ class FurrParent {
                         await new Builder(`tbl_furr_parent`)
                                             .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
                                                             lname= '${(data.lname).toUpperCase()}', contact_no= '${data.contact_no}', gender= '${data.gender}', 
-                                                            address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, date_updated= CURRENT_TIMESTAMP`)
+                                                            street= ${data.street !== '' ? `'${(data.street).toUpperCase()}'` : null}, date_updated= CURRENT_TIMESTAMP,
+                                                            barangay= '${data.barangay}', city= 'QUEZON CITY'`)
                                             .condition(`WHERE id= ${furr_parent.id}`)
                                             .build();
                         
@@ -67,11 +68,11 @@ class FurrParent {
 
                     if(!(errors.length > 0)) {
                         let furr_parent = (await new Builder(`tbl_furr_parent`)
-                                                                        .insert({ columns: `series_no, email, fname, mname, lname, gender, address, contact_no, date_created`, 
+                                                                        .insert({ columns: `series_no, email, fname, mname, lname, gender, street, contact_no, date_created, barangay, city`, 
                                                                                         values: `'${global.randomizer(7)}', '${data.email}', '${(data.fname).toUpperCase()}',
                                                                                                         ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}, '${(data.lname).toUpperCase()}',
-                                                                                                        '${data.gender}', ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null},
-                                                                                                        '${data.contact_no}', CURRENT_TIMESTAMP` })
+                                                                                                        '${data.gender}', ${data.street !== '' ? `'${(data.street).toUpperCase()}'` : null},
+                                                                                                        '${data.contact_no}', CURRENT_TIMESTAMP, '${data.barangay}', 'QUEZON CITY'` })
                                                                         .condition(`RETURNING id`)
                                                                         .build()).rows[0];
                         
@@ -106,8 +107,8 @@ class FurrParent {
                 }
                 else {
                     let usr = (await new Builder(`tbl_furr_parent`)
-                                    .update(`code= '${global.randomizer(6)}', birthdate= '${data.birthdate}', street= '${(data.street).toUpperCase()}', barangay= '${data.barangay}',
-                                                    city= 'QUEZON CITY'`)
+                                    .update(`code= '${global.randomizer(6)}', birthdate= '${data.birthdate}', street= '${data.street !== '' ? (data.street).toUpperCase() : null}', 
+                                                    barangay= '${data.barangay}', city= 'QUEZON CITY'`)
                                     .condition(`WHERE email= '${data.email}' RETURNING id, code`)
                                     .build()).rows[0];
         
@@ -192,7 +193,8 @@ class FurrParent {
                     await new Builder(`tbl_furr_parent`)
                                         .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
                                                         lname= '${(data.lname).toUpperCase()}', contact_no= '${data.contact_no}', gender= '${data.gender}', 
-                                                        address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, date_updated= CURRENT_TIMESTAMP, birthdate= '${data.birthdate}'`)
+                                                        street= ${data.street !== '' ? `'${(data.street).toUpperCase()}'` : null}, date_updated= CURRENT_TIMESTAMP, birthdate= '${data.birthdate}',
+                                                        barangay= '${data.barangay}', city= 'QUEZON CITY'`)
                                         .condition(`WHERE id= ${furr_parent.id}`)
                                         .build();
 

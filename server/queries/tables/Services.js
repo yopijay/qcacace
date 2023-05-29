@@ -234,9 +234,8 @@ class Services {
                             if(!(errors.length > 0)) {
                                 await new Builder(`tbl_furr_parent`)
                                     .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
-                                                    lname= '${(data.lname).toUpperCase()}', gender= '${data.gender}',
-                                                    address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, contact_no= '${data.contact_no}', 
-                                                    date_updated= CURRENT_TIMESTAMP`)
+                                                    lname= '${(data.lname).toUpperCase()}', gender= '${data.gender}', street= '${data.street !== '' ? (data.street).toUpperCase() : null}', 
+                                                    contact_no= '${data.contact_no}', date_updated= CURRENT_TIMESTAMP, barangay= '${data.barangay}', city= 'QUEZON CITY'`)
                                     .condition(`WHERE email= '${data.email}'`)
                                     .build();
                                                     
@@ -302,11 +301,11 @@ class Services {
 
                             if(!(errors.length > 0)) {
                                 let fp = (await new Builder(`tbl_furr_parent`)
-                                                .insert({ columns: `series_no, email, fname, mname, lname, gender, address, contact_no, date_created`, 
+                                                .insert({ columns: `series_no, email, fname, mname, lname, gender, street, contact_no, date_created, barangay, city`, 
                                                                 values: `'${global.randomizer(7)}', '${data.email}', '${(data.fname).toUpperCase()}', 
                                                                                 ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}, '${(data.lname).toUpperCase()}',
-                                                                                '${data.gender}', ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, '${data.contact_no}',
-                                                                                CURRENT_TIMESTAMP` })
+                                                                                '${data.gender}', ${data.street !== '' ? `'${(data.street).toUpperCase()}'` : null}, '${data.contact_no}',
+                                                                                CURRENT_TIMESTAMP, '${data.barangay}', 'QUEZON CITY'` })
                                                 .condition(`RETURNING id`)
                                                 .build()).rows[0];
                                 let pet = (await new Builder(`tbl_pets`)
@@ -381,8 +380,8 @@ class Services {
                             if(!(errors.length > 0)) {
                                 await new Builder(`tbl_furr_parent`)
                                                     .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
-                                                                    lname= '${(data.lname).toUpperCase()}', gender= '${data.gender}', address= ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null},
-                                                                    contact_no= '${data.contact_no}', date_updated= CURRENT_TIMESTAMP`)
+                                                                    lname= '${(data.lname).toUpperCase()}', gender= '${data.gender}', street= ${data.street !== '' ? `'${(data.street).toUpperCase()}'` : null},
+                                                                    contact_no= '${data.contact_no}', date_updated= CURRENT_TIMESTAMP, barangay= '${data.barangay}', city= 'QUEZON CITY'`)
                                                     .condition(`WHERE email= '${data.email}'`)
                                                     .build();
                                                     
@@ -450,11 +449,11 @@ class Services {
 
                             if(!(errors.length > 0)) {
                                 let fp = (await new Builder(`tbl_furr_parent`)
-                                                                    .insert({ columns: `series_no, email, fname, mname, lname, gender, address, contact_no, date_created`, 
+                                                                    .insert({ columns: `series_no, email, fname, mname, lname, gender, street, contact_no, date_created, barangay, city`, 
                                                                                     values: `'${global.randomizer(7)}', '${data.email}', '${(data.fname).toUpperCase()}', 
                                                                                                     ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}, '${(data.lname).toUpperCase()}',
-                                                                                                    '${data.gender}', ${data.address !== '' ? `'${(data.address).toUpperCase()}'` : null}, '${data.contact_no}',
-                                                                                                    CURRENT_TIMESTAMP` })
+                                                                                                    '${data.gender}', ${data.street !== '' ? `'${(data.street).toUpperCase()}'` : null}, '${data.contact_no}',
+                                                                                                    CURRENT_TIMESTAMP, '${data.barangay}', 'QUEZON CITY'` })
                                                                     .condition(`RETURNING id`)
                                                                     .build()).rows[0];
                                 let pet = (await new Builder(`tbl_pets`)
