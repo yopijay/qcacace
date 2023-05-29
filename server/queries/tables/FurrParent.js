@@ -38,7 +38,7 @@ class FurrParent {
                         await new Builder(`tbl_furr_parent`)
                                             .update(`fname= '${(data.fname).toUpperCase()}', mname= ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null},
                                                             lname= '${(data.lname).toUpperCase()}', contact_no= '${data.contact_no}', gender= '${data.gender}', 
-                                                            street= ${data.street !== '' ? `'${(data.street).toUpperCase()}'` : null}, date_updated= CURRENT_TIMESTAMP,
+                                                            street= '${(data.street).toUpperCase()}', date_updated= CURRENT_TIMESTAMP,
                                                             barangay= '${data.barangay}', city= 'QUEZON CITY'`)
                                             .condition(`WHERE id= ${furr_parent.id}`)
                                             .build();
@@ -71,8 +71,8 @@ class FurrParent {
                                                                         .insert({ columns: `series_no, email, fname, mname, lname, gender, street, contact_no, date_created, barangay, city`, 
                                                                                         values: `'${global.randomizer(7)}', '${data.email}', '${(data.fname).toUpperCase()}',
                                                                                                         ${data.mname !== '' ? `'${(data.mname).toUpperCase()}'` : null}, '${(data.lname).toUpperCase()}',
-                                                                                                        '${data.gender}', ${data.street !== '' ? `'${(data.street).toUpperCase()}'` : null},
-                                                                                                        '${data.contact_no}', CURRENT_TIMESTAMP, '${data.barangay}', 'QUEZON CITY'` })
+                                                                                                        '${data.gender}', '${(data.street).toUpperCase()}', '${data.contact_no}', CURRENT_TIMESTAMP, 
+                                                                                                        '${data.barangay}', 'QUEZON CITY'` })
                                                                         .condition(`RETURNING id`)
                                                                         .build()).rows[0];
                         
@@ -97,9 +97,8 @@ class FurrParent {
                 if(!((await new Builder(`tbl_furr_parent`).select().condition(`WHERE email= '${data.email}'`).build()).rowCount > 0)) {
                     let usr = (await new Builder(`tbl_furr_parent`)
                                                         .insert({ columns: `series_no, email, code, street, date_created, birthdate, barangay, city`, 
-                                                                        values: `'${global.randomizer(7)}', '${data.email}', '${global.randomizer(6)}', 
-                                                                                        '${(data.street).toUpperCase()}', CURRENT_TIMESTAMP, '${data.birthdate}', '${data.barangay}', 
-                                                                                        'QUEZON CITY'` })
+                                                                        values: `'${global.randomizer(7)}', '${data.email}', '${global.randomizer(6)}', '${(data.street).toUpperCase()}', 
+                                                                                        CURRENT_TIMESTAMP, '${data.birthdate}', '${data.barangay}', 'QUEZON CITY'` })
                                                         .condition(`RETURNING id, code`)
                                                         .build()).rows[0];
                     id = usr.id;
@@ -107,8 +106,7 @@ class FurrParent {
                 }
                 else {
                     let usr = (await new Builder(`tbl_furr_parent`)
-                                    .update(`code= '${global.randomizer(6)}', birthdate= '${data.birthdate}', street= '${data.street !== '' ? (data.street).toUpperCase() : null}', 
-                                                    barangay= '${data.barangay}', city= 'QUEZON CITY'`)
+                                    .update(`code= '${global.randomizer(6)}', birthdate= '${data.birthdate}', street= '${(data.street).toUpperCase()}', barangay= '${data.barangay}', city= 'QUEZON CITY'`)
                                     .condition(`WHERE email= '${data.email}' RETURNING id, code`)
                                     .build()).rows[0];
         

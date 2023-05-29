@@ -4,7 +4,6 @@ export const personalinformation = () => (
     Yup.object({
         email: Yup.string().email('Invalid format!').required('This field is required!'),
         fname: Yup.string().required('This field is required!'),
-        lname: Yup.string().required('This field is required!'),
-        contact_no: Yup.string().required('This field is required!').matches(/^[0-9]*$/, 'Numbers only'),
+        lname: Yup.string().required('This field is required!')
     })
 )

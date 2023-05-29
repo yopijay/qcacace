@@ -81,9 +81,16 @@ const PersonalInformation = () => {
                     <Box sx= { btntxt } onClick= { handleSubmit(data => { 
                         data['application_type'] = 'walk-in';
                         data['id'] = id !== undefined ? atob(id) : undefined;
+                        let errors = [];
+
+                        if(data.street === '') { errors.push({ name: 'street', message: 'This field is required!' }); }
+                        if(data.barangay === undefined) { errors.push({ name: 'barangay', message: 'This field is required!' }); }
                         
-                        if(data.id === undefined) { saving({ table: 'tbl_furr_parent', data: data }); }
-                        else { updating({ table: 'tbl_furr_parent', data: data }); }
+                        if(!(errors.length > 0)) {
+                            if(data.id === undefined) { saving({ table: 'tbl_furr_parent', data: data }); }
+                            else { updating({ table: 'tbl_furr_parent', data: data }); }
+                        }
+                        else { errors.forEach(err => setError(err.name, { message: err.message })); }
                     }) }>Next</Box>
                 </Grid>
             </Grid>

@@ -102,6 +102,8 @@ const Form = () => {
                         if(data.life_stages_id === 0 || data.life_stages_id === undefined) { errors.push({ name: 'life_stages_id', message: 'This field is required' }); }
                         if((data.tags).length === 0) { errors.push({ name: 'tags', message: 'This field is required' }); }
                         if(data.valid_id === undefined || data.valid_id === '') { errors.push({ name: 'valid_id', message: 'This field is required!' }); }
+                        if(data.street === '') { errors.push({ name: 'street', message: 'This field is required!' }); }
+                        if(data.barangay === undefined) { errors.push({ name: 'barangay', message: 'This field is required!' }); }
 
                         if(!(errors.length > 0)) { saving({ table: 'tbl_services', data: data }); }
                         else { errors.forEach(err => setError(err.name, { message: err.message })); } 

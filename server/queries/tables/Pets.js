@@ -48,7 +48,7 @@ class Pets {
                                         .join({ table: `tbl_life_stages AS ls`, condition: `pts.life_stages_id = ls.id`, type: `LEFT` })
                                         .join({ table: `tbl_category AS ctg`, condition: `pts.category_id = ctg.id`, type: 'LEFT' })
                                         .join({ table: `tbl_breed AS brd`, condition: `pts.breed_id = brd.id`, type: 'LEFT' })
-                                        .condition(`WHERE pts.is_adopt= 0 OR (pts.category_id= ${data.category_id} AND (pts.breed_id= ${data.breed_id} AND pts.coat_id= ${data.coat_id}
+                                        .condition(`WHERE pts.status = 1 AND pts.is_adopt= 0 OR (pts.category_id= ${data.category_id} AND (pts.breed_id= ${data.breed_id} AND pts.coat_id= ${data.coat_id}
                                                                 AND pts.life_stages_id= ${data.life_stages_id} AND pts.gender= '${data.gender}' AND pts.sterilization= '${data.sterilization}'
                                                                 AND pts.energy_level= '${data.energy_level}' AND pts.weight= '${data.weight}') AND
                                                                 (${data.color !== '' ? `pts.color LIKE '%${data.color}%'` : ''} ${(data.tags).length > 0 ? `OR pts.tags LIKE '%${JSON.stringify(data.tags)}%'` : ''}))
