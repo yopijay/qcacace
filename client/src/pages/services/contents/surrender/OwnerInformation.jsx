@@ -29,28 +29,31 @@ const barangays = [
 ];
 
 const OwnerInformation = () => { 
-    const { register, errors, control, getValues } = useContext(FormCntxt);
+    const { register, errors, control, getValues, setValue } = useContext(FormCntxt);
 
     return (
         <Grid container direction= "row" justifyContent= "flex-start" alignItems= "flex-start" spacing= { 1 }>
             <Grid item xs= { 12 } sm= { 4 }>
                 <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
                     <Typography variant= 'body2' gutterBottom sx={{ fontWeight:'600', color:'black'}}>*First name</Typography>
-                    <TextField { ...register('fname') } name= "fname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
+                    <TextField { ...register('fname') } name= "fname" variant= "standard" 
+                        onChange= { e => setValue('fname', (e.target.value).replace(/[^a-zA-Z -]/g, '')) } InputProps= {{ disableUnderline: true }} sx= { input } />
                     <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.fname?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 4 }>
                 <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
                     <Typography variant= 'body2' gutterBottom sx={{ fontWeight:'600', color:'black'}}>Middle name</Typography>
-                    <TextField { ...register('mname') } name= "mname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
+                    <TextField { ...register('mname') } name= "mname" variant= "standard"
+                        onChange= { e => setValue('mname', (e.target.value).replace(/[^a-zA-Z -]/g, '')) } InputProps= {{ disableUnderline: true }} sx= { input } />
                     <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.mname?.message }</Typography>
                 </Stack>
             </Grid>
             <Grid item xs= { 12 } sm= { 4 }>
                 <Stack direction= "column" justifyContent= 'flex-start' alignItems= "stretch">
                     <Typography variant= 'body2' gutterBottom sx={{ fontWeight:'600', color:'black'}}>*Last name</Typography>
-                    <TextField { ...register('lname') } name= "lname" variant= "standard" InputProps= {{ disableUnderline: true }} sx= { input } />
+                    <TextField { ...register('lname') } name= "lname" variant= "standard"
+                        onChange= { e => setValue('lname', (e.target.value).replace(/[^a-zA-Z -]/g, '')) } InputProps= {{ disableUnderline: true }} sx= { input } />
                     <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.lname?.message }</Typography>
                 </Stack>
             </Grid>
@@ -58,6 +61,7 @@ const OwnerInformation = () => {
                 <Stack direction= "column" justifyContent= "flex-start" alignItems= "stretch">
                     <Typography variant= 'body2' gutterBottom sx={{ fontWeight:'600', color:'black'}}>*Contact no.</Typography>
                     <TextField { ...register('contact_no') } name= "contact_no" variant= "standard"
+                        onChange= { e => setValue('contact_no', (e.target.value).replace(/[^\d-]/g, '')) }
                         InputProps= {{ disableUnderline: true, startAdornment: <InputAdornment position="start">+63</InputAdornment>, }}
                         inputProps= {{ maxLength: 10 }} sx= { input } />
                     <Typography variant= "body2" sx= {{ color: '#e84118' }} gutterBottom>{ errors.contact_no?.message }</Typography>
